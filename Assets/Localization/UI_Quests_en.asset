@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Quests_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f08e391c545fdab4d9c91542a36284fb, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 9040802075139375376
+  m_TableData:
+  - m_Id: 5438910464
+    m_Localized: There are too many meteorites in space, please help me !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 285480005632
+    m_Localized: 'Clean the space from meteors : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 85868537655296
+    m_Localized: We're running low on iron. Target iron meteors to collect more!
+      Upgrade the forge to boost your gains from each one!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 86366347014144
+    m_Localized: 'Earn irons by destroying iron meteorites :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336272101945344
+    m_Localized: 'Upgrade your ship with iron :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336869618298880
+    m_Localized: To survive longer, our ship needs to be reinforced! Use your iron
+      to upgrade it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466121177116672
+    m_Localized: 'Get star particles with a single prestige :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466124553531392
+    m_Localized: Now that we're stronger, it's time to take action. Destroy meteors!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470882718789632
+    m_Localized: "You\u2019ve made great progress, but it\u2019s time to start over\u2026
+      better than before!\nDo a prestige to come back even stronger."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 738363026911232
+    m_Localized: "Now it's time to harness the power of uranium. But first, you'll
+      need to collect some uranium! Don\u2019t forget to upgrade your uranium forge
+      to earn a lot more from uranium meteorites."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739707456532480
+    m_Localized: 'Earn uranium by destroying uranium meteorites:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739583590346752
+    m_Localized: Well done! Now upgrade the ship using uranium!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739708047929344
+    m_Localized: 'Upgrade the ship with uranium:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857070512320512
+    m_Localized: Well done! You've completed all the quests! It's time to change
+      your ship now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245777727795200
+    m_Localized: To fully benefit from the gains of iron and uranium meteors, you
+      first need well-equipped forges! Upgrade all your generators as much as possible.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862343684096
+    m_Localized: One iron generator is no longer enough to progress. Why not try
+      saving up to double your production?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862968635392
+    m_Localized: "How about challenging yourself? Try to complete the first 20 waves
+      of meteors in under 5 minutes! Don\u2019t hesitate to set the meteor speed
+      to x2."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246248500670464
+    m_Localized: 'Upgrade the generators in your forges:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246249826070528
+    m_Localized: 'Buy a second iron generator:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246252795637760
+    m_Localized: 'Complete {stage} waves as possible in 5 minutes:'
+    m_Metadata:
+      m_Items:
+      - rid: 9040802075139375376
+  references:
+    version: 2
+    RefIds:
+    - rid: 9040802075139375376
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1246252795637760

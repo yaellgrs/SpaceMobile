@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Quests_fr-FR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr-FR
+  m_SharedData: {fileID: 11400000, guid: f08e391c545fdab4d9c91542a36284fb, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 9040802075139375377
+  m_TableData:
+  - m_Id: 5438910464
+    m_Localized: "Il y a trop de m\xE9t\xE9orites dans l'espace, s'il te plait aides
+      moi !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 285480005632
+    m_Localized: "Nettoies l'espace des m\xE9t\xE9orites : "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 85868537655296
+    m_Localized: "Nos r\xE9serves de fer sont insuffisantes. Ciblez les m\xE9t\xE9orites
+      de fer pour en r\xE9colter davantage ! Am\xE9liorez la forge pour augmenter
+      les gains \xE0 chaque destruction."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 86366347014144
+    m_Localized: "Gagnes des fers en d\xE9truisants des m\xE9t\xE9orites de fers
+      : "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336272101945344
+    m_Localized: "Am\xE9liores votre vaisceau avec du fer : "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336869618298880
+    m_Localized: "Pour survivre plus longtemps, notre vaisseau doit \xEAtre renforc\xE9
+      ! Utilise ton fer pour l'am\xE9liorer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466121177116672
+    m_Localized: "Obtiens des particules d'\xE9toiles en un prestige :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466124553531392
+    m_Localized: "Maintenant qu'on est plus fort, il est temps de passer a l'action.
+      D\xE9truis des m\xE9t\xE9orites ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470882718789632
+    m_Localized: "Tu as bien progress\xE9, mais il est temps de recommencer\u2026
+      en mieux !\nFais un prestige pour revenir encore plus fort ."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 738363026911232
+    m_Localized: "Il est maintenant temps d'exploiter le pouvoir de l'uranium. Mais
+      avant il va falloir r\xE9cup\xE9rer quelques uraniums ! Penses a am\xE9liorer
+      ta forge d'uranium pour en gagner plein sur les m\xE9t\xE9orites d'uranium."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739707456532480
+    m_Localized: "Gagnes de l'Uranium en d\xE9truisants des m\xE9t\xE9orites de fers
+      : "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739583590346752
+    m_Localized: "Bien jou\xE9 ! Maintenant, am\xE9liore le vaisseau en utilisant
+      l'uranium !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739708047929344
+    m_Localized: "Am\xE9liores le vaisceaux avec l'uranium : "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857070512320512
+    m_Localized: "Bravo ! Vous avez finis toute les qu\xEAtes ! Il est temps de changer
+      de vaisceaux maintenant !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245777727795200
+    m_Localized: "Pour pouvoir profiter pleinement des gains des m\xE9t\xE9orites
+      de fer et d'uranium, il faut avant tout avoir des forges bien \xE9quip\xE9es
+      ! Am\xE9liore tous tes g\xE9n\xE9rateurs autant que possible."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862343684096
+    m_Localized: "Un g\xE9n\xE9rateur de fer, ce n\u2019est plus suffisant pour avancer.
+      Et si tu essayais d\u2019\xE9conomiser pour doubler ta production ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862968635392
+    m_Localized: "Et si tu te testais un peu ? Essaie de finir les 20 premi\xE8res
+      vagues de m\xE9t\xE9orites en moins de 5 minutes ! N\u2019h\xE9site pas \xE0
+      mettre la vitesse des m\xE9t\xE9orites en x2."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246248500670464
+    m_Localized: "Am\xE9liore des g\xE9n\xE9rateurs de tes forges :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246249826070528
+    m_Localized: "Ach\xE8te un deuxi\xE8me g\xE9n\xE9rateur de fer :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246252795637760
+    m_Localized: 'Termine {stage} vagues possible en 5 minutes :'
+    m_Metadata:
+      m_Items:
+      - rid: 9040802075139375377
+  references:
+    version: 2
+    RefIds:
+    - rid: 9040802075139375377
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1246252795637760

@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Rewards_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: e870985b8bf364c41b3e840a6e84f945, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 9654185984
+    m_Localized: Prestige Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857956364288
+    m_Localized: Meteor per stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1057626206208
+    m_Localized: Forge time bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1339554738176
+    m_Localized: Omega chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1338694905856
+    m_Localized: Damage bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1121757114368
+    m_Localized: Xp bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1117587976192
+    m_Localized: Upgrade cost bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1392893702144
+    m_Localized: Multiply the gain of star particule with the prestige.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2683770449920
+    m_Localized: Reduce the meteor to kill to go to the next stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2724232900608
+    m_Localized: Reduce work time for alls machines.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2793229201408
+    m_Localized: Reduce the prices required to level up all the Upgrades.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816323039232
+    m_Localized: Multiply the gain of Xp.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2891522715648
+    m_Localized: Encrease the probability to find omega meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862972088320
+    m_Localized: Multiply the Damage applied to the meteors.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5187254038528
+    m_Localized: All is bought
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10988911800320
+    m_Localized: Stage Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11328818196480
+    m_Localized: Give a chance to skip a stage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653433680900096
+    m_Localized: You unlock iron machine automatic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653523736801280
+    m_Localized: You unlock uranium machine automatic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525301276672
+    m_Localized: +25% reward for all machines.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525901062144
+    m_Localized: +25% more star when you prestige.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653526475681792
+    m_Localized: +25% permanent damage to all spaceShips.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653527075467264
+    m_Localized: Prestige is unlocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653677948776448
+    m_Localized: Uranium is unlocked, You unlock slow area, auto shoot et uranium's
+      upgrades.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653724945952768
+    m_Localized: +0.5% to find a diamand's meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653771494338560
+    m_Localized: New SpaceShip avaible !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653797469663232
+    m_Localized: You can now speed up the game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653817535213568
+    m_Localized: +15% production offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653847943917568
+    m_Localized: +5% to do critical hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653884488888320
+    m_Localized: -2s to regen your shield
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,31 @@
+.base {
+    transition-duration: 0.4s;
+}
+
+.trans {
+    scale: 0 0;
+    transition-duration: 0.4s;
+}
+
+.unity-button:focus {
+    border-color: white;
+}
+
+.button:active {
+    scale: 0.9 0.9;
+    transition-duration: 0.2s;
+}
+
+.button {
+    transition-duration: 0.2s;
+}
+
+
+#unity-tracker{
+    height:20px;
+    top:45%;
+}
+
+#unity-dragger{
+    visibility:hidden;
+}

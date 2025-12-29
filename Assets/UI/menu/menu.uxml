@@ -1,0 +1,32 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/menu/menuUSS.uss?fileID=7433441132597879392&amp;guid=2d04128a2a7794f4abb4c5aa528530ab&amp;type=3#menuUSS" />
+    <engine:Button name="back" style="height: 100%; background-color: rgba(0, 0, 0, 0.7); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); position: relative; background-size: 1500% 100%; top: 0; left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+    <engine:VisualElement name="menu" class="base" style="transition-duration: 0.3s; top: 25%; left: 10%; position: absolute; width: 80%; height: 50%; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; background-color: rgba(51, 48, 48, 0.7);">
+        <engine:Label text="MENU" style="position: absolute; font-size: 60px; height: 15%; width: 100%; top: 5%; left: 0; -unity-text-align: upper-center; -unity-font-style: bold; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1038529017622528)" />
+            </Bindings>
+        </engine:Label>
+        <engine:Button text="bonus&#10;" name="bonus" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 20%; left: 15%; background-color: rgba(48, 48, 48, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(15426133110784)" />
+            </Bindings>
+        </engine:Button>
+        <engine:Button text="Statistiques" name="stats" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 37.5%; left: 15%; background-color: rgba(48, 48, 48, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808242434224128)" />
+            </Bindings>
+        </engine:Button>
+        <engine:Button text="Settings" name="settings" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 55%; left: 15%; background-color: rgba(48, 48, 48, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808467861286912)" />
+            </Bindings>
+        </engine:Button>
+        <engine:Button text="Langue&#10;" name="langue" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 72.5%; left: 15%; background-color: rgba(48, 48, 48, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(9691934720)" />
+            </Bindings>
+        </engine:Button>
+        <engine:Label text="version : 1" style="height: 7.5%; width: 100%; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 30px; position: absolute; top: 92.5%; left: 0; -unity-text-align: upper-center;" />
+    </engine:VisualElement>
+</engine:UXML>

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: UI_Rewards
+  m_EditorClassIdentifier: 
+  m_SharedTableData: {fileID: 11400000, guid: e870985b8bf364c41b3e840a6e84f945, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 8388107dd443eba40b5f3fe87caf1231, type: 2}
+  - {fileID: 11400000, guid: 9a359826aec682c459876de2152b909c, type: 2}
+  - {fileID: 11400000, guid: 2d009fc80f02b304dbd8d9349e0c0730, type: 2}
+  - {fileID: 11400000, guid: bd902480e86810745bc5daf50dc7a2af, type: 2}
+  m_Extensions: []
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds: []

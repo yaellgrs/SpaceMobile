@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI_Quests Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI_Quests
+  m_TableCollectionNameGuidString: f08e391c545fdab4d9c91542a36284fb
+  m_Entries:
+  - m_Id: 285480005632
+    m_Key: Quest_objectif-killMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 86366347014144
+    m_Key: Quest_objectif-IronMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336272101945344
+    m_Key: Quest_objectif-IronUpgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466121177116672
+    m_Key: Quest_objectif-StarParticule
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739707456532480
+    m_Key: Quest_objectif-UraniumMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739708047929344
+    m_Key: Quest_objectif-UraniumUpgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5438910464
+    m_Key: Quest_dialogue-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 85868537655296
+    m_Key: Quest_dialogue-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336869618298880
+    m_Key: Quest_dialogue-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466124553531392
+    m_Key: Quest_dialogue-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470882718789632
+    m_Key: Quest_dialogue-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 738363026911232
+    m_Key: Quest_dialogue-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739583590346752
+    m_Key: Quest_dialogue-7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857070512320512
+    m_Key: Quest_dialogue-end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245777727795200
+    m_Key: Quest_dialogue-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862343684096
+    m_Key: Quest_dialogue-9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862968635392
+    m_Key: Quest_dialogue-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246248500670464
+    m_Key: Quest_objectif-upMachines
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246249826070528
+    m_Key: Quest_objectif-unlockMachine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246252795637760
+    m_Key: Quest_objectif-speed
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 9040801982781325538
+  references:
+    version: 2
+    RefIds:
+    - rid: 9040801982781325538
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1750764774029

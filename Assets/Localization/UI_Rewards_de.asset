@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Rewards_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: e870985b8bf364c41b3e840a6e84f945, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 9654185984
+    m_Localized: Prestige-Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857956364288
+    m_Localized: Meteorit pro Stufe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1057626206208
+    m_Localized: Schmiedezeit-Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1117587976192
+    m_Localized: "Verbesserungs\xADkosten-Bonus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1121757114368
+    m_Localized: EP-Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1338694905856
+    m_Localized: Schadensbonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1339554738176
+    m_Localized: Omega-Wahrscheinlichkeit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1392893702144
+    m_Localized: Multipliziere den Gewinn an Sternpartikeln mit dem Prestige.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2683770449920
+    m_Localized: "Reduziere die Meteore, die zerst\xF6rt werden m\xFCssen, um zur
+      n\xE4chsten Stufe zu gelangen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2724232900608
+    m_Localized: Reduziere die Arbeitszeit aller Maschinen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2793229201408
+    m_Localized: Reduziere die notwendigen Preise, um alle Verbesserungen hochzustufen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816323039232
+    m_Localized: Multipliziere den XP-Gewinn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862972088320
+    m_Localized: Multipliziere den verursachten Schaden an den Meteoriten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2891522715648
+    m_Localized: "Erh\xF6he die Wahrscheinlichkeit, einen Omega-Meteoriten zu finden."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5187254038528
+    m_Localized: "Todo est\xE1 comprado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10988911800320
+    m_Localized: Salto de nivel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11328818196480
+    m_Localized: "Gibt dir eine Chance, ein Level zu \xFCberspringen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653433680900096
+    m_Localized: Du schaltest die automatische Eisenmaschine frei
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653523736801280
+    m_Localized: Du schaltest die automatische Uranmaschine frei
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525301276672
+    m_Localized: "+25\u202F% Belohnung f\xFCr alle Maschinen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525901062144
+    m_Localized: "+25\u202F% mehr Sterne beim Prestigen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653526475681792
+    m_Localized: "+25\u202F% permanenter Schaden an allen Raumschiffen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653527075467264
+    m_Localized: Prestige wurde freigeschaltet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653677948776448
+    m_Localized: Uran wurde freigeschaltet, du schaltest das Verlangsamungsfeld,
+      automatischen Schuss und Uran-Upgrades frei
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653724945952768
+    m_Localized: "+0,5\u202F% Chance, einen Diamant-Meteoriten zu finden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653771494338560
+    m_Localized: "Neues Raumschiff verf\xFCgbar!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653797469663232
+    m_Localized: Du kannst das Spiel jetzt beschleunigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653817535213568
+    m_Localized: "+15\u202F% Produktion im Offline-Modus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653847943917568
+    m_Localized: "+5\u202F% Chance auf kritischen Treffer"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653884488888320
+    m_Localized: "-2\u202Fs zur Regeneration deines Schildes"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

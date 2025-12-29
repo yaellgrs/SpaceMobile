@@ -1,0 +1,50 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/menu/menuUSS.uss?fileID=7433441132597879392&amp;guid=2d04128a2a7794f4abb4c5aa528530ab&amp;type=3#menuUSS" />
+    <engine:Button name="exit" style="height: 100%; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);" />
+    <engine:VisualElement style="flex-grow: 1; position: absolute; height: 50%; width: 80%; top: 495px; left: 83px; background-image: url(&quot;project://database/Assets/art/Square.png?fileID=2800000&amp;guid=a1ebff4554cc11d4c86f1152d274cd31&amp;type=3#Square&quot;); -unity-background-image-tint-color: rgb(86, 86, 86); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px;">
+        <engine:Label text="Statistiques" style="position: absolute; font-size: 60px; height: 15%; width: 100%; top: 5%; left: 0; -unity-text-align: upper-center; -unity-font-style: bold; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808242434224128)" />
+            </Bindings>
+        </engine:Label>
+        <engine:Button text="back" name="back" class="button" style="position: absolute; height: 15%; width: 55%; top: 80%; left: 22.5%; background-color: rgba(0, 0, 0, 0.23); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 7.5px; border-right-width: 7.5px; border-bottom-width: 7.5px; border-left-width: 7.5px; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 50px;">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(14706684145664)" />
+            </Bindings>
+        </engine:Button>
+        <engine:ScrollView style="position: absolute; height: 60%; width: 90%; top: 16%; left: 5%;">
+            <engine:VisualElement style="flex-grow: 1;">
+                <engine:VisualElement style="flex-grow: 1; align-content: flex-start; flex-direction: row; justify-content: flex-end;">
+                    <engine:Label text="This game" name="Label" style="font-size: 22px; color: rgb(255, 255, 255); -unity-font-style: bold; width: 25%;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(2178705131515904)" />
+                        </Bindings>
+                    </engine:Label>
+                    <engine:Label text="Total" style="font-size: 22px; -unity-font-style: bold; color: rgb(255, 255, 255); width: 25%;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(2178774039736320)" />
+                        </Bindings>
+                    </engine:Label>
+                </engine:VisualElement>
+                <engine:VisualElement style="flex-grow: 1; align-content: flex-start; flex-direction: row; justify-content: flex-end;">
+                    <engine:Label text="Time game : " name="Label" style="font-size: 22px; color: rgb(255, 255, 255); -unity-font-style: bold; width: 45%;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(2178296899907584)" />
+                        </Bindings>
+                    </engine:Label>
+                    <engine:Label text="0h00" name="time_current" style="font-size: 22px; -unity-font-style: normal; color: rgb(255, 255, 255); width: 25%;" />
+                    <engine:Label text="0h00" name="time_total" style="color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 22px; width: 25%;" />
+                </engine:VisualElement>
+                <engine:VisualElement style="flex-grow: 1; align-content: flex-start; flex-direction: row; justify-content: flex-end;">
+                    <engine:Label text="Time game : " name="Label" style="font-size: 22px; color: rgb(255, 255, 255); -unity-font-style: bold; width: 45%;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(2608694972854272)" />
+                        </Bindings>
+                    </engine:Label>
+                    <engine:Label text="0" name="meteorKilled_current" style="font-size: 22px; -unity-font-style: normal; color: rgb(255, 255, 255); width: 25%;" />
+                    <engine:Label text="0" name="meteorKilled_total" style="color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 22px; width: 25%;" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:ScrollView>
+    </engine:VisualElement>
+</engine:UXML>

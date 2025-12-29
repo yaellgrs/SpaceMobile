@@ -1,0 +1,42 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+.vscode/
+
+# Visual Studio
+.vs/
+*.vsidx
+*.suo
+*.user
+*.userprefs
+
+# Unity temp / build
+Temp/
+Library/
+obj/
+Build/
+*.apk
+*.aab
+*.log
+.utmp/
+
+# Android
+*.apk
+*.aab
+*.keystore
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# JetBrains Rider
+.idea/
+*.sln
+*.csproj

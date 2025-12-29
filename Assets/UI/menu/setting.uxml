@@ -1,0 +1,57 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/menu/menuUSS.uss?fileID=7433441132597879392&amp;guid=2d04128a2a7794f4abb4c5aa528530ab&amp;type=3#menuUSS" />
+    <engine:Button name="exit" style="height: 100%; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);" />
+    <engine:VisualElement style="flex-grow: 1; position: absolute; height: 50%; width: 80%; top: 495px; left: 83px; background-image: url(&quot;project://database/Assets/art/Square.png?fileID=2800000&amp;guid=a1ebff4554cc11d4c86f1152d274cd31&amp;type=3#Square&quot;); -unity-background-image-tint-color: rgb(86, 86, 86); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px;">
+        <engine:Label text="SETTINGS" style="position: absolute; font-size: 60px; height: 15%; width: 100%; top: 5%; left: 0; -unity-text-align: upper-center; -unity-font-style: bold; color: rgb(255, 255, 255);">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808467861286912)" />
+            </Bindings>
+        </engine:Label>
+        <engine:Button text="back" name="back" class="button" style="position: absolute; height: 15%; width: 55%; top: 80%; left: 22.5%; background-color: rgba(0, 0, 0, 0.23); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 7.5px; border-right-width: 7.5px; border-bottom-width: 7.5px; border-left-width: 7.5px; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 50px;">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(14706684145664)" />
+            </Bindings>
+        </engine:Button>
+        <engine:ScrollView style="position: absolute; left: 2.5%; top: 15%; height: 63%; width: 95%;">
+            <engine:Slider label="General sound" value="42" high-value="100" fill="true" focusable="false" name="generalSound" show-input-field="false" picking-mode="Ignore" style="position: relative; height: 80px; width: 100%; top: 0%; left: 0%; -unity-text-align: middle-left; color: rgb(255, 255, 255); font-size: 25px; -unity-font-style: bold; cursor: initial; -unity-slice-type: sliced; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="label" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1038948095700992)" />
+                </Bindings>
+            </engine:Slider>
+            <engine:Slider label="music" value="42" high-value="100" fill="true" focusable="false" name="music" show-input-field="false" picking-mode="Ignore" style="position: relative; height: 50px; width: 80%; top: 0%; left: 20%; -unity-text-align: middle-left; color: rgb(255, 255, 255); font-size: 20px; -unity-font-style: bold; cursor: initial; -unity-slice-type: sliced; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="label" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1039142543634432)" />
+                </Bindings>
+            </engine:Slider>
+            <engine:Slider label="sound effect" value="42" high-value="100" fill="true" focusable="false" name="soundEffect" show-input-field="false" picking-mode="Ignore" style="position: relative; height: 50px; width: 80%; top: 0%; left: 20%; -unity-text-align: middle-left; color: rgb(255, 255, 255); font-size: 20px; -unity-font-style: bold; cursor: initial; -unity-slice-type: sliced; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="label" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1039346172899328)" />
+                </Bindings>
+            </engine:Slider>
+            <engine:VisualElement style="flex-grow: 1; width: 100%; height: 70px; position: relative; margin-top: 10px; margin-bottom: 5px;">
+                <engine:Label text="Pause on uranium/iron interface" style="position: absolute; height: 100%; width: 60%; top: 0%; left: 0; font-size: 25px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-left;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1040877714616320)" />
+                    </Bindings>
+                </engine:Label>
+                <engine:Button text="active" name="pause" class="button" style="position: absolute; height: 90%; width: 23%; top: 5%; left: 73%; background-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; -unity-font-style: normal; font-size: 25px; border-left-color: rgb(148, 148, 148); border-right-color: rgb(148, 148, 148); border-top-color: rgb(148, 148, 148); border-bottom-color: rgb(148, 148, 148); color: rgb(255, 255, 255);" />
+            </engine:VisualElement>
+            <engine:VisualElement style="flex-grow: 1; width: 100%; height: 70px; position: relative; margin-top: 5px; margin-bottom: 5px;">
+                <engine:Label text="Display damage marker" style="position: absolute; height: 100%; width: 60%; top: 0%; left: 0; font-size: 25px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-left;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1041026960535552)" />
+                    </Bindings>
+                </engine:Label>
+                <engine:Button text="active" name="damage" class="button" style="position: absolute; height: 90%; width: 23%; top: 5%; left: 73%; background-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; -unity-font-style: normal; font-size: 25px; border-left-color: rgb(148, 148, 148); border-right-color: rgb(148, 148, 148); border-top-color: rgb(148, 148, 148); border-bottom-color: rgb(148, 148, 148); color: rgb(255, 255, 255);" />
+            </engine:VisualElement>
+            <engine:VisualElement style="flex-grow: 1; width: 100%; height: 70px; position: relative; margin-bottom: 5px; margin-top: 5px;">
+                <engine:Label text="Display XP marker" style="position: absolute; height: 100%; width: 60%; top: 0%; left: 0; font-size: 25px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-left;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1041386827624448)" />
+                    </Bindings>
+                </engine:Label>
+                <engine:Button text="active" name="xp" class="button" style="position: absolute; height: 90%; width: 23%; top: 5%; left: 73%; background-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; -unity-font-style: normal; font-size: 25px; border-left-color: rgb(148, 148, 148); border-right-color: rgb(148, 148, 148); border-top-color: rgb(148, 148, 148); border-bottom-color: rgb(148, 148, 148); color: rgb(255, 255, 255);" />
+            </engine:VisualElement>
+        </engine:ScrollView>
+    </engine:VisualElement>
+</engine:UXML>

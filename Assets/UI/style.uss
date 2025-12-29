@@ -1,0 +1,62 @@
+.forgeButton:active {
+    scale: 1.05 1.05;
+    rotate: 0;
+    transition-duration: 0.2s;
+}
+
+.forgeButton {
+    border-color: rgba(255, 255, 255, 0);
+    transition-duration: 0.2s;
+}
+
+.button:active {
+    scale: 0.7 0.7;
+    transition-duration: 0.15s;
+    rotate: 0;
+    transform-origin: center;
+    translate: 0 0;
+}
+
+.ironForgeBase {
+    translate: 0 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/art/UI/iron/forgeUI.png?fileID=2800000&guid=b21c0c4bd60fc2c439317bfc66cffafa&type=3#forgeUI");
+    transition: translate 1s ease, opacity 1s ease;
+}
+
+.forgeIronTrans {
+    translate: 0 1115px;
+    opacity: 1;
+}
+
+.ironUpBase {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/art/UI/iron/upgradeUI.png?fileID=2800000&guid=ab4730bb5fb132b4191108991583f533&type=3#upgradeUI");
+    transition-duration: 0.5s;
+}
+
+.ironUpTrans {
+    translate: 0 1200px;
+}
+
+.button:focus {
+}
+
+.button {
+    position: absolute;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 0.15s;
+    scale: 1 1;
+}
+
+.ironForgeToUp {
+    transition-duration: 0.5s 0.7s;
+    transition-delay: 0s;
+    translate: 450px 0;
+}

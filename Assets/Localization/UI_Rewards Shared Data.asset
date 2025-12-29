@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI_Rewards Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI_Rewards
+  m_TableCollectionNameGuidString: e870985b8bf364c41b3e840a6e84f945
+  m_Entries:
+  - m_Id: 9654185984
+    m_Key: Prestige_name_PrestigeMultiplicator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857956364288
+    m_Key: Prestige_name_LessMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1057626206208
+    m_Key: Prestige_name_LessTimeMachine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1117587976192
+    m_Key: Prestige_name_LessPriceUpgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1121757114368
+    m_Key: Prestige_name_XpBoost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1338694905856
+    m_Key: Prestige_name_DamageMultiplicator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1339554738176
+    m_Key: Prestige_name_OmegaProb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10988911800320
+    m_Key: Prestige_name_StageSkip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1392893702144
+    m_Key: Prestige_description_PrestigeMultiplicator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2683770449920
+    m_Key: Prestige_description_LessMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2724232900608
+    m_Key: Prestige_description_LessTimeMachine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2793229201408
+    m_Key: Prestige_description_LessPriceUpgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816323039232
+    m_Key: Prestige_description_XpBoost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862972088320
+    m_Key: Prestige_description_DamageMultiplicator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2891522715648
+    m_Key: Prestige_description_OmegaProb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11328818196480
+    m_Key: Prestige_description_StageSkip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5187254038528
+    m_Key: Prestige_description_Max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653433680900096
+    m_Key: XP_description_FerAuto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653523736801280
+    m_Key: XP_description_UraniumAuto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525301276672
+    m_Key: XP_description_machineBoost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525901062144
+    m_Key: XP_description_Prestige
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653526475681792
+    m_Key: XP_description_Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653527075467264
+    m_Key: XP_description_UnlockPrestige
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653677948776448
+    m_Key: XP_description_UnlockUranium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653724945952768
+    m_Key: XP_description_Diamand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653771494338560
+    m_Key: XP_description_UnlockShip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653797469663232
+    m_Key: XP_description_Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653817535213568
+    m_Key: XP_description_OfflineProductiction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653847943917568
+    m_Key: XP_description_Critical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653884488888320
+    m_Key: XP_description_ShieldRegen
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 9040802037689221251
+  references:
+    version: 2
+    RefIds:
+    - rid: 9040802037689221251
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1750972493565

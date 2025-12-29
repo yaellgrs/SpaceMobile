@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Rewards_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: e870985b8bf364c41b3e840a6e84f945, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 9654185984
+    m_Localized: Bono de Prestigio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857956364288
+    m_Localized: Meteorito por nivel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1057626206208
+    m_Localized: Bono de tiempo en la forja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1117587976192
+    m_Localized: Bono de coste de mejora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1121757114368
+    m_Localized: Bono de XP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1338694905856
+    m_Localized: "Bono de da\xF1o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1339554738176
+    m_Localized: Probabilidad de omega
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1392893702144
+    m_Localized: "Multiplica la ganancia de part\xEDculas estelares con el prestigio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2683770449920
+    m_Localized: Reduce los meteoritos que hay que destruir para pasar al siguiente
+      nivel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2724232900608
+    m_Localized: "Reduce el tiempo de trabajo de todas las m\xE1quinas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2793229201408
+    m_Localized: Reduce los precios necesarios para mejorar todas las mejoras.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816323039232
+    m_Localized: Multiplica la ganancia de XP.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862972088320
+    m_Localized: "Multiplica el da\xF1o infligido a los meteoritos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2891522715648
+    m_Localized: Aumenta la probabilidad de encontrar un meteorito omega.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5187254038528
+    m_Localized: Alles ist gekauft.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10988911800320
+    m_Localized: Level-Sprung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11328818196480
+    m_Localized: Te da la oportunidad de saltar un nivel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653433680900096
+    m_Localized: "Has desbloqueado la automatizaci\xF3n de la m\xE1quina de hierro"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653523736801280
+    m_Localized: "Has desbloqueado la automatizaci\xF3n de la m\xE1quina de uranio"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525301276672
+    m_Localized: "+25\u202F% de recompensa para todas las m\xE1quinas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653525901062144
+    m_Localized: "+25\u202F% m\xE1s estrellas al hacer prestigio"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653526475681792
+    m_Localized: "+25\u202F% de da\xF1o permanente a todas las naves espaciales"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653527075467264
+    m_Localized: "El prestigio est\xE1 desbloqueado"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653677948776448
+    m_Localized: "El uranio est\xE1 desbloqueado. Has desbloqueado el \xE1rea lenta,
+      el disparo autom\xE1tico y las mejoras del uranio"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653724945952768
+    m_Localized: "+0,5\u202F% de probabilidad de encontrar un meteorito de diamante"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653771494338560
+    m_Localized: "\xA1Nueva nave espacial disponible!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653797469663232
+    m_Localized: Ahora puedes acelerar el juego
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653817535213568
+    m_Localized: "+15\u202F% de producci\xF3n sin conexi\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653847943917568
+    m_Localized: "+5\u202F% de probabilidad de golpe cr\xEDtico"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653884488888320
+    m_Localized: "-2\u202Fs para regenerar tu escudo"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

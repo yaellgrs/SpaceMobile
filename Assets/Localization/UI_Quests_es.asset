@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_Quests_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: f08e391c545fdab4d9c91542a36284fb, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 9040802075139375379
+  m_TableData:
+  - m_Id: 5438910464
+    m_Localized: "Hay demasiados meteoritos en el espacio, \xA1ay\xFAdenme !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 285480005632
+    m_Localized: "\rLimpiar el espacio de meteoritos :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 85868537655296
+    m_Localized: "Nos estamos quedando sin hierro. \xA1Destruye meteoritos de hierro
+      para conseguir m\xE1s! Mejora la forja para aumentar tus ganancias."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 86366347014144
+    m_Localized: 'Gana hierros destruyendo meteoritos de hierro :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336272101945344
+    m_Localized: 'Mejora tu nave con hierro :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 336869618298880
+    m_Localized: "Para sobrevivir m\xE1s tiempo, nuestra nave necesita refuerzos.
+      Usa tu hierro para mejorarla."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466121177116672
+    m_Localized: 'Erhalte Sternpartikel mit einem einzigen Prestige :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 466124553531392
+    m_Localized: "Ahora que somos m\xE1s fuertes, es hora de pasar a la acci\xF3n.
+      \xA1Destruye meteoritos!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470882718789632
+    m_Localized: "Has avanzado mucho, pero es hora de empezar de nuevo\u2026 \xA1mejor
+      que antes!\nHaz un prestigio para volver a\xFAn m\xE1s fuerte."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 738363026911232
+    m_Localized: "Ahora es el momento de aprovechar el poder del uranio. \xA1Pero
+      primero tendr\xE1s que recolectar un poco de uranio! No olvides mejorar tu
+      forja de uranio para ganar mucho m\xE1s con los meteoritos de uranio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739707456532480
+    m_Localized: 'Gana uranio destruyendo meteoritos de uranio:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739583590346752
+    m_Localized: "\xA1Bien hecho! \xA1Ahora mejora la nave usando uranio!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739708047929344
+    m_Localized: 'Mejora la nave con uranio:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 857070512320512
+    m_Localized: "\xA1Felicidades! \xA1Has completado todas las misiones! \xA1Ahora
+      es momento de cambiar de nave!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245777727795200
+    m_Localized: "Para aprovechar al m\xE1ximo las ganancias de los meteoritos de
+      hierro y uranio, \xA1primero necesitas tener forjas bien equipadas! Mejora
+      todos tus generadores tanto como puedas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862343684096
+    m_Localized: "Un generador de hierro ya no es suficiente para avanzar. \xBFY
+      si ahorras para duplicar tu producci\xF3n?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245862968635392
+    m_Localized: "\xBFY si te pones a prueba un poco? \xA1Intenta completar las primeras
+      20 oleadas de meteoritos en menos de 5 minutos! No dudes en poner la velocidad
+      de los meteoritos en x2."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246248500670464
+    m_Localized: 'Mejora los generadores de tus fraguas:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246249826070528
+    m_Localized: 'Compra un segundo generador de hierro:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246252795637760
+    m_Localized: 'Completa {stage} oleadas posibles en 5 minutos:'
+    m_Metadata:
+      m_Items:
+      - rid: 9040802075139375379
+  references:
+    version: 2
+    RefIds:
+    - rid: 9040802075139375379
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1246252795637760

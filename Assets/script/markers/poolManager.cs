@@ -1,0 +1,94 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Timeline;
+
+public class PoolManager : MonoBehaviour
+{
+    public static PoolManager Instance;
+
+    public XpMarker XpPrefab;
+    public XpMarker DiamandPrefab;
+    public XpMarker DamagePrefab;
+    public XpMarker CritiquePrefab;
+    public XpMarker IronPrefab;
+    public XpMarker UraniumPrefab;
+    public XpMarker PrestigePrefab;
+
+    MarkerPool xp_pool;
+    MarkerPool diamand_pool;
+    MarkerPool damage_pool;
+    MarkerPool iron_pool;
+    MarkerPool uranium_pool;
+    MarkerPool prestige_poll;
+
+    private List<MarkerPool> pools = new List<MarkerPool>();
+
+    public enum markerType { Xp, Diamand, Damage, Iron, Uranium, Critique, Prestige};
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        xp_pool = new MarkerPool(XpPrefab, markerType.Xp);
+        diamand_pool = new MarkerPool(DiamandPrefab, markerType.Diamand);
+        damage_pool = new MarkerPool(DamagePrefab, markerType.Damage);
+        iron_pool = new MarkerPool(IronPrefab, markerType.Iron);
+        uranium_pool = new MarkerPool(UraniumPrefab, markerType.Uranium);
+        MarkerPool critique_pool = new MarkerPool(CritiquePrefab, markerType.Critique);
+        MarkerPool prestige_pool = new MarkerPool(PrestigePrefab, markerType.Prestige);
+
+        pools.Add(xp_pool);
+        pools.Add(diamand_pool);
+        pools.Add(damage_pool);
+        pools.Add(iron_pool);
+        pools.Add(uranium_pool);
+        pools.Add(critique_pool);
+        pools.Add(prestige_pool);
+
+    }
+
+    public XpMarker GetPrefab(markerType type)
+    {
+        foreach(MarkerPool pool in pools)
+        {
+            if(pool.type == type)
+            {
+                return pool.GetPrefab();
+            }
+        }
+
+        return null;
+    }
+
+    public void returnPrefab(XpMarker marker)
+    {
+        foreach (MarkerPool pool in pools)
+        {
+            if (pool.type == marker.type)
+            {
+                pool.returnPrefab(marker);
+                return;
+            }
+        }
+    }
+    
+    public void LaunchPrefab(Vector3 position, string xp, markerType type)
+    {
+        XpMarker marker = Instance.GetPrefab(type);
+        marker.init(position, xp);
+    }
+
+}
