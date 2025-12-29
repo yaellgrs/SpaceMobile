@@ -1,3 +1,6 @@
+# =====================
+# Unity
+# =====================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -6,37 +9,28 @@
 [Ll]ogs/
 [Mm]emoryCaptures/
 UserSettings/
+
+# =====================
+# IDE
+# =====================
+.vs/
+.idea/
 .vscode/
 
-# Visual Studio
-.vs/
-*.vsidx
-*.suo
-*.user
-*.userprefs
+# =====================
+# OS
+# =====================
+.DS_Store
+Thumbs.db
 
-# Unity temp / build
-Temp/
-Library/
-obj/
-Build/
+# =====================
+# Builds
+# =====================
 *.apk
 *.aab
 *.log
-.utmp/
 
-# Android
-*.apk
-*.aab
-*.keystore
-
-# macOS
-.DS_Store
-
-# Windows
-Thumbs.db
-
-# JetBrains Rider
-.idea/
-*.sln
-*.csproj
+# =====================
+# Safety (Unity)
+# =====================
+!*.meta
