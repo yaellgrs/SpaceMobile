@@ -64,7 +64,7 @@ public class OfflineUI : MonoBehaviour
 
         ironEarned.text = "+" + iron.ToString();
 
-        timeLabel.text = TimeToString(time);
+        timeLabel.text = Utility.TimeToString_dhms(time);
 
         if(Stats.Instance.level < 12)
         {
@@ -97,19 +97,6 @@ public class OfflineUI : MonoBehaviour
         gameManager.instance.SetPause(false);
     }
 
-    private string TimeToString(long time)
-    {
-        int minute = (int)time / 60;
-        time %= 60;
-        int heure = (int)minute / 60;
-        minute %= 60;
-
-        int jours = (int)heure / 24;
-        heure %= 24;
-
-        return jours + "d " + heure + "h " + minute + "m " + time + "s";
-        
-    }
 
     public static BigNumber calculOfflineIronEarn(long time, bool offline)
     {

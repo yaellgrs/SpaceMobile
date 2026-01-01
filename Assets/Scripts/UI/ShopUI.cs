@@ -200,13 +200,7 @@ public class ShopUI : MonoBehaviour
         LoadBoost();
     }
 
-    private void setBorderColor(Button btn, Color color)
-    {
-        btn.style.borderLeftColor = color;
-        btn.style.borderRightColor = color;
-        btn.style.borderTopColor = color;
-        btn.style.borderBottomColor = color;
-    }
+
 
     private void ButtonShop()
     {
@@ -233,8 +227,8 @@ public class ShopUI : MonoBehaviour
         boostBtn.clicked -= ButtonShop;
         boostBtn.clicked += ButtonShop;
 
-        setBorderColor(timeBtn, Color.white);
-        setBorderColor(boostBtn, Color.black);
+        Utility.setBorderColor(timeBtn, Color.white);
+        Utility.setBorderColor(boostBtn, Color.black);
 
         foreach (Boost boost in boostTime)
         {
@@ -254,8 +248,8 @@ public class ShopUI : MonoBehaviour
         timeBtn.clicked += ButtonShop;
         boostBtn.clicked -= ButtonShop;
 
-        setBorderColor(boostBtn, Color.white);
-        setBorderColor(timeBtn, Color.black);
+        Utility.setBorderColor(boostBtn, Color.white);
+        Utility.setBorderColor(timeBtn, Color.black);
 
         foreach (Boost boost in boosts)
         {
@@ -272,11 +266,14 @@ public class ShopUI : MonoBehaviour
         main = root.Q<VisualElement>("main");
 
         back = root.Q<Button>("back");
+        exit = root.Q<Button>("exit");
         switchButton = root.Q<Button>("switch");
         diamand = root.Q<Label>("diamand");
 
         switchButton.clicked += Switch;
         back.clicked += Close;
+        exit.clicked += Close;
+
         upDiamand();
 
     }

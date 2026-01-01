@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\markers\XpMarker.cs" />
     <Compile Include="Assets\Scripts\Song.cs" />
     <Compile Include="Assets\Scripts\BigNumber.cs" />
+    <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Quest\Quests.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
