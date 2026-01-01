@@ -114,7 +114,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Samples\Shader Graph\Common\Subgraphs\PseudoSubsurface.hlsl" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.dll" />
-    <None Include="Assets\UI\Shop\Buy.uxml" />
+    <None Include="Assets\UI\Shop\diamonds.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.iOS.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -157,7 +157,7 @@
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Android.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\UI\IronUpgradeUI.uxml" />
-    <None Include="Assets\UI\Shop\Shop.uxml" />
+    <None Include="Assets\UI\Shop\item.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\UI\menu\Langue.uxml" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
