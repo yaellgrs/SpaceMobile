@@ -82,7 +82,7 @@
             </ui:VisualElement>
         </ui:ScrollView>
         <ui:Button name="switch" style="height: 8%; width: 52%; position: absolute; top: 0; left: 47%; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; color: rgb(27, 27, 27); visibility: visible;"/>
-        <ui:Button text="back&#10;" name="exit" class="button shop" style="position: absolute; height: auto; width: 40%; top: 90%; left: 30%; aspect-ratio: 4;"/>
+        <ui:Button text="back&#10;" name="exit" class="button shop" style="position: absolute; height: auto; width: 40%; top: 90%; left: 30%; aspect-ratio: 4; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);"/>
         <ui:Label text="Diamonds" name="diamondsshop" picking-mode="Ignore" style="width: 252px; font-size: 60%; -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;); color: rgba(0, 0, 0, 0.42); left: 65%; top: 0%; position: absolute;"/>
         <ui:Label text="Item" name="itemshop" style="font-size: 60%; -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;); color: rgb(0, 0, 0); width: 20%; left: 18%; top: 0%; position: absolute;"/>
     </ui:VisualElement>

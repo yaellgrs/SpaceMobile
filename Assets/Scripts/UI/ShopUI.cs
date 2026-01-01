@@ -179,8 +179,6 @@ public class ShopUI : MonoBehaviour
             isActive = true;
         }
 
-
-
         back = root.Q<Button>("back");
         exit = root.Q<Button>("exit");
         switchButton = root.Q<Button>("switch");
@@ -196,7 +194,6 @@ public class ShopUI : MonoBehaviour
         boostBtn.AddToClassList("buttonShopTrans");
         timeBtn.clicked += ButtonShop;
 
-
         switchButton.clicked += Switch;
         back.clicked += Close;
         exit.clicked += Close;
@@ -207,39 +204,70 @@ public class ShopUI : MonoBehaviour
         }
 
         upDiamand();
+        LoadBoost();
+    }
 
+    private void setBorderColor(Button btn, Color color)
+    {
+        btn.style.borderLeftColor = color;
+        btn.style.borderRightColor = color;
+        btn.style.borderTopColor = color;
+        btn.style.borderBottomColor = color;
     }
 
     private void ButtonShop()
     {
+        Debug.Log("click");
         if (timeScroll.style.display == DisplayStyle.None)
         {
-            timeScroll.style.display = DisplayStyle.Flex;
-            boostScroll.style.display = DisplayStyle.None;
-            boostBtn.RemoveFromClassList("buttonShopTrans");
-            timeBtn.AddToClassList("buttonShopTrans");
-            timeBtn.clicked -= ButtonShop;
-            boostBtn.clicked += ButtonShop;
-            foreach (Boost boost in boostTime)
-            {
-                boost.load(shopUI);
-            }
+            LoadTime();
         }
         else
         {
-            timeScroll.style.display = DisplayStyle.None;
-            boostScroll.style.display = DisplayStyle.Flex;
-            boostBtn.AddToClassList("buttonShopTrans");
-            timeBtn.RemoveFromClassList("buttonShopTrans");
-            timeBtn.clicked += ButtonShop;
-            boostBtn.clicked -= ButtonShop;
-
-            foreach (Boost boost in boosts)
-            {
-                boost.load(shopUI);
-            }
+            LoadBoost();
         }
+    }
 
+    private void LoadTime()
+    {
+        Debug.Log("load time");
+
+        timeScroll.style.display = DisplayStyle.Flex;
+        boostScroll.style.display = DisplayStyle.None;
+        boostBtn.RemoveFromClassList("buttonShopTrans");
+        timeBtn.AddToClassList("buttonShopTrans");
+        timeBtn.clicked -= ButtonShop;
+        boostBtn.clicked -= ButtonShop;
+        boostBtn.clicked += ButtonShop;
+
+        setBorderColor(timeBtn, Color.white);
+        setBorderColor(boostBtn, Color.black);
+
+        foreach (Boost boost in boostTime)
+        {
+            boost.load(shopUI);
+        }
+    }
+
+    private void LoadBoost()
+    {
+        Debug.Log("load boost");
+
+        timeScroll.style.display = DisplayStyle.None;
+        boostScroll.style.display = DisplayStyle.Flex;
+        boostBtn.AddToClassList("buttonShopTrans");
+        timeBtn.RemoveFromClassList("buttonShopTrans");
+        timeBtn.clicked -= ButtonShop;
+        timeBtn.clicked += ButtonShop;
+        boostBtn.clicked -= ButtonShop;
+
+        setBorderColor(boostBtn, Color.white);
+        setBorderColor(timeBtn, Color.black);
+
+        foreach (Boost boost in boosts)
+        {
+            boost.load(shopUI);
+        }
     }
 
     public void loadBuy()
