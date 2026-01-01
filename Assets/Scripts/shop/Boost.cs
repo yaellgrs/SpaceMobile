@@ -45,9 +45,19 @@ public class Boost
         {
             if (type == Type.time)
             {
-                shopUI.Close();
-                Stats.Instance.lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (time * 3600);
-                MainUi.Instance.offlineUI.Load();
+                if(Stats.Instance.level < 12)
+                {
+                    shopUI.Close();
+                    MainUi.Instance.offlineUI.showErrorMessage = true;
+                    MainUi.Instance.offlineUI.Load();
+                    return;
+                }
+                else
+                {
+                    shopUI.Close();
+                    Stats.Instance.lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (time * 3600);
+                    MainUi.Instance.offlineUI.Load();
+                }
             }
             if(type == Type.damage)
             {

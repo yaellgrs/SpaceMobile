@@ -54,13 +54,6 @@ public class ShopUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Debug.Log("+ 50 diamand grom ShopUI");
-            Stats.Instance.upDiamand(50, true);
-            Stats.Instance.upIron(new BigNumber(1, 100), true);
-            MainUi.Instance.xpUI.loadBonus();
-        }
         if(Stats.Instance.damageBoostTime > 0)
         {
             Stats.Instance.damageBoostTime-= Time.deltaTime;
@@ -83,9 +76,9 @@ public class ShopUI : MonoBehaviour
     {
         Boost damage = new Boost()
         {
-            time = 1,
-            price = 50,
-            name = "damage",
+            time = 1,//hour
+            price = 50,//diamands
+            name = "damage",//name
             type = Boost.Type.damage,
             shopUI = this
         };

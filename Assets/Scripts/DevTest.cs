@@ -16,5 +16,11 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.reset();
         }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Stats.Instance.upDiamand(50, true);
+            //Stats.Instance.upIron(new BigNumber(1, 100), true);
+            MainUi.Instance.xpUI.loadBonus();
+        }
     }
 }
