@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2802500051505844045, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.955
+      value: 1.91
       objectReference: {fileID: 0}
     - target: {fileID: 2802500051505844045, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.955
+      value: 1.91
       objectReference: {fileID: 0}
     - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: m_LocalScale.x
@@ -105,8 +105,20 @@ PrefabInstance:
       value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 8347547598530196512, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 9aa590ad86ebc2148aca1e2129028fe2, type: 2}
+    - target: {fileID: 8347547598530196512, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: m_fontSizeBase
       value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347547598530196512, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -9065741106134378490, guid: 9aa590ad86ebc2148aca1e2129028fe2, type: 2}
+    - target: {fileID: 8347547598530196512, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

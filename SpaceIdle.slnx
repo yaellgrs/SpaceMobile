@@ -1,7 +1,7 @@
-<Solution>
-  <Project Path="Unity.RenderPipelines.Core.Samples.Editor.csproj" Id="99f91493-9ca1-29ba-df4c-2f922f13bd63" />
-  <Project Path="Assembly-CSharp.csproj" Id="f24acd86-373c-c9f1-50b4-6a343c2af917" />
-  <Project Path="GoogleMobileAds.Editor.csproj" Id="f644e1a2-b16f-b1e2-7469-3fe58467bed4" />
-  <Project Path="Assembly-CSharp-Editor.csproj" Id="ba649961-ddcf-258b-c4fb-9899bfec6c0e" />
-  <Project Path="Unity.RenderPipelines.Core.Samples.Runtime.csproj" Id="a0e02f9e-8392-2900-8fbb-a8fb0384436f" />
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Unity.RenderPipelines.Core.Samples.Editor.csproj" />
+  <Project Path="GoogleMobileAds.Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Unity.RenderPipelines.Core.Samples.Runtime.csproj" />
 </Solution>
