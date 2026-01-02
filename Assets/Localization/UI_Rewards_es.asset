@@ -140,6 +140,11 @@ MonoBehaviour:
     m_Localized: "-2\u202Fs para regenerar tu escudo"
     m_Metadata:
       m_Items: []
+  - m_Id: 68714996010160128
+    m_Localized: "Desbloque el cohete; permite causar un gran da\xF1o en momentos
+      cr\xEDticos."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

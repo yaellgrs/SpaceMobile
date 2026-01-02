@@ -26,6 +26,8 @@ public class Stats
     public long lastPub = 0;
     public bool HasNoAds = false;
 
+    public bool rocketUnlocked = false;
+
     //iron
     public List<MachineIron> machinesIron = new List<MachineIron>();
     public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();

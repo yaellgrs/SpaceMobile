@@ -140,6 +140,11 @@ MonoBehaviour:
     m_Localized: "-2s pour r\xE9g\xE9n\xE9rer votre bouclier"
     m_Metadata:
       m_Items: []
+  - m_Id: 68714996010160128
+    m_Localized: "D\xE9bloque la roquet, cela permet de faire des gros d\xE9gats
+      aux moment critiques."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

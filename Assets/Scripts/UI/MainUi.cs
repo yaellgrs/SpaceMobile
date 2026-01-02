@@ -166,9 +166,25 @@ public class MainUi : MonoBehaviour
         UpSpeed.Instance.load(speedButton);
 
         fire.clicked += Fire;
+        loadRocketButton();
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
         shieldRegenLabel.text = "+ " + Stats.Instance.regenShield;
+    }
+
+    public void loadRocketButton()
+    {
+        if (Stats.Instance.rocketUnlocked)
+        {
+            rocketCover.style.display = DisplayStyle.Flex;
+            rocketButton.style.display = DisplayStyle.Flex;
+            rocketLabel.style.display = DisplayStyle.Flex;
+        }
+        else{
+            rocketCover.style.display = DisplayStyle.None;
+            rocketButton.style.display = DisplayStyle.None;
+            rocketLabel.style.display = DisplayStyle.None;
+        }
     }
 
     private void Fire()

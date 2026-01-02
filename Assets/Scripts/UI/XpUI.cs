@@ -42,7 +42,8 @@ public class XpUI : MonoBehaviour
 
     private LocalizedString localizesReward;
 
-    public enum BonusLevel { Prestige, FerAuto, UraniumAuto, Damage, UnlockPrestige, UnlockUranium, machineBoost, Diamand, UnlockShip, Speed, OfflineProduction, Critical, ShieldRegen,  None };
+    public enum BonusLevel { Prestige, FerAuto, UraniumAuto, Damage, UnlockPrestige, UnlockUranium, machineBoost,
+        Diamand, UnlockShip, Speed, OfflineProduction, Critical, ShieldRegen, UnlockRocket,  None };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -310,6 +311,11 @@ public class XpUI : MonoBehaviour
             Stats.Instance.uraniumUnlocked = true;
             spaceShip.instance.setAreaScale(1f);
         }
+        if (GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1)
+        {
+            Stats.Instance.rocketUnlocked = true;
+            MainUi.Instance.loadRocketButton();
+        }
         Stats.Instance.machineBoost_Lvl = 1f + GetEnumRewardCount(BonusLevel.machineBoost) * 0.25f;
         Stats.Instance.star_mutliplicator_level = 1f + GetEnumRewardCount(BonusLevel.Prestige) * 0.25f;
         Stats.Instance.perm_Damage_Multiplicator_Lvl = 1f + GetEnumRewardCount(BonusLevel.Damage) * 0.25f;
@@ -324,20 +330,21 @@ public class XpUI : MonoBehaviour
     {
         return lvl switch
         {
+            2 => BonusLevel.UnlockRocket,
             4 => BonusLevel.UnlockPrestige,
-            10 => BonusLevel.UnlockUranium, 
-            100 => BonusLevel.Diamand, 
+            10 => BonusLevel.UnlockUranium,
+            100 => BonusLevel.Diamand,
             70 => BonusLevel.UnlockShip,
-            2 or 6 or 20 or 32 or 38 or 54 or 56 or 66 or 72 or 78 or 86 or 92 => BonusLevel.machineBoost,
+            6 or 20 or 32 or 38 or 54 or 56 or 66 or 72 or 78 or 86 or 92 => BonusLevel.machineBoost,
             12 or 26 or 46 or 68 or 88 => BonusLevel.FerAuto, //complet
             22 or 42 or 58 or 80 or 96 => BonusLevel.UraniumAuto, //complet
-            18 or 30 or 40 or 60 or 82 or 98 => BonusLevel.Damage, 
+            18 or 30 or 40 or 60 or 82 or 98 => BonusLevel.Damage,
             14 or 36 or 48 or 62 or 74 or 90 => BonusLevel.Prestige,
             8 or 16 or 24 => BonusLevel.Speed,
             50 => BonusLevel.OfflineProduction,
             28 or 44 or 64 or 84 or 94 => BonusLevel.Critical,
-            34 or 52 or 76=> BonusLevel.ShieldRegen,    
-             _ => BonusLevel.None
+            34 or 52 or 76 => BonusLevel.ShieldRegen,
+            _ => BonusLevel.None
         };
     }
 
@@ -389,6 +396,9 @@ public class XpUI : MonoBehaviour
         string key = "";
         switch (GetEnumReward(level))
         {
+            case BonusLevel.UnlockRocket:
+                key = "UnlockRocket";
+                break;
             case BonusLevel.FerAuto:
                 key = "FerAuto";
                 break;

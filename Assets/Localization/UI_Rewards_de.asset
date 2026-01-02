@@ -140,6 +140,11 @@ MonoBehaviour:
     m_Localized: "-2\u202Fs zur Regeneration deines Schildes"
     m_Metadata:
       m_Items: []
+  - m_Id: 68714996010160128
+    m_Localized: "Schalte die Rakete frei; sie erm\xF6glicht es, in kritischen Momenten
+      gro\xDFen Schaden zu verursachen."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

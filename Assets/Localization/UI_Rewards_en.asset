@@ -139,6 +139,11 @@ MonoBehaviour:
     m_Localized: -2s to regen your shield
     m_Metadata:
       m_Items: []
+  - m_Id: 68714996010160128
+    m_Localized: Unlock the rocket; it allows you to deal heavy damage at critical
+      moments.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
