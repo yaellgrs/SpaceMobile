@@ -11,6 +11,8 @@ public class DevTest : MonoBehaviour
                 MainUi.Instance.xpUI.LevelUp();
 
             Stats.Instance.upPrestige(new BigNumber(1, 10), true);
+            Stats.Instance.upIron(new BigNumber(1, 10), true);
+            Stats.Instance.upUranium(new BigNumber(1, 10), true);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
