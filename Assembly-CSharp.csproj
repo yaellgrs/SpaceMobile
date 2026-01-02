@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\UI\MainUi.cs" />
     <Compile Include="Assets\Scripts\tutos\forgeTuto.cs" />
     <Compile Include="Assets\Scripts\gameManager.cs" />
+    <Compile Include="Assets\Scripts\Ads\IAPManager.cs" />
     <Compile Include="Assets\Scripts\UI\PrestigeUI.cs" />
     <Compile Include="Assets\Scripts\UI\SettingUI.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\Rotate.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Scripts\Song.cs" />
     <Compile Include="Assets\Scripts\BigNumber.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
+    <Compile Include="Assets\Scripts\UnityPurchasing\generated\GooglePlayTangle.cs" />
     <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Quest\Quests.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
