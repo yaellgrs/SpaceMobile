@@ -16,6 +16,10 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.reset();
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Stats.Instance.stage += 100;
+        }
         if (Input.GetKeyUp(KeyCode.Space))
         {
             Stats.Instance.upDiamand(50, true);

@@ -36,7 +36,17 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     void Start()
     {
+
         InitializePurchasing();
+
+        CheckAds();
+    }
+
+    public bool CheckAds()
+    {
+        var prod = storeController.products.WithID(REMOVE_ADS);
+
+        return prod != null && prod.hasReceipt;
     }
 
     private void InitializePurchasing()

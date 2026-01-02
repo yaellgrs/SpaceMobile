@@ -67,20 +67,25 @@ public class Ads : MonoBehaviour
             _rewardedAd.Show((Reward reward) =>
             {
                 // Ajoute ici la récompense pour le joueur
-                switch (type)
-                {
-                    case RewardType.Diamand:
-                        Stats.Instance.upDiamand(5, true);
-                        break;
-                    case RewardType.Ressources:
-                        Stats.Instance.upIron(getIronAdsReward(), true);
-                        Stats.Instance.upUranium(getUraniumAdsReward(), true);
-                        break;
-                    case RewardType.Resurection:
-                        Stats.Instance.deadPubWatch++;
-                        break;
-                }
+                GetReward(type);
             });
+        }
+    }
+    
+    public void GetReward(RewardType type)
+    {
+        switch (type)
+        {
+            case RewardType.Diamand:
+                Stats.Instance.upDiamand(5, true);
+                break;
+            case RewardType.Ressources:
+                Stats.Instance.upIron(getIronAdsReward(), true);
+                Stats.Instance.upUranium(getUraniumAdsReward(), true);
+                break;
+            case RewardType.Resurection:
+                Stats.Instance.deadPubWatch++;
+                break;
         }
     }
 

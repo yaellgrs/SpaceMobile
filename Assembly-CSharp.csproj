@@ -85,8 +85,8 @@
     <Compile Include="Assets\Scripts\UnityPurchasing\generated\GooglePlayTangle.cs" />
     <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\Scripts\Quest\Quests.cs" />
-    <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
     <Compile Include="Assets\Scripts\meteor.cs" />
+    <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
     <Compile Include="Assets\Scripts\machines\machineIron.cs" />
     <Compile Include="Assets\Scripts\machines\machineUranium.cs" />
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />

@@ -10,6 +10,7 @@ public class Stats
 {
     public int version = 1;
 
+
     public static Stats Instance;
 
     public int stage = 1;
@@ -23,6 +24,7 @@ public class Stats
     public bool firstConnection = true;
     public int deadPubWatch = 0;
     public long lastPub = 0;
+    public bool HasNoAds = false;
 
     //iron
     public List<MachineIron> machinesIron = new List<MachineIron>();

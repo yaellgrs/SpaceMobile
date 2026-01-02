@@ -91,7 +91,8 @@ public class ResurectionUI : MonoBehaviour
 
     private void pubClicked()
     {
-        Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
+        if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(Ads.RewardType.Resurection);
+        else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
         Close();
     }
     private void prestigeClicked()
