@@ -53,7 +53,6 @@ public class XpUI : MonoBehaviour
         xpUI.gameObject.SetActive(false);
         levelUpUI.gameObject.SetActive(false);
         loadBonus();
-        
     }
 
     public void load()
@@ -244,33 +243,36 @@ public class XpUI : MonoBehaviour
         string path = "xpReward";
         switch (GetEnumReward(level))
         {
+            case BonusLevel.UnlockRocket:
+                path += "/unlockRocket";
+                break;
             case BonusLevel.FerAuto:
-                path += "/ironBonusAuto"; //
+                path += "/ironBonusAuto";
                 break;
             case BonusLevel.UraniumAuto:
-                path += "/uraniumAuto"; //
+                path += "/uraniumAuto";
                 break;
             case BonusLevel.machineBoost:
                 if (Stats.Instance.uraniumUnlocked) path += "/machineBoost2";
                 else path += "/machineBoost1";
                     break;
             case BonusLevel.Prestige:
-                path += "/prestige"; //
+                path += "/prestige";
                 break;
             case BonusLevel.Damage:
-                path += "/damagePerm"; //
+                path += "/damagePerm";
                 break;
             case BonusLevel.UnlockPrestige:
-                path += "/prestigeUnlock"; //
+                path += "/prestigeUnlock";
                 break;
             case BonusLevel.UnlockUranium:
-                path += "/uraniumUnlock"; //
+                path += "/uraniumUnlock";
                 break;
             case BonusLevel.Diamand:
-                path += "/diamand"; //
+                path += "/diamand";
                 break;
             case BonusLevel.UnlockShip:
-                path += "/shipUnlock"; //
+                path += "/shipUnlock";
                 break;
             case BonusLevel.Speed:
                 path += "/speed"; 
@@ -282,7 +284,7 @@ public class XpUI : MonoBehaviour
                 path += "/critical"; 
                 break;
             case BonusLevel.ShieldRegen:
-                path += "/shieldRegen";  //
+                path += "/shieldRegen"; 
                 break;
             default:
                 path += "/nothing";

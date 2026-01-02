@@ -82,7 +82,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        if(!isPaused) timer += Time.deltaTime;
         autoSaveTimer += Time.deltaTime;
         Data.Instance.time += Time.deltaTime;
 

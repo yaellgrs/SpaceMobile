@@ -47,22 +47,32 @@ public class spaceObject : MonoBehaviour
         if(type == meteorType.Big)
         {
             lifeMax.Multiply(5);
+            if (!Stats.Instance.popupTutos[PopupTuto.BigMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.BigMeteor);
         }
         else if(type == meteorType.Diamand)
         {
             lifeMax.Multiply(2f);
+            if (!Stats.Instance.popupTutos[PopupTuto.diamandMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.diamandMeteor);
         }
         else if(type == meteorType.miniMeteor)
         {
             lifeMax.Multiply(0.5f);
         }
-        else if(type == meteorType.Iron || type == meteorType.Uranium)
+        else if(type == meteorType.Iron)
         {
             lifeMax.Multiply(2.5f);
-            if(!Stats.Instance.ironMeteorTuto) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
+            if (!Stats.Instance.popupTutos[PopupTuto.ironMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
+        }
+        else if(type == meteorType.Uranium)
+        {
+            if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
+        }
+        else if(type == meteorType.Scatter)
+        {
+            if (!Stats.Instance.popupTutos[PopupTuto.splitterMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
         }
 
-        List<(int stage, float mult)> paliers = new()
+            List<(int stage, float mult)> paliers = new()
         {
             (10, 1.2f),
             (25, 1.5f),
@@ -163,7 +173,9 @@ public class spaceObject : MonoBehaviour
 
     public void Move()
     {
-        isPause = false;
+
+        isPause = gameManager.instance.isPaused;
+        if (isPause) return;
         if (isStart)
         {
             direction = spaceShip.instance.transform.position - transform.position;

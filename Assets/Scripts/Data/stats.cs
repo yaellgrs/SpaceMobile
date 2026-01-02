@@ -87,7 +87,8 @@ public class Stats
 
     //tutos
     public bool ironTuto = false;
-    public bool ironMeteorTuto = false;
+    //public bool ironMeteorTuto = false;
+    public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
     
 

@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using UnityEngine.UIElements;
 
 public enum PopupTuto
 {
-    ironMeteor, uraniumMeteor, /**/diamandMeteor,  /**/splitterMeteor,  /**/BigMeteor, rocket
+    ironMeteor, uraniumMeteor, diamandMeteor, splitterMeteor, BigMeteor, rocket
     //uranium tuto ? 
     //prestige ? 
 };
@@ -42,8 +43,16 @@ public class Tuto: MonoBehaviour
     {
         ironUI.gameObject.SetActive(false);
         tutoPopupUI.gameObject.SetActive(false);
+        loadPopupTuto();
     }
 
+    private void loadPopupTuto()
+    {
+        foreach (PopupTuto tuto in Enum.GetValues(typeof(PopupTuto)))
+        {
+            if (!Stats.Instance.popupTutos.ContainsKey(tuto)) Stats.Instance.popupTutos[tuto] = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -123,7 +132,7 @@ public class Tuto: MonoBehaviour
     {
         tutoPopupUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
-        gameManager.instance.DestroyMeteors();
+        //gameManager.instance.DestroyMeteors();
 
         var root = tutoPopupUI.rootVisualElement;
 
@@ -140,8 +149,6 @@ public class Tuto: MonoBehaviour
             VE_main.RemoveFromClassList("trans");
         }).StartingIn(50);
 
-        Stats.Instance.ironMeteorTuto = true;
-
         SetPopup(type);
 
         Btn_exit.clicked += CloseIronMeteorTuto;
@@ -149,6 +156,8 @@ public class Tuto: MonoBehaviour
     }
     private void SetPopup(PopupTuto type)
     {
+        Stats.Instance.popupTutos[type] = true;
+        
         Color color = Color.gray;
         string titlekey = "";
         string descKey = "";
