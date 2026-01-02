@@ -13,7 +13,11 @@ public class OfflineUI : MonoBehaviour
 
     private Label timeLabel;
     private Label ironEarned;
+    private Label Lbl_message;
+    private Label Lbl_win;
     private Button claimBtn;
+
+    public bool showErrorMessage = false;
 
 
     public void Start()
@@ -47,6 +51,8 @@ public class OfflineUI : MonoBehaviour
 
         timeLabel = root.Q<Label>("time");
         ironEarned = root.Q<Label>("ironEarned");
+        Lbl_message = root.Q<Label>("message");
+        Lbl_win = root.Q<Label>("win");
         claimBtn = root.Q<Button>("claim");
 
         claimBtn.clicked += claimClicked;
@@ -58,10 +64,28 @@ public class OfflineUI : MonoBehaviour
 
         ironEarned.text = "+" + iron.ToString();
 
-        timeLabel.text = TimeToString(time);
+        timeLabel.text = Utility.TimeToString_dhms(time);
 
-        if (iron.EqualZero())
+        if(Stats.Instance.level < 12)
         {
+            timeLabel.text = "";
+            Lbl_message.text = "You first need to have the automation for this.";
+            Lbl_message.style.color = Color.red;
+            ironEarned.style.display = DisplayStyle.None;
+            Lbl_win.style.display = DisplayStyle.None;
+
+        }
+        else
+        {
+            Lbl_message.text = "you have been disconnected for";
+            Lbl_message.style.color = Color.white;
+            ironEarned.style.display = DisplayStyle.Flex;
+            Lbl_win.style.display = DisplayStyle.Flex;
+        }
+       
+        if (iron.EqualZero() && !showErrorMessage)
+        {
+            showErrorMessage = false;
             claimClicked();
         }
     }
@@ -73,19 +97,6 @@ public class OfflineUI : MonoBehaviour
         gameManager.instance.SetPause(false);
     }
 
-    private string TimeToString(long time)
-    {
-        int minute = (int)time / 60;
-        time %= 60;
-        int heure = (int)minute / 60;
-        minute %= 60;
-
-        int jours = (int)heure / 24;
-        heure %= 24;
-
-        return jours + "d " + heure + "h " + minute + "m " + time + "s";
-        
-    }
 
     public static BigNumber calculOfflineIronEarn(long time, bool offline)
     {

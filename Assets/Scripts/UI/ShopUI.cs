@@ -54,13 +54,6 @@ public class ShopUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Debug.Log("+ 50 diamand grom ShopUI");
-            Stats.Instance.upDiamand(50, true);
-            Stats.Instance.upIron(new BigNumber(1, 100), true);
-            MainUi.Instance.xpUI.loadBonus();
-        }
         if(Stats.Instance.damageBoostTime > 0)
         {
             Stats.Instance.damageBoostTime-= Time.deltaTime;
@@ -83,9 +76,9 @@ public class ShopUI : MonoBehaviour
     {
         Boost damage = new Boost()
         {
-            time = 1,
-            price = 50,
-            name = "damage",
+            time = 1,//hour
+            price = 50,//diamands
+            name = "damage",//name
             type = Boost.Type.damage,
             shopUI = this
         };
@@ -179,8 +172,6 @@ public class ShopUI : MonoBehaviour
             isActive = true;
         }
 
-
-
         back = root.Q<Button>("back");
         exit = root.Q<Button>("exit");
         switchButton = root.Q<Button>("switch");
@@ -196,7 +187,6 @@ public class ShopUI : MonoBehaviour
         boostBtn.AddToClassList("buttonShopTrans");
         timeBtn.clicked += ButtonShop;
 
-
         switchButton.clicked += Switch;
         back.clicked += Close;
         exit.clicked += Close;
@@ -207,39 +197,64 @@ public class ShopUI : MonoBehaviour
         }
 
         upDiamand();
-
+        LoadBoost();
     }
+
+
 
     private void ButtonShop()
     {
+        Debug.Log("click");
         if (timeScroll.style.display == DisplayStyle.None)
         {
-            timeScroll.style.display = DisplayStyle.Flex;
-            boostScroll.style.display = DisplayStyle.None;
-            boostBtn.RemoveFromClassList("buttonShopTrans");
-            timeBtn.AddToClassList("buttonShopTrans");
-            timeBtn.clicked -= ButtonShop;
-            boostBtn.clicked += ButtonShop;
-            foreach (Boost boost in boostTime)
-            {
-                boost.load(shopUI);
-            }
+            LoadTime();
         }
         else
         {
-            timeScroll.style.display = DisplayStyle.None;
-            boostScroll.style.display = DisplayStyle.Flex;
-            boostBtn.AddToClassList("buttonShopTrans");
-            timeBtn.RemoveFromClassList("buttonShopTrans");
-            timeBtn.clicked += ButtonShop;
-            boostBtn.clicked -= ButtonShop;
-
-            foreach (Boost boost in boosts)
-            {
-                boost.load(shopUI);
-            }
+            LoadBoost();
         }
+    }
 
+    private void LoadTime()
+    {
+        Debug.Log("load time");
+
+        timeScroll.style.display = DisplayStyle.Flex;
+        boostScroll.style.display = DisplayStyle.None;
+        boostBtn.RemoveFromClassList("buttonShopTrans");
+        timeBtn.AddToClassList("buttonShopTrans");
+        timeBtn.clicked -= ButtonShop;
+        boostBtn.clicked -= ButtonShop;
+        boostBtn.clicked += ButtonShop;
+
+        Utility.setBorderColor(timeBtn, Color.white);
+        Utility.setBorderColor(boostBtn, Color.black);
+
+        foreach (Boost boost in boostTime)
+        {
+            boost.load(shopUI);
+        }
+    }
+
+    private void LoadBoost()
+    {
+        Debug.Log("load boost");
+
+        timeScroll.style.display = DisplayStyle.None;
+        boostScroll.style.display = DisplayStyle.Flex;
+        boostBtn.AddToClassList("buttonShopTrans");
+        timeBtn.RemoveFromClassList("buttonShopTrans");
+        timeBtn.clicked -= ButtonShop;
+        timeBtn.clicked += ButtonShop;
+        boostBtn.clicked -= ButtonShop;
+
+        Utility.setBorderColor(boostBtn, Color.white);
+        Utility.setBorderColor(timeBtn, Color.black);
+
+        foreach (Boost boost in boosts)
+        {
+            boost.load(shopUI);
+        }
     }
 
     public void loadBuy()
@@ -251,19 +266,47 @@ public class ShopUI : MonoBehaviour
         main = root.Q<VisualElement>("main");
 
         back = root.Q<Button>("back");
+        exit = root.Q<Button>("exit");
         switchButton = root.Q<Button>("switch");
         diamand = root.Q<Label>("diamand");
 
+
+        root.Q<Button>("noAds").clicked += () =>
+        {
+            IAPManager.Instance.BuyRemoveAds();
+        };
+        root.Q<Button>("smallPack").clicked += () =>
+        {
+            IAPManager.Instance.BuyDiamandPack(DiamandPack.SMALL);
+        };
+        root.Q<Button>("mediumPack").clicked += () =>
+        {
+            IAPManager.Instance.BuyDiamandPack(DiamandPack.MEDIUM);
+        };
+        root.Q<Button>("bigPack").clicked += () =>
+        {
+            IAPManager.Instance.BuyDiamandPack(DiamandPack.BIG); 
+        };
+        root.Q<Button>("giantPack").clicked += () =>
+        {
+            IAPManager.Instance.BuyDiamandPack(DiamandPack.GIANT);
+        };
+
+
         switchButton.clicked += Switch;
         back.clicked += Close;
+        exit.clicked += Close;
+
         upDiamand();
+
+
 
     }
 
 
 
 
-    private void upDiamand()
+    public void upDiamand()
     {
         string dmd = Stats.Instance.diamand.ToString();
         diamand.style.width = new Length(7.5f*dmd.Length, LengthUnit.Percent);
