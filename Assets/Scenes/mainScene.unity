@@ -2160,7 +2160,7 @@ GameObject:
   - component: {fileID: 1531945041}
   - component: {fileID: 1531945042}
   m_Layer: 0
-  m_Name: ironMeteorTuto
+  m_Name: tutoPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3051,7 +3051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ironUI: {fileID: 2134319346}
-  ironMeteorUI: {fileID: 1531945042}
+  tutoPopupUI: {fileID: 1531945042}
 --- !u!4 &1995263584
 Transform:
   m_ObjectHideFlags: 0

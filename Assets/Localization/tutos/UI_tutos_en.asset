@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_tutos_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 419cb128d6b623646862cd835217469e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 167171166208
+    m_Localized: iron meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 292106899456
+    m_Localized: uranium meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 306208149504
+    m_Localized: rocket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6869958365184
+    m_Localized: 'You discover the iron Meteor !
+
+
+      the iron meteor give iron
+      in rapport of the forge reward, But they are relativlty rare.
+
+
+      Once
+      you destroy it you can collect the iron in the space.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6872076488704
+    m_Localized: "You discover the uranium Meteor ! \n\nthe iron meteor give uranium
+      in rapport of the forge reward, But they are relativlty rare.\n\n Once you
+      destroy it you can collect the uranium in the space."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6876887355392
+    m_Localized: tuto rocket en en
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI_tutos Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: UI_tutos
+  m_TableCollectionNameGuidString: 419cb128d6b623646862cd835217469e
+  m_Entries:
+  - m_Id: 167171166208
+    m_Key: Tuto_title_ironMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 292106899456
+    m_Key: Tuto_title_uraniumMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 306208149504
+    m_Key: Tuto_title_rocket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6869958365184
+    m_Key: Tuto_description_ironMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6872076488704
+    m_Key: Tuto_description_uraniumMeteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6876887355392
+    m_Key: Tuto_description_rocket
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5825153285664539065
+  references:
+    version: 2
+    RefIds:
+    - rid: 5825153285664539065
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1767358164557

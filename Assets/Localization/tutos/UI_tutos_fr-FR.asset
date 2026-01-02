@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_tutos_fr-FR
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr-FR
+  m_SharedData: {fileID: 11400000, guid: 419cb128d6b623646862cd835217469e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 167171166208
+    m_Localized: "m\xE9t\xE9orite de fer"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 292106899456
+    m_Localized: "m\xE9t\xE9orite d\u2019uranium"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 306208149504
+    m_Localized: missile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6869958365184
+    m_Localized: "Vous d\xE9couvrez la m\xE9t\xE9orite de fer !\n\nLa m\xE9t\xE9orite
+      de fer fournit du fer en fonction de la r\xE9compense de la forge, mais elles
+      sont relativement rares.\n\nUne fois d\xE9truite, vous pouvez collecter le
+      fer dans l\u2019espace."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6872076488704
+    m_Localized: "Vous d\xE9couvrez la m\xE9t\xE9orite d\u2019uranium !\n\nLa m\xE9t\xE9orite
+      d\u2019uranium fournit de l\u2019uranium en fonction de la r\xE9compense de
+      la forge, mais elles sont relativement rares.\n\nUne fois d\xE9truite, vous
+      pouvez collecter l\u2019uranium dans l\u2019espace."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6876887355392
+    m_Localized: tuto rocket en fr
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

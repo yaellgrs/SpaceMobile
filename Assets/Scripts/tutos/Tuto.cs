@@ -1,5 +1,14 @@
+using System.Globalization;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Localization;
 using UnityEngine.UIElements;
+
+
+public enum PopupTuto
+{
+    ironMeteor, uraniumMeteor, rocket
+};
 
 public class Tuto: MonoBehaviour
 {
@@ -8,9 +17,12 @@ public class Tuto: MonoBehaviour
     public UIDocument ironUI;
     public UIDocument tutoPopupUI;
 
-    Button exit;
-    Button back;
-    VisualElement main;
+    Label Lbl_title;
+    Label Lbl_description;
+    VisualElement VE_image;
+    Button Btn_exit;
+    Button Btn_back;
+    VisualElement VE_main;
 
     private void Awake()
     {
@@ -41,18 +53,18 @@ public class Tuto: MonoBehaviour
         ironUI.gameObject.SetActive(true);
         var root = ironUI.rootVisualElement;
 
-        exit = root.Q<Button>("exit");
-        back = root.Q<Button>("back");
-        main = root.Q<VisualElement>("main");
+        Btn_exit = root.Q<Button>("exit");
+        Btn_back = root.Q<Button>("back");
+        VE_main = root.Q<VisualElement>("main");
 
-        main.AddToClassList("trans");
-        main.schedule.Execute(() =>
+        VE_main.AddToClassList("trans");
+        VE_main.schedule.Execute(() =>
         {
-            main.RemoveFromClassList("trans");
+            VE_main.RemoveFromClassList("trans");
         }).StartingIn(50);
 
-        back.clicked += exitIronTuto;
-        exit.clicked += exitIronTuto;
+        Btn_back.clicked += exitIronTuto;
+        Btn_exit.clicked += exitIronTuto;
 
         VisualElement forgeElements = root.Query<VisualElement>("forge");
         forgeElements.style.display = DisplayStyle.None;
@@ -65,19 +77,19 @@ public class Tuto: MonoBehaviour
 
     private void exitIronTuto()
     {
-        main.RemoveFromClassList("trans");
-        main.schedule.Execute(() =>
+        VE_main.RemoveFromClassList("trans");
+        VE_main.schedule.Execute(() =>
         {
-            main.AddToClassList("trans");
+            VE_main.AddToClassList("trans");
         }).StartingIn(50);
-        main.schedule.Execute(() =>
+        VE_main.schedule.Execute(() =>
         {
-            main.style.visibility = Visibility.Hidden;
-            exit.style.visibility = Visibility.Hidden;
+            VE_main.style.visibility = Visibility.Hidden;
+            Btn_exit.style.visibility = Visibility.Hidden;
         }).StartingIn(400);
 
-        main.style.visibility = Visibility.Hidden;
-        exit.style.visibility = Visibility.Hidden;
+        VE_main.style.visibility = Visibility.Hidden;
+        Btn_exit.style.visibility = Visibility.Hidden;
 
         VisualElement forgeElements = ironUI.rootVisualElement.Query<VisualElement>("forge");
         forgeElements.style.display = DisplayStyle.Flex;
@@ -105,7 +117,7 @@ public class Tuto: MonoBehaviour
         Stats.Instance.ironTuto = true;
     }
 
-    public void LoadIronMeteorTuto()
+    public void LoadPopupTuto(PopupTuto type)
     {
         tutoPopupUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
@@ -113,31 +125,85 @@ public class Tuto: MonoBehaviour
 
         var root = tutoPopupUI.rootVisualElement;
 
-        exit = root.Q<Button>("exit");
-        back = root.Q<Button>("back");
-        main = root.Q<VisualElement>("main");
+        Btn_exit = root.Q<Button>("exit");
+        Btn_back = root.Q<Button>("back");
+        Lbl_description = root.Q<Label>("description");
+        Lbl_title = root.Q<Label>("title");
+        VE_main = root.Q<VisualElement>("main");
+        VE_image = root.Q<VisualElement>("image");
 
-        main.AddToClassList("trans");
-        main.schedule.Execute(() =>
+        VE_main.AddToClassList("trans");
+        VE_main.schedule.Execute(() =>
         {
-            main.RemoveFromClassList("trans");
+            VE_main.RemoveFromClassList("trans");
         }).StartingIn(50);
 
         Stats.Instance.ironMeteorTuto = true;
 
-        exit.clicked += CloseIronMeteorTuto;
-        back.clicked += CloseIronMeteorTuto;
+        SetPopup(type);
+
+        Btn_exit.clicked += CloseIronMeteorTuto;
+        Btn_back.clicked += CloseIronMeteorTuto;
     }
+    private void SetPopup(PopupTuto type)
+    {
+        Color color = Color.gray;
+        string titlekey = "";
+        string descKey = "";
+        string path = "tuto/";
+        switch (type)
+        {
+            case PopupTuto.ironMeteor:
+                titlekey = descKey = "ironMeteor";
+                path += "ironMeteor";
+                ColorUtility.TryParseHtmlString("#610000", out color);
+                break;
+            case PopupTuto.uraniumMeteor:
+                titlekey = descKey = "uraniumMeteor";
+                path += "uraniumMeteor";
+                ColorUtility.TryParseHtmlString("#006123", out color);
+                break;
+            case PopupTuto.rocket:
+                titlekey = descKey = "rocket";
+                path += "rocket";
+                ColorUtility.TryParseHtmlString("#292627", out color);
+                break;
+        }
+
+        //image
+        VE_image.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(path));
+
+        //title
+        titlekey = "Tuto_title_" + titlekey;
+        var titleLoc = new LocalizedString("UI_tutos", titlekey);
+        titleLoc.StringChanged += (localizedValue) =>
+        {
+            Lbl_title.text = localizedValue;
+        };
+
+        //description
+        descKey = "Tuto_description_" + descKey;
+
+        var descLoc = new LocalizedString("UI_tutos", descKey);
+        descLoc.StringChanged += (localizedValue) =>
+        {
+            Lbl_description.text = localizedValue;
+        };
+
+        //color
+        VE_main.style.backgroundColor = color;
+    }
+
 
     private void CloseIronMeteorTuto()
     {
-        exit.pickingMode = PickingMode.Ignore;
-        main.RemoveFromClassList("trans");
-        main.schedule.Execute(() =>
+        Btn_exit.pickingMode = PickingMode.Ignore;
+        VE_main.RemoveFromClassList("trans");
+        VE_main.schedule.Execute(() =>
         {
-            main.AddToClassList("trans");
+            VE_main.AddToClassList("trans");
         }).StartingIn(50);
-        main.schedule.Execute(() =>
+        VE_main.schedule.Execute(() =>
         {
             tutoPopupUI.gameObject.SetActive(false);
             gameManager.instance.SetPause(false);

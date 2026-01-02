@@ -40,5 +40,19 @@ public class DevTest : MonoBehaviour
             Stats.Instance.upDiamand(50, true); //donne 50 diamands ) 
             MainUi.Instance.xpUI.loadBonus();
         }
+
+        //tutos
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Tuto.Instance.LoadPopupTuto(PopupTuto.rocket);
+        }
     }
 }
