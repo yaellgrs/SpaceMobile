@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 306208149504
-    m_Localized: missile
+    m_Localized: missle
     m_Metadata:
       m_Items: []
   - m_Id: 6869958365184
@@ -45,7 +45,40 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6876887355392
-    m_Localized: tuto rocket en fr
+    m_Localized: "D\xE9bloque le missile !\n\nIl cible automatiquement la m\xE9t\xE9orite
+      la plus grosse et inflige d\u2019\xE9normes d\xE9g\xE2ts.\n\nSi un missile
+      d\xE9truit M\xE9t\xE9orite \xE0 fragmentation, ses fragments n\u2019appara\xEEtront
+      pas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52206597148672
+    m_Localized: "M\xE9t\xE9orite de diamant"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52211282186240
+    m_Localized: "M\xE9t\xE9orite \xE0 fragmentation"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52215937863680
+    m_Localized: "M\xE9t\xE9orite renforc\xE9e"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52837399498752
+    m_Localized: "Tu d\xE9couvres la m\xE9t\xE9orite de diamant !\n\nLa m\xE9t\xE9orite
+      de diamant donne 1 diamant, mais elle est extr\xEAmement rare.\n\nElle est
+      plus petite, plus rapide et poss\xE8de plus de points de vie, mais n\u2019inflige
+      aucun d\xE9g\xE2t au vaisseau spatial."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52841463779328
+    m_Localized: "Tu d\xE9couvres la m\xE9t\xE9orite \xE0 fragmentation !\n\nLorsqu\u2019elle
+      est d\xE9truite, la m\xE9t\xE9orite \xE0 fragmentation se s\xE9pare en deux
+      petites m\xE9t\xE9orites.\n\nLes petites m\xE9t\xE9orites ne donnent pas d\u2019XP."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52843292495872
+    m_Localized: "Tu d\xE9couvres la m\xE9t\xE9orite renforc\xE9e !\n\nLa m\xE9t\xE9orite
+      renforc\xE9e poss\xE8de plus de points de vie, mais elle est plus lente."
     m_Metadata:
       m_Items: []
   references:

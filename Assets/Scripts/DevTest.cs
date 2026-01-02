@@ -52,6 +52,18 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            Tuto.Instance.LoadPopupTuto(PopupTuto.diamandMeteor);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Tuto.Instance.LoadPopupTuto(PopupTuto.BigMeteor);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
             Tuto.Instance.LoadPopupTuto(PopupTuto.rocket);
         }
     }

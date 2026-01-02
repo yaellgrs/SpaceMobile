@@ -43,7 +43,44 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6876887355392
-    m_Localized: aa
+    m_Localized: "Schalte die Rakete frei!\n\nSie zielt automatisch auf den st\xE4rksten
+      Meteor und verursacht enormen Schaden.\n\nWenn eine Rakete einen spaltenden
+      Meteor zerst\xF6rt, bevor er sich teilt, erscheinen seine Fragmente nicht."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52206597148672
+    m_Localized: Diamant-Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52211282186240
+    m_Localized: Splitter-Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52215937863680
+    m_Localized: "Verst\xE4rkter Meteor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52837399498752
+    m_Localized: 'Du entdeckst den Diamant-Meteor!
+
+
+      Der Diamant-Meteor gibt
+      1 Diamanten, ist aber extrem selten.
+
+
+      Er ist kleiner, schneller und
+      hat mehr Lebenspunkte, verursacht jedoch keinen Schaden am Raumschiff.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52841463779328
+    m_Localized: "Du entdeckst den Splitter-Meteor!\n\nWenn der Splitter-Meteor zerst\xF6rt
+      wird, spaltet er sich in zwei kleinere Meteore.\n\nDie kleineren Meteore geben
+      keine EP."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52843292495872
+    m_Localized: "Du entdeckst den verst\xE4rkten Meteor!\n\nDer verst\xE4rkte Meteor
+      hat mehr Lebenspunkte, ist aber langsamer."
     m_Metadata:
       m_Items: []
   references:

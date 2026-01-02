@@ -10,7 +10,6 @@ public class Stats
 {
     public int version = 1;
 
-
     public static Stats Instance;
 
     public int stage = 1;

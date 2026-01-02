@@ -43,7 +43,38 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6876887355392
-    m_Localized: aaa
+    m_Localized: "\xA1Desbloquea el cohete!\n\nApunta autom\xE1ticamente al meteorito
+      m\xE1s fuerte e inflige un da\xF1o enorme.\n\nSi un cohete destruye un meteorito
+      divisor antes de que se divida, sus fragmentos no aparecer\xE1n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52206597148672
+    m_Localized: Meteorito de diamante
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52211282186240
+    m_Localized: Meteorito divisor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52215937863680
+    m_Localized: Meteorito reforzado
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52837399498752
+    m_Localized: "Descubres el meteorito de diamante.\n\nEl meteorito de diamante
+      otorga 1 diamante, pero es extremadamente raro.\n\nEs m\xE1s peque\xF1o, m\xE1s
+      r\xE1pido y tiene m\xE1s vida, pero no causa da\xF1o a la nave espacial."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52841463779328
+    m_Localized: "Descubres el meteorito divisor.\n\nCuando es destruido, el meteorito
+      divisor se divide en dos meteoritos m\xE1s peque\xF1os.\n\nLos meteoritos peque\xF1os
+      no otorgan XP."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52843292495872
+    m_Localized: "Descubres el meteorito reforzado.\n\nEl meteorito reforzado tiene
+      m\xE1s vida, pero es m\xE1s lento."
     m_Metadata:
       m_Items: []
   references:

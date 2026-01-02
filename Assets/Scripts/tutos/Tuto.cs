@@ -7,7 +7,9 @@ using UnityEngine.UIElements;
 
 public enum PopupTuto
 {
-    ironMeteor, uraniumMeteor, rocket
+    ironMeteor, uraniumMeteor, /**/diamandMeteor,  /**/splitterMeteor,  /**/BigMeteor, rocket
+    //uranium tuto ? 
+    //prestige ? 
 };
 
 public class Tuto: MonoBehaviour
@@ -162,6 +164,21 @@ public class Tuto: MonoBehaviour
                 titlekey = descKey = "uraniumMeteor";
                 path += "uraniumMeteor";
                 ColorUtility.TryParseHtmlString("#006123", out color);
+                break;
+            case PopupTuto.diamandMeteor:
+                titlekey = descKey = "diamandMeteor";
+                path += "diamandMeteor";
+                ColorUtility.TryParseHtmlString("#004B4B", out color);
+                break;
+            case PopupTuto.splitterMeteor:
+                titlekey = descKey = "splitterMeteor";
+                path += "splitterMeteor";
+                ColorUtility.TryParseHtmlString("#300049", out color);
+                break;
+            case PopupTuto.BigMeteor:
+                titlekey = descKey = "BigMeteor";
+                path += "BigMeteor";
+                ColorUtility.TryParseHtmlString("#292627", out color);
                 break;
             case PopupTuto.rocket:
                 titlekey = descKey = "rocket";

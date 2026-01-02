@@ -49,7 +49,52 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6876887355392
-    m_Localized: tuto rocket en en
+    m_Localized: 'you unlock the rocket
+
+
+      the rocket target the strongest meteor
+      and deal massive damage.
+
+
+      if a rocket destroy a spillter meteor,  its
+      children will not spawn.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52206597148672
+    m_Localized: diamand meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52211282186240
+    m_Localized: splitter meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52215937863680
+    m_Localized: reinforced  meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52837399498752
+    m_Localized: 'You discover the diamand Meteor !
+
+
+      The diamand meteor give
+      1 diamand, but it''s extremly rare.
+
+
+      It is smaller, faster, and has
+      more health, nut does not deal damage to the spaceship.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52843292495872
+    m_Localized: 'You discover the reinforcer Meteor !
+
+
+      The reinforced meteor
+      has more health, but it is slower.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52841463779328
+    m_Localized: "You discover the splitter Meteor ! \n\nWhen destroyed, the splitter
+      meteor spawn two smaller meteors. \n\nThe smaller meteors do not give xp."
     m_Metadata:
       m_Items: []
   references:
