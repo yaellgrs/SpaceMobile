@@ -8,7 +8,7 @@
             </ui:Label>
         </ui:VisualElement>
         <ui:Button text="Boost" name="boostBtn" class="buttonShop button shop"/>
-        <ui:Button text="Time" name="timeBtn" class="buttonShop button shop" style="position: absolute; top: 245px; left: 466px;"/>
+        <ui:Button text="Time" name="timeBtn" class="buttonShop button shop" style="position: absolute; top: 245px; left: 51%;"/>
         <ui:ScrollView vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" name="boostScroll" style="position: absolute; height: 52.5%; width: 90%; top: 32.5%; left: 38px; display: flex; visibility: visible;">
             <ui:VisualElement name="damage" class="shop" style="flex-grow: 1; position: absolute; height: 400px; width: 47.5%; background-color: rgba(135, 135, 135, 0); background-image: url(&quot;project://database/Assets/art/UI/shop/carte4.png?fileID=2800000&amp;guid=e6cfc664f4591194895c779886279622&amp;type=3#carte4&quot;); top: auto; left: auto;">
                 <ui:Button name="buy" class="buttonShop button" style="position: absolute; height: 15%; width: 50%; top: 80%; left: 25%; -unity-font-style: bold; font-size: 30px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; align-self: center; align-items: center; border-left-color: rgba(0, 0, 0, 0.81); border-right-color: rgba(0, 0, 0, 0.81); border-top-color: rgba(0, 0, 0, 0.81); border-bottom-color: rgba(0, 0, 0, 0.81); background-color: rgba(11, 10, 10, 0.56);">
