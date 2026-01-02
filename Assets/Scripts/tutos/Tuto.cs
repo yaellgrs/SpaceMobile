@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class tuto: MonoBehaviour
+public class Tuto: MonoBehaviour
 {
-    public static tuto Instance;
+    public static Tuto Instance;
 
     public UIDocument ironUI;
-    public UIDocument ironMeteorUI;
+    public UIDocument tutoPopupUI;
 
     Button exit;
     Button back;
@@ -27,7 +27,7 @@ public class tuto: MonoBehaviour
     void Start()
     {
         ironUI.gameObject.SetActive(false);
-        ironMeteorUI.gameObject.SetActive(false);
+        tutoPopupUI.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -107,11 +107,11 @@ public class tuto: MonoBehaviour
 
     public void LoadIronMeteorTuto()
     {
-        ironMeteorUI.gameObject.SetActive(true);
+        tutoPopupUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
         gameManager.instance.DestroyMeteors();
 
-        var root = ironMeteorUI.rootVisualElement;
+        var root = tutoPopupUI.rootVisualElement;
 
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
@@ -139,7 +139,7 @@ public class tuto: MonoBehaviour
         }).StartingIn(50);
         main.schedule.Execute(() =>
         {
-            ironMeteorUI.gameObject.SetActive(false);
+            tutoPopupUI.gameObject.SetActive(false);
             gameManager.instance.SetPause(false);
         }).StartingIn(400);
     }

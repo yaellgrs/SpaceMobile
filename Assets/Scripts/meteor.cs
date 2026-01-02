@@ -59,7 +59,7 @@ public class spaceObject : MonoBehaviour
         else if(type == meteorType.Iron || type == meteorType.Uranium)
         {
             lifeMax.Multiply(2.5f);
-            if(!Stats.Instance.ironMeteorTuto) tuto.Instance.LoadIronMeteorTuto();
+            if(!Stats.Instance.ironMeteorTuto) Tuto.Instance.LoadIronMeteorTuto();
         }
 
         List<(int stage, float mult)> paliers = new()

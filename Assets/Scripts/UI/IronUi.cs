@@ -253,7 +253,7 @@ public class IronUi : BaseUI
             gameManager.instance.SetPause(true);
             if (!Stats.Instance.ironTuto)
             {
-                tuto.Instance.loadIronForgeTuto();
+                Tuto.Instance.loadIronForgeTuto();
             }
             loadForgeUI();
         }
