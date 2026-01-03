@@ -275,6 +275,13 @@ public class MainUi : MonoBehaviour
 
     public void upLevelUI()
     {
+        if (Stats.Instance.level > 100) Stats.Instance.level = 100;
+        if (Stats.Instance.level == 100)
+        {
+            xpBar.style.width = Length.Percent(100f);
+            xpLabel.text = "100";
+            return;
+        }
         xpLabel.text = Stats.Instance.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         float targetPercent = Stats.Instance.xp / Stats.Instance.xpLevelUp * 100;

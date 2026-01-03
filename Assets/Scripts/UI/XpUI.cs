@@ -1,25 +1,22 @@
-
 using System;
 using System.IO;
 using System.Linq;
 using Unity.Properties;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.SmartFormat.Utilities;
+using UnityEngine.Localization.Tables;
+using UnityEngine.UIElements;
 using static XpUI;
 
 public class XpUI : MonoBehaviour
 {
-
     public UIDocument xpUI;
     public UIDocument levelUpUI;
 
     public IronUi ironUI;
     public UraniumUI uraniumUI;
-
 
     private Button back;
     private Button exit;
@@ -29,7 +26,7 @@ public class XpUI : MonoBehaviour
     private VisualElement xpBar;
     private VisualElement rewardVE;
     private VisualElement main;
-
+    private VisualElement VE_mainReward;
 
     private Label xpLabel;
     private Label bonusLabel;
@@ -57,7 +54,6 @@ public class XpUI : MonoBehaviour
 
     public void load()
     {
-
         var root = xpUI.rootVisualElement;
 
         main = root.Q<VisualElement>("main");
@@ -74,6 +70,7 @@ public class XpUI : MonoBehaviour
         levelNext = root.Q<Button>("nextLevel");
         xpBar = root.Q<VisualElement>("xpBar");
         rewardVE = root.Q<VisualElement>("reward");
+        VE_mainReward = root.Q<VisualElement>("mainReward");
         xpLabel = root.Q<Label>("xp");
         rewardLevelLabel = root.Q<Label>("levelReward");
         levelLabel = root.Q<Label>("level");
@@ -86,10 +83,17 @@ public class XpUI : MonoBehaviour
         level =+ Stats.Instance.level + 1;
         if (level % 2 == 1) level++;
 
-        rewardLevelLabel.text = "Level " +  level.ToString();
-        xpBar.style.width = Length.Percent(((float)Stats.Instance.xp / Stats.Instance.xpLevelUp) * 100);
-        xpLabel.text = Stats.Instance.xp.ToString("F1") + "/" + Stats.Instance.xpLevelUp.ToString("F1") + "XP" ;
-        back.clicked -= Clicked;
+
+        if (Stats.Instance.level == 100) {
+            xpBar.style.width = Length.Percent(100);
+            xpLabel.text = "MAX";
+        }
+        else
+        {
+            xpBar.style.width = Length.Percent(((float)Stats.Instance.xp / Stats.Instance.xpLevelUp) * 100);
+            xpLabel.text = Stats.Instance.xp.ToString("F1") + "/" + Stats.Instance.xpLevelUp.ToString("F1") + "XP";
+        }
+            back.clicked -= Clicked;
         exit.clicked -= Clicked;
         back.clicked += Clicked;
         exit.clicked += Clicked;
@@ -97,14 +101,22 @@ public class XpUI : MonoBehaviour
 
         levelBack.clicked += levelBackClicked;
         levelNext.clicked += levelNextClicked;
-        loadRewardImage();
 
         setRewardText(bonusLabel);
 
-        if (level == 2)
+        if (level == 2 )
         {
             levelBack.enabledSelf = false;
         }
+        if(level >= 100)
+        {
+            levelNext.enabledSelf = false;
+            level = 100;
+        }
+        loadRewardImage();
+        rewardLevelLabel.text = "Level " + level.ToString();
+
+        if(level > Stats.Instance.level) VE_mainReward.enabledSelf = false;
 
         damageBonus.text = Stats.Instance.damage_Multiplicator_Lvl*100 + "%";
         lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl*100 + "%";
@@ -112,10 +124,8 @@ public class XpUI : MonoBehaviour
     }
 
     // Update is called once per frame
-
     public void Clicked()
     {
-
         if (xpUI.gameObject.activeInHierarchy || levelUpUI.gameObject.activeInHierarchy)
         {
             main.RemoveFromClassList("trans");
@@ -129,7 +139,6 @@ public class XpUI : MonoBehaviour
                 levelUpUI.gameObject.SetActive(false);
                 gameManager.instance.SetPause(false);
             }).StartingIn(300);
-
         }
         else
         {
@@ -137,20 +146,16 @@ public class XpUI : MonoBehaviour
             gameManager.instance.SetPause(true);
             load();
         }
-
-
     }
 
     public void LevelUp()
     {
-
         Stats.Instance.level++;
 
         if (Stats.Instance.level % 2 == 0) loadLevelUpUI();
 
         Stats.Instance.xp = 0f;
         Stats.Instance.xpLevelUp *= 1.5f;
-
 
         MainUi.Instance.upLevelUI();
         loadBonus();
@@ -167,7 +172,6 @@ public class XpUI : MonoBehaviour
 
     public void loadLevelUpUI()
     {
-
         gameManager.instance.SetPause(true);
         gameManager.instance.DestroyMeteors();
 
@@ -208,8 +212,6 @@ public class XpUI : MonoBehaviour
         back.clicked += Clicked;
     }
 
-
-
     private void levelBackClicked()
     {
         levelNext.enabledSelf = true;
@@ -219,6 +221,7 @@ public class XpUI : MonoBehaviour
         {
             levelBack.enabledSelf = false;
         }
+        if (level <= Stats.Instance.level) VE_mainReward.enabledSelf = true;
 
         loadRewardImage();
         setRewardText(bonusLabel);
@@ -228,14 +231,16 @@ public class XpUI : MonoBehaviour
     {
         levelBack.enabledSelf = true;
         level+=2;
-        rewardLevelLabel.text = "Level " + level.ToString();
-        if (level == 100)
+
+        if (level >= 100)
         {
             levelNext.enabledSelf = false;
+            level = 100;
         }
+        if (level > Stats.Instance.level) VE_mainReward.enabledSelf = false;
+        rewardLevelLabel.text = "Level " + level.ToString();
         loadRewardImage();
         setRewardText(bonusLabel);
-
     }
 
     private void loadRewardImage()
@@ -448,8 +453,6 @@ public class XpUI : MonoBehaviour
         {
             lab.text = localizedValue;
         };
-
     }
-
 }
 

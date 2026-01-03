@@ -35,6 +35,10 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.stage += 100;
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Stats.Instance.level += 100;
+        }
         if (Input.GetKeyUp(KeyCode.Space))
         {
             Stats.Instance.upDiamand(50, true); //donne 50 diamands ) 

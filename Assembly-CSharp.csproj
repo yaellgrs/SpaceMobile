@@ -134,6 +134,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Samples\Shader Graph\Common\Subgraphs\SampleReflectionProbes.hlsl" />
     <None Include="Assets\UI\IronForge.uxml" />
+    <None Include="Assets\UI\xpstyle.uss" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />

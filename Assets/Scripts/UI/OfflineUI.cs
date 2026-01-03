@@ -6,9 +6,6 @@ using UnityEngine.UIElements;
 
 public class OfflineUI : MonoBehaviour 
 {
-
-
-
     public UIDocument offlineUI;
 
     private Label timeLabel;
@@ -16,6 +13,7 @@ public class OfflineUI : MonoBehaviour
     private Label Lbl_message;
     private Label Lbl_win;
     private Button claimBtn;
+    VisualElement main;
 
     public bool showErrorMessage = false;
 
@@ -41,13 +39,20 @@ public class OfflineUI : MonoBehaviour
         {
             offlineUI.gameObject.SetActive(false);
         }
-
     }
 
     public void Load()
     {
-        offlineUI.gameObject.SetActive(true);
         var root = offlineUI.rootVisualElement;
+        offlineUI.gameObject.SetActive(true);
+
+        main = root.Q<VisualElement>("main");
+
+        main.AddToClassList("trans");
+        main.schedule.Execute(() =>
+        {
+            main.RemoveFromClassList("trans");
+        }).StartingIn(50);
 
         timeLabel = root.Q<Label>("time");
         ironEarned = root.Q<Label>("ironEarned");
@@ -93,8 +98,16 @@ public class OfflineUI : MonoBehaviour
 
     private void claimClicked()
     {
-        offlineUI.gameObject.SetActive(false);
-        gameManager.instance.SetPause(false);
+        main.RemoveFromClassList("trans");
+        main.schedule.Execute(() =>
+        {
+            main.AddToClassList("trans");
+        }).StartingIn(50);
+        main.schedule.Execute(() =>
+        {
+            offlineUI.gameObject.SetActive(false);
+            gameManager.instance.SetPause(false);
+        }).StartingIn(300);
     }
 
 

@@ -1,0 +1,28 @@
+:root {
+}
+
+.baseLevelUp {
+    flex-grow: 1;
+    position: absolute;
+    height: 70%;
+    width: 80%;
+    top: 15%;
+    left: 10%;
+    background-image: url("project://database/Assets/art/Square.png?fileID=2800000&guid=a1ebff4554cc11d4c86f1152d274cd31&type=3#Square");
+    -unity-background-image-tint-color: rgb(86, 86, 86);
+    border-left-color: rgb(0, 255, 216);
+    border-right-color: rgb(0, 255, 216);
+    border-top-color: rgb(0, 255, 216);
+    border-bottom-color: rgb(0, 255, 216);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    transition-duration: 0.4s;
+}
+
+
