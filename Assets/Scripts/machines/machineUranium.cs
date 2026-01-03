@@ -18,7 +18,7 @@ public class machineUranium : Machine
     { 
         if (!isActive && Stats.Instance.uranium.isBigger(priceMachine))
         {
-            contenerMachine1.style.visibility = Visibility.Hidden;
+            contenerMachine1.style.display = DisplayStyle.None;
             if (machinePlus != null)
             {
                 foreach (machineUranium m in Stats.Instance.machinesUranium)

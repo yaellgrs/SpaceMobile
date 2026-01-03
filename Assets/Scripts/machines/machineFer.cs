@@ -15,7 +15,7 @@ public class MachineIron : Machine
     {
         if (!isActive && Stats.Instance.iron.isBigger(priceMachine))
         {
-            contenerMachine1.style.visibility = Visibility.Hidden;
+            contenerMachine1.style.display = DisplayStyle.None;
             if (machinePlus != null)
             {
                 foreach (MachineIron m in Stats.Instance.machinesIron)
