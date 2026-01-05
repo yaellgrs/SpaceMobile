@@ -33,7 +33,7 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Stats.Instance.stage += 100;
+            Stats.Instance.stage += 10;
         }
         if (Input.GetKeyDown(KeyCode.L))
         {

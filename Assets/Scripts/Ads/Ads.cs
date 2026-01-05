@@ -5,7 +5,15 @@ using UnityEngine;
 
 public class Ads : MonoBehaviour
 {
-    private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
+    private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
+    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";
+
+    //ca-app-pub-2287437722164523~4568072994
+    //ca-app-pub-2287437722164523/3942107179
+    //ca-app-pub-2287437722164523/8457751465
+
+    private BannerView bannerView;
+
 
     public enum RewardType { Diamand, Ressources, Resurection ,None};
 
@@ -31,8 +39,37 @@ public class Ads : MonoBehaviour
         MobileAds.Initialize(initStatus =>
         {
             LoadRewardedAd();
+            CreatBanner();
         });
     }
+
+    public void CreatBanner()
+    {
+        if (bannerView != null)
+            return;
+
+        bannerView = new BannerView(
+            _BannerAdUnitId,
+            AdSize.Banner,
+            AdPosition.Bottom
+        );
+
+        AdRequest request = new AdRequest();
+        bannerView.LoadAd(request);
+
+        ShowBanner();
+    }
+
+    public void ShowBanner()
+    {
+        bannerView?.Show();
+    }
+
+    public void HideBanner()
+    {
+        bannerView?.Hide();
+    }
+
 
     public void LoadRewardedAd()
     {
@@ -44,7 +81,7 @@ public class Ads : MonoBehaviour
         }
         var adRequest = new AdRequest();
 
-        RewardedAd.Load(_adUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
+        RewardedAd.Load(_RewardAdUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
         {
             if (error != null || ad == null)
             {
@@ -60,6 +97,8 @@ public class Ads : MonoBehaviour
         });
     }
 
+
+
     public void ShowRewardedAd(RewardType type)
     {
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
@@ -71,7 +110,7 @@ public class Ads : MonoBehaviour
             });
         }
     }
-    
+
     public void GetReward(RewardType type)
     {
         switch (type)

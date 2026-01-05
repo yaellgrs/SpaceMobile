@@ -284,6 +284,9 @@ public class spaceObject : MonoBehaviour
 
         Song.Instance.playSound(Song.Instance.meteor_sound);
         Data.Instance.meteorKilled += 1;
+
+        Handheld.Vibrate();
+
     }
 
     public void Pause()
