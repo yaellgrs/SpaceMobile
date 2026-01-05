@@ -40,6 +40,7 @@ public class SettingUI : MonoBehaviour
 
     //settings
     private Button pause;
+    private Button Btn_toggleVibrate;
     private Button damage;
     private Button xp;
     private Slider slider_general;
@@ -198,6 +199,7 @@ public class SettingUI : MonoBehaviour
         slider_music = root.Q<Slider>("music");
         slider_soundEffect = root.Q<Slider>("soundEffect");
         exit = root.Q<Button>("exit");
+        Btn_toggleVibrate = root.Q<Button>("vibrate");
         back = root.Q<Button>("back");
         pause = root.Q<Button>("pause");
         damage = root.Q<Button>("damage");
@@ -223,7 +225,7 @@ public class SettingUI : MonoBehaviour
         });
 
 
-
+        Btn_toggleVibrate.clicked += VibrateClicked;
         exit.clicked += backClicked;
         back.clicked += backSettingClicked;
         pause.clicked += pauseClicked;
@@ -233,87 +235,58 @@ public class SettingUI : MonoBehaviour
         SetSettingButton();
     }
 
+    private void VibrateClicked()
+    {
+        Settings.Instance.isVibrate = !Settings.Instance.isVibrate;
+        SetSettingButtonColor(Btn_toggleVibrate, Settings.Instance.isVibrate, false);
+    }
+
     private void backSettingClicked()
     {
         settingUI.gameObject.SetActive(false);
-
     }
 
     private void pauseClicked()
     {
         Settings.Instance.isPausable = !Settings.Instance.isPausable;
-        SetSettingButton();
+        SetSettingButtonColor(pause, Settings.Instance.isPausable, true);
     }
 
     private void DamageClicked()
     {
         Settings.Instance.displayDamageMarker = !Settings.Instance.displayDamageMarker;
-        SetSettingButton();
+        SetSettingButtonColor(damage, Settings.Instance.displayDamageMarker, true);
     }
 
     private void XpClicked()
     {
         Settings.Instance.displayXpMarker = !Settings.Instance.displayXpMarker;
-        SetSettingButton();
+        SetSettingButtonColor(xp, Settings.Instance.displayXpMarker, true);
     }
 
     private void SetSettingButton()
     {
-        //isPausable
-        if (Settings.Instance.isPausable)
-        {
-            pause.text = "active";
-            SetBorderColor(pause, Color.green);
-            pause.style.color = Color.green;
-        }
-        else
-        {
-            pause.text = "inactive";
-            gameManager.instance.SetPause(true);
-            SetBorderColor(pause, Color.red);
-            pause.style.color = Color.red;
-        }
-
-        //damage
-        if (Settings.Instance.displayDamageMarker)
-        {
-            damage.text = "active";
-            SetBorderColor(damage, Color.green);
-            damage.style.color = Color.green;
-        }
-        else
-        {
-            damage.text = "inactive";
-            SetBorderColor(damage, Color.red);
-            damage.style.color = Color.red;
-        }
-
-
-        //xp
-        if (Settings.Instance.displayXpMarker)
-        {
-            xp.text = "active";
-            SetBorderColor(xp, Color.green);
-            xp.style.color = Color.green;
-        }
-        else
-        {
-            xp.text = "inactive";
-            SetBorderColor(xp, Color.red);
-            xp.style.color = Color.red;
-        }
+        SetSettingButtonColor(pause, Settings.Instance.isPausable, true);
+        SetSettingButtonColor(damage, Settings.Instance.displayDamageMarker, true);
+        SetSettingButtonColor(xp, Settings.Instance.displayXpMarker, true);
+        SetSettingButtonColor(Btn_toggleVibrate, Settings.Instance.isVibrate, false);
     }
 
-
-    private void SetBorderColor(Button btn, Color color)
+    private void SetSettingButtonColor(Button btn, bool isSelected, bool setText)
     {
-        btn.style.borderBottomColor = color;
-        btn.style.borderTopColor = color;
-        btn.style.borderLeftColor = color;
-        btn.style.borderRightColor = color;
+        Color color;
+        if (isSelected)
+        {
+            color = Color.green;
+            if (setText) btn.text = "active";
+        }
+        else
+        {
+            color = Color.red;
+            if (setText) btn.text = "inactive";
+        }
+        Utility.setBorderColor(btn, color);
     }
-
-
 
     //LANGUE
     public void loadLangue()

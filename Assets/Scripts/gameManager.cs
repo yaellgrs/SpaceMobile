@@ -129,7 +129,7 @@ public class gameManager : MonoBehaviour
             Called : meteor destroy, upLevel machie/upgrade, collect collectible
          */
 
-
+        if (!Settings.Instance.isVibrate) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
         // Pattern : [pause, vibrate, pause, vibrate...]
         long[] pattern = {0, 50}; // 50ms vibration
