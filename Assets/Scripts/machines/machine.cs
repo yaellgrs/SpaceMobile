@@ -294,7 +294,7 @@ public class Machine
 
             }
         }
-        
+        gameManager.instance.SmallVibrate();
     }
 
     public virtual void machineUpdate()
@@ -623,6 +623,7 @@ public class Upgrades
                 //levelPlusLabelMachine1.text = "Lv " + (machineLevel1 + 1).ToString();
             }
         }
+        gameManager.instance.SmallVibrate();
     }
     public virtual void update()
     {

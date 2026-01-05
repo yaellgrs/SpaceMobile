@@ -123,6 +123,25 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    public void SmallVibrate()
+    {
+        /*
+            Called : meteor destroy, upLevel machie/upgrade, collect collectible
+         */
+
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        // Pattern : [pause, vibrate, pause, vibrate...]
+        long[] pattern = {0, 50}; // 50ms vibration
+        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        AndroidJavaObject context = currentActivity.Call<AndroidJavaObject>("getApplicationContext");
+        AndroidJavaObject vibrator = context.Call<AndroidJavaObject>("getSystemService", "vibrator");
+        vibrator.Call("vibrate", pattern, -1); // -1 = no repeat
+#endif
+
+    }
+
     private void spawnSpaceObject()
     {
         int x = UnityEngine.Random.Range(0, 1000);

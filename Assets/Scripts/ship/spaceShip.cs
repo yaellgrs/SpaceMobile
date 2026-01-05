@@ -68,6 +68,7 @@ public class spaceShip : MonoBehaviour
         if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && new BigNumber(1, 0).isBigger(Stats.Instance.life)) 
         {
             gameManager.instance.RestartStage();
+            Handheld.Vibrate();
             ResurectionUI.Instance.loadResurection();
         }
     }

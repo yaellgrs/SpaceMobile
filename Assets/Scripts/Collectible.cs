@@ -119,6 +119,8 @@ public class Collectible : MonoBehaviour
                 break;
         }
 
+        gameManager.instance.SmallVibrate();
+
     }
 
 
