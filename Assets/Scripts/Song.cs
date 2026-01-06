@@ -42,7 +42,11 @@ public class Song : MonoBehaviour
     {
         GameObject prefab = Instantiate(src);
         AudioSource audio = prefab.GetComponent<AudioSource>();
-        audio.volume = (Settings.Instance.sound_general_value / 100 ) * (Settings.Instance.sound_effect_value / 100);
+
+        if (Settings.Instance.activeSound)
+            audio.volume = (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100);
+        else
+            audio.volume = 0;
         if (audio)
         {
             audio.Play();
@@ -81,6 +85,8 @@ public class Song : MonoBehaviour
     public void setMusicVolume()
     {
         float vol = (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_music_value / 100);
+        if (!Settings.Instance.activeSound) vol = 0;
+
         main_music.volume = vol;
         dead_music.volume = vol;
     }

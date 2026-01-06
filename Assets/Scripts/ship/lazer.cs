@@ -18,7 +18,10 @@ public class Lazer : MonoBehaviour
     {
         lazerSound = GetComponent<AudioSource>();
         lazerSound.time = 0.025f;
-        GetComponent<AudioSource>().volume = (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100);
+        if (Settings.Instance.activeSound)
+            GetComponent<AudioSource>().volume = (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100);
+        else
+            GetComponent<AudioSource>().volume = 0;
     }
 
     private void Update()

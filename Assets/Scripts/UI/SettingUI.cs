@@ -41,6 +41,7 @@ public class SettingUI : MonoBehaviour
     //settings
     private Button pause;
     private Button Btn_toggleVibrate;
+    private Button Btn_toggleSound;
     private Button damage;
     private Button xp;
     private Slider slider_general;
@@ -61,12 +62,6 @@ public class SettingUI : MonoBehaviour
         settingUI.gameObject.SetActive(false);
         statsUI.gameObject.SetActive(false);
         LangueUI.gameObject.SetActive(false);
-
-/*        if (Stats.Instance.firstConnection)
-        {
-            loadLangue();
-        }*/
-
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void load()
@@ -200,6 +195,7 @@ public class SettingUI : MonoBehaviour
         slider_soundEffect = root.Q<Slider>("soundEffect");
         exit = root.Q<Button>("exit");
         Btn_toggleVibrate = root.Q<Button>("vibrate");
+        Btn_toggleSound = root.Q<Button>("sound");
         back = root.Q<Button>("back");
         pause = root.Q<Button>("pause");
         damage = root.Q<Button>("damage");
@@ -226,6 +222,7 @@ public class SettingUI : MonoBehaviour
 
 
         Btn_toggleVibrate.clicked += VibrateClicked;
+        Btn_toggleSound.clicked += soundClicked;
         exit.clicked += backClicked;
         back.clicked += backSettingClicked;
         pause.clicked += pauseClicked;
@@ -233,6 +230,13 @@ public class SettingUI : MonoBehaviour
         xp.clicked += XpClicked;
 
         SetSettingButton();
+    }
+
+    private void soundClicked()
+    {
+        Settings.Instance.activeSound = !Settings.Instance.activeSound;
+        SetSettingButtonColor(Btn_toggleSound, Settings.Instance.activeSound, false);
+        Song.Instance.setMusicVolume();
     }
 
     private void VibrateClicked()
@@ -270,6 +274,7 @@ public class SettingUI : MonoBehaviour
         SetSettingButtonColor(damage, Settings.Instance.displayDamageMarker, true);
         SetSettingButtonColor(xp, Settings.Instance.displayXpMarker, true);
         SetSettingButtonColor(Btn_toggleVibrate, Settings.Instance.isVibrate, false);
+        SetSettingButtonColor(Btn_toggleSound, Settings.Instance.activeSound, false);
     }
 
     private void SetSettingButtonColor(Button btn, bool isSelected, bool setText)
