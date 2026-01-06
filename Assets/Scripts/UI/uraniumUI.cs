@@ -292,6 +292,18 @@ public class UraniumUI : BaseUI
         {
             uraniumUnlockedVE.style.visibility = Visibility.Visible;
         }
+
+
+
+        if (!Stats.Instance.uraniumTuto)
+        {
+            Debug.Log("load uranium tuto");
+            Tuto.Instance.LoadForgeTuto(false);
+        }
+        else
+        {
+            Debug.Log("uranium tuto already done");
+        }
     }
 
     public override void loadUpdateUI()

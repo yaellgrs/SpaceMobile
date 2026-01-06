@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI.MessageBox;
 
 
 public enum PopupTuto
@@ -59,10 +60,13 @@ public class Tuto: MonoBehaviour
         
     }
 
-    public void loadIronForgeTuto()
+    public void LoadForgeTuto(bool isIron)
     {
+        VisualElement root;
         ironUI.gameObject.SetActive(true);
-        var root = ironUI.rootVisualElement;
+
+
+        root = ironUI.rootVisualElement;
 
         Btn_exit = root.Q<Button>("exit");
         Btn_back = root.Q<Button>("back");
@@ -74,8 +78,8 @@ public class Tuto: MonoBehaviour
             VE_main.RemoveFromClassList("trans");
         }).StartingIn(50);
 
-        Btn_back.clicked += exitIronTuto;
-        Btn_exit.clicked += exitIronTuto;
+        Btn_back.clicked += ()=> { exitIronTuto(isIron); };
+        Btn_exit.clicked += () => { exitIronTuto(isIron); };
 
         VisualElement forgeElements = root.Query<VisualElement>("forge");
         forgeElements.style.display = DisplayStyle.None;
@@ -83,10 +87,10 @@ public class Tuto: MonoBehaviour
 
         VisualElement upgrades = root.Query<VisualElement>("upgrade");
         upgrades.style.display = DisplayStyle.None;
-        
+
     }
 
-    private void exitIronTuto()
+    private void exitIronTuto(bool isIron)
     {
         VE_main.RemoveFromClassList("trans");
         VE_main.schedule.Execute(() =>
@@ -102,30 +106,44 @@ public class Tuto: MonoBehaviour
         VE_main.style.visibility = Visibility.Hidden;
         Btn_exit.style.visibility = Visibility.Hidden;
 
-        VisualElement forgeElements = ironUI.rootVisualElement.Query<VisualElement>("forge");
-        forgeElements.style.display = DisplayStyle.Flex;
+            var forgeElement = ironUI.rootVisualElement.Q<VisualElement>("forge");
+            forgeElement.style.display = DisplayStyle.Flex;
     }
 
-    public void loadIronUpgradeTuto() {
+    public void loadIronUpgradeTuto(bool isIron) {
 
-        var root = ironUI.rootVisualElement;
+        VisualElement root;
+        
+        root = ironUI.rootVisualElement;
+
         VisualElement forgeElements = root.Query<VisualElement>("forge");
 
-        MainUi.Instance.ironUI.forgeUpgradeClicked();
+        if(isIron)
+            MainUi.Instance.ironUI.forgeUpgradeClicked();
+        else
+            MainUi.Instance.uraniumUI.forgeUpgradeClicked();
 
-        Stats.Instance.upIron(new BigNumber(160), true);
+        if (isIron)
+            Stats.Instance.upIron(new BigNumber(160), true);
+        else
+            Stats.Instance.upUranium(new BigNumber(160), true);
 
         forgeElements.style.display = DisplayStyle.None;
-
 
         VisualElement upgrades = root.Query<VisualElement>("upgrade");
         upgrades.style.display = DisplayStyle.Flex;
     }   
 
-    public void ironCloseTuto()
+    public void ironCloseTuto(bool isIron)
     {
         ironUI.gameObject.SetActive(false);
-        Stats.Instance.ironTuto = true;
+        if (isIron){
+
+            Stats.Instance.ironTuto = true;
+        }
+        else{
+            Stats.Instance.uraniumTuto = true;
+        }
     }
 
     public void LoadPopupTuto(PopupTuto type)

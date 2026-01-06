@@ -101,7 +101,7 @@ public class MachineIron : Machine
                         }
                         if (!Stats.Instance.ironTuto)
                         {
-                            Tuto.Instance.loadIronUpgradeTuto();
+                            Tuto.Instance.loadIronUpgradeTuto(true);
 
                         }
                     }
@@ -222,7 +222,7 @@ public class UpgradesIron : Upgrades
 
             if (!Stats.Instance.ironTuto)
             {
-                Tuto.Instance.ironCloseTuto();
+                Tuto.Instance.ironCloseTuto(true);
             }
         }
     }

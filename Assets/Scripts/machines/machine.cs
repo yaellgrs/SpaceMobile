@@ -221,7 +221,6 @@ public class Machine
         machineEarn1 = new BigNumber(initialEarnCostMachine1.Mantisse, initialEarnCostMachine1.Exp);
         machineEarn1.Multiply(Mathf.Pow(1.20f, realMachineLevel1));
         machineEarn1.Add(realMachineLevel1 - 1);
-        Debug.Log("real machine level 1 :" + realMachineLevel1);
     }
 
     protected virtual void PayCost()

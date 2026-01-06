@@ -97,6 +97,12 @@ public class machineUranium : Machine
                         {
                             timeLabelMachine1.text = machineTimeMaxReel.ToString("F2") + "s";
                         }
+
+                        if (!Stats.Instance.uraniumTuto)
+                        {
+                            Tuto.Instance.loadIronUpgradeTuto(false);
+
+                        }
                     }
                 }
             }
@@ -201,6 +207,10 @@ public class UpgradesUranium : Upgrades
             if (MainUi.Instance.questUI.type == QuestUI.questType.uraniumUpgrade)
             {
                 MainUi.Instance.questUI.upQuest();
+            }
+            if (!Stats.Instance.uraniumTuto)
+            {
+                Tuto.Instance.ironCloseTuto(false);
             }
         }
     }
