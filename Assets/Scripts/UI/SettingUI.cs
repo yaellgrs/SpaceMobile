@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Localization.Settings;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.UIElements;
 
 public class SettingUI : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class SettingUI : MonoBehaviour
     public UIDocument menuUI;
     public UIDocument bonusUI;
     public UIDocument statsUI;
+    public UIDocument tutoUI;
     public UIDocument settingUI;
     public UIDocument LangueUI;
 
     private Button exit;
     private Button back;
     private Button bonus;
+    private Button Btn_tuto;
     private Button settings;
     private Button stats;
     private Button langue;
@@ -63,6 +66,7 @@ public class SettingUI : MonoBehaviour
         settingUI.gameObject.SetActive(false);
         statsUI.gameObject.SetActive(false);
         LangueUI.gameObject.SetActive(false);
+        tutoUI.gameObject.SetActive(false);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void load()
@@ -71,6 +75,7 @@ public class SettingUI : MonoBehaviour
         var root = menuUI.rootVisualElement;
         exit = root.Q<Button>("back");
         bonus = root.Q<Button>("bonus");
+        Btn_tuto = root.Q<Button>("tuto");
         settings = root.Q<Button>("settings");
         stats = root.Q<Button>("stats");
         langue = root.Q<Button>("langue");
@@ -84,6 +89,8 @@ public class SettingUI : MonoBehaviour
 
         exit.clicked += backClicked;
         bonus.clicked += loadBonus;
+        Btn_tuto.clicked += LoadTuto;
+
         stats.clicked += laodStats;
         settings.clicked += loadSetting;
         langue.clicked += loadLangue;
@@ -147,9 +154,37 @@ public class SettingUI : MonoBehaviour
 
     }
 
+
     private void backBonusClicked()
     {
         bonusUI.gameObject.SetActive(false);
+    }
+
+    private void LoadTuto()
+    {
+        tutoUI.gameObject.SetActive(true);
+        var root = tutoUI.rootVisualElement;
+        //exit = root.Q<Button>("exit");
+        back = root.Q<Button>("back");
+        VisualElement tutos = root.Q<VisualElement>("tutos");
+
+        foreach(Button button in tutos.Query<Button>().ToList())
+        {
+            button.clicked += () =>
+            {
+                Tuto.Instance.LoadPopupTuto(Enum.Parse<PopupTuto>(button.name));
+                backTutoClicked();
+                backClicked();
+            };
+        }
+
+        exit.clicked += backClicked;
+        back.clicked += backTutoClicked;
+    }
+
+    private void backTutoClicked()
+    {
+        tutoUI.gameObject.SetActive(false);
     }
 
     /*STATS*/

@@ -144,6 +144,7 @@
     <None Include="Assets\UI\menu\bonus.uxml" />
     <None Include="Assets\UI\UraniumUpdate.uxml" />
     <None Include="Assets\UI\prestige\upgradeTemplate.uxml" />
+    <None Include="Assets\UI\menu\tutorial.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\UI\xpUI.uxml" />
     <None Include="Assets\UI\menu\menuUSS.uss" />

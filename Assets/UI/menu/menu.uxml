@@ -7,26 +7,33 @@
                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(1038529017622528)"/>
             </Bindings>
         </engine:Label>
-        <engine:Button text="bonus&#10;" name="bonus" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 20%; left: 15%; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(15426133110784)"/>
-            </Bindings>
-        </engine:Button>
-        <engine:Button text="Statistiques" name="stats" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 37.5%; left: 15%; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808242434224128)"/>
-            </Bindings>
-        </engine:Button>
-        <engine:Button text="Settings" name="settings" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 55%; left: 15%; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808467861286912)"/>
-            </Bindings>
-        </engine:Button>
-        <engine:Button text="Langue&#10;" name="langue" class="button" style="position: absolute; height: 12.5%; width: 70%; top: 72.5%; left: 15%; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgba(255, 255, 255, 0.57); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(9691934720)"/>
-            </Bindings>
-        </engine:Button>
+        <engine:VisualElement style="position: absolute; height: 60%; width: 70%; top: 22.5%; left: 15%; justify-content: space-around; align-items: stretch;">
+            <engine:Button text="bonus&#10;" name="bonus" class="button" style="position: relative; height: 12.5%; width: auto; top: auto; left: auto; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(15426133110784)"/>
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Statistiques" name="stats" class="button" style="position: relative; height: auto; width: auto; top: auto; left: auto; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808242434224128)"/>
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Statistiques" name="tuto" class="button" style="position: relative; height: auto; width: auto; top: auto; left: auto; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(72251312010268672)"/>
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Settings" name="settings" class="button" style="position: relative; height: auto; width: auto; top: auto; left: auto; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(808467861286912)"/>
+                </Bindings>
+            </engine:Button>
+            <engine:Button text="Langue&#10;" name="langue" class="button" style="position: relative; height: auto; width: initial; top: auto; left: auto; background-color: rgba(47, 30, 28, 0.57); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgba(255, 255, 255, 0.57); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(9691934720)"/>
+                </Bindings>
+            </engine:Button>
+        </engine:VisualElement>
         <engine:Label text="version : 1" style="height: 7.5%; width: 100%; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 30px; position: absolute; top: 92.5%; left: 0; -unity-text-align: upper-center; -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);"/>
     </engine:VisualElement>
 </engine:UXML>

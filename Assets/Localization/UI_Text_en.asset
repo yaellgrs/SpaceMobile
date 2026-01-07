@@ -114,6 +114,34 @@ MonoBehaviour:
     m_Localized: show banner
     m_Metadata:
       m_Items: []
+  - m_Id: 72251312010268672
+    m_Localized: tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72252871859343360
+    m_Localized: Iron Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253527903014912
+    m_Localized: Uranium Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253588267438080
+    m_Localized: Diamand Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253608924385280
+    m_Localized: Splitter Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253624636248064
+    m_Localized: Big Meteor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253707628941312
+    m_Localized: Rocket
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

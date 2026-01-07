@@ -114,6 +114,10 @@ MonoBehaviour:
     m_Localized: Banner anzeigen
     m_Metadata:
       m_Items: []
+  - m_Id: 72251312010268672
+    m_Localized: tutorial
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
