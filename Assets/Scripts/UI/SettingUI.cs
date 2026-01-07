@@ -42,6 +42,7 @@ public class SettingUI : MonoBehaviour
     private Button pause;
     private Button Btn_toggleVibrate;
     private Button Btn_toggleSound;
+    private Button Btn_showBanner;
     private Button damage;
     private Button xp;
     private Slider slider_general;
@@ -197,6 +198,7 @@ public class SettingUI : MonoBehaviour
         Btn_toggleVibrate = root.Q<Button>("vibrate");
         Btn_toggleSound = root.Q<Button>("sound");
         back = root.Q<Button>("back");
+        Btn_showBanner = root.Q<Button>("showBanner");
         pause = root.Q<Button>("pause");
         damage = root.Q<Button>("damage");
         xp = root.Q<Button>("xp");
@@ -228,9 +230,12 @@ public class SettingUI : MonoBehaviour
         pause.clicked += pauseClicked;
         damage.clicked += DamageClicked;
         xp.clicked += XpClicked;
+        Btn_showBanner.clicked += showBannerClicked;
 
         SetSettingButton();
     }
+
+
 
     private void soundClicked()
     {
@@ -248,6 +253,13 @@ public class SettingUI : MonoBehaviour
     private void backSettingClicked()
     {
         settingUI.gameObject.SetActive(false);
+    }
+
+    private void showBannerClicked()
+    {
+        Settings.Instance.showBanner = !Settings.Instance.showBanner;
+        Ads.Instance.ShowBanner(Settings.Instance.showBanner);
+        SetSettingButtonColor(Btn_showBanner, Settings.Instance.showBanner, true);
     }
 
     private void pauseClicked()
@@ -270,6 +282,7 @@ public class SettingUI : MonoBehaviour
 
     private void SetSettingButton()
     {
+        SetSettingButtonColor(Btn_showBanner, Settings.Instance.showBanner, true);
         SetSettingButtonColor(pause, Settings.Instance.isPausable, true);
         SetSettingButtonColor(damage, Settings.Instance.displayDamageMarker, true);
         SetSettingButtonColor(xp, Settings.Instance.displayXpMarker, true);

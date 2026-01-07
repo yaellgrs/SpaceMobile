@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using GoogleMobileAds;
+﻿using GoogleMobileAds;
 using GoogleMobileAds.Api;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ads : MonoBehaviour
@@ -39,30 +40,56 @@ public class Ads : MonoBehaviour
         MobileAds.Initialize(initStatus =>
         {
             LoadRewardedAd();
-            CreatBanner();
+            CreateBanner();
         });
     }
 
-    public void CreatBanner()
+    public void CreateBanner()
     {
         if (bannerView != null)
             return;
 
-        bannerView = new BannerView(
-            _BannerAdUnitId,
-            AdSize.Banner,
-            AdPosition.Bottom
-        );
+        int screenWidth = (int)(Screen.width * 0.8f);
+        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(screenWidth);
+
+        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+
+        // Décalage pour la safe area
+        Rect safeArea = Screen.safeArea;
+        float safeAreaBottom = safeArea.yMin; // distance depuis le bas de l'écran
+
+        if (safeAreaBottom > 0)
+        {
+            // On déplace la bannière au-dessus de la safe area
+            bannerView.SetPosition(0, (int)safeAreaBottom);
+        }
 
         AdRequest request = new AdRequest();
         bannerView.LoadAd(request);
 
-        ShowBanner();
+
+        if(Settings.Instance.showBanner) StartCoroutine(ShowBannerDelayed(.5f));
+        ShowBanner(false);
     }
 
-    public void ShowBanner()
+    private IEnumerator ShowBannerDelayed(float delay)
     {
-        bannerView?.Show();
+        yield return new WaitForSeconds(delay);
+        ShowBanner(true);
+    }
+
+    public void ShowBanner(bool show)
+    {
+        if (show)
+        {
+            bannerView?.Show();
+            MainUi.Instance.adaptBanner(true);
+        }
+        else
+        {
+            bannerView?.Hide();
+            MainUi.Instance.adaptBanner(false);
+        }
     }
 
     public void HideBanner()

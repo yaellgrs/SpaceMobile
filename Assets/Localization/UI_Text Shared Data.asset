@@ -113,6 +113,10 @@ MonoBehaviour:
     m_Key: UI_Stats_meteorKilled
     m_Metadata:
       m_Items: []
+  - m_Id: 72189280535810048
+    m_Key: UI_Settings_showBanner
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -45,7 +45,23 @@ public class DevTest : MonoBehaviour
             MainUi.Instance.xpUI.loadBonus();
         }
 
-        //tutos
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Ads.Instance.ShowBanner(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Ads.Instance.ShowBanner(false);
+        }
+
+        testTutos();
+    }
+
+
+    private void testTutos()
+    {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);

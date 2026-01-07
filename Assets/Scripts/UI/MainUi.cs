@@ -31,6 +31,8 @@ public class MainUi : MonoBehaviour
 
 
     //mainUI
+    private VisualElement VE_main;
+
     protected Button normalUpButton1;
     protected Button uraniumButton;
     protected Button prestigeButton;
@@ -91,6 +93,7 @@ public class MainUi : MonoBehaviour
     {
         var root = mainUI.rootVisualElement;
 
+        VE_main = root.Q<VisualElement>("main"); 
         healthBar = root.Q<VisualElement>("HealthBar"); 
         shieldBar = root.Q<VisualElement>("shieldBar"); 
         xpBar = root.Q<VisualElement>("xpBar");
@@ -170,6 +173,19 @@ public class MainUi : MonoBehaviour
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
         shieldRegenLabel.text = "+ " + Stats.Instance.regenShield;
+    }
+
+    public void adaptBanner(bool adapt)
+    {
+        Debug.Log("adapt banner : " + adapt);
+        if (adapt)
+        {
+            VE_main.style.height = Length.Percent(93.5f);
+        }
+        else
+        {
+            VE_main.style.height = Length.Percent(100);
+        }
     }
 
     public void loadRocketButton()

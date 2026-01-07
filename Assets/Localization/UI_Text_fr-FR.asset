@@ -110,6 +110,10 @@ MonoBehaviour:
     m_Localized: "m\xE9t\xE9orites d\xE9truites"
     m_Metadata:
       m_Items: []
+  - m_Id: 72189280535810048
+    m_Localized: "Afficher la banni\xE8re"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
