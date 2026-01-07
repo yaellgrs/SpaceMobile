@@ -50,6 +50,7 @@ public class Ads : MonoBehaviour
 
     public void CreateBanner()
     {
+        /*
         if (bannerView != null)
             return;
 
@@ -81,7 +82,7 @@ public class Ads : MonoBehaviour
 
         bannerView.LoadAd(request);
 
-        ShowBannerDelayed(1f);
+        ShowBannerDelayed(1f);*/
     }
 
     private IEnumerator ShowBannerDelayed(float delay)
@@ -92,6 +93,7 @@ public class Ads : MonoBehaviour
 
     public void ShowBanner(bool show)
     {
+        /*
         if (show)
         {
             bannerView?.Show();
@@ -101,7 +103,7 @@ public class Ads : MonoBehaviour
         {
             bannerView?.Hide();
             MainUi.Instance.adaptBanner(false);
-        }
+        }*/
     }
 
     public void HideBanner()

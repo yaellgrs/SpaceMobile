@@ -168,14 +168,25 @@ public class SettingUI : MonoBehaviour
         back = root.Q<Button>("back");
         VisualElement tutos = root.Q<VisualElement>("tutos");
 
-        foreach(Button button in tutos.Query<Button>().ToList())
+        foreach (Button button in tutos.Query<Button>().ToList())
         {
-            button.clicked += () =>
+            PopupTuto tuto = Enum.Parse<PopupTuto>(button.name);
+
+            if (!Stats.Instance.popupTutos[tuto])
             {
-                Tuto.Instance.LoadPopupTuto(Enum.Parse<PopupTuto>(button.name));
-                backTutoClicked();
-                backClicked();
-            };
+                button.style.display = DisplayStyle.None;   
+            }
+            else
+            {
+                button.style.display = DisplayStyle.Flex;
+
+                button.clicked += () =>
+                {
+                    Tuto.Instance.LoadPopupTuto(tuto);
+                    backTutoClicked();
+                    backClicked();
+                };
+            }
         }
 
         exit.clicked += backClicked;
