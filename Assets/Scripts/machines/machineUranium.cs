@@ -201,7 +201,7 @@ public class UpgradesUranium : Upgrades
     protected override void upMachine1Clicked()
     {
         if (Stats.Instance.uranium.isBigger(CalculUpgradeCost()))
-        {
+        {   
             base.upMachine1Clicked();
 
             if (MainUi.Instance.questUI.type == QuestUI.questType.uraniumUpgrade)
