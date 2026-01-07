@@ -6,8 +6,12 @@ using UnityEngine;
 
 public class Ads : MonoBehaviour
 {
+    /*
     private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
-    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";
+    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";*/
+
+    private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
+    private const string _BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111";
 
     //ca-app-pub-2287437722164523~4568072994
     //ca-app-pub-2287437722164523/3942107179
@@ -49,27 +53,35 @@ public class Ads : MonoBehaviour
         if (bannerView != null)
             return;
 
-        int screenWidth = (int)(Screen.width * 0.8f);
-        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(screenWidth);
+        int bannerWidth = Screen.width;
+
+        // Optionnel : limiter à une largeur max raisonnable pour le SDK
+        bannerWidth = Mathf.Min(bannerWidth, 10);
+
+
+        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(bannerWidth);
 
         bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
 
-        // Décalage pour la safe area
-        Rect safeArea = Screen.safeArea;
-        float safeAreaBottom = safeArea.yMin; // distance depuis le bas de l'écran
-
-        if (safeAreaBottom > 0)
-        {
-            // On déplace la bannière au-dessus de la safe area
-            bannerView.SetPosition(0, (int)safeAreaBottom);
-        }
-
         AdRequest request = new AdRequest();
+
+
+
+        bannerView.OnBannerAdLoaded += () =>
+        {
+            Debug.Log("✅ Banner loaded");
+            if (Settings.Instance.showBanner)
+                bannerView.Show();
+        };
+
+        bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
+        {
+            Debug.LogError("❌ Banner failed to load: " + error);
+        };
+
         bannerView.LoadAd(request);
 
-
-        if(Settings.Instance.showBanner) StartCoroutine(ShowBannerDelayed(.5f));
-        ShowBanner(false);
+        ShowBannerDelayed(1f);
     }
 
     private IEnumerator ShowBannerDelayed(float delay)

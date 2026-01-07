@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ExternalDependencyManager\Editor\Google.VersionHandler.dll" />
-    <None Include="Assets\ExternalDependencyManager\Editor\1.2.185\Google.IOSResolver.dll" />
     <None Include="Assets\MobileDependencyResolver\Editor\Google.IOSResolver.dll" />
     <None Include="Assets\ExternalDependencyManager\Editor\1.2.185\Google.VersionHandlerImpl.dll" />
     <None Include="Assets\ExternalDependencyManager\Editor\1.2.185\Google.JarResolver.dll" />
@@ -639,10 +638,6 @@
     </Reference>
     <Reference Include="GoogleMobileAds.Common">
       <HintPath>Assets\GoogleMobileAds\GoogleMobileAds.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Google.IOSResolver">
-      <HintPath>Assets\ExternalDependencyManager\Editor\1.2.185\Google.IOSResolver.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">

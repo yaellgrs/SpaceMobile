@@ -106,8 +106,9 @@ public class AdsUI : MonoBehaviour
 
     private void WatchPub()
     {
-        if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(reward);
-        else Ads.Instance.ShowRewardedAd(reward);
+
+        //if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(reward);
+        Ads.Instance.ShowRewardedAd(reward);
         Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         pubDelay = pubDelayWatch;
         Close();
