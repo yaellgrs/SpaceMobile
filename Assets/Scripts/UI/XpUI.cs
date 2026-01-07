@@ -312,13 +312,13 @@ public class XpUI : MonoBehaviour
 
         setBonusAutoFer();
         setBonusAutoUranium();
-        if (GetEnumRewardCount(BonusLevel.UnlockPrestige) == 1) Stats.Instance.prestigeUnlocked = true;
-        if (GetEnumRewardCount(BonusLevel.UnlockUranium) == 1)
+        if (rewardUnlocked(BonusLevel.UnlockPrestige) ) Stats.Instance.prestigeUnlocked = true;
+        if (rewardUnlocked(BonusLevel.UnlockUranium) )
         {
             Stats.Instance.uraniumUnlocked = true;
             spaceShip.instance.setAreaScale(1f);
         }
-        if (GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1)
+        if (rewardUnlocked(BonusLevel.UnlockRocket))
         {
             Stats.Instance.rocketUnlocked = true;
             MainUi.Instance.loadRocketButton();
@@ -331,6 +331,11 @@ public class XpUI : MonoBehaviour
         Stats.Instance.offline_Prod_Part = 0.25f + GetEnumRewardCount(BonusLevel.OfflineProduction) * 0.15f;
         Stats.Instance.critical_Prob = 10 + GetEnumRewardCount(BonusLevel.Critical) * 10;
         Stats.Instance.shield_Regen_Time = 10f - 2*GetEnumRewardCount(BonusLevel.ShieldRegen);
+    }
+
+    public bool rewardUnlocked(BonusLevel bonus)
+    {
+        return GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1;
     }
 
     public BonusLevel GetEnumReward(int lvl)

@@ -295,7 +295,7 @@ public class UraniumUI : BaseUI
 
 
 
-        if (!Stats.Instance.uraniumTuto)
+        if (!Stats.Instance.uraniumTuto && MainUi.Instance.xpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             Debug.Log("load uranium tuto");
             Tuto.Instance.LoadForgeTuto(false);
