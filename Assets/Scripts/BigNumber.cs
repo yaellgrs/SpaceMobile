@@ -159,6 +159,13 @@ public class BigNumber
 
     public override string ToString()
     {
+        if(Settings.Instance.scientific)
+            return getScientificNotation();
+        return getNormalNotation();
+    }
+
+    private string getNormalNotation()
+    {
         string prefix;
         switch (Exp)
         {
@@ -192,6 +199,16 @@ public class BigNumber
             default:
                 return nnMantisse.ToString("F2") + prefix;
         }
+    }
+
+    private string getScientificNotation()
+    {
+        if(Exp == 0)
+            return Mantisse.ToString("F0");
+        else if(Exp == 1)
+            return Mantisse.ToString("F1") + "e" + Exp;
+
+        return Mantisse.ToString("F2") + "e" + Exp; 
     }
 
     public bool isBigger(int n)

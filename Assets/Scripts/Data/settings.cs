@@ -11,6 +11,7 @@ public class Settings
     public bool activeSound = true;
     public bool displayDamageMarker = true;
     public bool displayXpMarker = true;
+    public bool scientific = false;
 
     public float sound_general_value = 100f;
     public float sound_music_value = 100f;

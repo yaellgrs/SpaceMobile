@@ -118,6 +118,30 @@ MonoBehaviour:
     m_Localized: tutorial
     m_Metadata:
       m_Items: []
+  - m_Id: 72252871859343360
+    m_Localized: Eisenmeteorit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253527903014912
+    m_Localized: Uranmeteorit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253588267438080
+    m_Localized: Diamantmeteorit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253608924385280
+    m_Localized: Spaltmeteorit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253624636248064
+    m_Localized: "verst\xE4rkter Meteorit"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253707628941312
+    m_Localized: Rakete
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

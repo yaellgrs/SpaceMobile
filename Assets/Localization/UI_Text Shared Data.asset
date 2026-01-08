@@ -16,9 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: d1989b394c5e01c4d9d44725c372c176
   m_Entries:
   - m_Id: 9691934720
-    m_Key: 'UI_Langue_Title
-
-'
+    m_Key: UI_Tutos_BigMeteorr
     m_Metadata:
       m_Items: []
   - m_Id: 14706684145664
@@ -118,9 +116,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 72251312010268672
-    m_Key: 'UI_Tutos
-
-'
+    m_Key: UI_Tutos_
     m_Metadata:
       m_Items: []
   - m_Id: 72252871859343360

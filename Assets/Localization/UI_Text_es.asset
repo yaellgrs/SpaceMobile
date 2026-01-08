@@ -118,6 +118,30 @@ MonoBehaviour:
     m_Localized: ' tutorial'
     m_Metadata:
       m_Items: []
+  - m_Id: 72252871859343360
+    m_Localized: meteoro de hierro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253527903014912
+    m_Localized: meteoro de uranio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253588267438080
+    m_Localized: meteoro de diamante
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253608924385280
+    m_Localized: meteoro divisor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253707628941312
+    m_Localized: cohete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253624636248064
+    m_Localized: meteorito reforzado
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

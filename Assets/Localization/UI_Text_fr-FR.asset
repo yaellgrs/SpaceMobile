@@ -130,6 +130,18 @@ MonoBehaviour:
     m_Localized: "m\xE9t\xE9orite de diamant"
     m_Metadata:
       m_Items: []
+  - m_Id: 72253608924385280
+    m_Localized: "m\xE9t\xE9orite de fragmentation"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253624636248064
+    m_Localized: "m\xE9t\xE9orite renforc\xE9e"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72253707628941312
+    m_Localized: roquette
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
