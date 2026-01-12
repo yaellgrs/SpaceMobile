@@ -142,10 +142,21 @@ public class gameManager : MonoBehaviour
         }
         else
         {
-            int iron = (int)(Stats.Instance.stage* 2.5f);
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
-            PoolManager.Instance.LaunchPrefab(worldPos, iron.ToString(), PoolManager.markerType.Iron, 0.1f, 0.97f);
-            Stats.Instance.upIron(new BigNumber(iron), true);
+            if(Stats.Instance.uraniumUnlocked && Random.Range(0, 2) == 1)
+            {
+                //uranium
+                int uranium = (int)(Stats.Instance.stage * 0.5f);
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+                PoolManager.Instance.LaunchPrefab(worldPos, uranium.ToString(), PoolManager.markerType.Uranium, 0.1f, 0.97f);
+                Stats.Instance.upUranium(new BigNumber(uranium), true);
+            }
+            else
+            {
+                int iron = (int)(Stats.Instance.stage * 2.5f);
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+                PoolManager.Instance.LaunchPrefab(worldPos, iron.ToString(), PoolManager.markerType.Iron, 0.1f, 0.97f);
+                Stats.Instance.upIron(new BigNumber(iron), true);
+            }
         }
     }
 
