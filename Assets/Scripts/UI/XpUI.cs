@@ -162,10 +162,10 @@ public class XpUI : MonoBehaviour
 
         foreach(MachineIron m in Stats.Instance.machinesIron)
         {
-            m.machineLevelLimite = Stats.Instance.level;
-            if(m.machineLevelLimite > m.machineLevelMax)
+            m.levelLimite = Stats.Instance.level;
+            if(m.levelLimite > m.levelMax)
             {
-                m.machineLevelLimite = m.machineLevelMax;
+                m.levelLimite = m.levelMax;
             }
         }
     }

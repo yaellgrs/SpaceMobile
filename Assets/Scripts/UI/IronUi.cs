@@ -33,77 +33,78 @@ public class IronUi : BaseUI
         List<MachineIron> mach = new List<MachineIron>();
         MachineIron machine5 = new MachineIron()
         {
-            machineName = "machine5",
+            name = "machine5",
             machineNumber = 5,
             isVisible = false,
             isActive = false,
-            machineTimeMax1 = 1200f,
-            levelCostMachine1 = new BigNumber(1, 10),
-            initialLevelCostMachine1 = new BigNumber(1, 10),
-            machineEarn1 = new BigNumber(1, 9),
-            initialEarnCostMachine1 = new BigNumber(1, 9),
-            priceMachine = new BigNumber(1,12),
+            timeMax = 1200f,
+            BN_levelCost = new BigNumber(1, 10),
+            BN_initLevelCost = new BigNumber(1, 10),
+            BN_earn = new BigNumber(1, 9),
+            BN_initEarn = new BigNumber(1, 9),
+            BN_price = new BigNumber(1,12),
             automatic = false
         };
         MachineIron machine4 = new MachineIron()
         {
-            machinePlus = "machine5",
-            machineName = "machine4",
+            nextMachine = "machine5",
+            name = "machine4",
             machineNumber = 4,
             isVisible = false,
             isActive = false,
-            machineTimeMax1 = 300f,
-            levelCostMachine1 = new BigNumber(5, 6),
-            initialLevelCostMachine1 = new BigNumber(5, 6),
-            machineEarn1 = new BigNumber(1,6),
-            initialEarnCostMachine1 = new BigNumber(1, 6),
-            priceMachine = new BigNumber(1, 9),
+            timeMax = 300f,
+            BN_levelCost = new BigNumber(5, 6),
+            BN_initLevelCost = new BigNumber(5, 6),
+            BN_earn = new BigNumber(1,6),
+            BN_initEarn = new BigNumber(1, 6),
+            BN_price = new BigNumber(1, 9),
             automatic = false
         };
         MachineIron machine3 = new MachineIron()
         {
-            machinePlus = "machine4",
-            machineName = "machine3",
+            nextMachine = "machine4",
+            name = "machine3",
             machineNumber = 3, 
             isVisible = false,
             isActive = false,
-            machineTimeMax1 = 60f,
-            levelCostMachine1 = new BigNumber(20, 4),
-            initialLevelCostMachine1 = new BigNumber(20, 4),
-            machineEarn1 = new BigNumber(5,4),
-            initialEarnCostMachine1 = new BigNumber(5, 4),
-            priceMachine = new BigNumber(1, 6),
+            timeMax = 60f,
+            BN_levelCost = new BigNumber(20, 4),
+            BN_initLevelCost = new BigNumber(20, 4),
+            BN_earn = new BigNumber(5,4),
+            BN_initEarn = new BigNumber(5, 4),
+            BN_price = new BigNumber(1, 6),
             automatic = false
         };
 
         MachineIron machine2 = new MachineIron()
         {
-            machinePlus = "machine3",
-            machineName = "machine2",
+            nextMachine = "machine3",
+            name = "machine2",
             machineNumber = 2, 
             isActive = false,
             isVisible = true,
-            machineTimeMax1 = 15f,
-            levelCostMachine1 = new BigNumber(2.5f, 3),
-            initialLevelCostMachine1 = new BigNumber(2.5f,4),
-            machineEarn1 = new BigNumber(5, 2),
-            initialEarnCostMachine1 = new BigNumber(5, 2),
-            priceMachine = new BigNumber(1, 3),
+            timeMax = 15f,
+            BN_levelCost = new BigNumber(2.5f, 3),
+            BN_initLevelCost = new BigNumber(2.5f,4),
+            BN_earn = new BigNumber(5, 2),
+            BN_initEarn = new BigNumber(5, 2),
+
             automatic = false,
         };
 
         MachineIron machine1 = new MachineIron()
         {
-            machinePlus = "machine2",
-            machineName = "machine1",
+            nextMachine = "machine2",
+            name = "machine1",
             machineNumber = 1,
             isActive = true,
             isVisible = true,
-            machineTimeMax1 = 1f,
-            levelCostMachine1 = new BigNumber(25, 0),
-            initialLevelCostMachine1 = new BigNumber(25, 0),
-            machineEarn1 = new BigNumber(1, 0),
-            initialEarnCostMachine1 = new BigNumber(1, 0),
+            timeMax = 1f,
+            BN_levelCost = new BigNumber(25, 0),
+            BN_initLevelCost = new BigNumber(25, 0),
+            BN_earn = new BigNumber(1, 0),
+            BN_initEarn = new BigNumber(1, 0),
+            BN_price = new BigNumber(10),
             automatic = false
         };
         mach.Add(machine1);
@@ -116,7 +117,7 @@ public class IronUi : BaseUI
             int x = 0;
             foreach (MachineIron machUp in Stats.Instance.machinesIron)
             {
-                if (m.machineName == machUp.machineName)
+                if (m.name == machUp.name)
                 {
                     x = 1;
                 }

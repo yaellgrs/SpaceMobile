@@ -15,21 +15,37 @@ public class DevTest : MonoBehaviour
     regardes whatsapp si jamais
      */
 
+    private void Start()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        ShowTuto(false); // desactive les tutos
+    }
+
+    private void ShowTuto(bool show)
+    {
+        foreach (PopupTuto tuto in Stats.Instance.popupTutos.Keys)
+        {
+            Stats.Instance.popupTutos[tuto] = !show;
+        }
+        Stats.Instance.ironTuto = !show;
+        Stats.Instance.uraniumTuto = !show;
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            for(int i = 0; i < 5; i++ ) //level up 5 fois
-                MainUi.Instance.xpUI.LevelUp();
 
-            Stats.Instance.upPrestige(new BigNumber(1, 10), true); // donne 1^10 prestige
-            Stats.Instance.upIron(new BigNumber(1, 10), true);// donne 1^10 fer
-            Stats.Instance.upUranium(new BigNumber(1, 10), true);// donne 1^10 uranium
-        }
+
+
+
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
+            Init();
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -39,26 +55,35 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Stats.Instance.level += 100;
+            Stats.Instance.level += 100;//level max
         }
+
+
+
+        HandleBanner();
+        gives();
+        testTutos();
+    }
+
+    private void gives()
+    {
         if (Input.GetKeyUp(KeyCode.Space))
         {
             Stats.Instance.upDiamand(50, true); //donne 50 diamands ) 
             MainUi.Instance.xpUI.loadBonus();
         }
-
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Ads.Instance.ShowBanner(true);
-        }
+            for (int i = 0; i < 5; i++) //level up 5 fois
+                MainUi.Instance.xpUI.LevelUp();
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Ads.Instance.ShowBanner(false);
+            Stats.Instance.upPrestige(new BigNumber(1, 10), true); // donne 1^10 prestige
+            Stats.Instance.upIron(new BigNumber(1, 10), true);// donne 1^10 fer
+            Stats.Instance.upUranium(new BigNumber(1, 10), true);// donne 1^10 uranium
         }
-
-        testTutos();
     }
+
+
 
 
     private void testTutos()
@@ -86,6 +111,19 @@ public class DevTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             Tuto.Instance.LoadPopupTuto(PopupTuto.rocket);
+        }
+    }
+
+    private void HandleBanner()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Ads.Instance.ShowBanner(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Ads.Instance.ShowBanner(false);
         }
     }
 }

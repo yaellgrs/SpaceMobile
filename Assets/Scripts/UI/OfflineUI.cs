@@ -121,9 +121,9 @@ public class OfflineUI : MonoBehaviour
             {
                 if(m.automatic || !offline)
                 {
-                    BigNumber earn = new BigNumber(m.machineEarn1);
+                    BigNumber earn = new BigNumber(m.BN_earn);
                     earn.Multiply(time);
-                    earn.Divide(m.machineTimeMaxReel);
+                    earn.Divide(m.timeMaxReal);
 
                     totaEarn.Add(earn);
                 }
@@ -148,9 +148,9 @@ public class OfflineUI : MonoBehaviour
             {
                 if (m.automatic || !offline)
                 {
-                    BigNumber earn = new BigNumber(m.machineEarn1.Mantisse, m.machineEarn1.Exp);
+                    BigNumber earn = new BigNumber(m.BN_earn.Mantisse, m.BN_earn.Exp);
                     earn.Multiply(time);
-                    earn.Divide(m.machineTimeMaxReel);
+                    earn.Divide(m.timeMaxReal);
 
                     totaEarn.Add(earn);
                 }

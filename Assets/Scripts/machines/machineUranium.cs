@@ -10,23 +10,23 @@ public class machineUranium : Machine
 
     protected override void PayCost()
     {
-        levelCostMachine1 = CalculUpgradeCost();
-        Stats.Instance.upUranium(levelCostMachine1, false);
+        BN_levelCost = CalculUpgradeCost();
+        Stats.Instance.upUranium(BN_levelCost, false);
     }
 
     protected override void machine1Clicked()
     { 
-        if (!isActive && Stats.Instance.uranium.isBigger(priceMachine))
+        if (!isActive && Stats.Instance.uranium.isBigger(BN_price))
         {
-            contenerMachine1.style.display = DisplayStyle.None;
-            if (machinePlus != null)
+            VE_container.style.display = DisplayStyle.None;
+            if (nextMachine != null)
             {
                 foreach (machineUranium m in Stats.Instance.machinesUranium)
                 {
-                    if (m.machineName == machinePlus)
+                    if (m.name == nextMachine)
                     {
                         m.isVisible = true;
-                        m.Btn_Button.style.display = DisplayStyle.Flex;
+                        m.Btn_machine.style.display = DisplayStyle.Flex;
                     }
                 }
 
@@ -41,9 +41,9 @@ public class machineUranium : Machine
         }
         else
         {
-            if (machineTime1 < 0)
+            if (time < 0)
             {
-                machineTime1 = 0f;
+                time = 0f;
             }
         }
     }
@@ -60,13 +60,13 @@ public class machineUranium : Machine
 
     public override void machineUpdate()
     {
-        if (!CalculUpgradeCost().isBigger(Stats.Instance.uranium) && upButtonMachine1 != null)
+        if (!CalculUpgradeCost().isBigger(Stats.Instance.uranium) && Btn_LevelUp != null)
         {
-            upButtonMachine1.enabledSelf = true;
+            Btn_LevelUp.enabledSelf = true;
         }
-        else if (upButtonMachine1 != null)
+        else if (Btn_LevelUp != null)
         {
-            upButtonMachine1.enabledSelf = false;
+            Btn_LevelUp.enabledSelf = false;
         }
         upMachineCostText();
 
@@ -75,27 +75,27 @@ public class machineUranium : Machine
 
             if (isActive)
             {
-                if (machineTime1 >= 0)
+                if (time >= 0)
                 {
-                    machineTime1 += Time.deltaTime;
-                    if (timeLabelMachine1 != null)
+                    time += Time.deltaTime;
+                    if (Lbl_time != null)
                     {
-                        timeLabelMachine1.text = (machineTimeMaxReel - machineTime1).ToString("F2") + "s";
-                        if (machineTime1 / machineTimeMaxReel > 0)
+                        Lbl_time.text = (timeMaxReal - time).ToString("F2") + "s";
+                        if (time / timeMaxReal > 0)
                         {
-                            progressMachine.style.width = Length.Percent((machineTime1 / machineTimeMaxReel) * 100);
+                            VE_progressBarre.style.width = Length.Percent((time / timeMaxReal) * 100);
                         }
                     }
-                    if (machineTime1 >= machineTimeMaxReel)
+                    if (time >= timeMaxReal)
                     {
-                        if (earnLabelMachine1 != null)
+                        if (Lbl_earn != null)
                         {
-                            Stats.Instance.upUranium(machineEarn1, true);
+                            Stats.Instance.upUranium(BN_earn, true);
                         }
-                        machineTime1 = -1;
-                        if (timeLabelMachine1 != null)
+                        time = -1;
+                        if (Lbl_time != null)
                         {
-                            timeLabelMachine1.text = machineTimeMaxReel.ToString("F2") + "s";
+                            Lbl_time.text = timeMaxReal.ToString("F2") + "s";
                         }
 
                         if (!Stats.Instance.uraniumTuto)
@@ -112,23 +112,23 @@ public class machineUranium : Machine
             if (isActive)
             {
                 animAutoBar();
-                machineTime1 += Time.deltaTime;
-                BigNumber earnPerScd = new BigNumber(machineEarn1.Mantisse, machineEarn1.Exp);
-                earnPerScd.Divide(machineTimeMaxReel);
-                if (timeLabelMachine1 != null)
+                time += Time.deltaTime;
+                BigNumber earnPerScd = new BigNumber(BN_earn.Mantisse, BN_earn.Exp);
+                earnPerScd.Divide(timeMaxReal);
+                if (Lbl_time != null)
                 {
-                    timeLabelMachine1.text = "";
-                    earnLabelMachine1.text = earnPerScd + " / s";
-                    progressMachine.style.width = Length.Percent(100);
+                    Lbl_time.text = "";
+                    Lbl_earn.text = earnPerScd + " / s";
+                    VE_progressBarre.style.width = Length.Percent(100);
                 }
-                machineTime1 += Time.deltaTime;
-                if (machineTime1 >= 1f)
+                time += Time.deltaTime;
+                if (time >= 1f)
                 {
-                    if (earnLabelMachine1 != null)
+                    if (Lbl_earn != null)
                     {
                         Stats.Instance.upUranium(earnPerScd, true);
                     }
-                    machineTime1 = 0f;
+                    time = 0f;
                 }
 
             }

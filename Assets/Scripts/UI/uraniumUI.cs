@@ -19,76 +19,76 @@ public class UraniumUI : BaseUI
         List<machineUranium> mach = new List<machineUranium>();
         machineUranium machine5 = new machineUranium()
         {
-            machineName = "machine5",
+            name = "machine5",
             machineNumber = 5,
             isVisible = false,
             isActive = false,
-            machineTimeMax1 = 7200f,
-            levelCostMachine1 = new BigNumber(2, 9),
-            initialLevelCostMachine1 = new BigNumber(2, 9),
-            machineEarn1 = new BigNumber(1, 8),
-            initialEarnCostMachine1 = new BigNumber(1, 8),
-            priceMachine = new BigNumber(1, 12),
+            timeMax = 7200f,
+            BN_levelCost = new BigNumber(2, 9),
+            BN_initLevelCost = new BigNumber(2, 9),
+            BN_earn = new BigNumber(1, 8),
+            BN_initEarn = new BigNumber(1, 8),
+            BN_price = new BigNumber(1, 12),
             automatic = false
         };
         machineUranium machine4 = new machineUranium()
         {
-            machineName = "machine4",
+            name = "machine4",
             machineNumber = 4,
             isVisible = false,
             isActive = false,
-            machineTimeMax1 = 2500f,
-            levelCostMachine1 = new BigNumber(4, 6),
-            initialLevelCostMachine1 = new BigNumber(4, 6),
-            machineEarn1 = new BigNumber(5, 5),
-            initialEarnCostMachine1 = new BigNumber(5, 5),
-            priceMachine = new BigNumber(1, 9),
+            timeMax = 2500f,
+            BN_levelCost = new BigNumber(4, 6),
+            BN_initLevelCost = new BigNumber(4, 6),
+            BN_earn = new BigNumber(5, 5),
+            BN_initEarn = new BigNumber(5, 5),
+            BN_price = new BigNumber(1, 9),
             automatic = false
         };
         machineUranium machine3 = new machineUranium()
         {
-            machinePlus = "machine4",
-            machineName = "machine3",
+            nextMachine = "machine4",
+            name = "machine3",
             machineNumber = 3,
             isVisible = false,
             isActive = false,
-            machineTimeMax1 = 300f,
-            levelCostMachine1 = new BigNumber(17.5f, 5),
-            initialLevelCostMachine1 = new BigNumber(17.5f, 5),
-            machineEarn1 = new BigNumber(2, 4),
-            initialEarnCostMachine1 = new BigNumber(2, 4),
-            priceMachine = new BigNumber(1, 6),
+            timeMax = 300f,
+            BN_levelCost = new BigNumber(17.5f, 5),
+            BN_initLevelCost = new BigNumber(17.5f, 5),
+            BN_earn = new BigNumber(2, 4),
+            BN_initEarn = new BigNumber(2, 4),
+            BN_price = new BigNumber(1, 6),
             automatic = false
         };
 
         machineUranium machine2 = new machineUranium()
         {
-            machinePlus = "machine3",
-            machineName = "machine2",
+            nextMachine = "machine3",
+            name = "machine2",
             machineNumber = 2,
             isActive = false,
             isVisible = true,
-            machineTimeMax1 = 60f,
-            levelCostMachine1 = new BigNumber(2, 3),
-            initialLevelCostMachine1 = new BigNumber(2, 3),
-            machineEarn1 = new BigNumber(2f, 2),
-            initialEarnCostMachine1 = new BigNumber(2f, 2),
-            priceMachine = new BigNumber(1, 3),
+            timeMax = 60f,
+            BN_levelCost = new BigNumber(2, 3),
+            BN_initLevelCost = new BigNumber(2, 3),
+            BN_earn = new BigNumber(2f, 2),
+            BN_initEarn = new BigNumber(2f, 2),
+            BN_price = new BigNumber(1, 3),
             automatic = false
         };
 
         machineUranium machine1 = new machineUranium()
         {
-            machinePlus = "machine2",
-            machineName = "machine1",
+            nextMachine = "machine2",
+            name = "machine1",
             machineNumber = 1,
             isActive = true,
             isVisible = true,
-            machineTimeMax1 = 5f,
-            levelCostMachine1 = new BigNumber(25, 0),
-            initialLevelCostMachine1 = new BigNumber(25, 0),
-            machineEarn1 = new BigNumber(1, 0),
-            initialEarnCostMachine1 = new BigNumber(1, 0),
+            timeMax = 5f,
+            BN_levelCost = new BigNumber(25, 0),
+            BN_initLevelCost = new BigNumber(25, 0),
+            BN_earn = new BigNumber(1, 0),
+            BN_initEarn = new BigNumber(1, 0),
             automatic = false
         };
 
@@ -102,7 +102,7 @@ public class UraniumUI : BaseUI
             int x = 0;
             foreach (machineUranium machUp in Stats.Instance.machinesUranium)
             {
-                if (m.machineName == machUp.machineName)
+                if (m.name == machUp.name)
                 {
                     x = 1;
                 }

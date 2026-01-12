@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Timers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
 
 public class Machine
@@ -12,39 +13,39 @@ public class Machine
 
     public int machineNumber = 0;
     
-    public Button Btn_Button;
-    protected Button upButtonMachine1;
-    protected VisualElement progressMachine;
-    protected VisualElement contenerMachine1;
-    protected VisualElement cadre;
-    protected VisualElement locked;
-    protected Label levelLabelMachine1;
-    protected Label earnLabelMachine1;
-    protected Label timeLabelMachine1;
-    protected Label levelCostLabelMachine1;
-    protected Label priceMachineLabel;
-    protected Label lockedLevel;
+    public Button Btn_machine;
+    protected Button Btn_LevelUp;
+    protected VisualElement VE_progressBarre;
+    protected VisualElement VE_container;
+    protected VisualElement VE_cadre;
+    protected VisualElement VE_lockedCover;
+    protected Label Lbl_level;
+    protected Label Lbl_earn;
+    protected Label Lbl_time;
+    protected Label Lbl_cost;
+    protected Label Lbl_price;
+    protected Label Lbl_lockedLevel;
 
     public bool isActive = true;
     public bool isVisible = true;
-    public string machineName;
-    public float machineTimeMax1 = 3f;
-    public float machineTimeMaxReel = 3f;
+    public string name;
+    public float timeMax = 3f;
+    public float timeMaxReal = 3f;
 
-    public float machineTime1 = -1f;
-    public int machineLevel1 = 1;
-    public int realMachineLevel1 = 1;
+    public float time = -1f;
+    public int level = 1;
+    public int realLevel = 1;
 
-    public int machineLevelMax = 5;
-    public int machineLevelLimite = 5;
+    public int levelMax = 5;
+    public int levelLimite = 5;
 
-    public BigNumber priceMachine = new BigNumber(2000, 0);
-    public BigNumber levelCostMachine1 = new BigNumber(10, 0);
-    public BigNumber initialLevelCostMachine1 = new BigNumber(10, 0);
-    public BigNumber machineEarn1 = new BigNumber(1, 0);
-    public BigNumber initialEarnCostMachine1 = new BigNumber(1, 0);
+    public BigNumber BN_price = new BigNumber(2000, 0);
+    public BigNumber BN_levelCost = new BigNumber(10, 0);
+    public BigNumber BN_initLevelCost = new BigNumber(10, 0);
+    public BigNumber BN_earn = new BigNumber(1, 0);
+    public BigNumber BN_initEarn = new BigNumber(1, 0);
 
-    public string machinePlus = null;
+    public string nextMachine = null;
 
     public bool automatic;
     public bool isBlackBorder = false;
@@ -63,90 +64,90 @@ public class Machine
     public virtual void loadMachine(UIDocument forgeUI)
     {
         forgeUilink = forgeUI;
-        Btn_Button = forgeUI.rootVisualElement.Q<Button>(machineName);
-        cadre = forgeUI.rootVisualElement.Q<Button>(machineName);
+        Btn_machine = forgeUI.rootVisualElement.Q<Button>(name);
+        VE_cadre = forgeUI.rootVisualElement.Q<Button>(name);
 
         if(isBlackBorder)
         {
-            cadre.style.display = DisplayStyle.None;
+            VE_cadre.style.display = DisplayStyle.None;
             
-            Btn_Button = forgeUI.rootVisualElement.Q<Button>(machineName + "bis");
-            cadre = forgeUI.rootVisualElement.Q<Button>(machineName + "bis");
+            Btn_machine = forgeUI.rootVisualElement.Q<Button>(name + "bis");
+            VE_cadre = forgeUI.rootVisualElement.Q<Button>(name + "bis");
         }
        
-        cadre.style.visibility = Visibility.Visible;
-        contenerMachine1 = Btn_Button.Q<VisualElement>("contener");
+        VE_cadre.style.visibility = Visibility.Visible;
+        VE_container = Btn_machine.Q<VisualElement>("contener");
 
-        upButtonMachine1 = Btn_Button.Q<Button>("up");
-        progressMachine = Btn_Button.Query<VisualElement>("progressMachine1");
-        locked = Btn_Button.Query<VisualElement>("locked");
-        levelLabelMachine1 = Btn_Button.Query<Label>("level");
-        levelCostLabelMachine1 = Btn_Button.Query<Label>("levelCost");
-        timeLabelMachine1 = Btn_Button.Query<Label>("time");
-        earnLabelMachine1 = Btn_Button.Query<Label>("earn");
-        priceMachineLabel = Btn_Button.Query<Label>("priceMachine");
-        lockedLevel = Btn_Button.Query<Label>("levelLocked");
-        machineTimeMaxReel = machineTimeMax1 * Stats.Instance.machineTimeReducer;
+        Btn_LevelUp = Btn_machine.Q<Button>("up");
+        VE_progressBarre = Btn_machine.Query<VisualElement>("progressMachine1");
+        VE_lockedCover = Btn_machine.Query<VisualElement>("locked");
+        Lbl_level = Btn_machine.Query<Label>("level");
+        Lbl_cost = Btn_machine.Query<Label>("levelCost");
+        Lbl_time = Btn_machine.Query<Label>("time");
+        Lbl_earn = Btn_machine.Query<Label>("earn");
+        Lbl_price = Btn_machine.Query<Label>("priceMachine");
+        Lbl_lockedLevel = Btn_machine.Query<Label>("levelLocked");
+        timeMaxReal = timeMax * Stats.Instance.machineTimeReducer;
 
-        machineLevelLimite = Stats.Instance.level +1;
-        if(machineLevelLimite > machineLevelMax)
+        levelLimite = Stats.Instance.level +1;
+        if(levelLimite > levelMax)
         {
-            machineLevelLimite = machineLevelMax;
+            levelLimite = levelMax;
         }
 
-        if (earnLabelMachine1 != null)
+        if (Lbl_earn != null)
         {
-            earnLabelMachine1.text = machineEarn1.ToString();
-            if(machineLevel1 == machineLevelMax)
+            Lbl_earn.text = BN_earn.ToString();
+            if(level == levelMax)
             {
-                levelLabelMachine1.text = "UP";
+                Lbl_level.text = "UP";
             }
             else
             {
-                levelLabelMachine1.text = machineLevel1 + "/" + machineLevelMax;
+                Lbl_level.text = level + "/" + levelMax;
             }
             
 
-            Btn_Button.clicked += machine1Clicked;
-            if(priceMachineLabel != null)
+            Btn_machine.clicked += machine1Clicked;
+            if(Lbl_cost != null)
             {
-                priceMachineLabel.text = priceMachine.ToString();
+                Lbl_cost.text = BN_price.ToString();
             }
-            cadre.style.visibility = Visibility.Visible;
+            VE_cadre.style.visibility = Visibility.Visible;
 
-            cadre.style.translate = new Translate(0, gap, 0);
+            VE_cadre.style.translate = new Translate(0, gap, 0);
         }
         
 
-        upButtonMachine1.clicked += upMachine1Clicked;
-        levelCostMachine1 = CalculUpgradeCost();
+        Btn_LevelUp.clicked += upMachine1Clicked;
+        BN_levelCost = CalculUpgradeCost();
         CalculEarn();
-        timeLabelMachine1.text = machineTimeMaxReel.ToString("F1") + "s";
-        if (levelCostLabelMachine1 != null)
+        Lbl_time.text = timeMaxReal.ToString("F1") + "s";
+        if (Lbl_cost != null)
         {
-            levelCostLabelMachine1.text = levelCostMachine1.ToString();
+            Lbl_cost.text = BN_levelCost.ToString();
         }
 
        
 
-        if (contenerMachine1 != null)
+        if (VE_container != null)
         {
             if (isActive)
             {
-                contenerMachine1.style.display = DisplayStyle.None;
+                VE_container.style.display = DisplayStyle.None;
             }
             else
             {
-                contenerMachine1.style.display = DisplayStyle.Flex;
+                VE_container.style.display = DisplayStyle.Flex;
             }
         }
         if (!isVisible && !isActive)
         {
-            Btn_Button.style.display = DisplayStyle.None;
+            Btn_machine.style.display = DisplayStyle.None;
         }
         if (isVisible)
         {
-            Btn_Button.style.display = DisplayStyle.Flex;
+            Btn_machine.style.display = DisplayStyle.Flex;
         }
 
         setBorderColor();
@@ -162,59 +163,59 @@ public class Machine
     public void upMachineCostText()
     {
         multiplicator = UpMode.Instance.upModeMultiplicator;
-        if (multiplicator > machineLevelLimite - machineLevel1)
+        if (multiplicator > levelLimite - level)
         {
-            multiplicator = machineLevelLimite - machineLevel1;
+            multiplicator = levelLimite - level;
         }
-        if (levelCostLabelMachine1 != null)
+        if (Lbl_cost != null)
         {
 
-            if (Stats.Instance.level < machineLevel1)
+            if (Stats.Instance.level < level)
             {
-                if (locked != null)
+                if (VE_lockedCover != null)
                 {
-                    locked.style.visibility = Visibility.Visible;
-                    lockedLevel.text = (machineLevelLimite).ToString();
+                    VE_lockedCover.style.visibility = Visibility.Visible;
+                    Lbl_lockedLevel.text = (levelLimite).ToString();
+                    Debug.LogWarning("lock machine " + name);
                 }
             }
             else
             {
-                if(locked != null)
+                if(VE_lockedCover != null)
                 {
-                    locked.style.visibility = Visibility.Hidden;
+                    VE_lockedCover.style.visibility = Visibility.Hidden;
+                    Debug.Log("unlock machine " + name);
                 }
 
             }
-            BigNumber convertInit = new BigNumber(initialLevelCostMachine1.Mantisse, initialLevelCostMachine1.Exp);
+            BigNumber convertInit = new BigNumber(BN_initLevelCost.Mantisse, BN_initLevelCost.Exp);
             convertInit = CalculUpgradeCost();
-            levelCostLabelMachine1.text = convertInit.ToString();
-            levelCostLabelMachine1.style.visibility = Visibility.Visible;
+            Lbl_cost.text = convertInit.ToString();
+            Lbl_cost.style.visibility = Visibility.Visible;
         }
     }
 
     protected virtual BigNumber CalculUpgradeCost()
-    {
-        BigNumber calculedNumber = new BigNumber(1, 0);
-        BigNumber convertInit;
+    { 
+        float n = realLevel;
+        BigNumber calculedNumber = new BigNumber(0);
 
-        /*float baseCost = 10f;
-        float cost = baseCost * realMachineLevel1 * */
-
-
-/*        float currentPow = Mathf.Pow(1.60f, realMachineLevel1); // début de la suite
-        for (int i = 0; i < multiplicator; i++)
+        if (multiplicator == 0)//changement de grade ( ex : fer -> or )
         {
-            convertInit = new BigNumber(initialLevelCostMachine1.Mantisse, initialLevelCostMachine1.Exp);
-            convertInit.Multiply(Stats.Instance.upgradesPriceReducer * currentPow);
-            calculedNumber.Add(convertInit);
-            currentPow = 1.6f;
+            calculedNumber = new BigNumber(BN_price.Mantisse, BN_price.Exp);
+            calculedNumber.Multiply(5 * Mathf.Pow(n, 1.7f));
+            calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer);
         }
-        if(multiplicator == 0)
+        else
         {
-            convertInit = new BigNumber(initialLevelCostMachine1.Mantisse, initialLevelCostMachine1.Exp);
-            convertInit.Multiply(3* Stats.Instance.upgradesPriceReducer * Mathf.Pow(1.50f, realMachineLevel1));
-            calculedNumber.Add(convertInit);
-        }*/
+            for (int i = 0; i < multiplicator; i++)
+            {
+                BigNumber temp = new BigNumber(BN_price.Mantisse, BN_price.Exp);
+                temp.Multiply(Mathf.Pow(n + i, 1.7f));
+                temp.Multiply(Stats.Instance.upgradesPriceReducer);
+                calculedNumber.Add(temp);
+            }
+        }
 
         calculedNumber.Normalize();
         return calculedNumber;
@@ -223,46 +224,46 @@ public class Machine
     protected virtual void CalculEarn()
     {
 
-        machineEarn1 = new BigNumber(initialEarnCostMachine1.Mantisse, initialEarnCostMachine1.Exp);
-        machineEarn1.Multiply(Mathf.Pow(1.20f, realMachineLevel1));
-        machineEarn1.Add(realMachineLevel1 - 1);
+        BN_earn = new BigNumber(BN_initEarn.Mantisse, BN_initEarn.Exp);
+        BN_earn.Multiply(Mathf.Pow(1.20f, realLevel));
+        BN_earn.Add(realLevel - 1);
     }
 
     protected virtual void PayCost()
     {
-        levelCostMachine1 = CalculUpgradeCost();
-        Stats.Instance.upIron(levelCostMachine1, false);
+        BN_levelCost = CalculUpgradeCost();
+        Stats.Instance.upIron(BN_levelCost, false);
     }
 
     protected virtual void upMachine1Clicked()
     {
 
-        if (machineLevel1 < machineLevelLimite)
+        if (level < levelLimite)
         {
             PayCost();
             multiplicator = UpMode.Instance.upModeMultiplicator;
-            if (multiplicator > machineLevelLimite - machineLevel1)
+            if (multiplicator > levelLimite - level)
             {
-                multiplicator = machineLevelLimite - machineLevel1;
+                multiplicator = levelLimite - level;
                 if (multiplicator == 0)
                 {
                     multiplicator++;
                 }
             }
-            machineLevel1 += multiplicator;
-            realMachineLevel1 += multiplicator;
+            level += multiplicator;
+            realLevel += multiplicator;
 
 
             CalculEarn();
 
-            levelLabelMachine1.text = machineLevel1 + "/" + machineLevelMax;
-            earnLabelMachine1.text = machineEarn1.ToString();
-            timeLabelMachine1.text = machineTimeMaxReel.ToString("F1") + "s";
-            levelCostLabelMachine1.text = levelCostMachine1.ToString();
+            Lbl_level.text = level + "/" + levelMax;
+            Lbl_earn.text = BN_earn.ToString();
+            Lbl_time.text = timeMaxReal.ToString("F1") + "s";
+            Lbl_cost.text = BN_levelCost.ToString();
 
-            if (machineLevel1 == machineLevelLimite)
+            if (level == levelLimite)
             {
-                progressMachine.style.width = Length.Percent(100);
+                VE_progressBarre.style.width = Length.Percent(100);
             }
 
             if(MainUi.Instance.questUI.type == QuestUI.questType.upMachines)
@@ -270,7 +271,7 @@ public class Machine
                 MainUi.Instance.questUI.upQuest();
             }
         }
-        else if (machineLevel1 >= machineLevelMax)
+        else if (level >= levelMax)
         {
             PayCost();
             borderColorMachine++;
@@ -278,22 +279,22 @@ public class Machine
             if (borderColorMachine != borderColor.black)
             {
 
-                machineLevel1 = 1;
+                level = 1;
 
-                machineTimeMax1 -= machineTimeMax1 / 3;
-                machineTimeMaxReel -= machineTimeMaxReel / 3;
-                timeLabelMachine1.text = machineTimeMaxReel.ToString("F1") + "s";
-                levelLabelMachine1.text = "1/" + machineLevelMax;
-                progressMachine.style.width = Length.Percent(100);
+                timeMax -= timeMax / 3;
+                timeMaxReal -= timeMaxReal / 3;
+                Lbl_time.text = timeMaxReal.ToString("F1") + "s";
+                Lbl_level.text = "1/" + levelMax;
+                VE_progressBarre.style.width = Length.Percent(100);
             }
             else
             {
-                machineTimeMax1 -= machineTimeMax1 / 3;
-                machineTimeMaxReel -= machineTimeMaxReel / 3;
-                timeLabelMachine1.text = machineTimeMaxReel.ToString("F1") + "s";
-                if(levelLabelMachine1 != null)
+                timeMax -= timeMax / 3;
+                timeMaxReal -= timeMaxReal / 3;
+                Lbl_time.text = timeMaxReal.ToString("F1") + "s";
+                if(Lbl_level != null)
                 {
-                    levelLabelMachine1.text = "max";
+                    Lbl_level.text = "max";
                 }
 
             }
@@ -308,28 +309,28 @@ public class Machine
             upMachineCostText();
             if (isActive)
             {
-                if (machineTime1 >= 0)
+                if (time >= 0)
                 {
-                    machineTime1 += Time.deltaTime;
-                    if (timeLabelMachine1 != null)
+                    time += Time.deltaTime;
+                    if (Lbl_time != null)
                     {
-                        timeLabelMachine1.text = (machineTimeMaxReel - machineTime1).ToString("F1") + "s";
-                        if (machineTime1 / machineTimeMaxReel > 0)
+                        Lbl_time.text = (timeMaxReal - time).ToString("F1") + "s";
+                        if (time / timeMaxReal > 0)
                         {
-                            progressMachine.style.width = Length.Percent((machineTime1 / machineTimeMaxReel) * 100);
+                            VE_progressBarre.style.width = Length.Percent((time / timeMaxReal) * 100);
                         }
                     }
 
-                    if (machineTime1 >= machineTimeMaxReel)
+                    if (time >= timeMaxReal)
                     {
-                        if (earnLabelMachine1 != null)
+                        if (Lbl_earn != null)
                         {
-                            Stats.Instance.upIron(machineEarn1, true);
+                            Stats.Instance.upIron(BN_earn, true);
                         }
-                        machineTime1 = -1;
-                        if (timeLabelMachine1 != null)
+                        time = -1;
+                        if (Lbl_time != null)
                         {
-                            timeLabelMachine1.text = machineTimeMaxReel.ToString("F1") + "s";
+                            Lbl_time.text = timeMaxReal.ToString("F1") + "s";
                             
                         }
 
@@ -344,21 +345,21 @@ public class Machine
             if (isActive)
             {
                 animAutoBar();
-                machineTime1 += Time.deltaTime;
-                BigNumber earnPerScd = new BigNumber(machineEarn1.Mantisse, machineEarn1.Exp);
-                earnPerScd.Divide(machineTimeMaxReel);
-                if (timeLabelMachine1 != null)
+                time += Time.deltaTime;
+                BigNumber earnPerScd = new BigNumber(BN_earn.Mantisse, BN_earn.Exp);
+                earnPerScd.Divide(timeMaxReal);
+                if (Lbl_time != null)
                 {
-                    timeLabelMachine1.text = "";
-                    earnLabelMachine1.text = earnPerScd + " / s";
-                    progressMachine.style.width = Length.Percent(100);
+                    Lbl_time.text = "";
+                    Lbl_earn.text = earnPerScd + " / s";
+                    VE_progressBarre.style.width = Length.Percent(100);
                 }
 
-                if (earnLabelMachine1 != null)
+                if (Lbl_earn != null)
                 {
                     Stats.Instance.upIron(earnPerScd, true);
                 }
-                machineTime1 = 0f;
+                time = 0f;
                 
 
             }
@@ -371,9 +372,9 @@ public class Machine
         timerAuto+= Time.deltaTime;
         string path = "bar/barAnim" + cptAuto;
         Texture2D texture = Resources.Load<Texture2D>(path);
-        if(texture != null && progressMachine != null)
+        if(texture != null && VE_progressBarre != null)
         {
-            progressMachine.style.backgroundImage = texture;
+            VE_progressBarre.style.backgroundImage = texture;
         }
         if (timerAuto > 0.08f)
         {
@@ -395,22 +396,22 @@ public class Machine
         switch (borderColorMachine)
         {
             case borderColor.bronze:
-                machineLevelMax = 10;
+                levelMax = 10;
                 pathCadre += "/bronze/cadre";
                 pathButton += "/bronze/button";
                 break;
             case borderColor.silver:
-                machineLevelMax = 25;
+                levelMax = 25;
                 pathCadre += "/iron/cadre";
                 pathButton += "/iron/button";
                 break;
             case borderColor.gold:
-                machineLevelMax = 50;
+                levelMax = 50;
                 pathCadre += "/gold/cadre";
                 pathButton += "/gold/button";
                 break;
             case borderColor.diamand:
-                machineLevelMax = 100;
+                levelMax = 100;
                 pathCadre += "/Diamand/cadre";
                 pathButton += "/Diamand/button";
                 break;
@@ -423,25 +424,25 @@ public class Machine
         Texture2D textureButton = Resources.Load<Texture2D>(pathButton);
         if (textureCadre != null)
         {
-            upButtonMachine1.style.backgroundImage = new StyleBackground(textureCadre);
-            upButtonMachine1.style.backgroundSize = new BackgroundSize(Length.Percent(101.5f), Length.Percent(74.5f));
-            upButtonMachine1.style.backgroundPositionX = new BackgroundPosition(BackgroundPositionKeyword.Center);
-            upButtonMachine1.style.backgroundPositionY = new BackgroundPosition(BackgroundPositionKeyword.Center);
+            Btn_LevelUp.style.backgroundImage = new StyleBackground(textureCadre);
+            Btn_LevelUp.style.backgroundSize = new BackgroundSize(Length.Percent(101.5f), Length.Percent(74.5f));
+            Btn_LevelUp.style.backgroundPositionX = new BackgroundPosition(BackgroundPositionKeyword.Center);
+            Btn_LevelUp.style.backgroundPositionY = new BackgroundPosition(BackgroundPositionKeyword.Center);
         }
 
 
         if (textureCadre != null)
         {
-            cadre.style.backgroundImage = textureCadre;
-            upButtonMachine1.style.backgroundImage = textureButton;
+            VE_cadre.style.backgroundImage = textureCadre;
+            Btn_LevelUp.style.backgroundImage = textureButton;
         }
         else
         { 
         }
-        machineLevelLimite = Stats.Instance.level +1;
-        if (machineLevelLimite > machineLevelMax)
+        levelLimite = Stats.Instance.level +1;
+        if (levelLimite > levelMax)
         {
-            machineLevelLimite = machineLevelMax;
+            levelLimite = levelMax;
         }
     }
 
