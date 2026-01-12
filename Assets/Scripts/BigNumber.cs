@@ -1,4 +1,6 @@
 using NUnit.Framework.Constraints;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -22,6 +24,13 @@ public class BigNumber
     }
 
     public BigNumber(BigNumber other) 
+    {
+        Mantisse = other.Mantisse;
+        Exp = other.Exp;
+        Normalize();
+    }
+
+    public void Set(BigNumber other)
     {
         Mantisse = other.Mantisse;
         Exp = other.Exp;
@@ -57,6 +66,16 @@ public class BigNumber
 
     }
 
+    public static BigNumber operator +(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        BigNumber result = new BigNumber(a); // ou new BigNumber(a)
+        result.Add(b);
+        return result;
+    }
+
     public void Add(BigNumber n)
     {
         if (n.Exp > Exp)
@@ -88,6 +107,16 @@ public class BigNumber
         Normalize();
     }
 
+    public static BigNumber operator -(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        BigNumber result = new BigNumber(a); // ou new BigNumber(a)
+        result.Subtract(b);
+        return result;
+    }
+
     public void Subtract(BigNumber n)
     {
         if (n.Exp > Exp)
@@ -108,6 +137,16 @@ public class BigNumber
             Mantisse -= n.Mantisse;
         }
         Normalize();
+    }
+
+    public static BigNumber operator *(BigNumber a, float b)
+    {
+        if (a is null)
+            throw new ArgumentNullException();
+
+        BigNumber result = new BigNumber(a); // ou new BigNumber(a)
+        result.Multiply(b);
+        return result;
     }
 
     public void Multiply(float n)
@@ -211,6 +250,21 @@ public class BigNumber
         return Mantisse.ToString("F2") + "e" + Exp; 
     }
 
+    public static bool operator >(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        return a.isBigger(b);
+    }
+    public static bool operator <(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        return b.isBigger(a);
+    }
+
     public bool isBigger(int n)
     {
         BigNumber nBig = new BigNumber(n, 1);
@@ -248,12 +302,33 @@ public class BigNumber
         return true;
     }
 
-    public bool Equal(BigNumber other)
+    public override bool Equals(object obj)
     {
-        if (other.Exp != Exp) return false;
-        if (Mantisse != other.Mantisse) return false;
-        return true;
+        if (obj == null) return false;
+        if (obj is not BigNumber other) return false;
+
+        return Exp == other.Exp && Mantisse == other.Mantisse;
     }
+
+    public static bool operator ==(BigNumber a, BigNumber b)
+    {
+        if (ReferenceEquals(a, b)) return true;
+        if (a is null || b is null) return false;
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(BigNumber a, BigNumber b)
+    {
+        return !(a == b);
+    }
+
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Exp, Mantisse);
+    }
+
+
 
     public static string floatToTimeHour(float time)
     {

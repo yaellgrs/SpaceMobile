@@ -70,11 +70,11 @@ public class Lazer : MonoBehaviour
                 {
                     if (critic)
                     {
-                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), PoolManager.markerType.Critique);
+                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Critique);
                     }
                     else
                     {
-                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), PoolManager.markerType.Damage);
+                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Damage);
                     }
                         
                 }

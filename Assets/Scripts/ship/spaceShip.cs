@@ -75,7 +75,7 @@ public class spaceShip : MonoBehaviour
 
     private void Animation()
     {
-        float speed = animSpeed * UpSpeed.Instance.upModeMultiplicator;
+        float speed = animSpeed * UpSpeed.Instance.upModeMultiplicator * 100 * Time.deltaTime;
         if (animUp)
         {
             Vector3 pos = transform.position;

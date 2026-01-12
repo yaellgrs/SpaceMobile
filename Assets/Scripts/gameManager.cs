@@ -128,36 +128,34 @@ public class gameManager : MonoBehaviour
 
     public void getStageReward()
     {
-        if(Random.Range(0, 2) == 1)
-        {
-            //xp
-            float xp = Stats.Instance.stage * 1.25f * 5;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+        float reward;
+        MarkerType type;
+        if (Random.Range(0, 2) == 1)
+        {//xp
+            reward = Stats.Instance.stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
-            {
-                xp *= 2;
-            }
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
-            PoolManager.Instance.LaunchPrefab(worldPos, xp.ToString("F0"), PoolManager.markerType.Xp, 0.1f, 0.97f);
-            Stats.Instance.AddXP(xp);
+                reward *= 2;
+            Stats.Instance.AddXP(new BigNumber(reward));
+            type = MarkerType.Xp;
         }
-        else
+        else 
         {
             if(Stats.Instance.uraniumUnlocked && Random.Range(0, 2) == 1)
-            {
-                //uranium
-                int uranium = (int)(Stats.Instance.stage * 0.5f);
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
-                PoolManager.Instance.LaunchPrefab(worldPos, uranium.ToString(), PoolManager.markerType.Uranium, 0.1f, 0.97f);
-                Stats.Instance.upUranium(new BigNumber(uranium), true);
+            {//uranium 
+                reward = (int)(Stats.Instance.stage * 0.5f);
+                type = MarkerType.Uranium;
+                Stats.Instance.upUranium(new BigNumber(reward), true);
+
             }
             else
-            {
-                int iron = (int)(Stats.Instance.stage * 2.5f);
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
-                PoolManager.Instance.LaunchPrefab(worldPos, iron.ToString(), PoolManager.markerType.Iron, 0.1f, 0.97f);
-                Stats.Instance.upIron(new BigNumber(iron), true);
+            {//iron
+                reward  = (int)(Stats.Instance.stage * 2.5f);
+                type = MarkerType.Iron;
+                Stats.Instance.upIron(new BigNumber(reward), true);
             }
         }
+        PoolManager.Instance.LaunchPrefab(worldPos, reward.ToString(), type, 0.1f, 0.985f);
     }
 
     public void SmallVibrate()
@@ -168,7 +166,6 @@ public class gameManager : MonoBehaviour
 
         if (!Settings.Instance.isVibrate) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
-        // Pattern : [pause, vibrate, pause, vibrate...]
         long[] pattern = {0, 50}; // 50ms vibration
         AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
@@ -176,7 +173,6 @@ public class gameManager : MonoBehaviour
         AndroidJavaObject vibrator = context.Call<AndroidJavaObject>("getSystemService", "vibrator");
         vibrator.Call("vibrate", pattern, -1); // -1 = no repeat
 #endif
-
     }
 
     private void spawnSpaceObject()

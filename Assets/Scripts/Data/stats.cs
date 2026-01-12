@@ -14,8 +14,8 @@ public class Stats
 
     public int stage = 1;
 
-    public float xp = 0;
-    public float xpLevelUp = 100;
+    public BigNumber xp = new BigNumber(0);
+    public BigNumber xpLevelUp = new BigNumber(100);
     public int level = 1;
     public int diamand = 1;
 
@@ -121,14 +121,12 @@ public class Stats
         }
     }
 
-    public void AddXP(float amount)
+    public void AddXP(BigNumber amount)
     {
         xp += amount;
         if (xp > xpLevelUp)
         {
             MainUi.Instance.xpUI.LevelUp();
-            xp = 0f;
-            xpLevelUp *= 1.5f;
         }
         MainUi.Instance.upLevelUI();
     }
@@ -162,11 +160,11 @@ public class Stats
     {
         if (positive)
         {
-            uranium.Add(amount);
+            uranium += amount;
         }
         else
         {
-            uranium.Subtract(amount);
+            uranium -= amount;
         }
         MainUi.Instance.upUraniumUI();
     }
@@ -239,11 +237,11 @@ public class Stats
         
         if (positive)
         {
-            lifeMax.Add(amount);
+            lifeMax += amount;
         }
         else
         {
-            lifeMax.Subtract(amount);
+            lifeMax -= amount;
         }
     }
 
@@ -259,8 +257,8 @@ public class Stats
             string data = System.IO.File.ReadAllText(path);
             Instance = JsonUtility.FromJson<Stats>(data);
         }
-        Instance.life = new BigNumber(spaceShip.instance.getMaxLife());
-        Instance.shield = new BigNumber(spaceShip.instance.getMaxShield());
+        Instance.life.Set(spaceShip.instance.getMaxLife());
+        Instance.shield.Set(spaceShip.instance.getMaxShield());
     }
 
     public void save() {

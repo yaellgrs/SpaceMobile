@@ -88,7 +88,7 @@ public class QuestUI : MonoBehaviour
         loadQuest();
 
         diamandReward.text = reward.ToString();
-        xpReward.text = CalculXpReward().ToString("F0");
+        xpReward.text = CalculXpReward().ToString();
 
         back.clicked -= Close;
         exit.clicked -= Close;
@@ -334,8 +334,10 @@ public class QuestUI : MonoBehaviour
     }
 
 
-    private float CalculXpReward()
+    private BigNumber CalculXpReward()
     {
-        return Stats.Instance.xpLevelUp*0.25f;
+        BigNumber reward = new BigNumber(Stats.Instance.xpLevelUp);
+        reward.Multiply(0.25f);
+        return reward;
     }
 }

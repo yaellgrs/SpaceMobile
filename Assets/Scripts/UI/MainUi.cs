@@ -252,7 +252,9 @@ public class MainUi : MonoBehaviour
         if( stageClearTimer >= 0)
         {
             stageClearTimer += Time.deltaTime;
-            stageClearLabel.style.color = new Color(255, 255, 255, stageClearLabel.style.color.value.a * 0.985f);
+
+            float normalizedAlpha = Mathf.Pow(0.985f, Time.deltaTime * 60f);
+            stageClearLabel.style.color = new Color(255, 255, 255, stageClearLabel.style.color.value.a * normalizedAlpha);
             if ( stageClearTimer > 2f)
             {
                 stageClearLabel.style.visibility = Visibility.Hidden;
@@ -298,7 +300,7 @@ public class MainUi : MonoBehaviour
         }
         xpLabel.text = Stats.Instance.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
-        float targetPercent = Stats.Instance.xp / Stats.Instance.xpLevelUp * 100;
+        float targetPercent = Stats.Instance.xp.GetPercentByDivided(Stats.Instance.xpLevelUp);
 
         if (currentPercent < targetPercent - 0.25f)
         {

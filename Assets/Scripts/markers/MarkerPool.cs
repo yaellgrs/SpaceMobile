@@ -8,10 +8,10 @@ public class MarkerPool : MonoBehaviour
 {
     private List<XpMarker> pool = new List<XpMarker>();
 
-    public PoolManager.markerType type;
+    public MarkerType type;
     public XpMarker prefab;
 
-    public MarkerPool(XpMarker NewPrefab, PoolManager.markerType newType)
+    public MarkerPool(XpMarker NewPrefab, MarkerType newType)
     {
         prefab = NewPrefab;
         type = newType;

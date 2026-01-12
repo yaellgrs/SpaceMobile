@@ -272,14 +272,14 @@ public class spaceObject : MonoBehaviour
             if (Settings.Instance.displayXpMarker)
             {
                 Stats.Instance.AddXP(calculXp());
-                PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), PoolManager.markerType.Xp);
+                PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
         }
         //Death
         if (isOmega)
         {
             Stats.Instance.upPrestigeWaiting(new BigNumber(Stats.Instance.stage), true);
-            PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), PoolManager.markerType.Prestige);
+            PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
         }
         if (type == meteorType.Scatter)
         {
@@ -327,20 +327,21 @@ public class spaceObject : MonoBehaviour
         }
     }
 
-    public float calculXp()
+    public BigNumber calculXp()
     {
-        float xp = Stats.Instance.stage * 1.25f;
+        BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
 
         switch (type)
         {
             case meteorType.Big:
-                xp *= 5f;
+                result *= 5f;
                 break;
         }
         if(Stats.Instance.xpBoostTime > 0)
         {
-            xp *= 2;
+            result *= 2;
         }
-        return xp * Stats.Instance.XpMultiplicator;
+        result *= Stats.Instance.XpMultiplicator;
+        return result;
     }
 }

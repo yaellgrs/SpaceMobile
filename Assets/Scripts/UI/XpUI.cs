@@ -90,8 +90,8 @@ public class XpUI : MonoBehaviour
         }
         else
         {
-            xpBar.style.width = Length.Percent(((float)Stats.Instance.xp / Stats.Instance.xpLevelUp) * 100);
-            xpLabel.text = Stats.Instance.xp.ToString("F1") + "/" + Stats.Instance.xpLevelUp.ToString("F1") + "XP";
+            xpBar.style.width = Stats.Instance.xp.GetPercentByDivided(Stats.Instance.xpLevelUp);
+            xpLabel.text = Stats.Instance.xp.ToString() + "/" + Stats.Instance.xpLevelUp.ToString() + "XP";
         }
 
 
@@ -156,6 +156,8 @@ public class XpUI : MonoBehaviour
 
         if (Stats.Instance.level % 2 == 0) loadLevelUpUI();
 
+        Stats.Instance.xp = new BigNumber(0f);
+        Stats.Instance.xpLevelUp = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
 
         loadBonus();
 

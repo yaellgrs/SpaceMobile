@@ -176,7 +176,6 @@ public class Machine
                 {
                     VE_lockedCover.style.visibility = Visibility.Visible;
                     Lbl_lockedLevel.text = (levelLimite).ToString();
-                    Debug.LogWarning("lock machine " + name);
                 }
             }
             else
@@ -184,9 +183,7 @@ public class Machine
                 if(VE_lockedCover != null)
                 {
                     VE_lockedCover.style.visibility = Visibility.Hidden;
-                    Debug.Log("unlock machine " + name);
                 }
-
             }
             BigNumber convertInit = new BigNumber(BN_initLevelCost.Mantisse, BN_initLevelCost.Exp);
             convertInit = CalculUpgradeCost();

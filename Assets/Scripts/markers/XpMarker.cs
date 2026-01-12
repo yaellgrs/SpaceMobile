@@ -12,19 +12,19 @@ public class XpMarker : MonoBehaviour
 
     private const float DISPLAY_TIME = 2f;  
     private const float MOVE_Y = 0.025f;  
-    public float alpha_decrease = 0.96f;
+    public float alpha_decrease = 0.975f;
     public float speed = 1f;
 
-    public PoolManager.markerType type;
+    public MarkerType type;
 
     public void init(Vector3 position, string xp)
     {
-        if (type == PoolManager.markerType.Damage || type == PoolManager.markerType.Critique)
+        if (type == MarkerType.Damage || type == MarkerType.Critique)
         {
             label.text = "-" + xp;
             position.y += 0.3f;
         }
-        else if (type == PoolManager.markerType.Iron || type == PoolManager.markerType.Uranium || type == PoolManager.markerType.Prestige || type == PoolManager.markerType.Xp)
+        else if (type == MarkerType.Iron || type == MarkerType.Uranium || type == MarkerType.Prestige || type == MarkerType.Xp)
         {
             label.text = "+" + xp;
             position.y += 0.3f;
@@ -47,14 +47,16 @@ public class XpMarker : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        transform.position = transform.position + new Vector3(0f, MOVE_Y * speed, 0);
-        if(label != null)
+        transform.position = transform.position + new Vector3(0f, MOVE_Y * speed * 50 * Time.deltaTime, 0);
+        float alphaNormalized = Mathf.Pow(alpha_decrease, Time.deltaTime * 60f);
+        Debug.Log("alpha decrease by : " + alphaNormalized);
+        if (label != null)
         {
-            label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * alpha_decrease);
+            label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * alphaNormalized);
         }
         if (img != null)
         {
-            img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a * alpha_decrease);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a * alphaNormalized);
         }
 
         if(timer > DISPLAY_TIME)
