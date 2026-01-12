@@ -50,7 +50,7 @@ public class DevTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             Stats.Instance.stage++;
-            gameManager.instance.DestroyMeteors();
+            gameManager.instance.RestartStage();
             MainUi.Instance.upStage();
         }
         if (Input.GetKeyDown(KeyCode.L))

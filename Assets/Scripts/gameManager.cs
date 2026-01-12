@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static spaceObject;
 using static UnityEngine.Rendering.DebugUI;
 
 public class gameManager : MonoBehaviour
@@ -27,6 +28,8 @@ public class gameManager : MonoBehaviour
     private Vector3 initialScale;
 
     private BigNumber enemyLife = new BigNumber(1, 0);
+    public BigNumber BN_ironEarned = new BigNumber(0);
+    public BigNumber BN_xpEarned = new BigNumber(0);
 
     public bool isPaused = false;
 
@@ -91,7 +94,7 @@ public class gameManager : MonoBehaviour
             spawnSpaceObject();
             timer = 0f;
         }
-        upStage();
+        updateStage();
         if(autoSaveTimer > 10f)
         {
             Stats.Instance.save();
@@ -99,7 +102,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void upStage()
+    public void updateStage()
     {
         if (meteorKilled >= meteorToKill)
         {
@@ -120,6 +123,29 @@ public class gameManager : MonoBehaviour
                     QuestStats.Instance.timeCompleted = Data.Instance.time;
                 }
             }
+        }
+    }
+
+    public void getStageReward()
+    {
+        if(Random.Range(0, 2) == 1)
+        {
+            //xp
+            float xp = Stats.Instance.stage * 1.25f * 5;
+            if (Stats.Instance.xpBoostTime > 0)
+            {
+                xp *= 2;
+            }
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+            PoolManager.Instance.LaunchPrefab(worldPos, xp.ToString("F0"), PoolManager.markerType.Xp, 0.1f, 0.97f);
+            Stats.Instance.AddXP(xp);
+        }
+        else
+        {
+            int iron = (int)(Stats.Instance.stage* 2.5f);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+            PoolManager.Instance.LaunchPrefab(worldPos, iron.ToString(), PoolManager.markerType.Iron, 0.1f, 0.97f);
+            Stats.Instance.upIron(new BigNumber(iron), true);
         }
     }
 

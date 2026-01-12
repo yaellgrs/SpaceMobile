@@ -271,8 +271,7 @@ public class spaceObject : MonoBehaviour
         {
             if (Settings.Instance.displayXpMarker)
             {
-                Stats.Instance.xp += calculXp();
-                MainUi.Instance.upLevelUI();
+                Stats.Instance.AddXP(calculXp());
                 PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), PoolManager.markerType.Xp);
             }
         }

@@ -160,8 +160,7 @@ public class QuestUI : MonoBehaviour
     {
         QuestStats.Instance.questLevel++;
         Stats.Instance.upDiamand(reward, true);
-        Stats.Instance.xp += CalculXpReward();
-        MainUi.Instance.upLevelUI();
+        Stats.Instance.AddXP(CalculXpReward());
 
         //tout remettre a 0
         QuestStats.Instance.progress = new BigNumber(0);

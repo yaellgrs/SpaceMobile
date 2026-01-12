@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -234,10 +235,7 @@ public class MainUi : MonoBehaviour
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
-        if (Stats.Instance.xp > Stats.Instance.xpLevelUp)
-        {
-            xpUI.LevelUp();
-        }
+
 
         if(rocketTimer > 0 &&  !gameManager.instance.isPaused)
         {
@@ -254,7 +252,7 @@ public class MainUi : MonoBehaviour
         if( stageClearTimer >= 0)
         {
             stageClearTimer += Time.deltaTime;
-            stageClearLabel.style.color = new Color(255, 255, 255, stageClearLabel.style.color.value.a * 0.975f);
+            stageClearLabel.style.color = new Color(255, 255, 255, stageClearLabel.style.color.value.a * 0.985f);
             if ( stageClearTimer > 2f)
             {
                 stageClearLabel.style.visibility = Visibility.Hidden;
@@ -548,6 +546,7 @@ public class MainUi : MonoBehaviour
             stageClearLabel.style.color = new Color(255, 255, 255, 1f);
         }
 
+        gameManager.instance.getStageReward();
         stageClearTimer = 0f;
         spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)

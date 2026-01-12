@@ -93,6 +93,8 @@ public class XpUI : MonoBehaviour
             xpBar.style.width = Length.Percent(((float)Stats.Instance.xp / Stats.Instance.xpLevelUp) * 100);
             xpLabel.text = Stats.Instance.xp.ToString("F1") + "/" + Stats.Instance.xpLevelUp.ToString("F1") + "XP";
         }
+
+
             back.clicked -= Clicked;
         exit.clicked -= Clicked;
         back.clicked += Clicked;
@@ -154,10 +156,7 @@ public class XpUI : MonoBehaviour
 
         if (Stats.Instance.level % 2 == 0) loadLevelUpUI();
 
-        Stats.Instance.xp = 0f;
-        Stats.Instance.xpLevelUp *= 1.5f;
 
-        MainUi.Instance.upLevelUI();
         loadBonus();
 
         foreach(MachineIron m in Stats.Instance.machinesIron)

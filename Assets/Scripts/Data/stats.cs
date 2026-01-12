@@ -121,6 +121,18 @@ public class Stats
         }
     }
 
+    public void AddXP(float amount)
+    {
+        xp += amount;
+        if (xp > xpLevelUp)
+        {
+            MainUi.Instance.xpUI.LevelUp();
+            xp = 0f;
+            xpLevelUp *= 1.5f;
+        }
+        MainUi.Instance.upLevelUI();
+    }
+
     public void upDiamand(int amount, bool positive)
     {
         if (positive) {

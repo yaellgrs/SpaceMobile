@@ -10,6 +10,11 @@ public class XpMarker : MonoBehaviour
     public Image img;
     private float timer = 0f;
 
+    private const float DISPLAY_TIME = 2f;  
+    private const float MOVE_Y = 0.025f;  
+    public float alpha_decrease = 0.96f;
+    public float speed = 1f;
+
     public PoolManager.markerType type;
 
     public void init(Vector3 position, string xp)
@@ -42,20 +47,17 @@ public class XpMarker : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        transform.position = transform.position + new Vector3(0f, 0.01f, 0);
+        transform.position = transform.position + new Vector3(0f, MOVE_Y * speed, 0);
         if(label != null)
         {
-            label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * 0.95f);
+            label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * alpha_decrease);
         }
         if (img != null)
         {
-            img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a * 0.95f);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a * alpha_decrease);
         }
-            
-        
 
-
-        if(timer > 2f)
+        if(timer > DISPLAY_TIME)
         {
             timer = 0f;
             PoolManager.Instance.returnPrefab(this);
