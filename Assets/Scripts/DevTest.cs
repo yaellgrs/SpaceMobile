@@ -18,21 +18,19 @@ public class DevTest : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            for(int i = 0; i < 5; i++ ) //level up 5 fois
+        if (Input.GetKeyDown(KeyCode.E)) {
+            int nombreLevel = 1;
+            for(int i = 0; i < nombreLevel; i++ ) //level up 5 fois
                 MainUi.Instance.xpUI.LevelUp();
 
             Stats.Instance.upPrestige(new BigNumber(1, 10), true); // donne 1^10 prestige
             Stats.Instance.upIron(new BigNumber(1, 10), true);// donne 1^10 fer
             Stats.Instance.upUranium(new BigNumber(1, 10), true);// donne 1^10 uranium
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
+        } 
+        if (Input.GetKeyDown(KeyCode.R)) {
             Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
+if (Input.GetKeyDown(KeyCode.S)) {
             Stats.Instance.stage += 10;
         }
         if (Input.GetKeyDown(KeyCode.L))
@@ -62,7 +60,7 @@ public class DevTest : MonoBehaviour
 
     private void testTutos()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1)) //touche 1 clavier
         {
             Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
         }
