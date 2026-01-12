@@ -23,12 +23,11 @@ public class UraniumUI : BaseUI
             machineNumber = 5,
             isVisible = false,
             isActive = false,
-            timeMax = 7200f,
+            timeMax = 100f,
             BN_levelCost = new BigNumber(2, 9),
-            BN_initLevelCost = new BigNumber(2, 9),
             BN_earn = new BigNumber(1, 8),
             BN_initEarn = new BigNumber(1, 8),
-            BN_price = new BigNumber(1, 12),
+            BN_price = new BigNumber(5, 12),
             automatic = false
         };
         machineUranium machine4 = new machineUranium()
@@ -37,12 +36,11 @@ public class UraniumUI : BaseUI
             machineNumber = 4,
             isVisible = false,
             isActive = false,
-            timeMax = 2500f,
+            timeMax = 45f,
             BN_levelCost = new BigNumber(4, 6),
-            BN_initLevelCost = new BigNumber(4, 6),
             BN_earn = new BigNumber(5, 5),
             BN_initEarn = new BigNumber(5, 5),
-            BN_price = new BigNumber(1, 9),
+            BN_price = new BigNumber(5, 9),
             automatic = false
         };
         machineUranium machine3 = new machineUranium()
@@ -52,12 +50,11 @@ public class UraniumUI : BaseUI
             machineNumber = 3,
             isVisible = false,
             isActive = false,
-            timeMax = 300f,
+            timeMax = 20f,
             BN_levelCost = new BigNumber(17.5f, 5),
-            BN_initLevelCost = new BigNumber(17.5f, 5),
             BN_earn = new BigNumber(2, 4),
             BN_initEarn = new BigNumber(2, 4),
-            BN_price = new BigNumber(1, 6),
+            BN_price = new BigNumber(5, 6),
             automatic = false
         };
 
@@ -68,12 +65,11 @@ public class UraniumUI : BaseUI
             machineNumber = 2,
             isActive = false,
             isVisible = true,
-            timeMax = 60f,
+            timeMax = 10f,
             BN_levelCost = new BigNumber(2, 3),
-            BN_initLevelCost = new BigNumber(2, 3),
             BN_earn = new BigNumber(2f, 2),
             BN_initEarn = new BigNumber(2f, 2),
-            BN_price = new BigNumber(1, 3),
+            BN_price = new BigNumber(5, 3),
             automatic = false
         };
 
@@ -84,11 +80,11 @@ public class UraniumUI : BaseUI
             machineNumber = 1,
             isActive = true,
             isVisible = true,
-            timeMax = 5f,
+            timeMax = 3f,
             BN_levelCost = new BigNumber(25, 0),
-            BN_initLevelCost = new BigNumber(25, 0),
             BN_earn = new BigNumber(1, 0),
             BN_initEarn = new BigNumber(1, 0),
+            BN_price = new BigNumber(20, 0),
             automatic = false
         };
 
