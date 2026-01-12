@@ -12,7 +12,7 @@ public class Machine
 
     public int machineNumber = 0;
     
-    public Button machine1;
+    public Button Btn_Button;
     protected Button upButtonMachine1;
     protected VisualElement progressMachine;
     protected VisualElement contenerMachine1;
@@ -63,29 +63,29 @@ public class Machine
     public virtual void loadMachine(UIDocument forgeUI)
     {
         forgeUilink = forgeUI;
-        machine1 = forgeUI.rootVisualElement.Q<Button>(machineName);
+        Btn_Button = forgeUI.rootVisualElement.Q<Button>(machineName);
         cadre = forgeUI.rootVisualElement.Q<Button>(machineName);
 
         if(isBlackBorder)
         {
             cadre.style.display = DisplayStyle.None;
             
-            machine1 = forgeUI.rootVisualElement.Q<Button>(machineName + "bis");
+            Btn_Button = forgeUI.rootVisualElement.Q<Button>(machineName + "bis");
             cadre = forgeUI.rootVisualElement.Q<Button>(machineName + "bis");
         }
        
         cadre.style.visibility = Visibility.Visible;
-        contenerMachine1 = machine1.Q<VisualElement>("contener");
+        contenerMachine1 = Btn_Button.Q<VisualElement>("contener");
 
-        upButtonMachine1 = machine1.Q<Button>("up");
-        progressMachine = machine1.Query<VisualElement>("progressMachine1");
-        locked = machine1.Query<VisualElement>("locked");
-        levelLabelMachine1 = machine1.Query<Label>("level");
-        levelCostLabelMachine1 = machine1.Query<Label>("levelCost");
-        timeLabelMachine1 = machine1.Query<Label>("time");
-        earnLabelMachine1 = machine1.Query<Label>("earn");
-        priceMachineLabel = machine1.Query<Label>("priceMachine");
-        lockedLevel = machine1.Query<Label>("levelLocked");
+        upButtonMachine1 = Btn_Button.Q<Button>("up");
+        progressMachine = Btn_Button.Query<VisualElement>("progressMachine1");
+        locked = Btn_Button.Query<VisualElement>("locked");
+        levelLabelMachine1 = Btn_Button.Query<Label>("level");
+        levelCostLabelMachine1 = Btn_Button.Query<Label>("levelCost");
+        timeLabelMachine1 = Btn_Button.Query<Label>("time");
+        earnLabelMachine1 = Btn_Button.Query<Label>("earn");
+        priceMachineLabel = Btn_Button.Query<Label>("priceMachine");
+        lockedLevel = Btn_Button.Query<Label>("levelLocked");
         machineTimeMaxReel = machineTimeMax1 * Stats.Instance.machineTimeReducer;
 
         machineLevelLimite = Stats.Instance.level +1;
@@ -107,7 +107,7 @@ public class Machine
             }
             
 
-            machine1.clicked += machine1Clicked;
+            Btn_Button.clicked += machine1Clicked;
             if(priceMachineLabel != null)
             {
                 priceMachineLabel.text = priceMachine.ToString();
@@ -142,11 +142,11 @@ public class Machine
         }
         if (!isVisible && !isActive)
         {
-            machine1.style.display = DisplayStyle.None;
+            Btn_Button.style.display = DisplayStyle.None;
         }
         if (isVisible)
         {
-            machine1.style.display = DisplayStyle.Flex;
+            Btn_Button.style.display = DisplayStyle.Flex;
         }
 
         setBorderColor();
@@ -196,7 +196,12 @@ public class Machine
     {
         BigNumber calculedNumber = new BigNumber(1, 0);
         BigNumber convertInit;
-        float currentPow = Mathf.Pow(1.60f, realMachineLevel1); // début de la suite
+
+        /*float baseCost = 10f;
+        float cost = baseCost * realMachineLevel1 * */
+
+
+/*        float currentPow = Mathf.Pow(1.60f, realMachineLevel1); // début de la suite
         for (int i = 0; i < multiplicator; i++)
         {
             convertInit = new BigNumber(initialLevelCostMachine1.Mantisse, initialLevelCostMachine1.Exp);
@@ -209,7 +214,7 @@ public class Machine
             convertInit = new BigNumber(initialLevelCostMachine1.Mantisse, initialLevelCostMachine1.Exp);
             convertInit.Multiply(3* Stats.Instance.upgradesPriceReducer * Mathf.Pow(1.50f, realMachineLevel1));
             calculedNumber.Add(convertInit);
-        }
+        }*/
 
         calculedNumber.Normalize();
         return calculedNumber;

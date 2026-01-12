@@ -17,7 +17,7 @@ public class gameManager : MonoBehaviour
     public spaceObject ironMeteorPrefab;
     public spaceObject uraniumMeteorPrefab;
 
-    float timeSpawnSpaceObjet = 2f; //2f
+    float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
     float timerSave;
     public int meteorToKill = 10;
@@ -99,7 +99,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    private void upStage()
+    public void upStage()
     {
         if (meteorKilled >= meteorToKill)
         {

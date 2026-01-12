@@ -145,6 +145,10 @@ MonoBehaviour:
     m_Key: UI_Tutos_rocket
     m_Metadata:
       m_Items: []
+  - m_Id: 72470977311510528
+    m_Key: UI_Settings_scientistNotation
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

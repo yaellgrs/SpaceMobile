@@ -142,6 +142,10 @@ MonoBehaviour:
     m_Localized: Rakete
     m_Metadata:
       m_Items: []
+  - m_Id: 72470977311510528
+    m_Localized: wissenschaftliche Notation
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

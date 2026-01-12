@@ -26,7 +26,7 @@ public class machineUranium : Machine
                     if (m.machineName == machinePlus)
                     {
                         m.isVisible = true;
-                        m.machine1.style.display = DisplayStyle.Flex;
+                        m.Btn_Button.style.display = DisplayStyle.Flex;
                     }
                 }
 

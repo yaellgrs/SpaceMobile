@@ -43,7 +43,12 @@ public class spaceObject : MonoBehaviour
             Spawn();
         }
 
-        lifeMax = new BigNumber((Mathf.Pow(1.2f, Stats.Instance.stage)));
+        int x = Stats.Instance.stage - 1;
+        float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
+        lifeMax = new BigNumber((int)hp);
+        //lifeMax = new BigNumber( 2 + (Mathf.Pow(1.2f, Stats.Instance.stage)));
+
+
         if(type == meteorType.Big)
         {
             lifeMax.Multiply(5);
@@ -119,7 +124,7 @@ public class spaceObject : MonoBehaviour
 
     public void loadSpeed()
     {
-        spaceObjectSpeed = 1f;
+        spaceObjectSpeed = 0.75f;
         if (type == meteorType.Big)
         {
             spaceObjectSpeed *= 0.5f;

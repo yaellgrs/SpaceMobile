@@ -33,7 +33,9 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Stats.Instance.stage += 10;
+            Stats.Instance.stage++;
+            gameManager.instance.DestroyMeteors();
+            MainUi.Instance.upStage();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -44,7 +46,6 @@ public class DevTest : MonoBehaviour
             Stats.Instance.upDiamand(50, true); //donne 50 diamands ) 
             MainUi.Instance.xpUI.loadBonus();
         }
-
 
         if (Input.GetKeyDown(KeyCode.Z))
         {

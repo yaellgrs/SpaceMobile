@@ -72,6 +72,8 @@ public class SettingUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void load()
     {
+
+
         menuUI.gameObject.SetActive(true);
         var root = menuUI.rootVisualElement;
         exit = root.Q<Button>("back");
@@ -324,6 +326,7 @@ public class SettingUI : MonoBehaviour
         MainUi.Instance.upIronUI();
         MainUi.Instance.upUraniumUI();
         MainUi.Instance.upDiamandUI();
+        
 
     }
 
