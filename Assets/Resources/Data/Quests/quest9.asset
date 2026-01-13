@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647211a173c3748448b7a069d6f70120, type: 3}
+  m_Name: quest9
+  m_EditorClassIdentifier: Assembly-CSharp::Quests
+  level: 9
+  type: 7
+  objectif:
+    Mantisse: 1
+    Exp: 0
+  rewardDiamand: 2
+  text: "Un g\xE9n\xE9rateur de fer, ce n\u2019est plus suffisant pour avancer. Et
+    si tu essayais d\u2019\xE9conomiser pour doubler ta production ?"

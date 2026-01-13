@@ -140,6 +140,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />
+    <None Include="Assets\Resources\Data\Quests\readme.txt" />
     <None Include="Assets\UI\prestige\prestige2.uxml" />
     <None Include="Assets\UI\menu\stats.uxml" />
     <None Include="Assets\UI\Resurection.uxml" />

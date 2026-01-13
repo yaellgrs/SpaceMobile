@@ -34,7 +34,7 @@ public class machineUranium : Machine
 
             isActive = true;
             updateScroll();
-            if (MainUi.Instance.questUI.type == QuestType.upMachines)
+            if (QuestManager.Instance.type == QuestType.upMachines)
             {
                 QuestManager.Instance.upQuest();
             }
@@ -204,7 +204,7 @@ public class UpgradesUranium : Upgrades
         {   
             base.upMachine1Clicked();
 
-            if (MainUi.Instance.questUI.type == QuestType.uraniumUpgrade)
+            if (QuestManager.Instance.type == QuestType.uraniumUpgrade)
             {
                 QuestManager.Instance.upQuest();
             }

@@ -100,7 +100,7 @@ public class spaceObject : MonoBehaviour
         lifeText.text = life.ToString();
         if (Stats.Instance.prestigeUnlocked)
         {
-            if (Random.Range(0, 100) <= Stats.Instance.probabilitéOfOmega + 50)
+            if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10)
             {
                 isOmega = true;
                 GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(true);
@@ -214,7 +214,7 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if(MainUi.Instance.questUI.type == QuestType.MeteorToKill)
+        if(QuestManager.Instance.type == QuestType.MeteorToKill)
         {
             QuestManager.Instance.upQuest();
         }

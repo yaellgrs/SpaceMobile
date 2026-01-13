@@ -65,11 +65,11 @@ public class Collectible : MonoBehaviour
                 {
                     case CollectibleType.iron:
                         Stats.Instance.upIron(reward, true);
-                        if (MainUi.Instance.questUI.type == QuestType.ironMeteor) QuestManager.Instance.upQuest(reward);
+                        if (QuestManager.Instance.type == QuestType.ironMeteor) QuestManager.Instance.upQuest(reward);
                         break;
                     case CollectibleType.uranium:
                         Stats.Instance.upUranium(reward, true);
-                        if (MainUi.Instance.questUI.type == QuestType.uraniumMeteor) QuestManager.Instance.upQuest(reward);
+                        if (QuestManager.Instance.type == QuestType.uraniumMeteor) QuestManager.Instance.upQuest(reward);
                         break;
                     case CollectibleType.Diamand:
                         Stats.Instance.upDiamand(1, true);

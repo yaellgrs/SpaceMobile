@@ -1,20 +1,20 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
-using UnityEngine.Localization.SmartFormat.Utilities;
-using Unity.VisualScripting;
-using System.Linq;
 using Newtonsoft.Json.Bson;
+using NUnit.Framework.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
-
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.SmartFormat.Utilities;
+using UnityEngine.Localization.Tables;
+using UnityEngine.UIElements;
 using static QuestUI;
 
 public enum QuestType { MeteorToKill, ironMeteor, ironUpgrade, starParticule, uraniumMeteor, uraniumUpgrade, upMachines, unlockMachine, Speed, None };
 
-public class QuestManager : MonoBehaviour
+public class QuestManager 
 {
     private static QuestManager _Instance;
 
@@ -22,16 +22,28 @@ public class QuestManager : MonoBehaviour
     {
         get
         {
-            if (_Instance == null) _Instance = new QuestManager();
+            if (_Instance == null){
+                _Instance = new QuestManager();
+                _Instance.LoadQuests();
+            }
             return _Instance;
         }
     }
 
 
+
+
     public QuestType type;
     public BigNumber objectif = new BigNumber(100);
-    private int reward = 5;
+    public int reward = 5;
 
+
+    public List<Quests> quests;
+
+    private void LoadQuests()
+    {
+        quests = Resources.LoadAll<Quests>("Data/Quests").OrderBy(q => q.level).ToList();
+    }
 
     #region upQuests
     public void upQuest()
@@ -83,52 +95,12 @@ public class QuestManager : MonoBehaviour
 
     public void initQuest()
     {
+        var quest = quests.FirstOrDefault(q => q.level == QuestStats.Instance.questLevel);
+        if (quest == null) return;
 
-        switch (QuestStats.Instance.questLevel)
-        {
-            case 1:
-                type = QuestType.MeteorToKill;
-                objectif = new BigNumber(100);
-                break;
-            case 2:
-                type = QuestType.ironMeteor;
-                objectif = new BigNumber(2.5f, 3);
-                break;
-            case 3:
-                type = QuestType.ironUpgrade;
-                objectif = new BigNumber(15);
-                break;
-            case 4:
-                type = QuestType.MeteorToKill;
-                objectif = new BigNumber(250);
-                break;
-            case 5:
-                type = QuestType.starParticule;
-                objectif = new BigNumber(100);
-                break;
-            case 6:
-                type = QuestType.uraniumMeteor;
-                objectif = new BigNumber(2.5f, 3);
-                break;
-            case 7:
-                type = QuestType.uraniumUpgrade;
-                objectif = new BigNumber(15);
-                break;
-            case 8:
-                type = QuestType.upMachines;
-                objectif = new BigNumber(25);
-                break;
-            case 9:
-                type = QuestType.unlockMachine;
-                objectif = new BigNumber(1);
-                break;
-            case 10:
-                type = QuestType.Speed;
-                objectif = new BigNumber(25);
-                break;
-
-        }
-        reward = 2;
+        type = quest.type;
+        objectif = quest.objectif;
+        reward = quest.rewardDiamand;
     }
 
     public bool isCompleted()

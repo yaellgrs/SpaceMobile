@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647211a173c3748448b7a069d6f70120, type: 3}
+  m_Name: quest6
+  m_EditorClassIdentifier: Assembly-CSharp::Quests
+  level: 6
+  type: 4
+  objectif:
+    Mantisse: 2.5
+    Exp: 3
+  rewardDiamand: 2
+  text: "Il est maintenant temps d'exploiter le pouvoir de l'uranium. Mais avant
+    il va falloir r\xE9cup\xE9rer quelques uraniums ! Penses a am\xE9liorer ta forge
+    d'uranium pour en gagner plein sur les m\xE9t\xE9orites d'uranium."

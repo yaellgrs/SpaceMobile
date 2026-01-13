@@ -33,12 +33,6 @@ public class QuestUI : MonoBehaviour
     private Label xpReward;
 
 
-
-    public QuestType type;
-
-    public BigNumber objectif = new BigNumber(100);
-    private int reward = 5;
-
     private bool lauchTransition = true;
 
 
@@ -110,7 +104,7 @@ public class QuestUI : MonoBehaviour
         QuestManager.Instance.initQuest();
         loadQuest();
 
-        diamandReward.text = reward.ToString();
+        diamandReward.text = QuestManager.Instance.reward.ToString();
         xpReward.text = QuestManager.Instance.CalculXpReward().ToString();
 
         if (QuestManager.Instance.isCompleted())
@@ -173,7 +167,7 @@ public class QuestUI : MonoBehaviour
             };
 
             key = "Quest_objectif-";
-            switch (type)
+            switch (QuestManager.Instance.type)
             {
                 case QuestType.MeteorToKill:
                     key += "killMeteor";
@@ -205,9 +199,9 @@ public class QuestUI : MonoBehaviour
             }
 
             LocalizedString localizesQuest = new LocalizedString("UI_Quests", key);
-            if(type == QuestType.Speed)
+            if(QuestManager.Instance.type == QuestType.Speed)
             {
-                localizesQuest.Arguments = new object[] { new { stage = objectif } };
+                localizesQuest.Arguments = new object[] { new { stage = QuestManager.Instance.objectif } };
             }
             localizesQuest.StringChanged += (localizedValue) =>
             {
@@ -216,9 +210,9 @@ public class QuestUI : MonoBehaviour
             localizesQuest.RefreshString();
 
 
-            if (type != QuestType.Speed)
+            if (QuestManager.Instance.type != QuestType.Speed)
             {
-                progress.text = QuestStats.Instance.progress.ToString() + "/" + objectif.ToString();
+                progress.text = QuestStats.Instance.progress.ToString() + "/" + QuestManager.Instance.objectif.ToString();
             }
             else
             {
