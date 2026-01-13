@@ -475,6 +475,7 @@ public class Upgrades
     protected VisualElement upgrade;
     public VisualElement cadre;
     public VisualElement locked;
+    public VisualElement VE_logo;
     public string upgradeName;
 
     protected bool isUpgrade = false;
@@ -501,6 +502,7 @@ public class Upgrades
     {
         upgrade = forgeUI.rootVisualElement.Q<VisualElement>(upgradeName);
         locked = upgrade.Q<VisualElement>("locked");
+        VE_logo = upgrade.Q<VisualElement>("logo");
         statLabel = upgrade.Q<Label>("stat");
         levelCostLabel = upgrade.Q<Label>("levelCost");
         name = upgrade.Q<Label>("name");
@@ -508,6 +510,7 @@ public class Upgrades
         levelPlusLabelMachine1 = upgrade.Q<Label>("levelUp");
         levelLocked = upgrade.Q<Label>("levelLocked");
         levelLabel = upgrade.Q<Label>("level");
+
         cadre = forgeUI.rootVisualElement.Q<Button>(upgradeName);
         //levelPlusLabelMachine1.text = "Lv " +( machineLevel1 + 1 );
         loadStat();

@@ -182,6 +182,7 @@ public class UpgradesIron : Upgrades
 
     protected override void loadStat()
     {
+
         switch (upgradeType)
         {
             case UpgradeType.Life:
@@ -199,9 +200,10 @@ public class UpgradesIron : Upgrades
             case UpgradeType.RegenShield:
                 statLabel.text = "Regen Shield : " + Stats.Instance.regenShield;
                 break;
-            
-
         }
+
+        string logo_path = "Upgrades/Iron/" + upgradeType.ToString();
+        VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
 
     protected override void PayCost()

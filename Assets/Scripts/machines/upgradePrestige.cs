@@ -21,29 +21,31 @@ public class UpgradePrestige : Upgrades
         string str = "";
         string key = "Prestige_upgrade_";
 
+        string logo_path = "prestige/";
+
         switch (upgradeType)
         {
-            case UpgradeType.PrestigeMultiplicator:
+            case UpgradeType.PrestigeMultiplicator://pas de logo
                 key += "PrestigeMultiplicator";
                 str = Stats.Instance.star_multiplicator_prestige.ToString("F2");
                 name.text = "PrestigeMultiplicator";
                 break;
-            case UpgradeType.LessMeteor:
+            case UpgradeType.LessMeteor://pas de logo
                 key += "LessMeteor";
                 str =  Stats.Instance.enemyPerStage.ToString("F2");
                 name.text = "LessMeteor";
                 break;
-            case UpgradeType.LessTimeMachine:
+            case UpgradeType.LessTimeMachine://pas de logo
                 key += "LessTimeMachine";
                 str = Stats.Instance.machineTimeReducer.ToString("F2");
                 name.text = "LessTimeMachine";
                 break;
-            case UpgradeType.LessPriceUpgrades:
+            case UpgradeType.LessPriceUpgrades://pas de logo
                 key += "LessPriceUpgrades";
                 str =  Stats.Instance.upgradesPriceReducer.ToString("F2");
                 name.text = "LessPriceUpgrades";
                 break;
-            case UpgradeType.XpBoost:
+            case UpgradeType.XpBoost://pas de logo
                 key += "XpBoost";
                 str =Stats.Instance.XpMultiplicator.ToString("F2");
                 name.text = "XpBoost";
@@ -53,7 +55,7 @@ public class UpgradePrestige : Upgrades
                 str =  Stats.Instance.prest_damage_multiplicator.ToString("F2");
                 name.text = "DamageMultiplicator";
                 break;
-            case UpgradeType.StageSkip:
+            case UpgradeType.StageSkip://pas de logo
                 key += "StageSkip";
                 str = Stats.Instance.stageSkipProb.ToString("F0") + "%";
                 name.text = "StageSkip";
