@@ -300,6 +300,7 @@ public class MainUi : MonoBehaviour
         }
         xpLabel.text = Stats.Instance.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
+        xpBar.style.height = Length.Percent(100f);
         float targetPercent = Stats.Instance.xp.GetPercentByDivided(Stats.Instance.xpLevelUp);
 
         if (currentPercent < targetPercent - 0.25f)

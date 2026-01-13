@@ -128,7 +128,7 @@ public class gameManager : MonoBehaviour
 
     public void getStageReward()
     {
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(0.8f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
         float reward;
         MarkerType type;
         if (Random.Range(0, 2) == 1)
@@ -155,7 +155,7 @@ public class gameManager : MonoBehaviour
                 Stats.Instance.upIron(new BigNumber(reward), true);
             }
         }
-        PoolManager.Instance.LaunchPrefab(worldPos, reward.ToString(), type, 0.1f, 0.985f);
+        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f);
     }
 
     public void SmallVibrate()

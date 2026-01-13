@@ -49,7 +49,6 @@ public class XpMarker : MonoBehaviour
 
         transform.position = transform.position + new Vector3(0f, MOVE_Y * speed * 50 * Time.deltaTime, 0);
         float alphaNormalized = Mathf.Pow(alpha_decrease, Time.deltaTime * 60f);
-        Debug.Log("alpha decrease by : " + alphaNormalized);
         if (label != null)
         {
             label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * alphaNormalized);
