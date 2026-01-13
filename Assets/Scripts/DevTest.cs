@@ -37,10 +37,10 @@ public class DevTest : MonoBehaviour
 
     void Update()
     {
-
-
-
-
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            MainUi.Instance.questUI.Claim();
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -58,8 +58,6 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.level += 100;//level max
         }
-
-
 
         HandleBanner();
         gives();

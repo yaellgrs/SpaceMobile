@@ -156,7 +156,7 @@ public class QuestUI : MonoBehaviour
         }
     }
 
-    private void Claim()
+    public void Claim()
     {
         QuestStats.Instance.questLevel++;
         Stats.Instance.upDiamand(reward, true);
@@ -336,8 +336,6 @@ public class QuestUI : MonoBehaviour
 
     private BigNumber CalculXpReward()
     {
-        BigNumber reward = new BigNumber(Stats.Instance.xpLevelUp);
-        reward.Multiply(0.25f);
-        return reward;
+        return new BigNumber(30 * Mathf.Pow(1.5f, QuestStats.Instance.questLevel));
     }
 }

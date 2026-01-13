@@ -182,59 +182,40 @@ public class gameManager : MonoBehaviour
         int BigProb;
         int ScatterProb;
 
-        switch (Stats.Instance.stage)
-        {
-            case < 10:
-                BigProb = 0;
-                ScatterProb = 0;
-                break;
-            case < 25:
-                BigProb = 0;
-                ScatterProb = 450;
-                break;
-            default:
-                BigProb = 600;
-                ScatterProb = 450;
-                break;
+        int stage = Stats.Instance.stage;
 
-        }
-        if (x <= Stats.Instance.diamandProb)
+        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 25%
+
+        ScatterProb = stage < 10 ? 0 :
+                      stage < 25 ? 450 : 450;// diamondLimit + 7.5 - 45 = 30-35( environ ) 
+
+        int diamondLimit = Stats.Instance.diamandProb;
+        int rareLimit = diamondLimit + 75; //uranium ou fer
+
+        if (x < diamondLimit)
+            SpawnMeteor(DiamandMeteorPrefab, meteorType.Diamand);
+        else if(x < rareLimit)
         {
-            spaceObject obj = Instantiate(DiamandMeteorPrefab);
-            obj.type = spaceObject.meteorType.Diamand;
-            obj.Init();
-        }
-        else if(x <= Stats.Instance.diamandProb+75)
-        {
-            spaceObject obj;
             if (Stats.Instance.uraniumUnlocked && UnityEngine.Random.Range(0, 2) == 0)
-            {
-                obj = Instantiate(uraniumMeteorPrefab);
-            }
+                SpawnMeteor(uraniumMeteorPrefab, meteorType.Uranium);
             else
-            {
-                obj = Instantiate(ironMeteorPrefab);
-            }
-            obj.Init();
+                SpawnMeteor(ironMeteorPrefab, meteorType.Iron);
         }
-        else if (x <= ScatterProb)
-        {
-            spaceObject obj = Instantiate(ScatterMeteorPrefab);
-            obj.Init();
-        }
-        else if (x <= BigProb)
-        {
-            spaceObject obj = Instantiate(BigMeteorPrefab);
-            obj.type = spaceObject.meteorType.Big;
-            obj.Init();
-        }
-        else
-        {
-            spaceObject obj = Instantiate(meteorPredab);
-            obj.type = spaceObject.meteorType.Normal;
-            obj.Init();
-        }
+        else if (x < ScatterProb)
+            SpawnMeteor(ScatterMeteorPrefab, meteorType.Scatter);
+        else if (x < BigProb)
+            SpawnMeteor(BigMeteorPrefab, meteorType.Big);
+        else 
+            SpawnMeteor(meteorPredab, meteorType.Normal);
     }
+
+    private void SpawnMeteor(spaceObject meteorPredab, meteorType type)
+    {
+        spaceObject obj = Instantiate(meteorPredab);
+        obj.type = type;
+        obj.Init();
+    }
+
     public void SetPause(bool isPause)
     {
         isPaused = isPause;

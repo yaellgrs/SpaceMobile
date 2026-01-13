@@ -306,7 +306,9 @@ public class spaceObject : MonoBehaviour
     public BigNumber calculXp()
     {
         BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
-
+        //xpToLevelUp = 50 * 1.15^level
+        //XpByMeteorDestroyed = 0.5 * stage * 1.1^stage
+        //  Stats.Instance.xpLevelUp = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
         switch (type)
         {
             case meteorType.Big:
