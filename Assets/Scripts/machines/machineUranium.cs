@@ -34,9 +34,9 @@ public class machineUranium : Machine
 
             isActive = true;
             updateScroll();
-            if (MainUi.Instance.questUI.type == QuestUI.questType.upMachines)
+            if (MainUi.Instance.questUI.type == QuestType.upMachines)
             {
-                MainUi.Instance.questUI.upQuest();
+                QuestManager.Instance.upQuest();
             }
         }
         else
@@ -204,9 +204,9 @@ public class UpgradesUranium : Upgrades
         {   
             base.upMachine1Clicked();
 
-            if (MainUi.Instance.questUI.type == QuestUI.questType.uraniumUpgrade)
+            if (MainUi.Instance.questUI.type == QuestType.uraniumUpgrade)
             {
-                MainUi.Instance.questUI.upQuest();
+                QuestManager.Instance.upQuest();
             }
             if (!Stats.Instance.uraniumTuto)
             {

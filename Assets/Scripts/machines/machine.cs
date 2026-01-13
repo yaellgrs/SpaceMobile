@@ -263,9 +263,9 @@ public class Machine
                 VE_progressBarre.style.width = Length.Percent(100);
             }
 
-            if(MainUi.Instance.questUI.type == QuestUI.questType.upMachines)
+            if(MainUi.Instance.questUI.type == QuestType.upMachines)
             {
-                MainUi.Instance.questUI.upQuest();
+                QuestManager.Instance.upQuest();
             }
         }
         else if (level >= levelMax)

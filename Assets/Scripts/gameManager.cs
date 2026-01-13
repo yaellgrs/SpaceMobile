@@ -117,7 +117,7 @@ public class gameManager : MonoBehaviour
             MainUi.Instance.updateStage();
             calculMeteorToKill();
 
-            if (MainUi.Instance.questUI.type == QuestUI.questType.Speed && !(MainUi.Instance.questUI.isCompleted()))
+            if (MainUi.Instance.questUI.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
             {
                 if(new BigNumber(Stats.Instance.stage).isBigger(MainUi.Instance.questUI.objectif))
                 {

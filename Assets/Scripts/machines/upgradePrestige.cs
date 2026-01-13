@@ -21,7 +21,7 @@ public class UpgradePrestige : Upgrades
         string str = "";
         string key = "Prestige_upgrade_";
 
-        string logo_path = "prestige/";
+        //string logo_path = "prestige/";
 
         switch (upgradeType)
         {

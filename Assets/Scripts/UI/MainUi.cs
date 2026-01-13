@@ -142,13 +142,13 @@ public class MainUi : MonoBehaviour
         speedButton.clicked += speedButtonClicked;
         pubButton.clicked += pubButtonClicked;
         shopButton.clicked += shopClicked;
-        questButton.clicked += questUI.Load;
+        questButton.clicked += questUI.LoadQuestUI;
         enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/"+ gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
         uraniumUI.loadUpdateUI();
         ironUI.loadUpdateUI();
-        SetQuestCompleted(questUI.isCompleted());
+        SetQuestCompleted(QuestManager.Instance.isCompleted());
 
         updateStage();
         upLevelUI();

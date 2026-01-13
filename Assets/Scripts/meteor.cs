@@ -214,9 +214,9 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if(MainUi.Instance.questUI.type == QuestUI.questType.MeteorToKill)
+        if(MainUi.Instance.questUI.type == QuestType.MeteorToKill)
         {
-            MainUi.Instance.questUI.upQuest();
+            QuestManager.Instance.upQuest();
         }
 
         if(type != meteorType.miniMeteor && type != meteorType.Diamand)

@@ -354,7 +354,7 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.xpUI.setBonusAutoFer();
         MainUi.Instance.xpUI.setBonusAutoUranium();
 
-        if(MainUi.Instance.questUI.type == QuestUI.questType.starParticule)
+        if(MainUi.Instance.questUI.type == QuestType.starParticule)
         {
             QuestStats.Instance.progress = new BigNumber(bonus);
         }

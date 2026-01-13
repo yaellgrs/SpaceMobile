@@ -30,9 +30,9 @@ public class MachineIron : Machine
             }
             isActive = true;
             updateScroll();
-            if (MainUi.Instance.questUI.type == QuestUI.questType.unlockMachine)
+            if (MainUi.Instance.questUI.type == QuestType.unlockMachine)
             {
-                MainUi.Instance.questUI.upQuest();
+                QuestManager.Instance.upQuest();
             }
         }
         else
@@ -217,9 +217,9 @@ public class UpgradesIron : Upgrades
         if (Stats.Instance.iron.isBigger(CalculUpgradeCost()))
         {
             base.upMachine1Clicked();
-            if (MainUi.Instance.questUI.type == QuestUI.questType.ironUpgrade)
+            if (MainUi.Instance.questUI.type == QuestType.ironUpgrade)
             {
-                MainUi.Instance.questUI.upQuest();
+                QuestManager.Instance.upQuest();
             }
 
             if (!Stats.Instance.ironTuto)

@@ -39,7 +39,7 @@ public class DevTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            MainUi.Instance.questUI.Claim();
+            QuestManager.Instance.Claim();
         }
 
         if (Input.GetKeyDown(KeyCode.R))

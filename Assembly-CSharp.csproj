@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Quest\Quests.cs" />
     <Compile Include="Assets\Scripts\meteor.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
+    <Compile Include="Assets\Scripts\Quest\QuestManager.cs" />
     <Compile Include="Assets\Scripts\machines\machineIron.cs" />
     <Compile Include="Assets\Scripts\machines\machineUranium.cs" />
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />
@@ -101,6 +102,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Common.dll" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.iOS.dll" />
+    <None Include="Assets\UI\Quest\SuccessUI.uxml" />
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\TMP_Node.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Samples\Shader Graph\Common\Subgraphs\PseudoSubsurface.hlsl" />
