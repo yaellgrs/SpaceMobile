@@ -97,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 695723832546081846, guid: acb802f267bb02b40a73f619538d8bd5, type: 3}
       propertyPath: m_margin.x
-      value: -2.3293314
+      value: -2.0307484
       objectReference: {fileID: 0}
     - target: {fileID: 695723832546081846, guid: acb802f267bb02b40a73f619538d8bd5, type: 3}
       propertyPath: m_fontAsset
