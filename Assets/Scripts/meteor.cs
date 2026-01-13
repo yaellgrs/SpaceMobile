@@ -27,12 +27,14 @@ public class spaceObject : MonoBehaviour
     public float spawnTime = 0f;
     public bool isPause = false;
 
+
     public Vector3 baseScale;
 
     public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium};
     public meteorType type;
 
     public bool isDestroyByRocket = false;
+
 
     public void Init()
     {
@@ -98,10 +100,12 @@ public class spaceObject : MonoBehaviour
         lifeText.text = life.ToString();
         if (Stats.Instance.prestigeUnlocked)
         {
-            if (Random.Range(0, 100) <= Stats.Instance.probabilitéOfOmega)
+            if (Random.Range(0, 100) <= Stats.Instance.probabilitéOfOmega + 50)
             {
                 isOmega = true;
+                GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(true);
             }
+            else GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(false);
         }
 
         loadSpeed();
@@ -145,35 +149,7 @@ public class spaceObject : MonoBehaviour
     {
         spawnTime += Time.deltaTime;
         UpLife();
-        if (isOmega)
-        {
-            omegaUpdate();
-        }
-    }
 
-
-    private void omegaUpdate()
-    {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        Color color = sr.color;
-        if (isUp)
-        {
-            color.a += 0.05f;
-        }
-        else
-        {
-            color.a -= 0.05f;
-        }
-        sr.color = color;
-
-        if(color.a >= 1)
-        {
-            isUp = false;
-        }
-        else if(color.a <= 0.25)
-        {
-            isUp = true;
-        }
     }
 
     public void Move()

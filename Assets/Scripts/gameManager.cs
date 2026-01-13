@@ -107,13 +107,13 @@ public class gameManager : MonoBehaviour
         if (meteorKilled >= meteorToKill)
         {
             meteorKilled = 0;
-            MainUi.Instance.enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
+            MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
             Stats.Instance.stage++;
             if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
             {
                 Stats.Instance.stage++;
             }
-            MainUi.Instance.upStage();
+            //MainUi.Instance.upStage();
             calculMeteorToKill();
 
             if (MainUi.Instance.questUI.type == QuestUI.questType.Speed && !(MainUi.Instance.questUI.isCompleted()))
