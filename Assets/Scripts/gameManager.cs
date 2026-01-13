@@ -67,7 +67,7 @@ public class gameManager : MonoBehaviour
         {
             meteorToKill++;
         }
-        MainUi.Instance.upStage();
+        MainUi.Instance.updateStage();
     }
 
     private void OnApplicationQuit()
@@ -94,7 +94,7 @@ public class gameManager : MonoBehaviour
             spawnSpaceObject();
             timer = 0f;
         }
-        updateStage();
+        upStage();
         if(autoSaveTimer > 10f)
         {
             Stats.Instance.save();
@@ -102,7 +102,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void updateStage()
+    public void upStage()
     {
         if (meteorKilled >= meteorToKill)
         {
@@ -113,7 +113,8 @@ public class gameManager : MonoBehaviour
             {
                 Stats.Instance.stage++;
             }
-            //MainUi.Instance.upStage();
+            getStageReward();
+            MainUi.Instance.updateStage();
             calculMeteorToKill();
 
             if (MainUi.Instance.questUI.type == QuestUI.questType.Speed && !(MainUi.Instance.questUI.isCompleted()))

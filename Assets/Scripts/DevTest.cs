@@ -51,7 +51,8 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.stage++;
             gameManager.instance.RestartStage();
-            MainUi.Instance.upStage();
+            MainUi.Instance.updateStage();
+            gameManager.instance.getStageReward();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {

@@ -15,6 +15,8 @@ public class XpMarker : MonoBehaviour
     public float alpha_decrease = 0.975f;
     public float speed = 1f;
 
+    private float move_x = 0.0025f;
+
     public MarkerType type;
 
     public void init(Vector3 position, string xp)
@@ -41,13 +43,15 @@ public class XpMarker : MonoBehaviour
             img.color = new Color(img.color.r, img.color.g, img.color.b, 1f);
         }
 
-
+        if (speed > 0.5f) move_x = Random.Range(-0.0025f, 0.0025f);
+        else move_x = 0f;
+            Debug.Log("move_x: " + move_x);
     }
     private void Update()
     {
         timer += Time.deltaTime;
 
-        transform.position = transform.position + new Vector3(0f, MOVE_Y * speed * 50 * Time.deltaTime, 0);
+        transform.position = transform.position + new Vector3(move_x, MOVE_Y * speed * 50 * Time.deltaTime, 0);
         float alphaNormalized = Mathf.Pow(alpha_decrease, Time.deltaTime * 60f);
         if (label != null)
         {

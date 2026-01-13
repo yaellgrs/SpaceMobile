@@ -95,9 +95,10 @@ public class PoolManager : MonoBehaviour
     public void LaunchPrefab(Vector3 position, string xp, MarkerType type, float speed, float alpha_decrease)
     {
         XpMarker marker = Instance.GetPrefab(type);
-        marker.init(position, xp);
+
         marker.speed = speed;
         marker.alpha_decrease = alpha_decrease;
+        marker.init(position, xp);
     }
 
 }

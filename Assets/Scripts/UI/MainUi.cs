@@ -150,7 +150,7 @@ public class MainUi : MonoBehaviour
         ironUI.loadUpdateUI();
         SetQuestCompleted(questUI.isCompleted());
 
-        upStage();
+        updateStage();
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
@@ -540,7 +540,7 @@ public class MainUi : MonoBehaviour
         }
     }
 
-    public void upStage()
+    public void updateStage()
     {
         if(stageClearLabel != null)
         {
@@ -549,7 +549,7 @@ public class MainUi : MonoBehaviour
             stageClearLabel.style.color = new Color(255, 255, 255, 1f);
         }
 
-        gameManager.instance.getStageReward();
+        //gameManager.instance.getStageReward();
         stageClearTimer = 0f;
         spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)

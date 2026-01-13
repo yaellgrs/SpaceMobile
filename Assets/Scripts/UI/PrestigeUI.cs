@@ -385,7 +385,7 @@ public class PrestigeUI : BaseUI
         }
 
         MainUi.Instance.upIronUI();
-        MainUi.Instance.upStage();
+        MainUi.Instance.updateStage();
         MainUi.Instance.upShieldBar();
         MainUi.Instance.upHealthBar();
         MainUi.Instance.upUraniumUI();
