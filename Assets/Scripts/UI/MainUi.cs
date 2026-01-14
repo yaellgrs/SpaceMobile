@@ -441,7 +441,7 @@ public class MainUi : MonoBehaviour
         {
             string lifeText = Stats.Instance.life + "/" + spaceShip.instance.getMaxLife();
             lifeLabel.text = lifeText;
-            lifeLabel.style.width = Length.Percent(20 + 5 * (lifeText.Length - 5));
+            lifeLabel.style.width = Length.Percent(40 + 20 * (lifeText.Length - 9.5f));
 
 
             float currentPercent = healthBar.style.width.value.value;

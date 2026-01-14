@@ -12,6 +12,7 @@ using System;
 public class UpgradePrestige : Upgrades
 {
     public enum UpgradeType { PrestigeMultiplicator, LessMeteor, LessTimeMachine, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, Max };
+    //lessTimemachine, lessMeteor, stage skipp, less price upgrade, less prestige multiplicator
     public UpgradeType upgradeType;
 
     LocalizedString localizeUpgrades;
