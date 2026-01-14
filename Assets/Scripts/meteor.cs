@@ -107,6 +107,7 @@ public class spaceObject : MonoBehaviour
             }
             else GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(false);
         }
+        else GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(false);
 
         loadSpeed();
         transform.localScale = baseScale;
