@@ -98,7 +98,7 @@ public class spaceObject : MonoBehaviour
         life = new BigNumber(lifeMax.Mantisse, lifeMax.Exp);
         transform.localScale *= gameManager.instance.meteorScale;
         lifeText.text = life.ToString();
-        if (Stats.Instance.prestigeUnlocked)
+        if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
         {
             if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10)
             {
@@ -254,7 +254,8 @@ public class spaceObject : MonoBehaviour
         //Death
         if (isOmega)
         {
-            Stats.Instance.upPrestigeWaiting(new BigNumber(Stats.Instance.stage), true);
+            
+            Stats.Instance.upPrestigeWaiting(new BigNumber(Stats.Instance.stage) * 0.5f, true);
             PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
         }
         if (type == meteorType.Scatter)

@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\UI\IronUi.cs" />
     <Compile Include="Assets\Scripts\UI\BaseUI.cs" />
     <Compile Include="Assets\Scripts\ship\spaceShip.cs" />
+    <Compile Include="Assets\Scripts\Quest\SuccessElement.cs" />
     <Compile Include="Assets\Scripts\Data\stats.cs" />
     <Compile Include="Assets\Scripts\Collectible.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestUI.cs" />
@@ -144,6 +145,7 @@
     <None Include="Assets\UI\prestige\prestige2.uxml" />
     <None Include="Assets\UI\menu\stats.uxml" />
     <None Include="Assets\UI\Resurection.uxml" />
+    <None Include="Assets\UI\successStyle.uss" />
     <None Include="Assets\UI\menu\bonus.uxml" />
     <None Include="Assets\UI\UraniumUpdate.uxml" />
     <None Include="Assets\UI\prestige\upgradeTemplate.uxml" />
