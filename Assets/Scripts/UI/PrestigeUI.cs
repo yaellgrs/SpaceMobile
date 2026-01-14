@@ -390,6 +390,7 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upHealthBar();
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
+        Data.Instance.PrestigeCount += 1;
 
     }
 

@@ -10,6 +10,7 @@ using System.Linq;
 using Newtonsoft.Json.Bson;
 using UnityEngine.Localization.Components;
 using Unity.Loading;
+using System;
 
 public class QuestUI : MonoBehaviour
 {
@@ -259,6 +260,15 @@ public class QuestUI : MonoBehaviour
         back.clicked += Close;
         exit.clicked += Close;
         Btn_switch.clicked += Switch;
+
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+
+        scroll.Clear();
+
+        foreach(SuccessType key in Enum.GetValues(typeof(SuccessType)))
+        {
+            scroll.Add(new SuccessElement(key));
+        }
 
         refreshSuccessUi();
 

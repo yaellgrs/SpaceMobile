@@ -230,18 +230,21 @@ public class spaceObject : MonoBehaviour
             GameObject obj = Instantiate(diamandCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
+            Data.Instance.diamandMeteorKilled += 1;
         }
         else if (type == meteorType.Iron)
         {
             GameObject obj = Instantiate(ironCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
+            Data.Instance.ironMeteorKilled += 1;
         }
         else if (type == meteorType.Uranium)
         {
             GameObject obj = Instantiate(uraniumCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
+            Data.Instance.uraniumMeteorKilled += 1;
         }
         else
         {
@@ -250,6 +253,7 @@ public class spaceObject : MonoBehaviour
                 Stats.Instance.AddXP(calculXp());
                 PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
+            Data.Instance.basicMeteorKilled += 1;
         }
         //Death
         if (isOmega)
@@ -257,10 +261,12 @@ public class spaceObject : MonoBehaviour
             
             Stats.Instance.upPrestigeWaiting(new BigNumber(Stats.Instance.stage) * 0.5f, true);
             PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
+            Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)
         {
             if(!isDestroyByRocket) gameManager.instance.launchMiniMeteor(transform);
+            Data.Instance.splitterMeteorKilled += 1;
         }
 
         Song.Instance.playSound(Song.Instance.meteor_sound);

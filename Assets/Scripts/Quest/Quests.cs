@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Security.Claims;
@@ -14,6 +16,8 @@ public class QuestStats
     public BigNumber progress = new BigNumber(0);
 
     public float timeCompleted = 0;
+
+    public Dictionary<SuccessType, int> successGoals =  new Dictionary<SuccessType, int>();
 
     public static void Init()
     {
@@ -49,10 +53,24 @@ public class QuestStats
             timeCompleted = loaded.timeCompleted;
         }
     }
+
+    public void initSucces()
+    {
+
+        Debug.Log("load Succes");
+        foreach (SuccessType key in Enum.GetValues(typeof(SuccessType)))
+        {
+            if (!successGoals.ContainsKey(key)) successGoals.Add(key, 1);
+            else if (successGoals[key] == 0) successGoals[key] = 1;
+            else Debug.Log("all good for " + key.ToString());
+        }
+    }
     public void reset()
     {
         Instance = new QuestStats();
         Save();
+
+
     }
 }
 
