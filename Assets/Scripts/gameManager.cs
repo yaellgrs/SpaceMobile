@@ -112,8 +112,10 @@ public class gameManager : MonoBehaviour
             if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
             {
                 Stats.Instance.stage++;
+                gameManager.instance.getStageReward(1.70f, 0.75f);
+                MainUi.Instance.ShowStageSkip();
             }
-            getStageReward();
+            gameManager.instance.getStageReward(1.95f);
             MainUi.Instance.updateStage();
             calculMeteorToKill();
 
@@ -127,9 +129,9 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void getStageReward()
+    public void getStageReward(float posY, float fontFactor = 1f)
     {
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), posY * (Screen.height / 3f), 10));
         float reward;
         MarkerType type;
         if (Random.Range(0, 2) == 1)
@@ -156,7 +158,7 @@ public class gameManager : MonoBehaviour
                 Stats.Instance.upIron(new BigNumber(reward), true);
             }
         }
-        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f);
+        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
     }
 
     public void SmallVibrate()

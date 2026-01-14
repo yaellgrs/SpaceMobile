@@ -52,7 +52,11 @@ public class DevTest : MonoBehaviour
             Stats.Instance.stage++;
             gameManager.instance.RestartStage();
             MainUi.Instance.updateStage();
-            gameManager.instance.getStageReward();
+            gameManager.instance.getStageReward(1.95f);
+
+            //show stage skip
+            gameManager.instance.getStageReward(1.70f, 0.75f);
+            MainUi.Instance.ShowStageSkip();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {

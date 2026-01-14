@@ -7,6 +7,7 @@ using UnityEngine.AdaptivePerformance;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
+using static Utility;
 
 public class MainUi : MonoBehaviour
 {
@@ -34,11 +35,6 @@ public class MainUi : MonoBehaviour
     //mainUI
     private VisualElement VE_main;
 
-    protected Button normalUpButton1;
-    protected Button uraniumButton;
-    protected Button prestigeButton;
-    protected Button xpButton;
-
     protected Button fire;
 
     private Label ironLabel;
@@ -51,19 +47,17 @@ public class MainUi : MonoBehaviour
     private Label shieldRegenLabel;
     private Label stageLabel;
     public Label enemyLabel;
-    public Label stageClearLabel;
-    public Label meteorWarningLabel;
+    public Label Lbl_stageClear;
+    public Label Lbl_stageSkip;
+    public Label Lbl_meteorWarning;
     public VisualElement healthBar;
     private VisualElement shieldBar;
     public VisualElement xpBar;
 
     public Button rocketButton;
     public Label rocketLabel;
-    public Button settingButton;
     public Button speedButton;
     public Button pubButton;
-    public Button shopButton;
-    public Button questButton;
     public VisualElement questCompleted;
     public VisualElement rocketCover;
     private float rocketTimer = -1f;
@@ -73,6 +67,7 @@ public class MainUi : MonoBehaviour
     private VisualElement VE_AutoShootBar;
 
     private float stageClearTimer = -1f;
+    private float stageSkipTimer = -1f;
     private float meteorWarningTimer = -1f;
 
     public Label debugLabel;
@@ -98,18 +93,18 @@ public class MainUi : MonoBehaviour
         healthBar = root.Q<VisualElement>("HealthBar"); 
         shieldBar = root.Q<VisualElement>("shieldBar"); 
         xpBar = root.Q<VisualElement>("xpBar");
-        rocketCover = root.Q<VisualElement>("rocketCover"); 
-        normalUpButton1 = root.Q<Button>("ironUI");
-        uraniumButton = root.Q<Button>("uraniumUI");
-        prestigeButton = root.Q<Button>("prestigeUI");
-        xpButton = root.Q<Button>("xpButton");
+        rocketCover = root.Q<VisualElement>("rocketCover");
+        Button normalUpButton1 = root.Q<Button>("ironUI");
+        Button uraniumButton = root.Q<Button>("uraniumUI");
+        Button prestigeButton = root.Q<Button>("prestigeUI");
+        Button xpButton = root.Q<Button>("xpButton");
         rocketButton = root.Q<Button>("rocket");
-        settingButton = root.Q<Button>("setting");
+        Button settingButton = root.Q<Button>("setting");
         speedButton = root.Q<Button>("speedButton");
         pubButton = root.Q<Button>("pubButton");
-        shopButton = root.Q<Button>("shop");
+        Button shopButton = root.Q<Button>("shop");
         fire = root.Q<Button>("fire");
-        questButton = root.Q<Button>("quest");
+        Button questButton = root.Q<Button>("quest");
         questCompleted = root.Q<VisualElement>("questCompleted");
         VE_AutoShoot = root.Q<VisualElement>("autoShoot");
         VE_AutoShootBar = root.Q<VisualElement>("autoShootBar");
@@ -126,8 +121,9 @@ public class MainUi : MonoBehaviour
         stageLabel = root.Q<Label>("stage");
         enemyLabel = root.Q<Label>("enemy");
         rocketLabel = root.Q<Label>("rocketTimer");
-        stageClearLabel = root.Q<Label>("stageClear");
-        meteorWarningLabel = root.Q<Label>("meteorWarning");
+        Lbl_stageClear = root.Q<Label>("stageClear");
+        Lbl_stageSkip = root.Q<Label>("stageSkip");
+        Lbl_meteorWarning = root.Q<Label>("meteorWarning");
         Label_AutoShoot = root.Q<Label>("autoShootTimer");
         rocketCover.style.height = Length.Percent(0);
 
@@ -154,8 +150,10 @@ public class MainUi : MonoBehaviour
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
-        stageClearLabel.style.visibility = Visibility.Hidden;
+        Lbl_stageClear.style.visibility = Visibility.Hidden;
+        Lbl_stageSkip.style.visibility = Visibility.Hidden;
         stageClearTimer = -1f;
+        stageSkipTimer = -1f;
 
         uraniumUI.upgradeUI.gameObject.SetActive(false);
         ironUI.upgradeUI.gameObject.SetActive(false);
@@ -248,36 +246,30 @@ public class MainUi : MonoBehaviour
             rocketLabel.text = "";
             rocketCover.style.height = Length.Percent(0);
         }
+        meteorWarningTimer = UpdatePopup(meteorWarningTimer, Lbl_meteorWarning);
+        stageSkipTimer = UpdatePopup(stageSkipTimer, Lbl_stageSkip);
+        stageClearTimer = UpdatePopup(stageClearTimer, Lbl_stageClear);
+    }
 
-        if( stageClearTimer >= 0)
+    private float UpdatePopup(float timer, Label label)
+    {
+        if (timer >= 0)
         {
-            stageClearTimer += Time.deltaTime;
-
-            float normalizedAlpha = Mathf.Pow(0.985f, Time.deltaTime * 60f);
-            stageClearLabel.style.color = new Color(255, 255, 255, stageClearLabel.style.color.value.a * normalizedAlpha);
-            if ( stageClearTimer > 2f)
+            timer += Time.deltaTime;
+            float normalizedAlpha = Mathf.Pow(0.985f, timer * Time.deltaTime * 60f);
+            SetAlphaColor(label, label.resolvedStyle.color.a * normalizedAlpha);
+            if (timer > 2f)
             {
-                stageClearLabel.style.visibility = Visibility.Hidden;
-                stageClearTimer = -1f;
+                label.style.visibility = Visibility.Hidden;
+                timer = -1f;
             }
         }
-        if (meteorWarningTimer >= 0)
-        {
-            meteorWarningTimer += Time.deltaTime;
-            meteorWarningLabel.style.color = new Color(meteorWarningLabel.resolvedStyle.color.r, meteorWarningLabel.resolvedStyle.color.g, meteorWarningLabel.resolvedStyle.color.b, stageClearLabel.style.color.value.a * 0.975f);
-            Debug.Log(meteorWarningLabel.resolvedStyle.color.r);
-            
-            if (meteorWarningTimer > 2f)
-            {
-                meteorWarningLabel.style.visibility = Visibility.Hidden;
-                meteorWarningTimer = -1f;
-            }
-        }
+
+        return timer;
     }
 
     public void SetQuestCompleted(bool isCompleted)
     {
-
             if (isCompleted)
             {
                 questCompleted.style.visibility = Visibility.Visible;
@@ -286,7 +278,6 @@ public class MainUi : MonoBehaviour
             {
                 questCompleted.style.visibility = Visibility.Hidden;
             }
-        
     }
 
     public void upLevelUI()
@@ -343,7 +334,8 @@ public class MainUi : MonoBehaviour
         else if (meteors.Length <= 0)
         {
             meteorWarningTimer = 0f;
-            meteorWarningLabel.style.visibility = Visibility.Visible;
+            Lbl_meteorWarning.style.visibility = Visibility.Visible;
+            SetAlphaColor(Lbl_meteorWarning, 1f);
         }
     }
 
@@ -542,11 +534,11 @@ public class MainUi : MonoBehaviour
 
     public void updateStage()
     {
-        if(stageClearLabel != null)
+        if(Lbl_stageClear != null)
         {
             stageLabel.text = "Stage : " + Stats.Instance.stage;
-            stageClearLabel.style.visibility = Visibility.Visible;
-            stageClearLabel.style.color = new Color(255, 255, 255, 1f);
+            Lbl_stageClear.style.visibility = Visibility.Visible;
+            SetAlphaColor(Lbl_stageClear, 1f);
         }
 
         //gameManager.instance.getStageReward();
@@ -555,9 +547,16 @@ public class MainUi : MonoBehaviour
         foreach (spaceObject obj in meteors)
         {
             Destroy(obj.gameObject);
-        }
+        }    
+    }
 
-                
+    public void ShowStageSkip()
+    {
+        if (Lbl_stageSkip == null) return;
+
+        stageSkipTimer = 0f;
+        Lbl_stageSkip.style.visibility = Visibility.Visible;
+        SetAlphaColor(Lbl_stageSkip, 1f);
     }
 
 }

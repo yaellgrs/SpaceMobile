@@ -44,4 +44,11 @@ public static class Utility
         return heure + "h" + minute + "m ";
     }
 
+    public static void SetAlphaColor(Label label, float alpha)
+    {
+        Color color = label.resolvedStyle.color;
+        color.a = alpha;
+        label.style.color = color;
+    }
+
 }
