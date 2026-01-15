@@ -24,6 +24,7 @@ public class Stats
     public int deadPubWatch = 0;
     public long lastPub = 0;
     public bool HasNoAds = false;
+    public bool isDead = false;
 
     public bool rocketUnlocked = false;
 

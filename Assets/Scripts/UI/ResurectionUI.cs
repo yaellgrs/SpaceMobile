@@ -32,6 +32,7 @@ public class ResurectionUI : MonoBehaviour
     void Start()
     {
         resurectionUI.gameObject.SetActive(false);
+        if (Stats.Instance.isDead) loadResurection();
     }
 
     // Update is called once per frame
@@ -112,6 +113,7 @@ public class ResurectionUI : MonoBehaviour
         {
             resurectionUI.gameObject.SetActive(false);
             gameManager.instance.SetPause(false);
+            Stats.Instance.isDead = false;  
         }).StartingIn(400);
     }
 }

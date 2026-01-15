@@ -69,6 +69,7 @@ public class spaceShip : MonoBehaviour
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
+            Stats.Instance.isDead = true;
             ResurectionUI.Instance.loadResurection();
         }
     }
