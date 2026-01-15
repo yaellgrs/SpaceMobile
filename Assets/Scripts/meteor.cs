@@ -215,7 +215,7 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if(QuestManager.Instance.type == QuestType.MeteorToKill)
+        if(QuestManager.Instance.type == QuestType.KillMeteor)
         {
             QuestManager.Instance.upQuest();
         }

@@ -12,7 +12,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.UIElements;
 using static QuestUI;
 
-public enum QuestType { MeteorToKill, ironMeteor, ironUpgrade, starParticule, uraniumMeteor, uraniumUpgrade, upMachines, unlockMachine, Speed, None };
+public enum QuestType { KillMeteor, KillIronMeteor, UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Speed, None };
 
 public class QuestManager 
 {
@@ -48,7 +48,7 @@ public class QuestManager
     #region upQuests
     public void upQuest()
     {
-        if (new[] { QuestType.MeteorToKill, QuestType.ironUpgrade, QuestType.uraniumUpgrade, QuestType.upMachines, QuestType.unlockMachine }.Contains(type))
+        if (new[] { QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine }.Contains(type))
         {
             QuestStats.Instance.progress.Add(1);
         }
@@ -59,7 +59,7 @@ public class QuestManager
 
     public void upQuest(BigNumber n)
     {
-        if (new[] { QuestType.ironMeteor, QuestType.uraniumMeteor }.Contains(type))
+        if (new[] { QuestType.KillIronMeteor, QuestType.KillUraniumMeteor }.Contains(type))
         {
             QuestStats.Instance.progress.Add(n);
         }

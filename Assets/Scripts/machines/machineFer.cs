@@ -30,7 +30,7 @@ public class MachineIron : Machine
             }
             isActive = true;
             updateScroll();
-            if (QuestManager.Instance.type == QuestType.unlockMachine)
+            if (QuestManager.Instance.type == QuestType.UnlockMachine)
             {
                 QuestManager.Instance.upQuest();
             }
@@ -217,7 +217,7 @@ public class UpgradesIron : Upgrades
         if (Stats.Instance.iron.isBigger(CalculUpgradeCost()))
         {
             base.upMachine1Clicked();
-            if (QuestManager.Instance.type == QuestType.ironUpgrade)
+            if (QuestManager.Instance.type == QuestType.UpgradeIron)
             {
                 QuestManager.Instance.upQuest();
             }

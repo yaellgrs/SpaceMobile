@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\tutos\Tuto.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\Rotate.cs" />
     <Compile Include="Assets\Scripts\machines\upgradePrestige.cs" />
+    <Compile Include="Assets\Scripts\Quest\QuestStats.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
     <Compile Include="Assets\Scripts\markers\MarkerPool.cs" />
