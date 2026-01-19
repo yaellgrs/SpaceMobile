@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.SmartFormat.Utilities;
+using UnityEngine.Localization.Tables;
 using UnityEngine.Rendering;
-using System;
+using UnityEngine.UIElements;
 
 
 
@@ -29,6 +30,12 @@ public class UpgradePrestige : Upgrades
         string key = "Prestige_upgrade_";
 
         //string logo_path = "prestige/";
+
+        VisualElement logo = upgrade.Q<VisualElement>("logo");
+        string logoPath = "Upgrades/prestige/";
+        Texture2D logoTexutre = Resources.Load<Texture2D>(logoPath + upgradeType);
+        if (logoTexutre == null) logoTexutre = Resources.Load<Texture2D>(logoPath + "CadresBlanc");
+        logo.style.backgroundImage = logoTexutre;
 
         switch (upgradeType)
         {

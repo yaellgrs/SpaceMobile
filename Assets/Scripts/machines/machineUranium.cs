@@ -191,6 +191,7 @@ public class UpgradesUranium : Upgrades
                 statLabel.text = "Damage : x" + Stats.Instance.rocketMultiplier.ToString("F2") ;
                 break;
         }
+
     }
 
     protected override void PayCost()
