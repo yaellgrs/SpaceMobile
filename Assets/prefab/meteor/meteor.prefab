@@ -507,6 +507,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.cycles
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.sprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.startFrame.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.frameOverTime.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.frameOverTime.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: -4216800340856230376, guid: 3e984ba8bbb56ae4e8fa55ebf2574c00, type: 3}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.sprites.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 4427968479435562899, guid: e5aad6d9ce353c64986f98714a113bd3, type: 3}
+    - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: UVModule.sprites.Array.data[2].sprite
+      value: 
+      objectReference: {fileID: 3274519874080440445, guid: 026b2c43fc21574438f4b74ce28c0378, type: 3}
+    - target: {fileID: 8268728107324099267, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 35b88553de6c51e44be4cb8722e57279, type: 2}
     - target: {fileID: 9114529964910344584, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
       propertyPath: m_Name
       value: Particle System

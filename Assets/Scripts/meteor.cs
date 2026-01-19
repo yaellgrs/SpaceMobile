@@ -100,7 +100,7 @@ public class spaceObject : MonoBehaviour
         lifeText.text = life.ToString();
         if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
         {
-            if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10)
+            if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10 || true)
             {
                 isOmega = true;
                 GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(true);
