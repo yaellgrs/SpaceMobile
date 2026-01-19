@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e5aad6d9ce353c64986f98714a113bd3
+guid: 78d0e81a75a8add4ca15f6dc4d364b29
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4427968479435562899
-    second: starParticle2_0
+      213: -5245588271792230559
+    second: CadresBlanc_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: starParticle2_0
+      name: CadresBlanc_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 43
+        x: 10
+        y: 2
+        width: 106
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 39f12652fdd437d30800000000000000
-      internalID: 4427968479435562899
+      spriteID: 16f6ed5524de337b0800000000000000
+      internalID: -5245588271792230559
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d8cf5a04440bb6c41b67afb1f63395b4
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      starParticle2_0: 4427968479435562899
+      CadresBlanc_0: -5245588271792230559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

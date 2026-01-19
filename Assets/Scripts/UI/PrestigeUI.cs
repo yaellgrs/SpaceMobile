@@ -427,6 +427,11 @@ public class PrestigeUI : BaseUI
         lastPrestige.clicked += LastPrestigeClicked;
         LastPrestigeClicked();
 
+        //set logo 
+
+
+
+
         if (!Stats.Instance.starPariticul.isBigger(cost))
         {
             refreshButton.enabledSelf = false;
@@ -518,6 +523,12 @@ public class PrestigeUI : BaseUI
     //{ , , , , , , StageSkip, , Max }
     private void setTextBuyUI(UpgradePrestige.UpgradeType type)
     {
+        VisualElement logo = buyUI.rootVisualElement.Q<VisualElement>("logo");
+        string logoPath = "Upgrades/prestige/" ;
+        Texture2D logoTexutre = Resources.Load<Texture2D>(logoPath + type);
+        if(logoTexutre == null) logoTexutre = Resources.Load<Texture2D>(logoPath + "CadresBlanc");
+        logo.style.backgroundImage = logoTexutre;
+
         string key = "";
         switch (type)
         {
