@@ -17,6 +17,9 @@ public class spaceObject : MonoBehaviour
     public GameObject uraniumCollectiblePrefab;
     public GameObject diamandCollectiblePrefab;
 
+    public ParticleSystem starParticle;
+    public ParticleSystem meteorParticle;
+
     public float spaceObjectSpeed;
     public BigNumber lifeMax = new BigNumber(2, 0);
     public BigNumber life;
@@ -103,11 +106,11 @@ public class spaceObject : MonoBehaviour
             if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10 || true)
             {
                 isOmega = true;
-                GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(true);
+                starParticle.gameObject.SetActive(true);
             }
-            else GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(false);
+            else starParticle.gameObject.SetActive(false);
         }
-        else GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(false);
+        else starParticle.gameObject.SetActive(false);
 
         loadSpeed();
         transform.localScale = baseScale;
@@ -273,6 +276,9 @@ public class spaceObject : MonoBehaviour
         Song.Instance.playSound(Song.Instance.meteor_sound);
         Data.Instance.meteorKilled += 1;
         gameManager.instance.SmallVibrate();
+        meteorParticle.transform.SetParent(null);
+        meteorParticle.transform.position = transform.position; 
+        meteorParticle.Play();
     }
 
     public void Pause()
