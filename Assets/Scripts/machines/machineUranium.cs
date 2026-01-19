@@ -173,6 +173,12 @@ public class UpgradesUranium : Upgrades
     
     protected override void loadStat()
     {
+        VisualElement logo = upgrade.Q<VisualElement>("logo");
+        string logoPath = "Upgrades/uranium/";
+        Texture2D logoTexutre = Resources.Load<Texture2D>(logoPath + upgradeType);
+        if (logoTexutre == null) logoTexutre = Resources.Load<Texture2D>(logoPath + "CadresBlanc");
+        logo.style.backgroundImage = logoTexutre;
+
         switch (upgradeType)
         {
             case UpgradeType.SpeedAuto:
