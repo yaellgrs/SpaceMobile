@@ -126,7 +126,6 @@ public class MainUi : MonoBehaviour
         shieldTimeLabel = root.Q<Label>("shieldTime");
         shieldRegenLabel = root.Q<Label>("shieldRegen");
         debugLabel = root.Q<Label>("debug");
-        stageLabel = root.Q<Label>("stage");
         enemyLabel = root.Q<Label>("enemy");
         rocketLabel = root.Q<Label>("rocketTimer");
         Lbl_stageClear = root.Q<Label>("stageClear");
@@ -574,23 +573,30 @@ public class MainUi : MonoBehaviour
         }
     }
 
-    public void updateStage()
+
+    public void upStage()
     {
-        Debug.Log("update stage");
         if(Lbl_stageClear != null)
         {
-            stageLabel.text = "Stage : " + Stats.Instance.stage;
+
             Lbl_stageClear.style.visibility = Visibility.Visible;
             SetAlphaColor(Lbl_stageClear, 1f);
         }
+        updateStage();
 
-        //gameManager.instance.getStageReward();
         stageClearTimer = 0f;
         spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)
         {
             Destroy(obj.gameObject);
         }    
+    }
+
+    public void updateStage()
+    {
+        if(stageLabel == null )
+            stageLabel = mainUI.rootVisualElement.Q<Label>("stage");
+        stageLabel.text = "Stage : " + Stats.Instance.stage;
     }
 
     public void ShowStageSkip()

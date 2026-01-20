@@ -66,14 +66,13 @@ public class gameManager : MonoBehaviour
 
     private void calculMeteorToKill()
     {
-        if (bossStage) { meteorToKill = 1; return; }
         float n = Stats.Instance.enemyPerStage * 100f;
         meteorToKill = (int)(n / 100f);
         if(n % 100 > UnityEngine.Random.Range(0, 100))
         {
             meteorToKill++;
         }
-        MainUi.Instance.updateStage();
+        MainUi.Instance.upStage();
     }
 
     private void OnApplicationQuit()
@@ -129,8 +128,9 @@ public class gameManager : MonoBehaviour
             MainUi.Instance.ShowStageSkip();
         }
         getStageReward(1.95f);
-        MainUi.Instance.updateStage();
+        MainUi.Instance.upStage();
         LoadStage();
+
 
         if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
         {
@@ -144,10 +144,11 @@ public class gameManager : MonoBehaviour
     public void LoadStage()
     {
         meteorKilled = 0;
-
-        if(MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
         calculMeteorToKill();
+        if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
+
         CheckStageBoss();
+        MainUi.Instance.updateStage();
 
         MainUi.Instance.ShowBossLife(bossStage);
 
@@ -162,7 +163,6 @@ public class gameManager : MonoBehaviour
             SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
             if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
             meteorToKill = 1;
-
         }
         else
         {

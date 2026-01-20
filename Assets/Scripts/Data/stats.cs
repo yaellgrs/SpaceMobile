@@ -278,7 +278,7 @@ public class Stats
         save();
         QuestStats.Instance.reset();
         Data.Instance.reset();
-        MainUi.Instance.updateStage();
+        MainUi.Instance.upStage();
     }
 
 
