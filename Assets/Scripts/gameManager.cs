@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     public spaceObject miniMeteorPrefab;
     public spaceObject ironMeteorPrefab;
     public spaceObject uraniumMeteorPrefab;
+    public spaceObject bossMeteorPrefab;
 
     float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
@@ -32,6 +33,7 @@ public class gameManager : MonoBehaviour
     public BigNumber BN_xpEarned = new BigNumber(0);
 
     public bool isPaused = false;
+    public bool bossStage = false;
 
     float autoSaveTimer = 0f;
     private void Awake()
@@ -55,12 +57,14 @@ public class gameManager : MonoBehaviour
     // Start is calledonce before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        calculMeteorToKill();
+
         Application.targetFrameRate = 60;
+        LoadStage();
     }
 
     private void calculMeteorToKill()
     {
+        if (bossStage) { meteorToKill = 1; return; }
         float n = Stats.Instance.enemyPerStage * 100f;
         meteorToKill = (int)(n / 100f);
         if(n % 100 > UnityEngine.Random.Range(0, 100))
@@ -89,7 +93,7 @@ public class gameManager : MonoBehaviour
         autoSaveTimer += Time.deltaTime;
         Data.Instance.time += Time.deltaTime;
 
-        if(timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
+        if(!bossStage && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
             spawnSpaceObject();
             timer = 0f;
@@ -106,18 +110,19 @@ public class gameManager : MonoBehaviour
     {
         if (meteorKilled >= meteorToKill)
         {
-            meteorKilled = 0;
-            MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
+
+            //end stage
+
             Stats.Instance.stage++;
             if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
             {
                 Stats.Instance.stage++;
-                gameManager.instance.getStageReward(1.70f, 0.75f);
+                getStageReward(1.70f, 0.75f);
                 MainUi.Instance.ShowStageSkip();
             }
-            gameManager.instance.getStageReward(1.95f);
+            getStageReward(1.95f);
             MainUi.Instance.updateStage();
-            calculMeteorToKill();
+            LoadStage();
 
             if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
             {
@@ -126,6 +131,34 @@ public class gameManager : MonoBehaviour
                     QuestStats.Instance.timeCompleted = Data.Instance.time;
                 }
             }
+        }
+    }
+
+    public void LoadStage()
+    {
+        Debug.Log("load stage");
+        meteorKilled = 0;
+
+
+        if(MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
+        calculMeteorToKill();
+        CheckStageBoss();
+
+
+    }
+
+    public void CheckStageBoss() {
+        if (Stats.Instance.stage % 10 == 0)
+        {
+            Debug.Log("BOOSSSSS TIME");
+            bossStage = true;
+            SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
+            if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
+
+        }
+        else
+        {
+            bossStage = false;
         }
     }
 
@@ -213,6 +246,7 @@ public class gameManager : MonoBehaviour
 
     private void SpawnMeteor(spaceObject meteorPredab, meteorType type)
     {
+        Debug.Log("spawn meteor type : " + type);
         spaceObject obj = Instantiate(meteorPredab);
         obj.type = type;
         obj.Init();
@@ -262,6 +296,7 @@ public class gameManager : MonoBehaviour
 
     public void DestroyMeteors()
     {
+        Debug.Log("destroy meteors");
         spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)
         {

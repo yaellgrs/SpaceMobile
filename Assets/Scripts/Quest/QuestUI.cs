@@ -95,6 +95,7 @@ public class QuestUI : MonoBehaviour
         exit.clicked += Close;
         Btn_switch.clicked += Switch;
 
+        claim.clicked += ClaimClicked;
         claim.clicked -= ClaimClicked;
 
 

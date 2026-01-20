@@ -146,7 +146,7 @@ public class MainUi : MonoBehaviour
         ironUI.loadUpdateUI();
         SetQuestCompleted(QuestManager.Instance.isCompleted());
 
-        updateStage();
+        //updateStage();
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
@@ -534,6 +534,7 @@ public class MainUi : MonoBehaviour
 
     public void updateStage()
     {
+        Debug.Log("update stage");
         if(Lbl_stageClear != null)
         {
             stageLabel.text = "Stage : " + Stats.Instance.stage;
