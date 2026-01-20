@@ -1,3 +1,4 @@
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DevTest : MonoBehaviour
@@ -49,14 +50,7 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Stats.Instance.stage++;
-            gameManager.instance.RestartStage();
-            MainUi.Instance.updateStage();
-            gameManager.instance.getStageReward(1.95f);
-
-            //show stage skip
-            gameManager.instance.getStageReward(1.70f, 0.75f);
-            MainUi.Instance.ShowStageSkip();
+            gameManager.instance.upStage();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {

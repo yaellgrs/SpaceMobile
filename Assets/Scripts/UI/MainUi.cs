@@ -72,6 +72,14 @@ public class MainUi : MonoBehaviour
 
     public Label debugLabel;
 
+    //Debug
+    Label Lbl_bossLife;
+    VisualElement VE_bossLife;
+    VisualElement VE_bossLifeLerp;
+    BigNumber bossLifeMax;
+    float currentBossPercent;
+    float LerpBossPercent;
+
     private void Awake()
     {
         if(Instance == null)
@@ -126,6 +134,10 @@ public class MainUi : MonoBehaviour
         Lbl_meteorWarning = root.Q<Label>("meteorWarning");
         Label_AutoShoot = root.Q<Label>("autoShootTimer");
         rocketCover.style.height = Length.Percent(0);
+
+        VE_bossLife = mainUI.rootVisualElement.Q<VisualElement>("BossLifeBarre");
+        VE_bossLifeLerp = mainUI.rootVisualElement.Q<VisualElement>("BossLifeBarreLerp");
+        Lbl_bossLife = mainUI.rootVisualElement.Q<Label>("bossLife");
 
         diamandLabel.text = Stats.Instance.diamand.ToString();
 
@@ -187,6 +199,16 @@ public class MainUi : MonoBehaviour
         }
     }
 
+    public void ShowBossLife(bool show)
+    {
+        if (show){
+            bossLifeMax = new BigNumber(gameManager.instance.meteors[0].life);
+            currentBossPercent = LerpBossPercent = 100f;
+        }
+
+        mainUI.rootVisualElement.Q<VisualElement>("boss").style.visibility = show ? Visibility.Visible : Visibility.Hidden;
+    }
+
     public void loadRocketButton()
     {
         if (Stats.Instance.rocketUnlocked)
@@ -233,6 +255,26 @@ public class MainUi : MonoBehaviour
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
+
+        if (gameManager.instance.bossStage)
+        {
+            if(gameManager.instance.meteors.Count > 0)
+            {
+                Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + bossLifeMax.ToString();
+                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(bossLifeMax);
+                currentBossPercent = Mathf.Lerp(currentBossPercent, targetPercent, Time.deltaTime * 30f);
+                LerpBossPercent = Mathf.Lerp(LerpBossPercent, targetPercent, Time.deltaTime * 2.5f);
+
+            }
+            else
+            {
+                currentBossPercent = 0f;
+                LerpBossPercent = 0f;
+            }
+            VE_bossLife.style.width = Length.Percent(currentBossPercent);
+            VE_bossLifeLerp.style.width = Length.Percent(LerpBossPercent);
+
+        }
 
 
         if(rocketTimer > 0 &&  !gameManager.instance.isPaused)

@@ -1,5 +1,5 @@
 
-using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,6 +34,8 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused = false;
     public bool bossStage = false;
+
+    public List<spaceObject> meteors = new List<spaceObject>();
 
     float autoSaveTimer = 0f;
     private void Awake()
@@ -98,7 +100,7 @@ public class gameManager : MonoBehaviour
             spawnSpaceObject();
             timer = 0f;
         }
-        upStage();
+        updateStage();
         if(autoSaveTimer > 10f)
         {
             Stats.Instance.save();
@@ -106,43 +108,48 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void upStage()
+    public void updateStage()
     {
         if (meteorKilled >= meteorToKill)
         {
+            upStage();
 
-            //end stage
+        }
+    }
 
+    public void upStage()
+    {
+        //end stage
+
+        Stats.Instance.stage++;
+        if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
+        {
             Stats.Instance.stage++;
-            if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
-            {
-                Stats.Instance.stage++;
-                getStageReward(1.70f, 0.75f);
-                MainUi.Instance.ShowStageSkip();
-            }
-            getStageReward(1.95f);
-            MainUi.Instance.updateStage();
-            LoadStage();
+            getStageReward(1.70f, 0.75f);
+            MainUi.Instance.ShowStageSkip();
+        }
+        getStageReward(1.95f);
+        MainUi.Instance.updateStage();
+        LoadStage();
 
-            if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
+        if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
+        {
+            if (new BigNumber(Stats.Instance.stage).isBigger(QuestManager.Instance.objectif))
             {
-                if(new BigNumber(Stats.Instance.stage).isBigger(QuestManager.Instance.objectif))
-                {
-                    QuestStats.Instance.timeCompleted = Data.Instance.time;
-                }
+                QuestStats.Instance.timeCompleted = Data.Instance.time;
             }
         }
     }
 
     public void LoadStage()
     {
-        Debug.Log("load stage");
         meteorKilled = 0;
-
 
         if(MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
         calculMeteorToKill();
         CheckStageBoss();
+
+        MainUi.Instance.ShowBossLife(bossStage);
 
 
     }
@@ -154,6 +161,7 @@ public class gameManager : MonoBehaviour
             bossStage = true;
             SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
             if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
+            meteorToKill = 1;
 
         }
         else
@@ -246,10 +254,10 @@ public class gameManager : MonoBehaviour
 
     private void SpawnMeteor(spaceObject meteorPredab, meteorType type)
     {
-        Debug.Log("spawn meteor type : " + type);
         spaceObject obj = Instantiate(meteorPredab);
         obj.type = type;
         obj.Init();
+        meteors.Add(obj);
     }
 
     public void SetPause(bool isPause)

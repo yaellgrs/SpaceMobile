@@ -179,7 +179,6 @@ public class spaceObject : MonoBehaviour
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
-
     }
 
     public void Move()
@@ -372,6 +371,6 @@ public class spaceObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Meteor destroyed\n" + System.Environment.StackTrace);
+        gameManager.instance.meteors.Remove(this);
     }
 }
