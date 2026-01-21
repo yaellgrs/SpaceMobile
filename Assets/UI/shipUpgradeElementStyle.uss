@@ -1,0 +1,63 @@
+:root {
+}
+
+.ShipElement {
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    width: 90%;
+    height: auto;
+    position: relative;
+    aspect-ratio: 3.5;
+    left: 5%;
+}
+
+.ShipName {
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    -unity-font-style: bold;
+}
+
+.ShipLogo {
+    width: 25%;
+    aspect-ratio: 1;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0);
+    left: 2.5%;
+    top: 5%;
+    background-image: url("project://database/Assets/art/ship/spaceShip.png?fileID=2800000&guid=8621eea3125b6c14e95e4bb78eeed959&type=3#spaceShip");
+}
+
+.ShipPrice {
+    font-size: 30px;
+    -unity-font-style: bold;
+    -unity-text-align: upper-right;
+    position: absolute;
+    left: 82.5%;
+    top: 75%;
+}
+
+.ShipBuy {
+    width: 20%;
+    aspect-ratio: 1.5;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    left: 77.5%;
+    font-size: 30px;
+    -unity-font-style: bold;
+    position: absolute;
+    top: 25%;
+}
