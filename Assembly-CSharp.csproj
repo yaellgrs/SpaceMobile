@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\meteor.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestManager.cs" />
+    <Compile Include="Assets\Scripts\Data\SpaceShipData.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\PrestigeUI.cs" />
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />
     <Compile Include="Assets\Scripts\shop\Boost.cs" />

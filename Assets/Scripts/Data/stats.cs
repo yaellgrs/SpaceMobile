@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 using static UpgradePrestige.UpgradeType;
 
+
+
 [System.Serializable]
 public class Stats
 {
@@ -27,6 +29,9 @@ public class Stats
     public bool isDead = false;
 
     public bool rocketUnlocked = false;
+
+    //Ship
+    
 
     //iron
     public List<MachineIron> machinesIron = new List<MachineIron>();
