@@ -251,7 +251,7 @@ public class SettingUI : MonoBehaviour
         Btn_scientific = root.Q<Button>("scientific");
         pause = root.Q<Button>("pause");
         damage = root.Q<Button>("damage");
-        xp = root.Q<Button>("xp");
+        xp = root.Q<Button>("BN_xp");
 
         slider_general.value = Settings.Instance.sound_general_value;
         slider_music.value = Settings.Instance.sound_music_value;

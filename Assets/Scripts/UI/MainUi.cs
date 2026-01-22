@@ -82,7 +82,7 @@ public class MainUi : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -97,9 +97,9 @@ public class MainUi : MonoBehaviour
     {
         var root = mainUI.rootVisualElement;
 
-        VE_main = root.Q<VisualElement>("main"); 
-        healthBar = root.Q<VisualElement>("HealthBar"); 
-        shieldBar = root.Q<VisualElement>("shieldBar"); 
+        VE_main = root.Q<VisualElement>("main");
+        healthBar = root.Q<VisualElement>("HealthBar");
+        shieldBar = root.Q<VisualElement>("shieldBar");
         xpBar = root.Q<VisualElement>("xpBar");
         rocketCover = root.Q<VisualElement>("rocketCover");
         Button normalUpButton1 = root.Q<Button>("ironUI");
@@ -150,7 +150,7 @@ public class MainUi : MonoBehaviour
         pubButton.clicked += pubButtonClicked;
         shopButton.clicked += shopClicked;
         questButton.clicked += questUI.LoadQuestUI;
-        enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/"+ gameManager.instance.meteorToKill.ToString();
+        enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
         uraniumUI.loadUpdateUI();
@@ -170,7 +170,7 @@ public class MainUi : MonoBehaviour
         ironUI.upgradeUI.gameObject.SetActive(false);
         adsUI.adsUI.gameObject.SetActive(false);
 
-        if(Stats.Instance.lastConnection == 0)
+        if (Stats.Instance.lastConnection == 0)
         {
             Stats.Instance.life = new BigNumber(Stats.Instance.lifeMax);
             Stats.Instance.shield = new BigNumber(Stats.Instance.shieldMax);
@@ -200,7 +200,8 @@ public class MainUi : MonoBehaviour
 
     public void ShowBossLife(bool show)
     {
-        if (show){
+        if (show)
+        {
             bossLifeMax = new BigNumber(gameManager.instance.meteors[0].life);
             currentBossPercent = LerpBossPercent = 100f;
         }
@@ -210,13 +211,14 @@ public class MainUi : MonoBehaviour
 
     public void loadRocketButton()
     {
-        if (Stats.Instance.rocketUnlocked)
+        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockRocket))
         {
             rocketCover.style.display = DisplayStyle.Flex;
             rocketButton.style.display = DisplayStyle.Flex;
             rocketLabel.style.display = DisplayStyle.Flex;
         }
-        else{
+        else
+        {
             rocketCover.style.display = DisplayStyle.None;
             rocketButton.style.display = DisplayStyle.None;
             rocketLabel.style.display = DisplayStyle.None;
@@ -225,7 +227,7 @@ public class MainUi : MonoBehaviour
 
     private void Fire()
     {
-        
+
         canon.instance.canFire = true;
         canon.instance.moveCanon();
     }
@@ -257,7 +259,7 @@ public class MainUi : MonoBehaviour
 
         if (gameManager.instance.bossStage)
         {
-            if(gameManager.instance.meteors.Count > 0)
+            if (gameManager.instance.meteors.Count > 0)
             {
                 Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + bossLifeMax.ToString();
                 float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(bossLifeMax);
@@ -276,7 +278,7 @@ public class MainUi : MonoBehaviour
         }
 
 
-        if(rocketTimer > 0 &&  !gameManager.instance.isPaused)
+        if (rocketTimer > 0 && !gameManager.instance.isPaused)
         {
             rocketCover.style.height = Length.Percent((rocketTimer / Stats.Instance.rocketTimerMax) * 100);
             rocketTimer -= Time.deltaTime;
@@ -311,14 +313,14 @@ public class MainUi : MonoBehaviour
 
     public void SetQuestCompleted(bool isCompleted)
     {
-            if (isCompleted)
-            {
-                questCompleted.style.visibility = Visibility.Visible;
-            }
-            else
-            {
-                questCompleted.style.visibility = Visibility.Hidden;
-            }
+        if (isCompleted)
+        {
+            questCompleted.style.visibility = Visibility.Visible;
+        }
+        else
+        {
+            questCompleted.style.visibility = Visibility.Hidden;
+        }
     }
 
     public void upLevelUI()
@@ -333,7 +335,7 @@ public class MainUi : MonoBehaviour
         xpLabel.text = Stats.Instance.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         xpBar.style.height = Length.Percent(100f);
-        float targetPercent = Stats.Instance.xp.GetPercentByDivided(Stats.Instance.xpLevelUp);
+        float targetPercent = Stats.Instance.BN_xp.GetPercentByDivided(Stats.Instance.BN_xpMax);
 
         if (currentPercent < targetPercent - 0.25f)
         {
@@ -400,7 +402,7 @@ public class MainUi : MonoBehaviour
     {
         ironUI.classActived = true;
         ironUI.IronClicked();
-        
+
     }
     private void uraniumClicked()
     {
@@ -419,9 +421,9 @@ public class MainUi : MonoBehaviour
 
     private void upAutoShootUI()
     {
-        if(VE_AutoShoot != null)
+        if (VE_AutoShoot != null)
         {
-            if (Stats.Instance.uraniumUnlocked)
+            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
             {
                 VE_AutoShoot.style.visibility = Visibility.Visible;
                 float timer = (canon.instance.autoTimer / Stats.Instance.speedAuto) * 100;
@@ -442,12 +444,12 @@ public class MainUi : MonoBehaviour
 
     public void upIronUI()
     {
-        if(ironLabel != null)
+        if (ironLabel != null)
         {
             string txt = Stats.Instance.iron.ToString();
             ironLabel.text = txt;
             ironLabel.style.fontSize = 50 - (2 * txt.Length);
-        } 
+        }
     }
 
     public void upUraniumUI()
@@ -470,7 +472,7 @@ public class MainUi : MonoBehaviour
 
     public void upHealthBar()
     {
-        if(healthBar != null)
+        if (healthBar != null)
         {
             string lifeText = Stats.Instance.life + "/" + spaceShip.instance.getMaxLife();
             lifeLabel.text = lifeText;
@@ -515,7 +517,7 @@ public class MainUi : MonoBehaviour
                 float diff = currentPercent - targetPercent;
                 shieldBar.style.width = Length.Percent(shieldBar.style.width.value.value - diff / 15f);
             }
-            else if(currentPercent < targetPercent - 0.25f)
+            else if (currentPercent < targetPercent - 0.25f)
             {
                 float diff = targetPercent - currentPercent;
                 shieldBar.style.width = Length.Percent(shieldBar.style.width.value.value + diff / 15f);
@@ -530,11 +532,11 @@ public class MainUi : MonoBehaviour
     public static string ConvertIntToText(int amount)
     {
         float nAmount = (float)amount;
-        if(amount < 1000)
+        if (amount < 1000)
         {
             return amount.ToString();
         }
-        int cpt = 0 ;
+        int cpt = 0;
         while (nAmount > 1000)
         {
             nAmount = (float)nAmount / 1000;
@@ -543,10 +545,10 @@ public class MainUi : MonoBehaviour
         string prefix;
         switch (cpt)
         {
-            case 1: 
+            case 1:
                 prefix = "k";
                 break;
-            case 2: 
+            case 2:
                 prefix = "m";
                 break;
             case 3:
@@ -576,7 +578,7 @@ public class MainUi : MonoBehaviour
 
     public void upStage()
     {
-        if(Lbl_stageClear != null)
+        if (Lbl_stageClear != null)
         {
 
             Lbl_stageClear.style.visibility = Visibility.Visible;
@@ -589,12 +591,12 @@ public class MainUi : MonoBehaviour
         foreach (spaceObject obj in meteors)
         {
             Destroy(obj.gameObject);
-        }    
+        }
     }
 
     public void updateStage()
     {
-        if(stageLabel == null )
+        if (stageLabel == null)
             stageLabel = mainUI.rootVisualElement.Q<Label>("stage");
         stageLabel.text = "Stage : " + Stats.Instance.stage;
     }

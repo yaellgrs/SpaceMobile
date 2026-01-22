@@ -229,7 +229,7 @@ public class Machine
     protected virtual void PayCost()
     {
         BN_levelCost = CalculUpgradeCost();
-        Stats.Instance.upIron(BN_levelCost, false);
+        Stats.Instance.AddIron(-BN_levelCost);
     }
 
     protected virtual void upMachine1Clicked()
@@ -322,7 +322,7 @@ public class Machine
                     {
                         if (Lbl_earn != null)
                         {
-                            Stats.Instance.upIron(BN_earn, true);
+                            Stats.Instance.AddIron(BN_earn);
                         }
                         time = -1;
                         if (Lbl_time != null)
@@ -354,7 +354,7 @@ public class Machine
 
                 if (Lbl_earn != null)
                 {
-                    Stats.Instance.upIron(earnPerScd, true);
+                    Stats.Instance.AddIron(earnPerScd);
                 }
                 time = 0f;
                 
@@ -594,7 +594,7 @@ public class Upgrades
     protected virtual void PayCost()
     {
         levelCostMachine1 = CalculUpgradeCost();
-        Stats.Instance.upUranium(levelCostMachine1, false);
+        Stats.Instance.AddUranium(-levelCostMachine1);
     }
 
     protected virtual void loadStat()

@@ -11,7 +11,7 @@ public class machineUranium : Machine
     protected override void PayCost()
     {
         BN_levelCost = CalculUpgradeCost();
-        Stats.Instance.upUranium(BN_levelCost, false);
+        Stats.Instance.AddUranium(-BN_levelCost);
     }
 
     protected override void machine1Clicked()
@@ -90,7 +90,7 @@ public class machineUranium : Machine
                     {
                         if (Lbl_earn != null)
                         {
-                            Stats.Instance.upUranium(BN_earn, true);
+                            Stats.Instance.AddUranium(BN_earn);
                         }
                         time = -1;
                         if (Lbl_time != null)
@@ -126,7 +126,7 @@ public class machineUranium : Machine
                 {
                     if (Lbl_earn != null)
                     {
-                        Stats.Instance.upUranium(earnPerScd, true);
+                        Stats.Instance.AddUranium(earnPerScd);
                     }
                     time = 0f;
                 }
@@ -203,7 +203,7 @@ public class UpgradesUranium : Upgrades
     protected override void PayCost()
     {
         levelCostMachine1 = CalculUpgradeCost();
-        Stats.Instance.upUranium(levelCostMachine1, false);
+        Stats.Instance.AddUranium(-levelCostMachine1);
     }
     protected override void upMachine1Clicked()
     {

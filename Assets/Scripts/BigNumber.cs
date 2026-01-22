@@ -30,6 +30,13 @@ public class BigNumber
         Normalize();
     }
 
+    public void Set(int n)
+    {
+        Mantisse = n;
+        Exp = 0;
+        Normalize();
+    }
+
     public void Set(BigNumber other)
     {
         Mantisse = other.Mantisse;
@@ -124,6 +131,16 @@ public class BigNumber
 
         BigNumber result = new BigNumber(a); // ou new BigNumber(a)
         result.Subtract(b);
+        return result;
+    }
+
+    public static BigNumber operator -(BigNumber a)
+    {
+        if (a is null)
+            throw new ArgumentNullException();
+
+        BigNumber result = new BigNumber(a);
+        result.Mantisse = -result.Mantisse;
         return result;
     }
 

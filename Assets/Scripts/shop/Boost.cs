@@ -120,7 +120,7 @@ public class Boost
                 loadBonusActive();
             }
 
-            Stats.Instance.upDiamand(price, false);
+            Stats.Instance.AddDiamand(-price);
         }
 
     }

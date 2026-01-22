@@ -35,7 +35,7 @@ public class ShopUI : MonoBehaviour
         buyUI.gameObject.SetActive(false);
         if(Stats.Instance.xpBoostTime > 0)
         {
-            Debug.Log("boost xp :  " + Stats.Instance.xpBoostTime);
+            Debug.Log("boost BN_xp :  " + Stats.Instance.xpBoostTime);
         }
         if (Stats.Instance.damageBoostTime > 0)
         {
@@ -86,7 +86,7 @@ public class ShopUI : MonoBehaviour
         {
             time = 1,
             price = 50,
-            name = "xp",
+            name = "BN_xp",
             type = Boost.Type.xp,
             shopUI = this
         };

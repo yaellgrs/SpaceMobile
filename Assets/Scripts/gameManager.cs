@@ -46,7 +46,6 @@ public class gameManager : MonoBehaviour
             Settings.Init();
             QuestStats.Init();
             Data.Init();
-            Stats.Initialize();
 
             SetPause(true);
         }
@@ -176,7 +175,7 @@ public class gameManager : MonoBehaviour
         float reward;
         MarkerType type;
         if (Random.Range(0, 2) == 1)
-        {//xp
+        {//BN_xp
             reward = Stats.Instance.stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
@@ -185,18 +184,18 @@ public class gameManager : MonoBehaviour
         }
         else 
         {
-            if(Stats.Instance.uraniumUnlocked && Random.Range(0, 2) == 1)
+            if(XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && Random.Range(0, 2) == 1)
             {//uranium 
                 reward = (int)(Stats.Instance.stage * 0.5f);
                 type = MarkerType.Uranium;
-                Stats.Instance.upUranium(new BigNumber(reward), true);
+                Stats.Instance.AddUranium(new BigNumber(reward));
 
             }
             else
             {//iron
                 reward  = (int)(Stats.Instance.stage * 2.5f);
                 type = MarkerType.Iron;
-                Stats.Instance.upIron(new BigNumber(reward), true);
+                Stats.Instance.AddIron(new BigNumber(reward));
             }
         }
         PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
@@ -239,7 +238,7 @@ public class gameManager : MonoBehaviour
             SpawnMeteor(DiamandMeteorPrefab, meteorType.Diamand);
         else if(x < rareLimit)
         {
-            if (Stats.Instance.uraniumUnlocked && UnityEngine.Random.Range(0, 2) == 0)
+            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && UnityEngine.Random.Range(0, 2) == 0)
                 SpawnMeteor(uraniumMeteorPrefab, meteorType.Uranium);
             else
                 SpawnMeteor(ironMeteorPrefab, meteorType.Iron);

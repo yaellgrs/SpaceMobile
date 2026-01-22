@@ -80,7 +80,7 @@ public class QuestManager
     public void Claim()
     {
         QuestStats.Instance.questLevel++;
-        Stats.Instance.upDiamand(reward, true);
+        Stats.Instance.AddDiamand(reward);
         Stats.Instance.AddXP(CalculXpReward());
 
         MainUi.Instance.questUI.refreshQuestUI();

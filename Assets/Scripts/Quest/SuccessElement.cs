@@ -126,7 +126,7 @@ public partial class SuccessElement : VisualElement
     {
         if (Stats.Instance == null) return;
 
-        Stats.Instance.upDiamand(getReward(), true);
+        Stats.Instance.AddDiamand(getReward());
         QuestStats.Instance.successGoals[type]++;
         initPorgress();
     }

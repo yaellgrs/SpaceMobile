@@ -71,7 +71,7 @@ public class XpUI : MonoBehaviour
         xpBar = root.Q<VisualElement>("xpBar");
         rewardVE = root.Q<VisualElement>("reward");
         VE_mainReward = root.Q<VisualElement>("mainReward");
-        xpLabel = root.Q<Label>("xp");
+        xpLabel = root.Q<Label>("BN_xp");
         rewardLevelLabel = root.Q<Label>("levelReward");
         levelLabel = root.Q<Label>("level");
         bonusLabel = root.Q<Label>("bonus");
@@ -90,8 +90,8 @@ public class XpUI : MonoBehaviour
         }
         else
         {
-            xpBar.style.width = Stats.Instance.xp.GetPercentByDivided(Stats.Instance.xpLevelUp);
-            xpLabel.text = Stats.Instance.xp.ToString() + "/" + Stats.Instance.xpLevelUp.ToString() + "XP";
+            xpBar.style.width = Stats.Instance.BN_xp.GetPercentByDivided(Stats.Instance.BN_xpMax);
+            xpLabel.text = Stats.Instance.BN_xp.ToString() + "/" + Stats.Instance.BN_xpMax.ToString() + "XP";
         }
 
 
@@ -156,8 +156,8 @@ public class XpUI : MonoBehaviour
 
         if (Stats.Instance.level % 2 == 0) loadLevelUpUI();
 
-        Stats.Instance.xp = new BigNumber(0f);
-        Stats.Instance.xpLevelUp = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
+        Stats.Instance.BN_xp.Set(0);
+        Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
 
         loadBonus();
 
@@ -259,7 +259,7 @@ public class XpUI : MonoBehaviour
                 path += "/uraniumAuto";
                 break;
             case BonusLevel.machineBoost:
-                if (Stats.Instance.uraniumUnlocked) path += "/machineBoost2";
+                if (rewardUnlocked(XpUI.BonusLevel.UnlockUranium)) path += "/machineBoost2";
                 else path += "/machineBoost1";
                     break;
             case BonusLevel.Prestige:
@@ -316,12 +316,10 @@ public class XpUI : MonoBehaviour
         if (rewardUnlocked(BonusLevel.UnlockPrestige) ) Stats.Instance.prestigeUnlocked = true;
         if (rewardUnlocked(BonusLevel.UnlockUranium) )
         {
-            Stats.Instance.uraniumUnlocked = true;
             spaceShip.instance.setAreaScale(1f);
         }
         if (rewardUnlocked(BonusLevel.UnlockRocket))
         {
-            Stats.Instance.rocketUnlocked = true;
             MainUi.Instance.loadRocketButton();
         }
         Stats.Instance.machineBoost_Lvl = 1f + GetEnumRewardCount(BonusLevel.machineBoost) * 0.25f;
@@ -334,9 +332,10 @@ public class XpUI : MonoBehaviour
         Stats.Instance.shield_Regen_Time = 10f - 2*GetEnumRewardCount(BonusLevel.ShieldRegen);
     }
 
-    public bool rewardUnlocked(BonusLevel bonus)
+
+    public static bool rewardUnlocked(BonusLevel bonus)
     {
-        return GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1;
+        return MainUi.Instance.xpUI.GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1;
     }
 
     public BonusLevel GetEnumReward(int lvl)

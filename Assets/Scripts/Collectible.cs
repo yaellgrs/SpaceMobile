@@ -64,15 +64,15 @@ public class Collectible : MonoBehaviour
                 switch (type)
                 {
                     case CollectibleType.iron:
-                        Stats.Instance.upIron(reward, true);
+                        Stats.Instance.AddIron(reward);
                         if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
                         break;
                     case CollectibleType.uranium:
-                        Stats.Instance.upUranium(reward, true);
+                        Stats.Instance.AddUranium(reward);
                         if (QuestManager.Instance.type == QuestType.KillUraniumMeteor) QuestManager.Instance.upQuest(reward);
                         break;
                     case CollectibleType.Diamand:
-                        Stats.Instance.upDiamand(1, true);
+                        Stats.Instance.AddDiamand(1);
                         break;
                 }
 

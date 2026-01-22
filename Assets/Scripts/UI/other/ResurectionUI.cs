@@ -86,7 +86,7 @@ public class ResurectionUI : MonoBehaviour
 
     private void diamandClicked()
     {
-        Stats.Instance.upDiamand(5 * Stats.Instance.deadPubWatch, false);
+        Stats.Instance.AddDiamand(5 * Stats.Instance.deadPubWatch);
         Close();
     }
 

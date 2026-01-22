@@ -89,7 +89,7 @@ public class MachineIron : Machine
                     {
                         if (Lbl_earn != null)
                         {
-                            Stats.Instance.upIron(BN_earn, true);
+                            Stats.Instance.AddIron(BN_earn);
                         }
                         time = -1;
 
@@ -133,7 +133,7 @@ public class MachineIron : Machine
                 {
                     if (Lbl_earn != null)
                     {
-                        Stats.Instance.upIron(earnPerScd, true);
+                        Stats.Instance.AddIron(earnPerScd);
                     }
                     time = 0f;
                 }
@@ -209,7 +209,7 @@ public class UpgradesIron : Upgrades
     protected override void PayCost()
     {
         levelCostMachine1 = CalculUpgradeCost();
-        Stats.Instance.upIron(levelCostMachine1, false);
+        Stats.Instance.AddIron(-levelCostMachine1);
     }
 
     protected override void upMachine1Clicked()
@@ -288,7 +288,5 @@ public class UpgradesIron : Upgrades
 
         loadStat();
     }
-
-
 
 }

@@ -132,19 +132,19 @@ public class IAPManager : MonoBehaviour, IStoreListener
         }
         if (args.purchasedProduct.definition.id == SMALL_PACK)
         {
-            Stats.Instance.upDiamand(SMALL_PACK_REWARD, true); MainUi.Instance.shopUI.upDiamand();
+            Stats.Instance.AddDiamand(SMALL_PACK_REWARD); MainUi.Instance.shopUI.upDiamand();
         }
         if (args.purchasedProduct.definition.id == MEDIUM_PACK)
         {
-            Stats.Instance.upDiamand(MEDIUM_PACK_REWARD, true); MainUi.Instance.shopUI.upDiamand();
+            Stats.Instance.AddDiamand(MEDIUM_PACK_REWARD); MainUi.Instance.shopUI.upDiamand();
         }
         if (args.purchasedProduct.definition.id == BIG_PACK)
         {
-            Stats.Instance.upDiamand(BIG_PACK_REWARD, true); MainUi.Instance.shopUI.upDiamand();
+            Stats.Instance.AddDiamand(BIG_PACK_REWARD); MainUi.Instance.shopUI.upDiamand();
         }
         if (args.purchasedProduct.definition.id == GIANT_PACK)
         {
-            Stats.Instance.upDiamand(GIANT_PACK_REWARD, true); MainUi.Instance.shopUI.upDiamand();
+            Stats.Instance.AddDiamand(GIANT_PACK_REWARD); MainUi.Instance.shopUI.upDiamand();
         }
         return PurchaseProcessingResult.Complete;
     }

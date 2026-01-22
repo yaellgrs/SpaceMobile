@@ -66,7 +66,7 @@ public class DevTest : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            Stats.Instance.upDiamand(50, true); //donne 50 diamands ) 
+            Stats.Instance.AddDiamand(50); //donne 50 diamands ) 
             MainUi.Instance.xpUI.loadBonus();
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -74,14 +74,11 @@ public class DevTest : MonoBehaviour
             for (int i = 0; i < 5; i++) //level up 5 fois
                 MainUi.Instance.xpUI.LevelUp();
 
-            Stats.Instance.upPrestige(new BigNumber(1, 10), true); // donne 1^10 prestige
-            Stats.Instance.upIron(new BigNumber(1, 10), true);// donne 1^10 fer
-            Stats.Instance.upUranium(new BigNumber(1, 10), true);// donne 1^10 uranium
+            Stats.Instance.addPrestige(new BigNumber(1, 10)); // donne 1^10 prestige
+            Stats.Instance.AddIron(new BigNumber(1, 10));// donne 1^10 fer
+            Stats.Instance.AddUranium(new BigNumber(1, 10));// donne 1^10 uranium
         }
     }
-
-
-
 
     private void testTutos()
     {

@@ -99,7 +99,7 @@ public class UpgradePrestige : Upgrades
     protected override void PayCost()
     {
         levelCostMachine1 = CalculUpgradeCost();
-        Stats.Instance.upPrestige(levelCostMachine1, false);
+        Stats.Instance.AddUranium(-levelCostMachine1);
     }
     protected override void upMachine1Clicked()
     {

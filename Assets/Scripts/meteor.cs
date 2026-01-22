@@ -294,7 +294,7 @@ public class spaceObject : MonoBehaviour
         if (isOmega)
         {
             
-            Stats.Instance.upPrestigeWaiting(new BigNumber(Stats.Instance.stage) * 0.5f, true);
+            Stats.Instance.AddPrestigeWainting(new BigNumber(Stats.Instance.stage) * 0.5f);
             PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
             Data.Instance.OmegaMeteorKilled += 1;
         }
@@ -353,7 +353,7 @@ public class spaceObject : MonoBehaviour
         BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
         //xpToLevelUp = 50 * 1.15^level
         //XpByMeteorDestroyed = 0.5 * stage * 1.1^stage
-        //  Stats.Instance.xpLevelUp = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
+        //  Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
         switch (type)
         {
             case meteorType.Big:

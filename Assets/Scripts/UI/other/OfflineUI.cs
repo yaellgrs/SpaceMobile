@@ -132,7 +132,7 @@ public class OfflineUI : MonoBehaviour
         if (offline)
         {
             totaEarn.Multiply(Stats.Instance.offline_Prod_Part);
-            Stats.Instance.upIron(totaEarn, true);
+            Stats.Instance.AddIron(totaEarn);
         }
 
         return totaEarn;
@@ -160,7 +160,7 @@ public class OfflineUI : MonoBehaviour
         if (offline)
         {
             totaEarn.Multiply(Stats.Instance.offline_Prod_Part);
-            Stats.Instance.upUranium(totaEarn, true);
+            Stats.Instance.AddUranium(totaEarn);
         }
         return totaEarn;
     }

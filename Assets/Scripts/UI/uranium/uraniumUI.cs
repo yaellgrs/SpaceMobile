@@ -271,7 +271,7 @@ public class UraniumUI : BaseUI
         prestigeButton.clicked += prestigeClicked;
         ironButton.clicked += ironClicked;
 
-        if (Stats.Instance.uraniumUnlocked)
+        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             uraniumUnlockedVE.style.visibility = Visibility.Hidden;
 
@@ -291,7 +291,7 @@ public class UraniumUI : BaseUI
 
 
 
-        if (!Stats.Instance.uraniumTuto && MainUi.Instance.xpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+        if (!Stats.Instance.uraniumTuto && XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             Debug.Log("load uranium tuto");
             Tuto.Instance.LoadForgeTuto(false);

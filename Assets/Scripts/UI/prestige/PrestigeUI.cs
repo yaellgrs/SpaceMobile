@@ -57,7 +57,7 @@ public class PrestigeUI : BaseUI
 
     public void addNewUpgrades(int prestige)
     {
-        Stats.Instance.upPrestige(calculCostPrestige(), false);
+        Stats.Instance.AddUranium(-calculCostPrestige());
         string name = "upgrade" + (Stats.Instance.upgradesPrestige.Count + 1);
         UpgradePrestige.UpgradeType type;
         if (prestige == 1)
@@ -314,15 +314,15 @@ public class PrestigeUI : BaseUI
     }
     private void diamandClicked()
     {
-        Stats.Instance.upPrestige(bonus, true);
-        Stats.Instance.upDiamand(50, false);
+        Stats.Instance.AddUranium(bonus);
+        Stats.Instance.AddDiamand(-50);
         PrestigeResetClicked();
     }
 
     private void PrestigeResetClicked()
     {
-        Stats.Instance.upPrestige(bonus, true);
-        Stats.Instance.prestigeWaiting = new BigNumber(0);
+        Stats.Instance.AddUranium(bonus);
+        Stats.Instance.prestigeWaiting.Set(0);
 
         Stats.Instance.stage = 1;
         Stats.Instance.machinesIron.Clear();
@@ -335,8 +335,8 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.uraniumUI.initializeMachine();
         MainUi.Instance.uraniumUI.initializeUpgrade();
 
-        Stats.Instance.iron = new BigNumber(0);
-        Stats.Instance.uranium = new BigNumber(0);
+        Stats.Instance.iron.Set(0);
+        Stats.Instance.uranium.Set(0);
 
         MainUi.Instance.ironUI.upIronRaffinedUi();
         MainUi.Instance.uraniumUI.upUraniumLabel();
@@ -516,7 +516,7 @@ public class PrestigeUI : BaseUI
     {
         setNextPrestigeToBuy();
         setNextPrestigeToBuy2();
-        Stats.Instance.upPrestige(calculCostPrestige(), false);
+        Stats.Instance.AddUranium(-calculCostPrestige());
         setTextBuyUI(Stats.Instance.nextPrestigeToBuy);
         LastPrestigeClicked();
     }
