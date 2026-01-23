@@ -124,9 +124,9 @@ public class Tuto: MonoBehaviour
             MainUi.Instance.uraniumUI.forgeUpgradeClicked();
 
         if (isIron)
-            Stats.Instance.upIron(new BigNumber(160), true);
+            Stats.Instance.AddIron(new BigNumber(160));
         else
-            Stats.Instance.upUranium(new BigNumber(160), true);
+            Stats.Instance.AddUranium(new BigNumber(160));
 
         forgeElements.style.display = DisplayStyle.None;
 

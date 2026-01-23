@@ -16,7 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 9b2a5f0329257e649883f1f77508af1f
   m_Entries:
   - m_Id: 15358439424
-    m_Key: Prestige_upgrades_PrestigeMultiplicator
+    m_Key: Prestige_upgrade_PrestigeMultiplicator
     m_Metadata:
       m_Items: []
   - m_Id: 250038136832

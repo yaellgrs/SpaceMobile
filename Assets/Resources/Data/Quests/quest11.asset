@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647211a173c3748448b7a069d6f70120, type: 3}
   m_Name: quest11
   m_EditorClassIdentifier: Assembly-CSharp::Quests
-  level: 0
-  type: 0
+  level: 11
+  type: 4
   objectif:
-    Mantisse: 0
-    Exp: 0
+    Mantisse: 250
+    Exp: 6
   rewardDiamand: 2
   text: Met le text ici puis dis le moi, je le mettrais dans la table de traduction.

@@ -87,18 +87,13 @@ public class PoolManager : MonoBehaviour
         }
     }
     
-    public void LaunchPrefab(Vector3 position, string xp, MarkerType type)
+    public void LaunchPrefab(Vector3 position, string xp, MarkerType type, float speed = 1f, float alpha_decrease = 0.975f, float fontFactor = 1f)
     {
         XpMarker marker = Instance.GetPrefab(type);
-        marker.init(position, xp);
-    }
-    public void LaunchPrefab(Vector3 position, string xp, MarkerType type, float speed, float alpha_decrease)
-    {
-        XpMarker marker = Instance.GetPrefab(type);
-
+        marker.label.fontSize = 0.3f * fontFactor;
         marker.speed = speed;
-        marker.alpha_decrease = alpha_decrease;
         marker.init(position, xp);
     }
+
 
 }

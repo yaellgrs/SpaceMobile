@@ -12,6 +12,18 @@ public class Data
     public float time = 0;
     public int meteorKilled = 0;
 
+    //a mettre dans stats
+    public BigNumber uraniumMeteorKilled = new BigNumber(0);
+    public BigNumber basicMeteorKilled = new BigNumber(0);
+    public BigNumber ironMeteorKilled = new BigNumber(0);
+    public BigNumber diamandMeteorKilled = new BigNumber(0);
+    public BigNumber splitterMeteorKilled = new BigNumber(0);
+    public BigNumber reinforcedMeteorKilled = new BigNumber(0);
+    public BigNumber OmegaMeteorKilled = new BigNumber(0);
+
+
+    public BigNumber PrestigeCount = new BigNumber(0);
+
     public static void Init()
     {
         if (Instance == null)

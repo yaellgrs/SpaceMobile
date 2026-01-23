@@ -60,39 +60,42 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.2f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\UI\ResurectionUI.cs" />
-    <Compile Include="Assets\Scripts\machines\machineFer.cs" />
     <Compile Include="Assets\Scripts\upMode.cs" />
     <Compile Include="Assets\Scripts\DevTest.cs" />
     <Compile Include="Assets\Scripts\Data\Data.cs" />
-    <Compile Include="Assets\Scripts\UI\IronUi.cs" />
+    <Compile Include="Assets\Scripts\UI\xp\XpUI.cs" />
     <Compile Include="Assets\Scripts\UI\BaseUI.cs" />
     <Compile Include="Assets\Scripts\ship\spaceShip.cs" />
     <Compile Include="Assets\Scripts\Quest\SuccessElement.cs" />
     <Compile Include="Assets\Scripts\Data\stats.cs" />
     <Compile Include="Assets\Scripts\Collectible.cs" />
+    <Compile Include="Assets\Scripts\UI\other\ResurectionUI.cs" />
+    <Compile Include="Assets\Scripts\UI\machine.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestUI.cs" />
-    <Compile Include="Assets\Scripts\UI\OfflineUI.cs" />
-    <Compile Include="Assets\Scripts\UI\uraniumUI.cs" />
-    <Compile Include="Assets\Scripts\machines\machine.cs" />
     <Compile Include="Assets\Scripts\markers\poolManager.cs" />
+    <Compile Include="Assets\Scripts\UI\prestige\shipUpgradeElement.cs" />
     <Compile Include="Assets\Scripts\UI\MainUi.cs" />
     <Compile Include="Assets\Scripts\gameManager.cs" />
     <Compile Include="Assets\Scripts\Ads\IAPManager.cs" />
-    <Compile Include="Assets\Scripts\UI\PrestigeUI.cs" />
-    <Compile Include="Assets\Scripts\UI\SettingUI.cs" />
     <Compile Include="Assets\Scripts\tutos\Tuto.cs" />
+    <Compile Include="Assets\Scripts\UI\iron\machineFer.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\Rotate.cs" />
-    <Compile Include="Assets\Scripts\machines\upgradePrestige.cs" />
+    <Compile Include="Assets\Scripts\UI\machineElement.cs" />
+    <Compile Include="Assets\Scripts\Quest\QuestStats.cs" />
+    <Compile Include="Assets\Scripts\UI\uranium\uraniumUI.cs" />
+    <Compile Include="Assets\Scripts\UI\menu\ShopUI.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\UI\other\OfflineUI.cs" />
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
     <Compile Include="Assets\Scripts\markers\MarkerPool.cs" />
-    <Compile Include="Assets\Scripts\UI\XpUI.cs" />
     <Compile Include="Assets\Scripts\ship\canon.cs" />
     <Compile Include="Assets\Scripts\Data\settings.cs" />
     <Compile Include="Assets\Scripts\ship\lazer.cs" />
+    <Compile Include="Assets\Scripts\UI\iron\machineIron.cs" />
     <Compile Include="Assets\Scripts\markers\XpMarker.cs" />
+    <Compile Include="Assets\Scripts\UI\prestige\upgradePrestige.cs" />
     <Compile Include="Assets\Scripts\Song.cs" />
+    <Compile Include="Assets\Scripts\UI\iron\IronUi.cs" />
     <Compile Include="Assets\Scripts\BigNumber.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\UnityPurchasing\generated\GooglePlayTangle.cs" />
@@ -101,11 +104,12 @@
     <Compile Include="Assets\Scripts\meteor.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\DisableGizmos.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestManager.cs" />
-    <Compile Include="Assets\Scripts\machines\machineIron.cs" />
-    <Compile Include="Assets\Scripts\machines\machineUranium.cs" />
+    <Compile Include="Assets\Scripts\Data\SpaceShipData.cs" />
+    <Compile Include="Assets\Scripts\UI\prestige\PrestigeUI.cs" />
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />
     <Compile Include="Assets\Scripts\shop\Boost.cs" />
-    <Compile Include="Assets\Scripts\UI\ShopUI.cs" />
+    <Compile Include="Assets\Scripts\UI\menu\SettingUI.cs" />
+    <Compile Include="Assets\Scripts\UI\uranium\machineUranium.cs" />
     <Compile Include="Assets\Scripts\upSpeed.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +138,7 @@
     <None Include="Assets\GoogleMobileAds\link.xml" />
     <None Include="Assets\UI\LevelUpUI.uxml" />
     <None Include="Assets\art\test.txt" />
+    <None Include="Assets\UI\shipUpgradeElementStyle.uss" />
     <None Include="Assets\UI\MainUI.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\UI\Tutos\IronForgeTuto.uxml" />
@@ -141,7 +146,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\UI\prestige\BuyPrestige.uxml" />
-    <None Include="Assets\UI\prestige\jsp.uxml" />
+    <None Include="Assets\UI\prestige\ShipUpgrade.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.Unity.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
@@ -154,6 +159,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />
     <None Include="Assets\Resources\Data\Quests\readme.txt" />
+    <None Include="Assets\UI\machineStyle.uss" />
     <None Include="Assets\UI\prestige\prestige2.uxml" />
     <None Include="Assets\UI\menu\stats.uxml" />
     <None Include="Assets\UI\Resurection.uxml" />
@@ -163,6 +169,7 @@
     <None Include="Assets\UI\prestige\upgradeTemplate.uxml" />
     <None Include="Assets\UI\menu\tutorial.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\UI\forgeTest.uxml" />
     <None Include="Assets\UI\xpUI.uxml" />
     <None Include="Assets\UI\menu\menuUSS.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Android.dll" />

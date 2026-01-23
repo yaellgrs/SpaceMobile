@@ -17,6 +17,9 @@ public class spaceObject : MonoBehaviour
     public GameObject uraniumCollectiblePrefab;
     public GameObject diamandCollectiblePrefab;
 
+    public ParticleSystem starParticle;
+    public ParticleSystem meteorParticle;
+
     public float spaceObjectSpeed;
     public BigNumber lifeMax = new BigNumber(2, 0);
     public BigNumber life;
@@ -30,15 +33,14 @@ public class spaceObject : MonoBehaviour
 
     public Vector3 baseScale;
 
-    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium};
+    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium, Boss};
     public meteorType type;
 
     public bool isDestroyByRocket = false;
 
 
-    public void Init()
+    public virtual void Init()
     {
-        
 
         if (type != meteorType.miniMeteor)
         {
@@ -78,8 +80,13 @@ public class spaceObject : MonoBehaviour
         {
             if (!Stats.Instance.popupTutos[PopupTuto.splitterMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
         }
+        else if(type == meteorType.Boss)
+        {
+           lifeMax *= 15;
+            Debug.Log("meteor boss");
+        }
 
-            List<(int stage, float mult)> paliers = new()
+        List<(int stage, float mult)> paliers = new()
         {
             (10, 1.2f),
             (25, 1.5f),
@@ -91,7 +98,7 @@ public class spaceObject : MonoBehaviour
         {
             if(Stats.Instance.stage >= palier.stage)
             {
-                lifeMax.Multiply(palier.mult);
+                lifeMax *= palier.mult;
             }
         }
 
@@ -100,13 +107,14 @@ public class spaceObject : MonoBehaviour
         lifeText.text = life.ToString();
         if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
         {
-            if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10)
+            if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10 || true)
             {
                 isOmega = true;
-                GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(true);
+                starParticle.gameObject.SetActive(true);
             }
-            else GetComponentInChildren<ParticleSystem>()?.gameObject.SetActive(false);
+            else starParticle.gameObject.SetActive(false);
         }
+        else starParticle.gameObject.SetActive(false);
 
         loadSpeed();
         transform.localScale = baseScale;
@@ -141,20 +149,41 @@ public class spaceObject : MonoBehaviour
         {
             spaceObjectSpeed *= 0.35f;
         }
-            spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator;
-        Move();
+        else if (type == meteorType.Boss)
+        {
+            spaceObjectSpeed *= 0.5f;
+        }
+        spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator;
+        if(type != meteorType.Boss)
+        {
+            Move();
+        }
     }
 
     private void Update()
     {
         spawnTime += Time.deltaTime;
         UpLife();
+        if (type == meteorType.Boss) MoveBoss();
+    }
 
+    public void MoveBoss()
+    {
+        //if (isPause) return;
+
+        Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
+        Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
+        Vector3 dir = ( shipDir + perp * 5f).normalized;
+        transform.position += dir * spaceObjectSpeed * Time.deltaTime;
+
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
     }
 
     public void Move()
     {
-
+        if(type == meteorType.Boss) return;
         isPause = gameManager.instance.isPaused;
         if (isPause) return;
         if (isStart)
@@ -199,6 +228,12 @@ public class spaceObject : MonoBehaviour
                 y = 0;
                 break;
         }
+        if(type == meteorType.Boss)
+        {
+            x = bottomLeft.x - 0.5f;
+            y = topRight.y * 0.75f;
+        }
+
         transform.position = new Vector3(x, y, 0);
     }
 
@@ -214,7 +249,7 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if(QuestManager.Instance.type == QuestType.MeteorToKill)
+        if(QuestManager.Instance.type == QuestType.KillMeteor)
         {
             QuestManager.Instance.upQuest();
         }
@@ -230,18 +265,21 @@ public class spaceObject : MonoBehaviour
             GameObject obj = Instantiate(diamandCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
+            Data.Instance.diamandMeteorKilled += 1;
         }
         else if (type == meteorType.Iron)
         {
             GameObject obj = Instantiate(ironCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
+            Data.Instance.ironMeteorKilled += 1;
         }
         else if (type == meteorType.Uranium)
         {
             GameObject obj = Instantiate(uraniumCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
+            Data.Instance.uraniumMeteorKilled += 1;
         }
         else
         {
@@ -250,22 +288,28 @@ public class spaceObject : MonoBehaviour
                 Stats.Instance.AddXP(calculXp());
                 PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
+            Data.Instance.basicMeteorKilled += 1;
         }
         //Death
         if (isOmega)
         {
             
-            Stats.Instance.upPrestigeWaiting(new BigNumber(Stats.Instance.stage) * 0.5f, true);
+            Stats.Instance.AddPrestigeWainting(new BigNumber(Stats.Instance.stage) * 0.5f);
             PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
+            Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)
         {
             if(!isDestroyByRocket) gameManager.instance.launchMiniMeteor(transform);
+            Data.Instance.splitterMeteorKilled += 1;
         }
 
         Song.Instance.playSound(Song.Instance.meteor_sound);
         Data.Instance.meteorKilled += 1;
         gameManager.instance.SmallVibrate();
+        meteorParticle.transform.SetParent(null);
+        meteorParticle.transform.position = transform.position; 
+        meteorParticle.Play();
     }
 
     public void Pause()
@@ -309,7 +353,7 @@ public class spaceObject : MonoBehaviour
         BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
         //xpToLevelUp = 50 * 1.15^level
         //XpByMeteorDestroyed = 0.5 * stage * 1.1^stage
-        //  Stats.Instance.xpLevelUp = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
+        //  Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
         switch (type)
         {
             case meteorType.Big:
@@ -322,5 +366,11 @@ public class spaceObject : MonoBehaviour
         }
         result *= Stats.Instance.XpMultiplicator;
         return result;
+    }
+
+
+    private void OnDestroy()
+    {
+        gameManager.instance.meteors.Remove(this);
     }
 }

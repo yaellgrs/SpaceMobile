@@ -1932,10 +1932,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questUI: {fileID: 256186171}
   successUI: {fileID: 1468166188}
-  type: 0
-  objectif:
-    Mantisse: 1
-    Exp: 2
 --- !u!1 &1360012647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,6 +2710,7 @@ MonoBehaviour:
   miniMeteorPrefab: {fileID: 2963011495043054338, guid: ae90cab106598914390aa66d5ea0a82a, type: 3}
   ironMeteorPrefab: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
   uraniumMeteorPrefab: {fileID: 5482572478085618534, guid: c0960c5c47888ea41808ac9f64cec58c, type: 3}
+  bossMeteorPrefab: {fileID: 8090539688173217151, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
   timer: 0
   meteorToKill: 10
   meteorKilled: 0
@@ -2725,6 +2722,7 @@ MonoBehaviour:
     Mantisse: 0
     Exp: 0
   isPaused: 0
+  bossStage: 0
 --- !u!4 &1752593084
 Transform:
   m_ObjectHideFlags: 0
