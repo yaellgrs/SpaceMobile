@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\markers\poolManager.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\shipUpgradeElement.cs" />
     <Compile Include="Assets\Scripts\UI\MainUi.cs" />
+    <Compile Include="Assets\Scripts\gameManager.cs" />
     <Compile Include="Assets\Scripts\Ads\IAPManager.cs" />
     <Compile Include="Assets\Scripts\tutos\Tuto.cs" />
     <Compile Include="Assets\Scripts\UI\iron\machineFer.cs" />
@@ -146,6 +147,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />
     <None Include="Assets\Resources\Data\Quests\readme.txt" />
+    <None Include="Assets\UI\machineStyle.uss" />
     <None Include="Assets\UI\prestige\prestige2.uxml" />
     <None Include="Assets\UI\menu\stats.uxml" />
     <None Include="Assets\UI\Resurection.uxml" />
@@ -155,6 +157,7 @@
     <None Include="Assets\UI\prestige\upgradeTemplate.uxml" />
     <None Include="Assets\UI\menu\tutorial.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\UI\forgeTest.uxml" />
     <None Include="Assets\UI\xpUI.uxml" />
     <None Include="Assets\UI\menu\menuUSS.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Android.dll" />
