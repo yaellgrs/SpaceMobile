@@ -43,6 +43,7 @@ public class gameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            Stats.Initialize();
             Settings.Init();
             QuestStats.Init();
             Data.Init();

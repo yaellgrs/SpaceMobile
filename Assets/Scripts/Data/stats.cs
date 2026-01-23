@@ -12,23 +12,20 @@ public class Stats
 {
     public int version = 1;
 
-    private static Stats _instance;
-    public static Stats Instance
+    public static Stats Instance;
+
+    public static void Initialize()
     {
-        get
+        if (Instance == null)
         {
-            if (_instance == null) _instance = new Stats();
-            return _instance;
-        }
-    }
+            Instance = new Stats();
 
-    private Stats() {
-
-        float version = _instance.version;
-        _instance.load();
-        if (_instance.version < version)
-        {
-            _instance.reset();
+            float version = Instance.version;
+            Instance.load();
+            if (Instance.version < version)
+            {
+                Instance.reset();
+            }
         }
     }
 
@@ -185,10 +182,10 @@ public class Stats
         else
         {
             string data = System.IO.File.ReadAllText(path);
-            _instance = JsonUtility.FromJson<Stats>(data);
+            Instance = JsonUtility.FromJson<Stats>(data);
         }
-        _instance.life.Set(spaceShip.instance.getMaxLife());
-        _instance.shield.Set(spaceShip.instance.getMaxShield());
+        Instance.life.Set(spaceShip.instance.getMaxLife());
+        Instance.shield.Set(spaceShip.instance.getMaxShield());
     }
 
     public void save() {
@@ -203,7 +200,7 @@ public class Stats
 
     public void reset()
     {
-        _instance = new Stats();
+        Instance = new Stats();
         save();
         QuestStats.Instance.reset();
         Data.Instance.reset();
