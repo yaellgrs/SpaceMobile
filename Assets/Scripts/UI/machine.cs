@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class Machine
 {
-    public enum borderColor { white, bronze, silver, gold, diamand, black };
+    public enum borderColor { white, bronze, iron, gold, diamand, black };
 
     public int machineNumber = 0;
     
@@ -397,7 +397,7 @@ public class Machine
                 pathCadre += "/bronze/cadre";
                 pathButton += "/bronze/button";
                 break;
-            case borderColor.silver:
+            case borderColor.iron:
                 levelMax = 25;
                 pathCadre += "/iron/cadre";
                 pathButton += "/iron/button";
@@ -409,8 +409,8 @@ public class Machine
                 break;
             case borderColor.diamand:
                 levelMax = 100;
-                pathCadre += "/Diamand/cadre";
-                pathButton += "/Diamand/button";
+                pathCadre += "/diamand/cadre";
+                pathButton += "/diamand/button";
                 break;
             case borderColor.black:
                 setBlackBorder();

@@ -24,6 +24,12 @@
     flex-shrink: 0;
 }
 
+.machineBlackBorderCadre {
+    background-image: resource("machines/Black/BlackCadre");
+    height: 60%;
+    width: 100%;
+}
+
 .machineLevel {
     font-size: 25px;
     color: rgb(255, 255, 255);
