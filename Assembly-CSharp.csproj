@@ -135,6 +135,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\UI\prestige\BuyPrestige.uxml" />
     <None Include="Assets\UI\prestige\ShipUpgrade.uxml" />
+    <None Include="Assets\UI\IronForgeBackup.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.Unity.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

@@ -24,11 +24,36 @@ public class IronUi : BaseUI
         forgeUI.gameObject.SetActive(false);
 
 
+
+        List<machineElement> mach = new List<machineElement>();
+        mach.Add(new machineElement("a"));
+        mach.Add(new machineElement("z"));
+        mach.Add(new machineElement("e"));
+
+        foreach (machineElement m in mach)
+        {
+            int x = 0;
+            foreach (machineElement machUp in Stats.Instance.machinesIronv2)
+            {
+                if (m.machineName == machUp.machineName)
+                {
+                    x = 1;
+                }
+            }
+            if (x == 0)
+            {
+                Stats.Instance.machinesIronv2.Add(m);
+            }
+        }
+
     }
 
-    [SerializeField] public Sprite newSprite;
     public override void initializeMachine()
     {
+
+
+        Debug.LogWarning("code initializeMachine bloqué volontairment");
+        return;
 
         List<MachineIron> mach = new List<MachineIron>();
         MachineIron machine5 = new MachineIron()
@@ -193,11 +218,15 @@ public class IronUi : BaseUI
     {
         base.Update();
 
-        foreach (Machine machine in Stats.Instance.machinesIron)
+        /*        foreach (Machine machine in Stats.Instance.machinesIron)
+                {
+                    machine.machineUpdate();
+                }*/
+        foreach (machineElement machine in Stats.Instance.machinesIronv2)
         {
-            machine.machineUpdate();
+            machine.Update();
         }
-        foreach(Upgrades upgrade in Stats.Instance.upgradesIron)
+        foreach (Upgrades upgrade in Stats.Instance.upgradesIron)
         {
             upgrade.update();
         }
@@ -292,10 +321,24 @@ public class IronUi : BaseUI
             }).StartingIn(50);
         }
 
-
-        foreach (MachineIron machine in Stats.Instance.machinesIron)
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        foreach (machineElement machine in Stats.Instance.machinesIronv2)
         {
-            machine.loadMachine(forgeUI);   
+            Debug.Log("on ajoute la machine : " + machine.machineName);
+            scroll.Add(machine);
+
+
+
+        }
+
+        /*
+                foreach (MachineIron machine in Stats.Instance.machinesIron)
+                {
+                    machine.loadMachine(forgeUI);   
+                }*/
+        foreach (machineElement machine in Stats.Instance.machinesIronv2)
+        {
+            machine.LoadMachine();   
         }
 
         uraniumButton.clicked += uraniumClicked;

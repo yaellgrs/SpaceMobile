@@ -1,8 +1,17 @@
+using Newtonsoft.Json.Bson;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using static Machine;
 using static UnityEngine.Android.AndroidGame;
+
+
+/*
+ Non pris en charge pour le moment : 
+      - black border
+      - afficher que le dernier non acheté ( juste ne pas mettre scroll.add(machine ) si isBuyed = false
+ */
 
 
 
@@ -19,11 +28,16 @@ public partial class machineElement : Button
 
     //Button
     public Button Btn_up;
-    public VisualElement VE_lockedCover;
+    public VisualElement VE_lockedLevelCover;
     public VisualElement VE_upCostLogo;
     public Label Lbl_upName;
     public Label Lbl_upCost;
     public Label Lbl_lockedLevel;
+
+    //buy
+    private VisualElement VE_buyCover;
+    private Label Lbl_buyPrice;
+    private VisualElement VE_buyLogo;
 
     //other
     public Label Lbl_level;
@@ -38,22 +52,39 @@ public partial class machineElement : Button
     private int realLevel = 1;
     private int level = 1;
 
-    private float time = 0f;
+    private float time = -1f;
     private float timerAuto = 0f;
-    private int cptAuto = 0;
+    private int cptAuto = 1;
 
-    BigNumber earnPerScd;
+    BigNumber BN_earnPerScd;
+    BigNumber BN_price = new BigNumber(15000);
 
     private bool isBuyed = false;
-    private bool isAutomatic = false;
+    private bool isAutomatic = true;
     protected int multiplicator;
+
+    public string machineName = "";
 
 
     borderColor color = borderColor.white;
 
     public machineElement()
     {
+        Init();
+    }
+
+    public machineElement(string machineName)
+    {
+        this.machineName = machineName;
+        Init();
+    }
+
+    #region -------- INIT -------
+
+    private void Init()
+    {
         AddToClassList("machineCadre");//machineCadre
+        AddToClassList("forgeButton");//machineCadre
 
         Lbl_level = new Label();
         Lbl_name = new Label();
@@ -68,6 +99,9 @@ public partial class machineElement : Button
 
         InitProgressBar();
         InitUpButton();
+        InitBuyCover();
+
+        SetEarnPerSecond();
     }
 
     private void InitProgressBar()
@@ -99,7 +133,7 @@ public partial class machineElement : Button
     private void InitUpButton()
     {
         Btn_up = new Button();
-        VE_lockedCover = new VisualElement();
+        VE_lockedLevelCover = new VisualElement();
         VE_upCostLogo = new VisualElement();
         Lbl_upName = new Label();
         Lbl_upCost = new Label();
@@ -108,7 +142,7 @@ public partial class machineElement : Button
         Btn_up.AddToClassList("machineUpButton");
         Btn_up.AddToClassList("button");
 
-        VE_lockedCover.AddToClassList("machineLockedCover");
+        VE_lockedLevelCover.AddToClassList("machineLockedCover");
         VE_upCostLogo.AddToClassList("machineUpCostLogo");
 
         Lbl_upName.text = "UPGRADE";
@@ -121,14 +155,34 @@ public partial class machineElement : Button
         Add(Btn_up);
         Btn_up.Add(Lbl_upName);
         Btn_up.Add(Lbl_upCost);
-        Btn_up.Add(VE_lockedCover);
+        Btn_up.Add(VE_lockedLevelCover);
 
         Lbl_upCost.Add(VE_upCostLogo);
-        VE_lockedCover.Add(Lbl_lockedLevel);
-    }   
+        VE_lockedLevelCover.Add(Lbl_lockedLevel);
+    }
+
+    private void InitBuyCover()
+    {
+        VE_buyCover = new VisualElement();
+        VE_buyLogo = new VisualElement();
+        Lbl_buyPrice = new Label();
+
+        VE_buyCover.AddToClassList("machineBuyCover");
+        VE_buyLogo.AddToClassList("machineBuyCoverLogo");
+        Lbl_buyPrice.AddToClassList("machineBuyCoverPrice");
+
+        Lbl_buyPrice.text = "15k";
+
+        Add(VE_buyCover);
+        VE_buyCover.Add(Lbl_buyPrice);
+        Lbl_buyPrice.Add(VE_buyLogo);
+    }
+    #endregion
+
 
     public virtual void LoadMachine()// a revoir
     {
+
         timeMaxReal = timeMax * Stats.Instance.machineTimeReducer;
 
         Lbl_reward.text = CalculReward().ToString();//???
@@ -138,17 +192,19 @@ public partial class machineElement : Button
         if (isAutomatic)
         {
             Lbl_time.text = "";
+
             VE_progressBar.style.width = Length.Percent(100);
         }
         else
             Lbl_time.text = timeMaxReal.ToString("F1") + "s";
 
-        VE_lockedCover.style.display = isBuyed? DisplayStyle.None : DisplayStyle.Flex;
+        VE_buyCover.style.display = isBuyed ? DisplayStyle.None : DisplayStyle.Flex;
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
 
         SetBorderColor();
         SetEarnPerSecond();
+        SetLevelUpButton();
 
         this.clicked += StartProduction;
         Btn_up.clicked += LevelUp;
@@ -157,11 +213,23 @@ public partial class machineElement : Button
 
     protected virtual void StartProduction() // == machine1Clicked
     {
-
+        if (!isBuyed && Stats.Instance.iron.isBigger(BN_price))
+        {
+            VE_buyCover.style.display = DisplayStyle.None;
+            isBuyed = true;
+            if (QuestManager.Instance.type == QuestType.UnlockMachine)
+            {
+                QuestManager.Instance.upQuest();
+            }
+        }
+        else if (time < 0)  time = 0f;
     }
 
     private void LevelUp()
     {
+        if (!(Stats.Instance.iron.isBigger(CalculLevelUpCost()) && color != borderColor.black)) return;
+        
+
         Stats.Instance.AddIron(-CalculLevelUpCost());
 
         level += multiplicator;
@@ -202,18 +270,20 @@ public partial class machineElement : Button
         if (QuestManager.Instance.type == QuestType.UpgradeMachine)
             QuestManager.Instance.upQuest();
 
+        SetLevelUpButton();
         gameManager.instance.SmallVibrate();
     }
 
     
     public virtual void Update()
     {
-        time += Time.deltaTime;
+        if (!isBuyed) return;
 
         if (!isAutomatic)
         {
             if (time >= 0)
             {
+                time += Time.deltaTime;
                 Lbl_time.text = (timeMaxReal - time).ToString("F1") + "s";
                 if (time / timeMaxReal > 0)
                 {
@@ -223,20 +293,23 @@ public partial class machineElement : Button
                 if (time >= timeMaxReal)
                 {
                     Stats.Instance.AddIron(CalculReward());
-                    time = -1;
+                    time = -1f;
                     VE_progressBar.style.width = Length.Percent(100);
                     Lbl_time.text = timeMaxReal.ToString("F1") + "s";
+                    SetLevelUpButton();
                 }
             }
         }
         else
         {
+            time += Time.deltaTime;
             AnimAutoBar();
-            Lbl_reward.text = earnPerScd.ToString() + " / s";
-            if(time >= 0f)
+            if(Lbl_reward!= null ) Lbl_reward.text = BN_earnPerScd.ToString() + " / s";
+            if(time >= 1f)
             {
-                Stats.Instance.AddIron(earnPerScd);
+                Stats.Instance.AddIron(BN_earnPerScd);
                 time = 0f;
+                SetLevelUpButton();
             }
         }
 
@@ -247,7 +320,7 @@ public partial class machineElement : Button
     public void upMachineCostText()
     {
         Lbl_lockedLevel.text = (levelLimite).ToString();
-        VE_lockedCover.style.visibility = (Stats.Instance.level < level)? Visibility.Visible : VE_lockedCover.style.visibility = Visibility.Hidden; 
+        VE_lockedLevelCover.style.visibility = (Stats.Instance.level < level)? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden; 
 
         Lbl_upCost.text = CalculLevelUpCost().ToString();
         //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???
@@ -316,17 +389,28 @@ public partial class machineElement : Button
 
     private void SetEarnPerSecond()
     {
-        BigNumber earnPerScd = new BigNumber(CalculReward());
-        earnPerScd.Divide(timeMaxReal);
+        BN_earnPerScd = new BigNumber(CalculReward());
+        BN_earnPerScd.Divide(timeMaxReal);
+        
+    }
+
+    private void SetLevelUpButton()
+    {
+        Btn_up.enabledSelf = Stats.Instance.iron.isBigger(CalculLevelUpCost());
     }
 
     private void AnimAutoBar()
     {
+        timerAuto += Time.deltaTime;
         string path = "bar/barAnim" + cptAuto;
         Texture2D texture = Resources.Load<Texture2D>(path);
         if (texture != null)
         {
             VE_progressBar.style.backgroundImage = texture;
+        }
+        else
+        {
+            Debug.LogWarning("texture auto null");
         }
         if (timerAuto > 0.08f)
         {
