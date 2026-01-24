@@ -23,10 +23,10 @@ public class IronUi : BaseUI
         forgeUiVE.AddToClassList("forgeIronTrans");
         forgeUI.gameObject.SetActive(false);
 
-
-
         List<machineElement> mach = new List<machineElement>();
-        mach.Add(new machineElement("a"));
+        machineElement m1 = new machineElement("a");
+        m1.isBuyed = true;
+        mach.Add(m1);
         mach.Add(new machineElement("z"));
         mach.Add(new machineElement("e"));
 
@@ -45,6 +45,7 @@ public class IronUi : BaseUI
                 Stats.Instance.machinesIronv2.Add(m);
             }
         }
+
 
     }
 
@@ -324,21 +325,19 @@ public class IronUi : BaseUI
         ScrollView scroll = root.Q<ScrollView>("scroll");
         foreach (machineElement machine in Stats.Instance.machinesIronv2)
         {
-            Debug.Log("on ajoute la machine : " + machine.machineName);
             scroll.Add(machine);
-
-
-
         }
 
-        /*
-                foreach (MachineIron machine in Stats.Instance.machinesIron)
-                {
-                    machine.loadMachine(forgeUI);   
-                }*/
+        bool show = true;
         foreach (machineElement machine in Stats.Instance.machinesIronv2)
         {
-            machine.LoadMachine();   
+            if(show) { 
+                machine.LoadMachine();
+                machine.style.display = DisplayStyle.Flex;
+            }
+            else machine.style.display = DisplayStyle.None;
+
+            if (!machine.isBuyed) show = false;
         }
 
         uraniumButton.clicked += uraniumClicked;

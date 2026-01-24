@@ -11,9 +11,8 @@ using static UnityEngine.Android.AndroidGame;
  Non pris en charge pour le moment : 
       - black border
       - afficher que le dernier non acheté ( juste ne pas mettre scroll.add(machine ) si isBuyed = false
+      - gerer la mise en automatique
  */
-
-
 
 [UxmlElement]
 public partial class machineElement : Button
@@ -35,9 +34,9 @@ public partial class machineElement : Button
     public Label Lbl_lockedLevel;
 
     //buy
-    private VisualElement VE_buyCover;
     private Label Lbl_buyPrice;
     private VisualElement VE_buyLogo;
+    private VisualElement VE_buyCover;
 
     //other
     public Label Lbl_level;
@@ -59,12 +58,11 @@ public partial class machineElement : Button
     BigNumber BN_earnPerScd;
     BigNumber BN_price = new BigNumber(15000);
 
-    private bool isBuyed = false;
-    private bool isAutomatic = true;
+    public bool isBuyed = false;
+    private bool isAutomatic = false;
     protected int multiplicator;
 
     public string machineName = "";
-
 
     borderColor color = borderColor.white;
 
@@ -182,7 +180,6 @@ public partial class machineElement : Button
 
     public virtual void LoadMachine()// a revoir
     {
-
         timeMaxReal = timeMax * Stats.Instance.machineTimeReducer;
 
         Lbl_reward.text = CalculReward().ToString();//???
@@ -221,6 +218,7 @@ public partial class machineElement : Button
             {
                 QuestManager.Instance.upQuest();
             }
+            MainUi.Instance.ironUI.loadForgeUI();
         }
         else if (time < 0)  time = 0f;
     }
