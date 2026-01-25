@@ -37,4 +37,12 @@ public class machineIronElement : machineElement
     {
         MainUi.Instance.ironUI.loadForgeUI();
     }
+
+    protected override void SetLogo()
+    {
+        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + machineName);
+        VE_logo.style.backgroundImage = new StyleBackground(texture);
+
+        Debug.Log("set logos");
+    }
 }

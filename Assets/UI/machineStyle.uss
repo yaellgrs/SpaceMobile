@@ -24,24 +24,21 @@
     flex-shrink: 0;
 }
 
-.machineBlackBorderCadre {
-    background-image: resource("machines/Black/BlackCadre");
-    height: 60%;
-    width: 100%;
-}
-
 .machineLevel {
     font-size: 25px;
     color: rgb(255, 255, 255);
     position: absolute;
     top: 65%;
-    left: 5.5%;
+    left: 0%;
     -unity-font-style: bold;
-    width: 16%;
-    display: flex;
-    -unity-background-image-tint-color: rgb(255, 147, 0);
+    width: 100%;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
-    -unity-text-align: middle-center;
+}
+
+.machineBlackBorderCadre {
+    background-image: resource("machines/Black/BlackCadre");
+    height: 60%;
+    width: 100%;
 }
 
 .machineName {
@@ -253,7 +250,7 @@
     background-position-y: center 0;
     -unity-background-image-tint-color: rgb(116, 116, 116);
     background-image: url("project://database/Assets/art/UI/machines/unlockedMacine.png?fileID=2800000&guid=1c9f078c0d122b54cb927ca6c92fecf5&type=3#unlockedMacine");
-    display: flex;
+    display: none;
     width: 98.5%;
     height: 92.5%;
     border-top-width: 0;
@@ -294,4 +291,16 @@
     top: 10%;
     left: 102%;
     background-image: url("project://database/Assets/art/UI/Nouveau%20dossier/iron.png?fileID=2800000&guid=841fd5a5f5b7366498b74ed346cd1921&type=3#iron");
+}
+
+.machineLogo {
+    flex-grow: 1;
+    position: absolute;
+    height: 87.5%;
+    width: initial;
+    top: 6.5%;
+    left: 3.5%;
+    background-image: resource("upgrades/iron/shield");
+    aspect-ratio: 1.2;
+    overflow: visible;
 }

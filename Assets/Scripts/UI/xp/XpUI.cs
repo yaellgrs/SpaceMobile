@@ -374,15 +374,15 @@ public class XpUI : MonoBehaviour
     {
         int x = GetEnumRewardCount(BonusLevel.FerAuto);
 
-        for (int i = 0; i < Stats.Instance.machinesIron.Count; i++)
+        for (int i = 0; i < Stats.Instance.machinesIronv2.Count; i++)
         {
             if (x > i)
             {
-                Stats.Instance.machinesIron[i].automatic = true;
+                Stats.Instance.machinesIronv2[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machinesIron[i].automatic = false;
+                Stats.Instance.machinesIronv2[i].isAutomatic = false;
             }
         }
     }

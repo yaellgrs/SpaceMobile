@@ -7,11 +7,10 @@ using UnityEngine.UIElements;
 using static Machine;
 using static UnityEngine.Android.AndroidGame;
 
-
 /*
  Non pris en charge pour le moment : 
       - black border
-      - gerer la mise en automatique
+      - adapter le levelUpPrice au machine price.
  */
 
 [UxmlElement]
@@ -41,6 +40,7 @@ public partial class machineElement : Button
     //other
     public Label Lbl_level;
     public Label Lbl_name;
+    public VisualElement VE_logo;
 
     //variables
     private float timeMax = 1f;
@@ -60,7 +60,7 @@ public partial class machineElement : Button
     BigNumber BN_price = new BigNumber(15000);
 
     public bool isBuyed = false;
-    private bool isAutomatic = false;
+    public bool isAutomatic = false;
     protected int multiplicator;
 
     public string machineName = "";
@@ -92,14 +92,19 @@ public partial class machineElement : Button
 
         Lbl_level = new Label();
         Lbl_name = new Label();
+        VE_logo = new VisualElement();
 
         Lbl_level.text = "1/5";
         Lbl_name.text = "Anvil";
-        Lbl_level.AddToClassList("machineLevel");
-        Lbl_name.AddToClassList("machineName");
 
-        Add(Lbl_level);
+
+        VE_logo.AddToClassList("machineLogo");
+        Lbl_name.AddToClassList("machineName");
+        Lbl_level.AddToClassList("machineLevel");
+
+        VE_logo.Add(Lbl_level);
         Add(Lbl_name);
+        Add(VE_logo);
 
         InitProgressBar();
         InitUpButton();
@@ -109,6 +114,7 @@ public partial class machineElement : Button
 
         SetEarnPerSecond();
     }
+
 
     private void InitProgressBar()
     {
@@ -191,6 +197,8 @@ public partial class machineElement : Button
         VE_rewardLogo.style.backgroundImage = background;
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
+
+        SetLogo();
     }
     #endregion
 
@@ -474,6 +482,10 @@ public partial class machineElement : Button
         return "";
     }
 
+    protected virtual void SetLogo()
+    {
+
+    }
 
 
 }

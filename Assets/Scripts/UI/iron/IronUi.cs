@@ -26,10 +26,10 @@ public class IronUi : BaseUI
     {
         List<machineIronElement> mach = new List<machineIronElement>();
         mach.Add(new machineIronElement("Anvil", new BigNumber(0), 1f));
-        mach.Add(new machineIronElement("machine", new BigNumber(1, 3), 5f));
-        mach.Add(new machineIronElement("machines", new BigNumber(1, 6), 15f));
-        mach.Add(new machineIronElement("industry", new BigNumber(1, 9), 30f));
-        mach.Add(new machineIronElement("industrys", new BigNumber(1, 12), 60f));
+        mach.Add(new machineIronElement("ironMachine", new BigNumber(1, 3), 5f));
+        mach.Add(new machineIronElement("ironMachines", new BigNumber(1, 6), 15f));
+        mach.Add(new machineIronElement("usine", new BigNumber(1, 9), 30f));
+        mach.Add(new machineIronElement("usines", new BigNumber(1, 12), 60f));
         foreach (machineIronElement m in mach)
         {
             int x = 0;
