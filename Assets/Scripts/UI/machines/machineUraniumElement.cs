@@ -6,39 +6,40 @@ using static Machine;
 using static UnityEngine.Android.AndroidGame;
 
 
-public class machineIronElement : machineElement
+public class machineUraniumElement : machineElement
 {
-    public machineIronElement() : base()
+    public machineUraniumElement() : base()
     {
     }
 
-    public machineIronElement(string machineName, BigNumber initPrice, float time)
+    public machineUraniumElement(string machineName, BigNumber initPrice, float time)
         : base(machineName, initPrice, time)
     {
     }
     protected override string getLogoPath()
     {
-        return "logos/iron";
+        return "logos/uranium";
     }
 
     protected override void HandleMoney(BigNumber amount)
     {
-        Stats.Instance.AddIron(amount);
+        Stats.Instance.AddUranium(amount);
     }
 
     protected override bool canBuy(BigNumber price)
     {
-        return Stats.Instance.iron.isBigger(price);
+        return Stats.Instance.uranium.isBigger(price);
     }
 
     protected override void reloadUI()
     {
-        MainUi.Instance.ironUI.loadForgeUI();
+        MainUi.Instance.uraniumUI.loadForgeUI();
     }
 
     protected override void SetLogo()
     {
-        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + machineName);
+        Texture2D texture = Resources.Load<Texture2D>("logos/uranium/" + machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
+
     }
 }

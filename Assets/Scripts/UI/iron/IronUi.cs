@@ -33,7 +33,7 @@ public class IronUi : BaseUI
         foreach (machineIronElement m in mach)
         {
             int x = 0;
-            foreach (machineIronElement machUp in Stats.Instance.machinesIronv2)
+            foreach (machineIronElement machUp in Stats.Instance.machineIron)
             {
                 if (m.machineName == machUp.machineName)
                 {
@@ -42,7 +42,7 @@ public class IronUi : BaseUI
             }
             if (x == 0)
             {
-                Stats.Instance.machinesIronv2.Add(m);
+                Stats.Instance.machineIron.Add(m);
             }
         }
     }
@@ -93,6 +93,7 @@ public class IronUi : BaseUI
         ups.Add(upgrade3);
         ups.Add(upgrade4);
         ups.Add(upgrade5);
+
         foreach (UpgradesIron up in ups)
         {
             int x = 0;
@@ -108,18 +109,13 @@ public class IronUi : BaseUI
                 Stats.Instance.upgradesIron.Add(up);
             }
         }
-
     }
 
     protected override void Update()
     {
         base.Update();
 
-        /*        foreach (Machine machine in Stats.Instance.machinesIron)
-                {
-                    machine.machineUpdate();
-                }*/
-        foreach (machineElement machine in Stats.Instance.machinesIronv2)
+        foreach (machineElement machine in Stats.Instance.machineIron)
         {
             machine.Update();
         }
@@ -128,9 +124,6 @@ public class IronUi : BaseUI
             upgrade.update();
         }
         upIronRaffinedUi();
-
-
-        
     }
 
     public override void IronClicked()
@@ -218,13 +211,13 @@ public class IronUi : BaseUI
         }
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
-        foreach (machineElement machine in Stats.Instance.machinesIronv2)
+        foreach (machineElement machine in Stats.Instance.machineIron)
         {
             scroll.Add(machine);
         }
 
         bool show = true;
-        foreach (machineElement machine in Stats.Instance.machinesIronv2)
+        foreach (machineElement machine in Stats.Instance.machineIron)
         {
             if(show) { 
                 machine.LoadMachine();

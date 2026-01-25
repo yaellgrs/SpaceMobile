@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 using static UpgradePrestige.UpgradeType;
 
+/*
+    - supprimer les class machinesiron et uranium et machines.
+ */
 
 
 [System.Serializable]
@@ -75,11 +78,13 @@ public class Stats
 
 
 
-        //machines upgrades
-    public List<MachineIron> machinesIron = new List<MachineIron>();
-    public List<machineIronElement> machinesIronv2 = new List<machineIronElement>();
+    //machines upgrades
+    //public List<MachineIron> machinesIron = new List<MachineIron>();
+    //public List<machineUranium> machinesUranium = new List<machineUranium>();
+    public List<machineIronElement> machineIron = new List<machineIronElement>();
+    public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
+
     public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
-    public List<machineUranium> machinesUranium = new List<machineUranium>();
     public List<UpgradesUranium> upgradesUranium = new List<UpgradesUranium>();
     public List<UpgradePrestige> upgradesPrestige = new List<UpgradePrestige>();
 

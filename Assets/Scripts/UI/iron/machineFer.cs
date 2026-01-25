@@ -18,14 +18,14 @@ public class MachineIron : Machine
             VE_container.style.display = DisplayStyle.None;
             if (nextMachine != null)
             {
-                foreach (MachineIron m in Stats.Instance.machinesIron)
+/*                foreach (MachineIron m in Stats.Instance.machinesIron)
                 {
                     if (m.name == nextMachine)
                     {
                         m.isVisible = true;
                         m.Btn_machine.style.display = DisplayStyle.Flex;
                     }
-                }
+                }*/
 
             }
             isActive = true;
@@ -145,14 +145,6 @@ public class MachineIron : Machine
 
     public override void upGap()
     {
-        foreach (MachineIron m in Stats.Instance.machinesIron)
-        {
-            if (m.machineNumber > machineNumber)
-            {
-                m.gap += 50;
-                m.loadMachine(forgeUilink);
-            }
-        }
     }
 
     protected override void updateScroll()

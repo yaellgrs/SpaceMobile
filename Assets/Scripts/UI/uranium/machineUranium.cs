@@ -21,14 +21,14 @@ public class machineUranium : Machine
             VE_container.style.display = DisplayStyle.None;
             if (nextMachine != null)
             {
-                foreach (machineUranium m in Stats.Instance.machinesUranium)
+/*                foreach (machineUranium m in Stats.Instance.machinesUranium)
                 {
                     if (m.name == nextMachine)
                     {
                         m.isVisible = true;
                         m.Btn_machine.style.display = DisplayStyle.Flex;
                     }
-                }
+                }*/
 
             }
 
@@ -138,14 +138,14 @@ public class machineUranium : Machine
 
     public override void upGap()
     {
-        foreach (machineUranium m in Stats.Instance.machinesUranium)
+/*        foreach (machineUranium m in Stats.Instance.machinesUranium)
         {
             if (m.machineNumber > machineNumber)
             {
                 m.gap += 50;
                 m.loadMachine(forgeUilink);
             }
-        }
+        }*/
     }
 
     protected override void updateScroll()

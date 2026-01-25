@@ -14,91 +14,20 @@ public class UraniumUI : BaseUI
 
 
 
-    public override void initializeMachine()
+    public override void InitMachines()
     {
-        List<machineUranium> mach = new List<machineUranium>();
-        machineUranium machine5 = new machineUranium()
-        {
-            name = "machine5",
-            machineNumber = 5,
-            isVisible = false,
-            isActive = false,
-            timeMax = 100f,
-            BN_levelCost = new BigNumber(2, 9),
-            BN_earn = new BigNumber(1, 8),
-            BN_initEarn = new BigNumber(1, 8),
-            BN_price = new BigNumber(5, 12),
-            automatic = false
-        };
-        machineUranium machine4 = new machineUranium()
-        {
-            name = "machine4",
-            machineNumber = 4,
-            isVisible = false,
-            isActive = false,
-            timeMax = 45f,
-            BN_levelCost = new BigNumber(4, 6),
-            BN_earn = new BigNumber(5, 5),
-            BN_initEarn = new BigNumber(5, 5),
-            BN_price = new BigNumber(5, 9),
-            automatic = false
-        };
-        machineUranium machine3 = new machineUranium()
-        {
-            nextMachine = "machine4",
-            name = "machine3",
-            machineNumber = 3,
-            isVisible = false,
-            isActive = false,
-            timeMax = 20f,
-            BN_levelCost = new BigNumber(17.5f, 5),
-            BN_earn = new BigNumber(2, 4),
-            BN_initEarn = new BigNumber(2, 4),
-            BN_price = new BigNumber(5, 6),
-            automatic = false
-        };
-
-        machineUranium machine2 = new machineUranium()
-        {
-            nextMachine = "machine3",
-            name = "machine2",
-            machineNumber = 2,
-            isActive = false,
-            isVisible = true,
-            timeMax = 10f,
-            BN_levelCost = new BigNumber(2, 3),
-            BN_earn = new BigNumber(2f, 2),
-            BN_initEarn = new BigNumber(2f, 2),
-            BN_price = new BigNumber(5, 3),
-            automatic = false
-        };
-
-        machineUranium machine1 = new machineUranium()
-        {
-            nextMachine = "machine2",
-            name = "machine1",
-            machineNumber = 1,
-            isActive = true,
-            isVisible = true,
-            timeMax = 3f,
-            BN_levelCost = new BigNumber(25, 0),
-            BN_earn = new BigNumber(1, 0),
-            BN_initEarn = new BigNumber(1, 0),
-            BN_price = new BigNumber(20, 0),
-            automatic = false
-        };
-
-        mach.Add(machine1);
-        mach.Add(machine2);
-        mach.Add(machine3);
-        mach.Add(machine4);
-        mach.Add(machine5);
-        foreach (machineUranium m in mach)
+        List<machineUraniumElement> mach = new List<machineUraniumElement>();
+        mach.Add(new machineUraniumElement("Anvil", new BigNumber(0), 3f));
+        mach.Add(new machineUraniumElement("ironMachine", new BigNumber(5, 3), 10f));
+        mach.Add(new machineUraniumElement("ironMachines", new BigNumber(5, 6), 25f));
+        mach.Add(new machineUraniumElement("usine", new BigNumber(5, 9), 45f));
+        mach.Add(new machineUraniumElement("usines", new BigNumber(5, 12), 100f));
+        foreach (machineUraniumElement m in mach)
         {
             int x = 0;
-            foreach (machineUranium machUp in Stats.Instance.machinesUranium)
+            foreach (machineUraniumElement machUp in Stats.Instance.machinesUranium)
             {
-                if (m.name == machUp.name)
+                if (m.machineName == machUp.machineName)
                 {
                     x = 1;
                 }
@@ -109,6 +38,7 @@ public class UraniumUI : BaseUI
             }
         }
     }
+
 
     public override void initializeUpgrade()
     {
@@ -178,9 +108,9 @@ public class UraniumUI : BaseUI
         base.Update();
         upUraniumLabel();
 
-        foreach(Machine machine in Stats.Instance.machinesUranium)
+        foreach(machineUraniumElement machine in Stats.Instance.machinesUranium)
         {
-            machine.machineUpdate();
+            machine.Update();
         }
         foreach(Upgrades up in Stats.Instance.upgradesUranium)
         {
@@ -257,6 +187,12 @@ public class UraniumUI : BaseUI
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("forgeUI");
 
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        foreach (machineElement machine in Stats.Instance.machinesUranium)
+        {
+            scroll.Add(machine);
+        }
+
         if (classActived)
         {
             classActived = false;
@@ -279,9 +215,9 @@ public class UraniumUI : BaseUI
             upUraniumLabel();
             uraniumLabel = root.Q<Label>("uranium");
 
-            foreach (Machine machine in Stats.Instance.machinesUranium)
+            foreach (machineUraniumElement machine in Stats.Instance.machinesUranium)
             {
-                machine.loadMachine(forgeUI);
+                machine.LoadMachine();
             }
         }
         else

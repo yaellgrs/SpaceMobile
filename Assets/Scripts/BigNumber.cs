@@ -190,6 +190,20 @@ public class BigNumber
         }
     }
 
+    /*
+        Mantisse * Mantisse
+        Exposant + Exposant
+        
+     3^2 * 4^4 = 1.2^7  validé
+     */
+
+
+    public void Multiply(BigNumber n)
+    {
+
+    }
+
+
     public void Divide(float n)
     {
         if (n > 0)

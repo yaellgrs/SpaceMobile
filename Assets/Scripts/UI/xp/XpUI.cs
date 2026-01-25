@@ -161,14 +161,14 @@ public class XpUI : MonoBehaviour
 
         loadBonus();
 
-        foreach(MachineIron m in Stats.Instance.machinesIron)
+/*        foreach(MachineIron m in Stats.Instance.machinesIron)
         {
             m.levelLimite = Stats.Instance.level;
             if(m.levelLimite > m.levelMax)
             {
                 m.levelLimite = m.levelMax;
             }
-        }
+        }*/
     }
 
     public void loadLevelUpUI()
@@ -374,15 +374,15 @@ public class XpUI : MonoBehaviour
     {
         int x = GetEnumRewardCount(BonusLevel.FerAuto);
 
-        for (int i = 0; i < Stats.Instance.machinesIronv2.Count; i++)
+        for (int i = 0; i < Stats.Instance.machineIron.Count; i++)
         {
             if (x > i)
             {
-                Stats.Instance.machinesIronv2[i].isAutomatic = true;
+                Stats.Instance.machineIron[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machinesIronv2[i].isAutomatic = false;
+                Stats.Instance.machineIron[i].isAutomatic = false;
             }
         }
     }
@@ -394,11 +394,11 @@ public class XpUI : MonoBehaviour
         {
             if (x > i)
             {
-                Stats.Instance.machinesUranium[i].automatic = true;
+                Stats.Instance.machinesUranium[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machinesUranium[i].automatic = false;
+                Stats.Instance.machinesUranium[i].isAutomatic = false;
             }
         }
     }

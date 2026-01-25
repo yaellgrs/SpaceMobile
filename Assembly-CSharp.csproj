@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\ship\canon.cs" />
     <Compile Include="Assets\Scripts\Data\settings.cs" />
     <Compile Include="Assets\Scripts\ship\lazer.cs" />
+    <Compile Include="Assets\Scripts\UI\machines\machineUraniumElement.cs" />
     <Compile Include="Assets\Scripts\UI\iron\machineIron.cs" />
     <Compile Include="Assets\Scripts\markers\XpMarker.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\upgradePrestige.cs" />
@@ -106,6 +107,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\UI\menu\setting.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\UI\backups\uraniumForgeBackups.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Common.dll" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.iOS.dll" />
     <None Include="Assets\UI\Quest\SuccessUI.uxml" />
@@ -138,7 +140,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\UI\prestige\BuyPrestige.uxml" />
     <None Include="Assets\UI\prestige\ShipUpgrade.uxml" />
-    <None Include="Assets\UI\IronForgeBackup.uxml" />
+    <None Include="Assets\UI\backups\IronForgeBackup.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.Unity.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

@@ -115,14 +115,14 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (MachineIron m in Stats.Instance.machinesIron)
+        foreach (machineIronElement m in Stats.Instance.machineIron)
         {
-            if (m.isActive)
+            if (m.isBuyed)
             {
-                if(m.automatic || !offline)
+                if(m.isAutomatic || !offline) //!offline = booster acheté
                 {
-                    BigNumber earn = new BigNumber(m.BN_earn);
-                    earn.Multiply(time);
+                    BigNumber earn = m.CalculReward();
+                    earn *= time;
                     earn.Divide(m.timeMaxReal);
 
                     totaEarn.Add(earn);
@@ -142,14 +142,14 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (machineUranium m in Stats.Instance.machinesUranium)
+        foreach (machineUraniumElement m in Stats.Instance.machinesUranium)
         {
-            if (m.isActive)
+            if (m.isBuyed)
             {
-                if (m.automatic || !offline)
+                if (m.isAutomatic || !offline) //!offline = booster acheté
                 {
-                    BigNumber earn = new BigNumber(m.BN_earn.Mantisse, m.BN_earn.Exp);
-                    earn.Multiply(time);
+                    BigNumber earn = m.CalculReward();
+                    earn *= time;
                     earn.Divide(m.timeMaxReal);
 
                     totaEarn.Add(earn);

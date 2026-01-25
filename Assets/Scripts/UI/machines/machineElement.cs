@@ -7,14 +7,10 @@ using UnityEngine.UIElements;
 using static Machine;
 using static UnityEngine.Android.AndroidGame;
 
-/*
- Non pris en charge pour le moment : 
-      - adapter le levelUpPrice au machine price.
- */
-
 [UxmlElement]
 public partial class machineElement : Button
 {
+    #region ------ UI Elements ------
     //progress Barre
     public VisualElement VE_progressCadre;
     public VisualElement VE_rewardLogo;
@@ -41,9 +37,13 @@ public partial class machineElement : Button
     public Label Lbl_name;
     public VisualElement VE_logo;
 
+    #endregion
+
+    #region ------ variables ------
+
     //variables
     private float timeMax = 1f;
-    private float timeMaxReal = 1f;
+    public float timeMaxReal = 1f;
     private float initialTimeMax = 1f;
 
     private int levelMax = 5;
@@ -66,6 +66,10 @@ public partial class machineElement : Button
 
     borderColor color = borderColor.white;
 
+    #endregion
+
+    #region ------ constructors ------
+
     public machineElement()
     {
         Init();
@@ -81,6 +85,8 @@ public partial class machineElement : Button
         this.timeMax = this.initialTimeMax = time;
         Init();
     }
+
+    #endregion
 
     #region -------- INIT -------
 
@@ -201,7 +207,7 @@ public partial class machineElement : Button
     }
     #endregion
 
-
+    #region ------ mainworkflow -------
     public virtual void LoadMachine()// a revoir
     {
         timeMaxReal = timeMax * Stats.Instance.machineTimeReducer;
@@ -235,7 +241,6 @@ public partial class machineElement : Button
         Btn_up.clicked -= LevelUp;
         Btn_up.clicked += LevelUp;
     }
-
 
     protected virtual void StartProduction() // == machine1Clicked
     {
@@ -275,9 +280,6 @@ public partial class machineElement : Button
             color++;
             SetBorderColor();
 
-            timeMax -= timeMax / 3;
-            timeMaxReal -= timeMaxReal / 3;
-            Lbl_time.text = timeMaxReal.ToString("F1") + "s";
             timeMax -= timeMax / 3;
             timeMaxReal -= timeMaxReal / 3;
             Lbl_time.text = timeMaxReal.ToString("F1") + "s";
@@ -346,16 +348,9 @@ public partial class machineElement : Button
 
     }
 
+    #endregion
 
-
-    public void upMachineCostText()
-    {
-        Lbl_lockedLevel.text = (levelLimite).ToString();
-        VE_lockedLevelCover.style.visibility = (Stats.Instance.level < level)? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden; 
-
-        Lbl_upCost.text = CalculLevelUpCost().ToString();
-        //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???
-    }
+    #region ------ calculs methods ------ 
 
     protected virtual BigNumber CalculLevelUpCost()
     {
@@ -365,8 +360,9 @@ public partial class machineElement : Button
         if (multiplicator == 0)//changement de grade ( ex : fer -> or )
         {
             calculedNumber = new BigNumber(25);
-            calculedNumber.Multiply(5 * Mathf.Pow(n, 1.7f));
-            calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer);
+            calculedNumber *= 2.5f * Mathf.Pow(n, 1.7f);
+            calculedNumber.Multiply(BN_price);
+            calculedNumber *= Stats.Instance.upgradesPriceReducer;
         }
         else
         {
@@ -383,7 +379,7 @@ public partial class machineElement : Button
         return calculedNumber;
     }
 
-    private BigNumber CalculReward()
+    public BigNumber CalculReward()
     {
         BigNumber reward = new BigNumber(1);
         reward.Multiply(Mathf.Pow(1.20f, realLevel) * (initialTimeMax * initialTimeMax)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
@@ -391,9 +387,32 @@ public partial class machineElement : Button
         return reward;
     }
 
-    //machineStyle
-    //machineBlackBorderStyle
+    #endregion
 
+    #region ------ set methods ------
+    private void SetEarnPerSecond()
+    {
+        BN_earnPerScd = new BigNumber(CalculReward());
+        BN_earnPerScd.Divide(timeMaxReal);
+        
+    }
+
+    protected virtual void SetLevelUpButton()
+    {
+        Btn_up.enabledSelf = canBuy(CalculLevelUpCost());
+    }
+
+    public void upMachineCostText()
+    {
+        Lbl_lockedLevel.text = (levelLimite).ToString();
+        VE_lockedLevelCover.style.visibility = (Stats.Instance.level < level) ? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden;
+
+        Lbl_upCost.text = CalculLevelUpCost().ToString();
+        //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???
+    }
+    #endregion
+
+    #region ------ adaptativeStyle ------
     protected void SetBorderColor()
     {
         StyleSheet blackBorderStyle = Resources.Load<StyleSheet>("styles/machineBlackBorderStyle");
@@ -428,18 +447,6 @@ public partial class machineElement : Button
         levelLimite = Mathf.Min(Stats.Instance.level + 1, levelMax);
     }
 
-    private void SetEarnPerSecond()
-    {
-        BN_earnPerScd = new BigNumber(CalculReward());
-        BN_earnPerScd.Divide(timeMaxReal);
-        
-    }
-
-    protected virtual void SetLevelUpButton()
-    {
-        Btn_up.enabledSelf = canBuy(CalculLevelUpCost());
-    }
-
     private void AnimAutoBar()
     {
         timerAuto += Time.deltaTime;
@@ -464,7 +471,9 @@ public partial class machineElement : Button
         }
     }
 
+    #endregion
 
+    #region ------ virtual methods ------
 
     protected virtual void HandleMoney(BigNumber amount)
     {
@@ -491,5 +500,5 @@ public partial class machineElement : Button
 
     }
 
-
+    #endregion
 }
