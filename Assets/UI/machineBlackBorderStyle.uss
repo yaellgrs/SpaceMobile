@@ -3,11 +3,11 @@
 
 .machineCadre {
     height: auto;
-    background-image: resource("machines/white/cadre");
+    background-image: resource("machines/Black/BlackCadre");
     position: relative;
-    width: 107%;
+    width: 105%;
     top: 0;
-    left: 3.75%;
+    left: 2.5%;
     max-height: none;
     bottom: 0;
     background-color: rgba(188, 188, 188, 0);
@@ -22,7 +22,7 @@
     margin-bottom: 1.5%;
     margin-left: 0;
     flex-shrink: 0;
-    aspect-ratio: 5;
+    aspect-ratio: 3.5;
 }
 
 .machineLevel {
@@ -46,7 +46,7 @@
     height: 20%;
     position: absolute;
     width: 10%;
-    top: 2%;
+    top: 25%;
     left: 46%;
     color: rgb(255, 255, 255);
     font-size: 30px;
@@ -61,7 +61,7 @@
     position: absolute;
     height: 20.5%;
     width: 35.5%;
-    top: 46.5%;
+    top: 57%;
     left: 33.25%;
     background-image: none;
     -unity-background-image-tint-color: rgba(213, 255, 255, 0);
@@ -150,10 +150,10 @@
 
 .machineUpButton {
     position: absolute;
-    top: 19px;
-    left: 75%;
-    width: 21%;
-    height: 80%;
+    top: 32.5%;
+    left: 74%;
+    width: 20%;
+    height: 60%;
     -unity-text-align: middle-right;
     -unity-font-style: bold;
     text-overflow: clip;
@@ -172,7 +172,7 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
-    background-image: resource("machines/white/button");
+    background-image: resource("machines/Black/BlackButton");
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-size: 101.5% 74.5%;
     overflow: visible;
@@ -297,13 +297,11 @@
 .machineLogo {
     flex-grow: 1;
     position: absolute;
-    height: 87.5%;
+    height: 60%;
     width: initial;
-    top: 6.5%;
-    left: 3.5%;
+    top: 32%;
+    left: 6%;
     background-image: resource("upgrades/iron/shield");
     aspect-ratio: 1.2;
     overflow: visible;
 }
-
-

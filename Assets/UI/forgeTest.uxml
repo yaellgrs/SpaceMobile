@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=4557b39d9f8cb3f4ab7f4a8dfcde6d3c&amp;type=3#style"/>
-    <Style src="project://database/Assets/UI/machineStyle.uss?fileID=7433441132597879392&amp;guid=5bebdcec921afc9419df32d7449048a9&amp;type=3#machineStyle"/>
+    <Style src="project://database/Assets/UI/machineBlackBorderStyle.uss?fileID=7433441132597879392&amp;guid=15a0664b9fc79c94ba961277fdcf588d&amp;type=3#machineBlackBorderStyle"/>
     <engine:VisualElement name="black" style="flex-grow: 1; height: 100%; position: absolute; width: 100%; background-color: rgba(0, 0, 0, 0.7);"/>
     <engine:VisualElement enabled="true" name="forgeUI" class="test ironForgeBase" style="background-image: url(&quot;project://database/Assets/art/UI/iron/forgeUI.png?fileID=2800000&amp;guid=b21c0c4bd60fc2c439317bfc66cffafa&amp;type=3#forgeUI&quot;); transition-duration: 0.5s;">
         <engine:Button name="upgrade" class="button" style="top: 48%; left: 54%; height: 5%; width: 45%;"/>
@@ -10,7 +10,7 @@
         </engine:Label>
         <engine:ScrollView enabled="true" focusable="false" mode="Vertical" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" horizontal-page-size="-1" mouse-wheel-scroll-size="18" usage-hints="None" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" name="scroll" style="position: absolute; height: 25%; width: 98%; top: 62%; left: 5px; flex-grow: 1;">
             <machineElement/>
-            <engine:Button name="upgrade1" style="height: 184px; background-image: resource(&quot;machines/white/WhiteMachine&quot;); position: absolute; width: 92.5%; top: 244px; left: 3.75%; max-height: none; bottom: 197px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
+            <engine:Button name="upgrade1" style="height: 184px; background-image: resource(&quot;machines/white/WhiteMachine&quot;); position: absolute; width: 92.5%; top: 376px; left: 3.75%; max-height: none; bottom: 197px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
                 <engine:VisualElement name="logo" class="machineLogo">
                     <engine:Label text="1/1" name="level" class="machineLevel"/>
                 </engine:VisualElement>

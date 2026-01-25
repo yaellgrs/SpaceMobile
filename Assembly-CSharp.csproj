@@ -112,6 +112,7 @@
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\TMP_Node.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Samples\Shader Graph\Common\Subgraphs\PseudoSubsurface.hlsl" />
+    <None Include="Assets\Resources\Styles\machineBlackBorderStyle.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.dll" />
     <None Include="Assets\UI\Shop\diamonds.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.iOS.dll" />
@@ -119,6 +120,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\UI\Quest\QuestUI.uxml" />
     <None Include="Assets\UI\Tutos\tutoPopUp.uxml" />
+    <None Include="Assets\UI\machineBlackBorderStyle.uss" />
     <None Include="Assets\UI\style.uss" />
     <None Include="Assets\UI\uraniumForge.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -176,6 +178,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\Inter-LICENSE.txt" />
     <None Include="Assets\UI\prestige\prestigeStyle.uss" />
+    <None Include="Assets\Resources\Styles\machineStyle.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.Android.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\UI\AdsUI.uxml" />

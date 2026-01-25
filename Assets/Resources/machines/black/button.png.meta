@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 99bacb1bdf52dc34b8b383d126223e28
+guid: 6113eccf0242fb049b803c54e1c2cf27
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7075425775847588301
-    second: BlackButton_0
+      213: 2530564911472380330
+    second: button_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlackButton_0
+      name: button_0
       rect:
         serializedVersion: 2
-        x: 412
-        y: 17
-        width: 137
-        height: 88
+        x: 0
+        y: 0
+        width: 136
+        height: 87
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 33e36fb7eb90fcd90800000000000000
-      internalID: -7075425775847588301
+      spriteID: aa90165216f5e1320800000000000000
+      internalID: 2530564911472380330
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BlackButton_0: -7075425775847588301
+      button_0: 2530564911472380330
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

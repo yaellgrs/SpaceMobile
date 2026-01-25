@@ -9,7 +9,6 @@ using static UnityEngine.Android.AndroidGame;
 
 /*
  Non pris en charge pour le moment : 
-      - black border
       - adapter le levelUpPrice au machine price.
  */
 
@@ -392,13 +391,23 @@ public partial class machineElement : Button
         return reward;
     }
 
+    //machineStyle
+    //machineBlackBorderStyle
 
     protected void SetBorderColor()
     {
-        if(color == borderColor.black)
+        StyleSheet blackBorderStyle = Resources.Load<StyleSheet>("styles/machineBlackBorderStyle");
+        StyleSheet styleSheet = Resources.Load<StyleSheet>("styles/machineStyle");
+
+        if (color == borderColor.black)
         {
-            SetBlackBorder();
-            return;
+            styleSheets.Add(blackBorderStyle);
+            styleSheets.Remove(styleSheet);
+        }
+        else
+        {
+            styleSheets.Remove(blackBorderStyle);
+            styleSheets.Add(styleSheet);
         }
 
         string pathCadre = "machines/" + color.ToString() + "/cadre";
@@ -413,7 +422,7 @@ public partial class machineElement : Button
             Btn_up.style.backgroundImage = textureButton;
         }
 
-        int[] levelMaxs = { 5, 10, 25, 50, 100 };
+        int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
         levelMax = levelMaxs[(int)color];
 
         levelLimite = Mathf.Min(Stats.Instance.level + 1, levelMax);
@@ -453,11 +462,6 @@ public partial class machineElement : Button
                 cptAuto = 4;
             }
         }
-    }
-
-    private void SetBlackBorder()
-    {
-        //a definir
     }
 
 
