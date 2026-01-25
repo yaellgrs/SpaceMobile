@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -46,9 +47,13 @@ public class BaseUI : MonoBehaviour
     {
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
-        initializeMachine();
+        //initializeMachine();
         initializeUpgrade();
 
+    }
+
+    public virtual void InitMachines()
+    {
     }
 
     public virtual void initializeMachine()
@@ -170,6 +175,8 @@ public class BaseUI : MonoBehaviour
     public virtual void loadForgeUI()
     {
         forgeUI.gameObject.SetActive(true);
+
+        InitMachines();
 
         var root = forgeUI.rootVisualElement;
         scrollView = root.Query<ScrollView>("scrollView");

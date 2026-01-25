@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 public class IronUi : BaseUI
@@ -12,9 +13,6 @@ public class IronUi : BaseUI
     private Button prestigeButton;
     private Label ironLabel;
 
-
-
-
     protected override void Start()
     {
         base.Start();
@@ -22,10 +20,13 @@ public class IronUi : BaseUI
         var root = forgeUI.rootVisualElement;
         forgeUiVE.AddToClassList("forgeIronTrans");
         forgeUI.gameObject.SetActive(false);
+    }
 
+    public override void InitMachines()
+    {
         List<machineIronElement> mach = new List<machineIronElement>();
         mach.Add(new machineIronElement("Anvil", new BigNumber(0), 1f));
-        mach.Add(new machineIronElement("machine", new BigNumber(1, 3), 5f) );
+        mach.Add(new machineIronElement("machine", new BigNumber(1, 3), 5f));
         mach.Add(new machineIronElement("machines", new BigNumber(1, 6), 15f));
         mach.Add(new machineIronElement("industry", new BigNumber(1, 9), 30f));
         mach.Add(new machineIronElement("industrys", new BigNumber(1, 12), 60f));
@@ -44,112 +45,8 @@ public class IronUi : BaseUI
                 Stats.Instance.machinesIronv2.Add(m);
             }
         }
-
-
     }
 
-    public override void initializeMachine()
-    {
-
-
-        Debug.LogWarning("code initializeMachine bloqué volontairment");
-        return;
-
-        List<MachineIron> mach = new List<MachineIron>();
-        MachineIron machine5 = new MachineIron()
-        {
-            name = "machine5",
-            machineNumber = 5,
-            isVisible = false,
-            isActive = false,
-            timeMax = 60f,
-            BN_levelCost = new BigNumber(1, 10),
-            BN_earn = new BigNumber(1, 9),
-            BN_initEarn = new BigNumber(1, 9),
-            BN_price = new BigNumber(1,12),
-            automatic = false
-        };
-        MachineIron machine4 = new MachineIron()
-        {
-            nextMachine = "machine5",
-            name = "machine4",
-            machineNumber = 4,
-            isVisible = false,
-            isActive = false,
-            timeMax = 30f,
-            BN_levelCost = new BigNumber(5, 6),
-            BN_earn = new BigNumber(1,6),
-            BN_initEarn = new BigNumber(1, 6),
-            BN_price = new BigNumber(1, 9),
-            automatic = false
-        };
-        MachineIron machine3 = new MachineIron()
-        {
-            nextMachine = "machine4",
-            name = "machine3",
-            machineNumber = 3, 
-            isVisible = false,
-            isActive = false,
-            timeMax = 15f,
-            BN_levelCost = new BigNumber(20, 4),
-            BN_earn = new BigNumber(5,4),
-            BN_initEarn = new BigNumber(5, 4),
-            BN_price = new BigNumber(1, 6),
-            automatic = false
-        };
-
-        MachineIron machine2 = new MachineIron()
-        {
-            nextMachine = "machine3",
-            name = "machine2",
-            machineNumber = 2, 
-            isActive = false,
-            isVisible = true,
-            timeMax = 5f,
-            BN_levelCost = new BigNumber(2.5f, 3),
-            BN_earn = new BigNumber(5, 2),
-            BN_initEarn = new BigNumber(5, 2),
-            BN_price = new BigNumber(1000, 0),
-
-            automatic = false,
-        };
-
-        MachineIron machine1 = new MachineIron()
-        {
-            nextMachine = "machine2",
-            name = "machine1",
-            machineNumber = 1,
-            isActive = true,
-            isVisible = true,
-            timeMax = 1f,
-            BN_levelCost = new BigNumber(25, 0),
-            BN_earn = new BigNumber(1, 0),
-            BN_initEarn = new BigNumber(1, 0),
-            BN_price = new BigNumber(10),
-            automatic = false
-        };
-        mach.Add(machine1);
-        mach.Add(machine2);
-        mach.Add(machine3);
-        mach.Add(machine4);
-        mach.Add(machine5);
-        foreach (MachineIron m in mach)
-        {
-            int x = 0;
-            foreach (MachineIron machUp in Stats.Instance.machinesIron)
-            {
-                if (m.name == machUp.name)
-                {
-                    x = 1;
-                }
-            }
-            if (x == 0)
-            {
-                Stats.Instance.machinesIron.Add(m);
-            }
-        }
-
-    }
     public override void initializeUpgrade()
     {
         List<UpgradesIron> ups = new List<UpgradesIron>();
@@ -298,9 +195,8 @@ public class IronUi : BaseUI
 
     public override void loadForgeUI()
     {
-
-
         base.loadForgeUI();
+
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");

@@ -12,8 +12,6 @@ using static UnityEngine.Android.AndroidGame;
  Non pris en charge pour le moment : 
       - black border
       - gerer la mise en automatique
-      - fix le reset qui bug / pareil pour prestige
-
  */
 
 [UxmlElement]
