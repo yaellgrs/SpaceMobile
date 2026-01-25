@@ -10,8 +10,8 @@ using static UnityEngine.Android.AndroidGame;
 /*
  Non pris en charge pour le moment : 
       - black border
-      - afficher que le dernier non acheté ( juste ne pas mettre scroll.add(machine ) si isBuyed = false
       - gerer la mise en automatique
+      - fix le reset qui bug / pareil pour prestige
  */
 
 [UxmlElement]
@@ -45,6 +45,7 @@ public partial class machineElement : Button
     //variables
     private float timeMax = 1f;
     private float timeMaxReal = 1f;
+    private float initialTimeMax = 1f;
 
     private int levelMax = 5;
     private int levelLimite = 1;
@@ -71,9 +72,14 @@ public partial class machineElement : Button
         Init();
     }
 
-    public machineElement(string machineName)
+    public machineElement(string machineName, BigNumber initPrice, float time)
     {
+        if(initPrice == new BigNumber(0))
+            isBuyed = true;
+
+        this.BN_price = initPrice;
         this.machineName = machineName;
+        this.timeMax = this.initialTimeMax = time;
         Init();
     }
 
@@ -82,7 +88,7 @@ public partial class machineElement : Button
     private void Init()
     {
         AddToClassList("machineCadre");//machineCadre
-        AddToClassList("forgeButton");//machineCadre
+        AddToClassList("forgeButton");//machineCadrefdf
 
         Lbl_level = new Label();
         Lbl_name = new Label();
@@ -199,17 +205,25 @@ public partial class machineElement : Button
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
 
+        Lbl_buyPrice.text = BN_price.ToString();
+        Lbl_name.text = machineName;
+
         SetBorderColor();
         SetEarnPerSecond();
         SetLevelUpButton();
+        upMachineCostText();
 
         this.clicked += StartProduction;
+        Btn_up.clicked -= LevelUp;
         Btn_up.clicked += LevelUp;
     }
 
 
     protected virtual void StartProduction() // == machine1Clicked
     {
+
+
+
         if (!isBuyed && Stats.Instance.iron.isBigger(BN_price))
         {
             VE_buyCover.style.display = DisplayStyle.None;
@@ -226,12 +240,15 @@ public partial class machineElement : Button
     private void LevelUp()
     {
         if (!(Stats.Instance.iron.isBigger(CalculLevelUpCost()) && color != borderColor.black)) return;
-        
 
+        Debug.Log("upMode : " + UpMode.Instance.upModeMultiplicator + " level limite : " +( levelLimite - level));
+
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
         Stats.Instance.AddIron(-CalculLevelUpCost());
-
+        Debug.Log("level before " + level);
         level += multiplicator;
         realLevel += multiplicator;
+        Debug.Log("level after " + level);
         upMachineCostText();
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
@@ -353,7 +370,7 @@ public partial class machineElement : Button
     private BigNumber CalculReward()
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.20f, realLevel));
+        reward.Multiply(Mathf.Pow(1.20f, realLevel) * (initialTimeMax * initialTimeMax)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(realLevel - 1);
         return reward;
     }

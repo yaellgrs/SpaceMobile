@@ -24,12 +24,11 @@ public class IronUi : BaseUI
         forgeUI.gameObject.SetActive(false);
 
         List<machineElement> mach = new List<machineElement>();
-        machineElement m1 = new machineElement("a");
-        m1.isBuyed = true;
-        mach.Add(m1);
-        mach.Add(new machineElement("z"));
-        mach.Add(new machineElement("e"));
-
+        mach.Add(new machineElement("Anvil", new BigNumber(0), 1f));
+        mach.Add(new machineElement("machine", new BigNumber(1, 3), 5f) );
+        mach.Add(new machineElement("machines", new BigNumber(1, 6), 15f));
+        mach.Add(new machineElement("industry", new BigNumber(1, 9), 30f));
+        mach.Add(new machineElement("industrys", new BigNumber(1, 12), 60f));
         foreach (machineElement m in mach)
         {
             int x = 0;
