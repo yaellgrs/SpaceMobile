@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\UI\machine.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestUI.cs" />
     <Compile Include="Assets\Scripts\markers\poolManager.cs" />
+    <Compile Include="Assets\Scripts\UI\machines\machineIronElement.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\shipUpgradeElement.cs" />
     <Compile Include="Assets\Scripts\UI\MainUi.cs" />
     <Compile Include="Assets\Scripts\gameManager.cs" />
@@ -68,12 +69,12 @@
     <Compile Include="Assets\Scripts\tutos\Tuto.cs" />
     <Compile Include="Assets\Scripts\UI\iron\machineFer.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\Rotate.cs" />
-    <Compile Include="Assets\Scripts\UI\machineElement.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestStats.cs" />
     <Compile Include="Assets\Scripts\UI\uranium\uraniumUI.cs" />
     <Compile Include="Assets\Scripts\UI\menu\ShopUI.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\UI\other\OfflineUI.cs" />
+    <Compile Include="Assets\Scripts\UI\machines\machineElement.cs" />
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
     <Compile Include="Assets\Scripts\markers\MarkerPool.cs" />
     <Compile Include="Assets\Scripts\ship\canon.cs" />

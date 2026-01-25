@@ -23,16 +23,16 @@ public class IronUi : BaseUI
         forgeUiVE.AddToClassList("forgeIronTrans");
         forgeUI.gameObject.SetActive(false);
 
-        List<machineElement> mach = new List<machineElement>();
-        mach.Add(new machineElement("Anvil", new BigNumber(0), 1f));
-        mach.Add(new machineElement("machine", new BigNumber(1, 3), 5f) );
-        mach.Add(new machineElement("machines", new BigNumber(1, 6), 15f));
-        mach.Add(new machineElement("industry", new BigNumber(1, 9), 30f));
-        mach.Add(new machineElement("industrys", new BigNumber(1, 12), 60f));
-        foreach (machineElement m in mach)
+        List<machineIronElement> mach = new List<machineIronElement>();
+        mach.Add(new machineIronElement("Anvil", new BigNumber(0), 1f));
+        mach.Add(new machineIronElement("machine", new BigNumber(1, 3), 5f) );
+        mach.Add(new machineIronElement("machines", new BigNumber(1, 6), 15f));
+        mach.Add(new machineIronElement("industry", new BigNumber(1, 9), 30f));
+        mach.Add(new machineIronElement("industrys", new BigNumber(1, 12), 60f));
+        foreach (machineIronElement m in mach)
         {
             int x = 0;
-            foreach (machineElement machUp in Stats.Instance.machinesIronv2)
+            foreach (machineIronElement machUp in Stats.Instance.machinesIronv2)
             {
                 if (m.machineName == machUp.machineName)
                 {

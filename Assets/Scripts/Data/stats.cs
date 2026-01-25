@@ -77,7 +77,7 @@ public class Stats
 
         //machines upgrades
     public List<MachineIron> machinesIron = new List<MachineIron>();
-    public List<machineElement> machinesIronv2 = new List<machineElement>();
+    public List<machineIronElement> machinesIronv2 = new List<machineIronElement>();
     public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
     public List<machineUranium> machinesUranium = new List<machineUranium>();
     public List<UpgradesUranium> upgradesUranium = new List<UpgradesUranium>();

@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Bson;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using static Machine;
@@ -12,6 +13,7 @@ using static UnityEngine.Android.AndroidGame;
       - black border
       - gerer la mise en automatique
       - fix le reset qui bug / pareil pour prestige
+
  */
 
 [UxmlElement]
@@ -105,6 +107,8 @@ public partial class machineElement : Button
         InitUpButton();
         InitBuyCover();
 
+        SetLogos();
+
         SetEarnPerSecond();
     }
 
@@ -181,6 +185,15 @@ public partial class machineElement : Button
         VE_buyCover.Add(Lbl_buyPrice);
         Lbl_buyPrice.Add(VE_buyLogo);
     }
+
+    public void SetLogos()
+    {
+        Texture2D logoTexture = Resources.Load<Texture2D>(getLogoPath());
+        StyleBackground background = new StyleBackground(logoTexture);
+        VE_rewardLogo.style.backgroundImage = background;
+        VE_upCostLogo.style.backgroundImage = background;
+        VE_buyLogo.style.backgroundImage = background;
+    }
     #endregion
 
 
@@ -221,30 +234,28 @@ public partial class machineElement : Button
 
     protected virtual void StartProduction() // == machine1Clicked
     {
-
-
-
-        if (!isBuyed && Stats.Instance.iron.isBigger(BN_price))
+        if (!isBuyed && canBuy(BN_price)) //buy machine
         {
+            HandleMoney(-BN_price);
             VE_buyCover.style.display = DisplayStyle.None;
             isBuyed = true;
             if (QuestManager.Instance.type == QuestType.UnlockMachine)
             {
                 QuestManager.Instance.upQuest();
             }
-            MainUi.Instance.ironUI.loadForgeUI();
+            reloadUI();
         }
-        else if (time < 0)  time = 0f;
+        else if (time < 0)  time = 0f; //start production
     }
 
-    private void LevelUp()
+    protected virtual void LevelUp()
     {
-        if (!(Stats.Instance.iron.isBigger(CalculLevelUpCost()) && color != borderColor.black)) return;
+        if (!(canBuy(CalculLevelUpCost()) && color != borderColor.black)) return;
 
         Debug.Log("upMode : " + UpMode.Instance.upModeMultiplicator + " level limite : " +( levelLimite - level));
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
-        Stats.Instance.AddIron(-CalculLevelUpCost());
+        HandleMoney(-CalculLevelUpCost());
         Debug.Log("level before " + level);
         level += multiplicator;
         realLevel += multiplicator;
@@ -307,7 +318,7 @@ public partial class machineElement : Button
 
                 if (time >= timeMaxReal)
                 {
-                    Stats.Instance.AddIron(CalculReward());
+                    HandleMoney(CalculReward());
                     time = -1f;
                     VE_progressBar.style.width = Length.Percent(100);
                     Lbl_time.text = timeMaxReal.ToString("F1") + "s";
@@ -322,7 +333,7 @@ public partial class machineElement : Button
             if(Lbl_reward!= null ) Lbl_reward.text = BN_earnPerScd.ToString() + " / s";
             if(time >= 1f)
             {
-                Stats.Instance.AddIron(BN_earnPerScd);
+                HandleMoney(BN_earnPerScd);
                 time = 0f;
                 SetLevelUpButton();
             }
@@ -409,9 +420,9 @@ public partial class machineElement : Button
         
     }
 
-    private void SetLevelUpButton()
+    protected virtual void SetLevelUpButton()
     {
-        Btn_up.enabledSelf = Stats.Instance.iron.isBigger(CalculLevelUpCost());
+        Btn_up.enabledSelf = canBuy(CalculLevelUpCost());
     }
 
     private void AnimAutoBar()
@@ -442,5 +453,29 @@ public partial class machineElement : Button
     {
         //a definir
     }
+
+
+
+    protected virtual void HandleMoney(BigNumber amount)
+    {
+
+    }
+
+    protected virtual bool canBuy(BigNumber price)
+    {
+        return false;
+    }
+
+    protected virtual void reloadUI()
+    {
+
+    }
+
+    protected virtual string getLogoPath()
+    {
+        return "";
+    }
+
+
 
 }
