@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Data\settings.cs" />
     <Compile Include="Assets\Scripts\ship\lazer.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineUraniumElement.cs" />
+    <Compile Include="Assets\Scripts\UI\upgrades\UpgradesIronElement.cs" />
     <Compile Include="Assets\Scripts\UI\iron\machineIron.cs" />
     <Compile Include="Assets\Scripts\markers\XpMarker.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\upgradePrestige.cs" />

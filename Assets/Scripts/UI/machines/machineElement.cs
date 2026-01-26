@@ -7,6 +7,11 @@ using UnityEngine.UIElements;
 using static Machine;
 using static UnityEngine.Android.AndroidGame;
 
+/*
+   - calcul level up cost : c'est pas fait en sorte de la valeur de départ, a revoir ( c'est mis a 25 )
+ 
+ */
+
 [UxmlElement]
 public partial class machineElement : Button
 {
@@ -407,7 +412,7 @@ public partial class machineElement : Button
     public void upMachineCostText()
     {
         Lbl_lockedLevel.text = (levelLimite).ToString();
-        VE_lockedLevelCover.style.visibility = (Stats.Instance.level < level) ? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden;
+        VE_lockedLevelCover.style.visibility = (Stats.Instance.level < levelLimite) ? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden;
 
         Lbl_upCost.text = CalculLevelUpCost().ToString();
         //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???

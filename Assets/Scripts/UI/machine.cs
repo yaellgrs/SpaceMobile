@@ -531,7 +531,6 @@ public class Upgrades
 
         if (levelCostLabel != null)
         {
-
             if (machineLevelMax1 <= machineLevel1 || machineLevel1 >= Stats.Instance.level +1)
             {
                 if (locked != null)
@@ -547,7 +546,6 @@ public class Upgrades
                     upButton.SetEnabled(false);
                 }
             }
-
             else
             {
                 if (locked != null)
@@ -563,10 +561,7 @@ public class Upgrades
             {
                 levelLabel.text = machineLevel1 + "/" + machineLevelMax1;
             }
-
         }
-
-
     }
 
     protected virtual BigNumber CalculUpgradeCost()

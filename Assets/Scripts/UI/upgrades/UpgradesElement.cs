@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Machine;
@@ -12,22 +13,28 @@ public partial class UpgradesElement : VisualElement
     #region ----- UI Elements -----
 
     //main
-    private Label Lbl_name;
-    private VisualElement VE_logo;
-        private Label Lbl_level;
-    private Label Lbl_description;
+    protected Label Lbl_name;
+    protected VisualElement VE_logo;
+        protected Label Lbl_level;
+    protected Label Lbl_description;
 
     //upButton
-    private Button Btn_levelUp;
-    private Label Lbl_levelUpText;
-    private Label Lbl_levelUpCost;
-        private VisualElement VE_levelUpCostLogo;
-    private VisualElement VE_levelUpLockCover;
-    private Label Lbl_levelUpLockLevel;
+    protected Button Btn_levelUp;
+    protected Label Lbl_levelUpText;
+    protected Label Lbl_levelUpCost;
+        protected VisualElement VE_levelUpCostLogo;
+    protected VisualElement VE_levelUpLockCover;
+    protected Label Lbl_levelUpLockLevel;
 
     #endregion
 
     #region ----- variables -----
+
+    protected int level = 1;
+    protected int levelMax = 100;
+
+    private int multiplicator = 1;
+
 
     #endregion
 
@@ -105,11 +112,110 @@ public partial class UpgradesElement : VisualElement
     #endregion
 
     #region ----- main workflow ----
+    public void Load()
+    {
+        LoadStat();
+        LoadUI();
+        GetReward();
+        Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
+        Btn_levelUp.clicked += LevelUp;
+    }
 
+
+    public void LoadUI()
+    {
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
+
+        //check if the player can upgrade
+        bool havelevel = level < Stats.Instance.level + 1;
+        VE_levelUpLockCover.style.display = havelevel ? DisplayStyle.None : DisplayStyle.Flex;
+        Btn_levelUp.SetEnabled(havelevel);
+
+        if (level >= levelMax) //LEVEL MAX
+        {
+            Lbl_levelUpLockLevel.text = "MAX";
+        }
+        else Lbl_levelUpLockLevel.text = (Stats.Instance.level + 2).ToString();
+
+        Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
+        Lbl_level.text = level.ToString() + "/" + levelMax.ToString();
+
+        Btn_levelUp.enabledSelf = CanPay();
+    }
+
+
+    protected virtual void LevelUp()
+    {
+        if (level < levelMax)
+        {
+            PayCost();
+            multiplicator = UpMode.Instance.upModeMultiplicator;
+
+            if (level + multiplicator >= levelMax)
+            {
+                level = levelMax;
+            }
+            else level += multiplicator;
+
+            GetReward();
+
+            Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
+        }
+        gameManager.instance.SmallVibrate();
+    }
+
+    #endregion
+
+    #region ----- Calculs Methods ----
+
+    protected BigNumber CalculLevelUpCost()
+    {
+        BigNumber calculedNumber = new BigNumber(1, 0);
+
+        float currentPow = Mathf.Pow(1.60f, level); // début de la suite
+        multiplicator = Mathf.Max(1, multiplicator);
+        BigNumber temp = new BigNumber(50);
+
+        for (int i = 0; i < multiplicator; i++)
+        {
+            temp.Set(50);
+            temp.Multiply(currentPow);
+            temp.Multiply(Stats.Instance.upgradesPriceReducer);
+            calculedNumber.Add(temp);
+            currentPow *= 1.6f;
+        }
+
+        calculedNumber.Normalize();
+        return calculedNumber;
+    }
+
+    #endregion
+
+    #region ----- Sets Methods ----
 
     #endregion
 
     #region ----- virtuals Methods ----
 
+    protected virtual void LoadStat()
+    {
+
+    }
+
+    protected virtual void GetReward()
+    {
+
+    }
+    protected virtual bool CanPay()
+    {
+        return false;
+    }
+
+    protected virtual void PayCost()
+    {   
+
+    }
+
     #endregion
 }
+
