@@ -79,7 +79,7 @@ public class IronUi : BaseUI
         UpgradesIron upgrade1 = new UpgradesIron()
         {
             upgradeName = "upgrade1",
-            upgradeType = UpgradesIron.UpgradeType.Life,
+            upgradeType = UpgradesIron.UpgradeType2.Life,
             levelCostMachine1 = new BigNumber(50, 0),
             machineLevelMax1 = 100
         };
@@ -87,14 +87,14 @@ public class IronUi : BaseUI
         UpgradesIron upgrade2 = new UpgradesIron()
         {
             upgradeName = "upgrade2",
-            upgradeType = UpgradesIron.UpgradeType.Damage,
+            upgradeType = UpgradesIron.UpgradeType2.Damage,
             levelCostMachine1 = new BigNumber(50, 0),
             machineLevelMax1 = 100
         };
         UpgradesIron upgrade3 = new UpgradesIron()
         {
             upgradeName = "upgrade3",
-            upgradeType = UpgradesIron.UpgradeType.WorldSize,
+            upgradeType = UpgradesIron.UpgradeType2.WorldSize,
             levelCostMachine1 = new BigNumber(50, 0),
             machineLevelMax1 = 100
         };
@@ -102,14 +102,14 @@ public class IronUi : BaseUI
         UpgradesIron upgrade4 = new UpgradesIron()
         {
             upgradeName = "upgrade4",
-            upgradeType = UpgradesIron.UpgradeType.Shield,
+            upgradeType = UpgradesIron.UpgradeType2.Shield,
             levelCostMachine1 = new BigNumber(50, 0),
             machineLevelMax1 = 100
         };
         UpgradesIron upgrade5 = new UpgradesIron()
         {
             upgradeName = "upgrade5",
-            upgradeType = UpgradesIron.UpgradeType.RegenShield,
+            upgradeType = UpgradesIron.UpgradeType2.RegenShield,
             levelCostMachine1 = new BigNumber(50, 0),
             machineLevelMax1 = 100
         };

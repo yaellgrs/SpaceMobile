@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\tutos\Tuto.cs" />
     <Compile Include="Assets\Scripts\UI\iron\machineFer.cs" />
     <Compile Include="Assets\Samples\Shader Graph\Common\Scripts\Rotate.cs" />
+    <Compile Include="Assets\Scripts\UI\upgrades\UpgradesPrestigeElement.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestStats.cs" />
     <Compile Include="Assets\Scripts\UI\uranium\uraniumUI.cs" />
     <Compile Include="Assets\Scripts\UI\menu\ShopUI.cs" />

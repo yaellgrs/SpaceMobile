@@ -59,7 +59,7 @@ public class PrestigeUI : BaseUI
     {
         Stats.Instance.AddUranium(-calculCostPrestige());
         string name = "upgrade" + (Stats.Instance.upgradesPrestige.Count + 1);
-        UpgradePrestige.UpgradeType type;
+        UpgradesPrestigeElement.UpgradeType type;
         if (prestige == 1)
         {
             type = Stats.Instance.nextPrestigeToBuy;
@@ -68,26 +68,17 @@ public class PrestigeUI : BaseUI
         {
             type = Stats.Instance.nextPrestigeToBuy2;
         }
-        UpgradePrestige upgrade1 = new UpgradePrestige()
-        {
-            upgradeName = name,
-            upgradeType = type,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-        upgrade1.loadUpgrade(forgeUI);
-        upgrade1.cadre.style.visibility = Visibility.Visible;
+        UpgradesPrestigeElement upgrade = new UpgradesPrestigeElement(type.ToString(), type);
+        //upgrade.Load();
 
-        upgrade1.cadre.style.translate = new Translate(0, 215f * (Stats.Instance.upgradesPrestige.Count), 0);
-        Stats.Instance.upgradesPrestige.Add(upgrade1);
-        buyButtonUI.style.translate = new Translate(0, 215f * (Stats.Instance.upgradesPrestige.Count), 0);
+        Stats.Instance.upgradesPrestige.Add(upgrade);
 
         Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy);
 
         if (Stats.Instance.prestigeToBuy.Count == 0)
         {
             buyButton.enabledSelf = false;
-            Stats.Instance.nextPrestigeToBuy = UpgradePrestige.UpgradeType.Max;
+            Stats.Instance.nextPrestigeToBuy = UpgradesPrestigeElement.UpgradeType.Max;
         }
         else
         {
@@ -101,12 +92,12 @@ public class PrestigeUI : BaseUI
 
     public static void setNextPrestigeToBuy()
     {
-        UpgradePrestige.UpgradeType type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
+        UpgradesPrestigeElement.UpgradeType type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
         if(Stats.Instance.prestigeToBuy.Count > 1)
         {
             while (Stats.Instance.nextPrestigeToBuy == type)
             {
-                if (type == UpgradePrestige.UpgradeType.Max)
+                if (type == UpgradesPrestigeElement.UpgradeType.Max)
                     continue;
                 type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
             }
@@ -121,12 +112,12 @@ public class PrestigeUI : BaseUI
 
     public static void setNextPrestigeToBuy2()
     {
-        UpgradePrestige.UpgradeType type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
+        UpgradesPrestigeElement.UpgradeType type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
         if (Stats.Instance.prestigeToBuy.Count > 1)
         {
             while (Stats.Instance.nextPrestigeToBuy2 == type || type == Stats.Instance.nextPrestigeToBuy)
             {
-                if (type == UpgradePrestige.UpgradeType.Max)
+                if (type == UpgradesPrestigeElement.UpgradeType.Max)
                     continue;
                 type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
             }
@@ -165,10 +156,6 @@ public class PrestigeUI : BaseUI
     protected override void Update()
     {
         base.Update();
-        foreach (UpgradePrestige upgrade in Stats.Instance.upgradesPrestige)
-        {
-            upgrade.update();
-        }
     }
 
     public void upPrestigeLabel()
@@ -242,16 +229,21 @@ public class PrestigeUI : BaseUI
 
 
             prestigeButton.clicked += LoadPrestige;
+            ScrollView scroll = root.Q<ScrollView>("scroll");
+            scroll.Clear();
+            foreach (UpgradesElement machine in Stats.Instance.upgradesPrestige)
+            {
+                scroll.Add(machine);
+            }
+            scroll.Add(buyButtonUI);
 
             int i = 0;
-            foreach (UpgradePrestige upgrade in Stats.Instance.upgradesPrestige)
+            foreach (UpgradesPrestigeElement upgrade in Stats.Instance.upgradesPrestige)
             {
-                upgrade.loadUpgrade(forgeUI);
-                upgrade.cadre.style.translate = new Translate(0, 215f * i, 0);
+                upgrade.Load();
                 i++;
             }
             upPrestigeLabel();
-            buyButtonUI.style.translate = new Translate(0, 215f * (Stats.Instance.upgradesPrestige.Count), 0);
             if (Stats.Instance.prestigeToBuy.Count == 0)
             {
                 buyButtonUI.enabledSelf = false;
@@ -521,46 +513,17 @@ public class PrestigeUI : BaseUI
         LastPrestigeClicked();
     }
     //{ , , , , , , StageSkip, , Max }
-    private void setTextBuyUI(UpgradePrestige.UpgradeType type)
+    private void setTextBuyUI(UpgradesPrestigeElement.UpgradeType type)
     {
         VisualElement logo = buyUI.rootVisualElement.Q<VisualElement>("logo");
         string logoPath = "Upgrades/prestige/" ;
         Texture2D logoTexutre = Resources.Load<Texture2D>(logoPath + type);
         if(logoTexutre == null) logoTexutre = Resources.Load<Texture2D>(logoPath + "CadresBlanc");
+
         logo.style.backgroundImage = logoTexutre;
 
-        string key = "";
-        switch (type)
-        {
-            case UpgradePrestige.UpgradeType.PrestigeMultiplicator:
-                key = "PrestigeMultiplicator";
-                break;
-            case UpgradePrestige.UpgradeType.LessMeteor:
-                key = "LessMeteor";
-                break;
-            case UpgradePrestige.UpgradeType.LessTimeMachine:
-                key = "LessTimeMachine";
-                break;
-            case UpgradePrestige.UpgradeType.LessPriceUpgrades:
-                key = "LessPriceUpgrades";
-                break;
-            case UpgradePrestige.UpgradeType.XpBoost:
-                key = "XpBoost";
-                break;
-            case UpgradePrestige.UpgradeType.DamageMultiplicator:
-                key = "DamageMultiplicator";
-                break;
-            case UpgradePrestige.UpgradeType.OmegaProb:
-                key = "OmegaProb";
-                break;
-            case UpgradePrestige.UpgradeType.StageSkip:
-                key = "StageSkip";
-                break;
-            case UpgradePrestige.UpgradeType.Max:
-                nameNextPrestige.text = "Max";
-                break;
-        }
-        if (type != UpgradePrestige.UpgradeType.Max)
+        string key = type.ToString();
+        if (type != UpgradesPrestigeElement.UpgradeType.Max)
         {
             string key_name = "Prestige_name_" + key;
             localizesName = new LocalizedString("UI_Rewards", key_name);

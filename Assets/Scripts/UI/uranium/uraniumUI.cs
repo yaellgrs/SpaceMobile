@@ -71,7 +71,7 @@ public class UraniumUI : BaseUI
         UpgradesUranium upgrade1 = new UpgradesUranium()
         {
             upgradeName = "upgrade1",
-            upgradeType = UpgradesUranium.UpgradeType.SpeedAuto,
+            upgradeType = UpgradesUranium.UpgradeType2.SpeedAuto,
             levelCostMachine1 = new BigNumber(10, 0),
             machineLevelMax1 = 100
         };
@@ -79,7 +79,7 @@ public class UraniumUI : BaseUI
         UpgradesUranium upgrade2 = new UpgradesUranium()
         {
             upgradeName = "upgrade2",
-            upgradeType = UpgradesUranium.UpgradeType.AreaSlow,
+            upgradeType = UpgradesUranium.UpgradeType2.AreaSlow,
             levelCostMachine1 = new BigNumber(10, 0),
             machineLevelMax1 = 100
         };
@@ -87,21 +87,21 @@ public class UraniumUI : BaseUI
         UpgradesUranium upgrade3 = new UpgradesUranium()
         {
             upgradeName = "upgrade3",
-            upgradeType = UpgradesUranium.UpgradeType.AreaWidth,
+            upgradeType = UpgradesUranium.UpgradeType2.AreaWidth,
             levelCostMachine1 = new BigNumber(10, 0),
             machineLevelMax1 = 100
         };
         UpgradesUranium upgrade4 = new UpgradesUranium()
         {
             upgradeName = "upgrade4",
-            upgradeType = UpgradesUranium.UpgradeType.RocketReload,
+            upgradeType = UpgradesUranium.UpgradeType2.RocketReload,
             levelCostMachine1 = new BigNumber(10, 0),
             machineLevelMax1 = 100
         };
         UpgradesUranium upgrade5 = new UpgradesUranium()
         {
             upgradeName = "upgrade5",
-            upgradeType = UpgradesUranium.UpgradeType.RocketMultiplier,
+            upgradeType = UpgradesUranium.UpgradeType2.RocketMultiplier,
             levelCostMachine1 = new BigNumber(10, 0),
             machineLevelMax1 = 100
         };

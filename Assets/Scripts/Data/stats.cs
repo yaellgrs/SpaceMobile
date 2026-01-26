@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-using static UpgradePrestige.UpgradeType;
+using static UpgradesPrestigeElement.UpgradeType;
 
 /*
     - supprimer les class machinesiron et uranium et machines.
@@ -84,10 +84,10 @@ public class Stats
     //public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
+
     public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
-
-    public List<UpgradePrestige> upgradesPrestige = new List<UpgradePrestige>();
+    public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
 
     public float scale = 1f;
     public float speedAuto = 5f;
@@ -125,21 +125,19 @@ public class Stats
     public float shield_Regen_Time = 4f;
 
 
+    public List<UpgradesPrestigeElement.UpgradeType> prestigeToBuy = new List<UpgradesPrestigeElement.UpgradeType> {
+            PrestigeMultiplicator,
+            LessMeteor,
+            LessTimeMachine,
+            LessPriceUpgrades,
+            XpBoost,
+            DamageMultiplicator,
+            StageSkip,
+            OmegaProb };
 
-    
 
-
-    public List<UpgradePrestige.UpgradeType> prestigeToBuy = new List<UpgradePrestige.UpgradeType> {
-        PrestigeMultiplicator,
-        LessMeteor,
-        LessTimeMachine,
-        LessPriceUpgrades,
-        XpBoost,
-        DamageMultiplicator,
-        StageSkip,
-        OmegaProb };
-    public UpgradePrestige.UpgradeType nextPrestigeToBuy = DamageMultiplicator;
-    public UpgradePrestige.UpgradeType nextPrestigeToBuy2 = PrestigeMultiplicator;
+    public UpgradesPrestigeElement.UpgradeType nextPrestigeToBuy = DamageMultiplicator;
+    public UpgradesPrestigeElement.UpgradeType nextPrestigeToBuy2 = PrestigeMultiplicator;
 
     public void AddXP(BigNumber amount)
     {

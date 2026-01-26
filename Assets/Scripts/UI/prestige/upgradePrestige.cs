@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class UpgradePrestige : Upgrades
 {
-    public enum UpgradeType { PrestigeMultiplicator, LessMeteor, LessTimeMachine, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, Max };
+    public enum UpgradeType2 { PrestigeMultiplicator, LessMeteor, LessTimeMachine, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, Max };
     /*
      on a : 
         - PrestigeMultiplicator  / LessMeteor / LessTimeMachine / LessPriceUpgrades / StageSkip
@@ -20,7 +20,7 @@ public class UpgradePrestige : Upgrades
         XpBoost / DamageMultiplicator / OmegaProb / 
      
      */
-    public UpgradeType upgradeType;
+    public UpgradeType2 upgradeType;
 
     LocalizedString localizeUpgrades;
 
@@ -39,42 +39,42 @@ public class UpgradePrestige : Upgrades
 
         switch (upgradeType)
         {
-            case UpgradeType.PrestigeMultiplicator://pas de logo
+            case UpgradeType2.PrestigeMultiplicator://pas de logo
                 key += "PrestigeMultiplicator";
                 str = Stats.Instance.star_multiplicator_prestige.ToString("F2");
                 name.text = "PrestigeMultiplicator";
                 break;
-            case UpgradeType.LessMeteor://pas de logo
+            case UpgradeType2.LessMeteor://pas de logo
                 key += "LessMeteor";
                 str =  Stats.Instance.enemyPerStage.ToString("F2");
                 name.text = "LessMeteor";
                 break;
-            case UpgradeType.LessTimeMachine://pas de logo
+            case UpgradeType2.LessTimeMachine://pas de logo
                 key += "LessTimeMachine";
                 str = Stats.Instance.machineTimeReducer.ToString("F2");
                 name.text = "LessTimeMachine";
                 break;
-            case UpgradeType.LessPriceUpgrades://pas de logo
+            case UpgradeType2.LessPriceUpgrades://pas de logo
                 key += "LessPriceUpgrades";
                 str =  Stats.Instance.upgradesPriceReducer.ToString("F2");
                 name.text = "LessPriceUpgrades";
                 break;
-            case UpgradeType.XpBoost://pas de logo
+            case UpgradeType2.XpBoost://pas de logo
                 key += "XpBoost";
                 str =Stats.Instance.XpMultiplicator.ToString("F2");
                 name.text = "XpBoost";
                 break;
-            case UpgradeType.DamageMultiplicator:
+            case UpgradeType2.DamageMultiplicator:
                 key += "DamageMultiplicator";
                 str =  Stats.Instance.prest_damage_multiplicator.ToString("F2");
                 name.text = "DamageMultiplicator";
                 break;
-            case UpgradeType.StageSkip://pas de logo
+            case UpgradeType2.StageSkip://pas de logo
                 key += "StageSkip";
                 str = Stats.Instance.stageSkipProb.ToString("F0") + "%";
                 name.text = "StageSkip";
                 break;
-            case UpgradeType.OmegaProb:
+            case UpgradeType2.OmegaProb:
                 key += "OmegaProb";
                 str =  Stats.Instance.probabilitéOfOmega.ToString("F0") + "%";
                 name.text = "OmegaProb";
@@ -126,28 +126,28 @@ public class UpgradePrestige : Upgrades
     {
         switch (upgradeType)
         {
-            case UpgradeType.PrestigeMultiplicator:
+            case UpgradeType2.PrestigeMultiplicator:
                 Stats.Instance.star_multiplicator_prestige = 1f + 0.15f * (machineLevel1 - 1);
                 break;
-            case UpgradeType.LessMeteor:
+            case UpgradeType2.LessMeteor:
                 Stats.Instance.enemyPerStage = 10f - 0.16f*(machineLevel1);
                 break;
-            case UpgradeType.LessTimeMachine:
+            case UpgradeType2.LessTimeMachine:
                 Stats.Instance.machineTimeReducer = 1f - 0.229f * Mathf.Log(machineLevel1);
                 break;
-            case UpgradeType.LessPriceUpgrades:
+            case UpgradeType2.LessPriceUpgrades:
                 Stats.Instance.upgradesPriceReducer = 1f - 0.229f * Mathf.Log(machineLevel1);
                 break;
-            case UpgradeType.XpBoost:
+            case UpgradeType2.XpBoost:
                 Stats.Instance.XpMultiplicator = 1f + 0.25f * (machineLevel1);
                 break;
-            case UpgradeType.DamageMultiplicator:
+            case UpgradeType2.DamageMultiplicator:
                 Stats.Instance.prest_damage_multiplicator = 1f + 0.2f * (machineLevel1);
                 break;
-            case UpgradeType.StageSkip:
+            case UpgradeType2.StageSkip:
                 Stats.Instance.prest_damage_multiplicator = machineLevel1;
                 break;
-            case UpgradeType.OmegaProb:
+            case UpgradeType2.OmegaProb:
                 Stats.Instance.probabilitéOfOmega = (machineLevel1 + 1 ) * 5;
                 break;
         }
