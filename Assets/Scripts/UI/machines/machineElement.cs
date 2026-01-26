@@ -10,6 +10,7 @@ using static UnityEngine.Android.AndroidGame;
 [UxmlElement]
 public partial class machineElement : Button
 {
+    //attributs
     #region ------ UI Elements ------
     //progress Barre
     public VisualElement VE_progressCadre;
@@ -68,6 +69,7 @@ public partial class machineElement : Button
 
     #endregion
 
+    //methods
     #region ------ constructors ------
 
     public machineElement()
@@ -479,7 +481,6 @@ public partial class machineElement : Button
     {
 
     }
-
     protected virtual bool canBuy(BigNumber price)
     {
         return false;
