@@ -122,6 +122,7 @@
     <None Include="Assets\UI\Shop\diamonds.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.iOS.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\UI\backups\IronUpgradeUIBackup.uxml" />
     <None Include="Assets\Resources\Styles\upgradeStyle.uss" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\UI\Quest\QuestUI.uxml" />

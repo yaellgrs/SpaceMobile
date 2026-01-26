@@ -325,14 +325,14 @@ public class PrestigeUI : BaseUI
         Stats.Instance.prestigeWaiting.Set(0);
 
         Stats.Instance.stage = 1;
+
         Stats.Instance.machineIron.Clear();
-        Stats.Instance.upgradesIron.Clear();
+        Stats.Instance.upgradesIronv2.Clear();
+
         Stats.Instance.machinesUranium.Clear();
         Stats.Instance.upgradesUranium = new List<UpgradesUranium>();
 
-        MainUi.Instance.ironUI.initializeMachine();
         MainUi.Instance.ironUI.initializeUpgrade();
-        MainUi.Instance.uraniumUI.initializeMachine();
         MainUi.Instance.uraniumUI.initializeUpgrade();
 
         Stats.Instance.iron.Set(0);

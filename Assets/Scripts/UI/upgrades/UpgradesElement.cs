@@ -34,6 +34,7 @@ public partial class UpgradesElement : VisualElement
     protected int levelMax = 100;
 
     private int multiplicator = 1;
+    protected string upgradesname = "name";
 
 
     #endregion
@@ -52,7 +53,7 @@ public partial class UpgradesElement : VisualElement
     private void Init()
     {
         StyleSheet styleSheet = Resources.Load<StyleSheet>("styles/upgradeStyle");
-        styleSheets.Remove(styleSheet);
+        styleSheets.Add(styleSheet);
 
         AddToClassList("upgradeCadre");
         InitMain();
@@ -66,7 +67,7 @@ public partial class UpgradesElement : VisualElement
         Lbl_level = new Label();
         Lbl_description = new Label();
 
-        Lbl_name.text = "name";
+        Lbl_name.text = name;
         Lbl_level.text = "1/10";
         Lbl_description.text = "damage : 15";
 
@@ -95,6 +96,7 @@ public partial class UpgradesElement : VisualElement
         Lbl_levelUpLockLevel.text = "5";
 
         Btn_levelUp.AddToClassList("upgradeLevelUpButton");
+        Btn_levelUp.AddToClassList("forgeButton");
         Lbl_levelUpText.AddToClassList("upgradeLevelUpText");
         Lbl_levelUpCost.AddToClassList("upgradeLevelUpCost");
         VE_levelUpCostLogo.AddToClassList("upgradeLevelUpCostLogo");
@@ -111,9 +113,10 @@ public partial class UpgradesElement : VisualElement
 
     #endregion
 
-    #region ----- main workflow ----
+    #region ----- Loads ----
     public void Load()
     {
+        Debug.Log("load");
         LoadStat();
         LoadUI();
         GetReward();
@@ -128,6 +131,7 @@ public partial class UpgradesElement : VisualElement
 
         //check if the player can upgrade
         bool havelevel = level < Stats.Instance.level + 1;
+        Debug.Log("up : " + name + " have Level : " + havelevel);
         VE_levelUpLockCover.style.display = havelevel ? DisplayStyle.None : DisplayStyle.Flex;
         Btn_levelUp.SetEnabled(havelevel);
 
@@ -142,6 +146,10 @@ public partial class UpgradesElement : VisualElement
 
         Btn_levelUp.enabledSelf = CanPay();
     }
+    #endregion
+
+    #region ----- main workflow ----
+
 
 
     protected virtual void LevelUp()
@@ -188,10 +196,6 @@ public partial class UpgradesElement : VisualElement
         calculedNumber.Normalize();
         return calculedNumber;
     }
-
-    #endregion
-
-    #region ----- Sets Methods ----
 
     #endregion
 

@@ -9,9 +9,15 @@ public class UpgradesIronElement : UpgradesElement
     #endregion
 
     #region ----- Constructors -----
-    UpgradesIronElement() : base()
+    public UpgradesIronElement() : base()
     {
 
+    }
+
+    public UpgradesIronElement(string name, UpgradeType type) : base()
+    {
+        this.name = name;
+        this.type = type;
     }
     #endregion
 

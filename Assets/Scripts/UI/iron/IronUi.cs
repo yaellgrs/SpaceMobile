@@ -47,8 +47,34 @@ public class IronUi : BaseUI
         }
     }
 
-    public override void initializeUpgrade()
+    public override void InitUpgrades()
     {
+        List<UpgradesElement> mach = new List<UpgradesElement>();
+        mach.Add(new UpgradesIronElement("life", UpgradesIronElement.UpgradeType.Life));
+        mach.Add(new UpgradesIronElement("Damage", UpgradesIronElement.UpgradeType.Damage));
+        mach.Add(new UpgradesIronElement("WorldSize", UpgradesIronElement.UpgradeType.WorldSize));
+        mach.Add(new UpgradesIronElement("Shield", UpgradesIronElement.UpgradeType.Shield));
+        mach.Add(new UpgradesIronElement("RegenShield", UpgradesIronElement.UpgradeType.RegenShield));
+
+        foreach (UpgradesIronElement m in mach)
+        {
+            int x = 0;
+            foreach (UpgradesIronElement machUp in Stats.Instance.upgradesIronv2)
+            {
+                if (m.name == machUp.name)
+                {
+                    x = 1;
+                }
+            }
+            if (x == 0)
+            {
+                Stats.Instance.upgradesIronv2.Add(m);
+            }
+        }
+    }
+
+    public override void initializeUpgrade()
+    {/*
         List<UpgradesIron> ups = new List<UpgradesIron>();
         UpgradesIron upgrade1 = new UpgradesIron()
         {
@@ -108,7 +134,7 @@ public class IronUi : BaseUI
             {
                 Stats.Instance.upgradesIron.Add(up);
             }
-        }
+        }*/
     }
 
     protected override void Update()
@@ -119,10 +145,10 @@ public class IronUi : BaseUI
         {
             machine.Update();
         }
-        foreach (Upgrades upgrade in Stats.Instance.upgradesIron)
+/*        foreach (UpgradesElement upgrade in Stats.Instance.upgradesIronv2)
         {
             upgrade.update();
-        }
+        }*/
         upIronRaffinedUi();
     }
 
@@ -211,6 +237,7 @@ public class IronUi : BaseUI
         }
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
+        scroll.Clear();
         foreach (machineElement machine in Stats.Instance.machineIron)
         {
             scroll.Add(machine);
@@ -242,14 +269,22 @@ public class IronUi : BaseUI
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("updateUI");
         
-        forgeUiVE.RemoveFromClassList("ironUpTrans"); 
+        forgeUiVE.RemoveFromClassList("ironUpTrans");
+
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        scroll.Clear();
+        foreach (UpgradesIronElement machine in Stats.Instance.upgradesIronv2)
+        {
+            scroll.Add(machine);
+            Debug.Log("add : " + machine.type);
+        }
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
 
-        foreach (UpgradesIron up in Stats.Instance.upgradesIron)
+        foreach (UpgradesElement up in Stats.Instance.upgradesIronv2)
         {
-            up.loadUpgrade(upgradeUI);
+            up.Load();
         }
     }
 

@@ -56,7 +56,7 @@ public class BaseUI : MonoBehaviour
     {
     }
 
-    public virtual void initializeMachine()
+    public virtual void InitUpgrades()
     {
 
     }
@@ -214,6 +214,8 @@ public class BaseUI : MonoBehaviour
     public virtual void loadUpdateUI()
     {
         upgradeUI.gameObject.SetActive(true);
+
+        InitUpgrades();
 
         var root = upgradeUI.rootVisualElement;
         scrollView = root.Query<ScrollView>("scrollView");
