@@ -81,11 +81,11 @@ public class Stats
     //machines upgrades
     //public List<MachineIron> machinesIron = new List<MachineIron>();
     //public List<machineUranium> machinesUranium = new List<machineUranium>();
+    //public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
+    public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
 
-    //public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
-    public List<UpgradesElement> upgradesIronv2 = new List<UpgradesElement>();
     public List<UpgradesUranium> upgradesUranium = new List<UpgradesUranium>();
     public List<UpgradePrestige> upgradesPrestige = new List<UpgradePrestige>();
 

@@ -121,6 +121,7 @@ public partial class UpgradesElement : VisualElement
         LoadUI();
         GetReward();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
+        Btn_levelUp.clicked -= LevelUp;
         Btn_levelUp.clicked += LevelUp;
     }
 
@@ -169,6 +170,7 @@ public partial class UpgradesElement : VisualElement
 
             Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
         }
+        Load();
         gameManager.instance.SmallVibrate();
     }
 

@@ -205,7 +205,7 @@ public class gameManager : MonoBehaviour
     public void SmallVibrate()
     {
         /*
-            Called : meteor destroy, upLevel machie/upgrade, collect collectible
+            Called : meteor destroy, upLevel machine/upgrade, on collectible collected
          */
 
         if (!Settings.Instance.isVibrate) return;

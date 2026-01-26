@@ -59,7 +59,7 @@ public class IronUi : BaseUI
         foreach (UpgradesIronElement m in mach)
         {
             int x = 0;
-            foreach (UpgradesIronElement machUp in Stats.Instance.upgradesIronv2)
+            foreach (UpgradesIronElement machUp in Stats.Instance.upgradesIron)
             {
                 if (m.name == machUp.name)
                 {
@@ -68,7 +68,7 @@ public class IronUi : BaseUI
             }
             if (x == 0)
             {
-                Stats.Instance.upgradesIronv2.Add(m);
+                Stats.Instance.upgradesIron.Add(m);
             }
         }
     }
@@ -145,7 +145,7 @@ public class IronUi : BaseUI
         {
             machine.Update();
         }
-/*        foreach (UpgradesElement upgrade in Stats.Instance.upgradesIronv2)
+/*        foreach (UpgradesElement upgrade in Stats.Instance.upgradesIron)
         {
             upgrade.update();
         }*/
@@ -273,7 +273,7 @@ public class IronUi : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesIronElement machine in Stats.Instance.upgradesIronv2)
+        foreach (UpgradesIronElement machine in Stats.Instance.upgradesIron)
         {
             scroll.Add(machine);
             Debug.Log("add : " + machine.type);
@@ -282,7 +282,7 @@ public class IronUi : BaseUI
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
 
-        foreach (UpgradesElement up in Stats.Instance.upgradesIronv2)
+        foreach (UpgradesElement up in Stats.Instance.upgradesIron)
         {
             up.Load();
         }
