@@ -330,7 +330,7 @@ public class PrestigeUI : BaseUI
         Stats.Instance.upgradesIron.Clear();
 
         Stats.Instance.machinesUranium.Clear();
-        Stats.Instance.upgradesUranium = new List<UpgradesUranium>();
+        Stats.Instance.upgradesUranium.Clear();
 
         MainUi.Instance.ironUI.initializeUpgrade();
         MainUi.Instance.uraniumUI.initializeUpgrade();

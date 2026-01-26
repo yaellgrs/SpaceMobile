@@ -56,10 +56,10 @@ public class IronUi : BaseUI
         mach.Add(new UpgradesIronElement("Shield", UpgradesIronElement.UpgradeType.Shield));
         mach.Add(new UpgradesIronElement("RegenShield", UpgradesIronElement.UpgradeType.RegenShield));
 
-        foreach (UpgradesIronElement m in mach)
+        foreach (UpgradesElement m in mach)
         {
             int x = 0;
-            foreach (UpgradesIronElement machUp in Stats.Instance.upgradesIron)
+            foreach (UpgradesElement machUp in Stats.Instance.upgradesIron)
             {
                 if (m.name == machUp.name)
                 {
@@ -273,10 +273,9 @@ public class IronUi : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesIronElement machine in Stats.Instance.upgradesIron)
+        foreach (UpgradesElement machine in Stats.Instance.upgradesIron)
         {
             scroll.Add(machine);
-            Debug.Log("add : " + machine.type);
         }
 
         uraniumButton.clicked += uraniumClicked;
@@ -287,7 +286,6 @@ public class IronUi : BaseUI
             up.Load();
         }
     }
-
 
     private void uraniumClicked()
     {

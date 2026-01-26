@@ -39,9 +39,34 @@ public class UraniumUI : BaseUI
         }
     }
 
+    public override void InitUpgrades()
+    {
+        List<UpgradesElement> mach = new List<UpgradesElement>();
+        mach.Add(new UpgradesUraniumElement("SpeedAuto", UpgradesUraniumElement.UpgradeType.SpeedAuto));
+        mach.Add(new UpgradesUraniumElement("AreaSlow", UpgradesUraniumElement.UpgradeType.AreaSlow));
+        mach.Add(new UpgradesUraniumElement("AreaWidth", UpgradesUraniumElement.UpgradeType.AreaWidth));
+        mach.Add(new UpgradesUraniumElement("RocketReload", UpgradesUraniumElement.UpgradeType.RocketReload));
+        mach.Add(new UpgradesUraniumElement("RocketMultiplier", UpgradesUraniumElement.UpgradeType.RocketMultiplier));
+
+        foreach (UpgradesElement m in mach)
+        {
+            int x = 0;
+            foreach (UpgradesElement machUp in Stats.Instance.upgradesUranium)
+            {
+                if (m.name == machUp.name)
+                {
+                    x = 1;
+                }
+            }
+            if (x == 0)
+            {
+                Stats.Instance.upgradesUranium.Add(m);
+            }
+        }
+    }
 
     public override void initializeUpgrade()
-    {
+    {/*
         List<UpgradesUranium> ups = new List<UpgradesUranium>();
         UpgradesUranium upgrade1 = new UpgradesUranium()
         {
@@ -100,7 +125,7 @@ public class UraniumUI : BaseUI
             {
                 Stats.Instance.upgradesUranium.Add(up);
             }
-        }
+        }*/
     }
 
     protected override void Update()
@@ -111,10 +136,6 @@ public class UraniumUI : BaseUI
         foreach(machineUraniumElement machine in Stats.Instance.machinesUranium)
         {
             machine.Update();
-        }
-        foreach(Upgrades up in Stats.Instance.upgradesUranium)
-        {
-            up.update();
         }
     }
 
@@ -248,9 +269,17 @@ public class UraniumUI : BaseUI
         forgeUiVE = root.Q<VisualElement>("forgeUI");
         upUraniumLabel();
 
-        foreach (UpgradesUranium upgrade in Stats.Instance.upgradesUranium)
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        scroll.Clear();
+        foreach (UpgradesElement machine in Stats.Instance.upgradesUranium)
         {
-            upgrade.loadUpgrade(upgradeUI);
+            scroll.Add(machine);
+            Debug.Log("Add : " + machine.name);
+        }
+
+        foreach (UpgradesElement upgrade in Stats.Instance.upgradesUranium)
+        {
+            upgrade.Load();
         }
 
         prestigeButton.clicked += prestigeClicked;

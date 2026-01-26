@@ -54,6 +54,7 @@
     <Compile Include="Assets\Scripts\UI\xp\XpUI.cs" />
     <Compile Include="Assets\Scripts\UI\BaseUI.cs" />
     <Compile Include="Assets\Scripts\ship\spaceShip.cs" />
+    <Compile Include="Assets\Scripts\UI\upgrades\UpgradesUraniumElement.cs" />
     <Compile Include="Assets\Scripts\Quest\SuccessElement.cs" />
     <Compile Include="Assets\Scripts\Data\stats.cs" />
     <Compile Include="Assets\Scripts\Collectible.cs" />
@@ -159,6 +160,7 @@
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />
     <None Include="Assets\Resources\Data\Quests\readme.txt" />
     <None Include="Assets\UI\machineStyle.uss" />
+    <None Include="Assets\UI\backups\UraniumUpdateBackup.uxml" />
     <None Include="Assets\UI\prestige\prestige2.uxml" />
     <None Include="Assets\UI\menu\stats.uxml" />
     <None Include="Assets\UI\Resurection.uxml" />
