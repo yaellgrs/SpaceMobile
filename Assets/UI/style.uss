@@ -76,3 +76,49 @@
 #unity-content-container {
     height: 100%;
 }
+
+.machineUpCost.ironColor {
+    width: 11%;
+    height: 16%;
+    position: absolute;
+    top: 55%;
+    left: 45%;
+    font-size: 25px;
+    color: rgb(255, 140, 0);
+    -unity-text-align: middle-right;
+    align-self: auto;
+    align-content: flex-start;
+    align-items: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.machineUpCost.uraniumColor {
+    width: 11%;
+    height: 16%;
+    position: absolute;
+    top: 55%;
+    left: 45%;
+    font-size: 25px;
+    color: rgb(0, 255, 44);
+    -unity-text-align: middle-right;
+    align-self: auto;
+    align-content: flex-start;
+    align-items: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}

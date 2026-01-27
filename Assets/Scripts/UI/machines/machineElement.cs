@@ -204,11 +204,15 @@ public partial class machineElement : Button
 
     public void SetLogos()
     {
-        Texture2D logoTexture = Resources.Load<Texture2D>(getLogoPath());
+        Texture2D logoTexture = Resources.Load<Texture2D>("logos/" + getLogoPath());
         StyleBackground background = new StyleBackground(logoTexture);
         VE_rewardLogo.style.backgroundImage = background;
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
+
+        Lbl_upCost.AddToClassList(getLogoPath() + "Color");
+        Debug.LogWarning("add class : " + (getLogoPath() + "Color"));
+
 
         SetLogo();
     }

@@ -1,5 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/prestige/prestigeStyle.uss?fileID=7433441132597879392&amp;guid=0f6330a15260b2445b5faa69d4582f4e&amp;type=3#prestigeStyle"/>
+    <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=4557b39d9f8cb3f4ab7f4a8dfcde6d3c&amp;type=3#style"/>
     <engine:VisualElement name="black" style="flex-grow: 1; height: 100%; position: absolute; width: 100%; background-color: rgba(0, 0, 0, 0.7);"/>
     <engine:VisualElement name="forgeUI" class="prestigeForgeBase" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/art/UI/uranium/uraniumUpdate.png?fileID=2800000&amp;guid=4196252cb3c57824e81b5c322627f9d0&amp;type=3#uraniumUpdate&quot;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.93); position: absolute; width: 100%; height: 100%; transition-duration: 0.5s;">
         <engine:Button name="forge" class="button" style="top: 48%; left: 0; height: 5%; width: 45%; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;"/>

@@ -18,7 +18,7 @@ public class machineUraniumElement : machineElement
     }
     protected override string getLogoPath()
     {
-        return "logos/uranium";
+        return "uranium";
     }
 
     protected override void HandleMoney(BigNumber amount)
