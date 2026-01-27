@@ -81,6 +81,9 @@ public class UpgradesPrestigeElement : UpgradesElement
                 str = Stats.Instance.probabilitéOfOmega.ToString("F0") + "%";
                 Lbl_name.text = "OmegaProb";
                 break;
+            case UpgradeType.Max:
+                Lbl_name.text = "Max";
+                break;
         }
 
         if (LocalizationSettings.SelectedLocale == null)
@@ -97,8 +100,8 @@ public class UpgradesPrestigeElement : UpgradesElement
         };
         localizeUpgrades.RefreshString();
 
-        string logo_path = "Upgrades/Iron/" + type.ToString();
-        VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
+/*        string logo_path = "Upgrades/Iron/" + type.ToString();
+        VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));*/
     }
 
     protected override void GetReward()

@@ -79,6 +79,7 @@ public class UpgradePrestige : Upgrades
                 str =  Stats.Instance.probabilitéOfOmega.ToString("F0") + "%";
                 name.text = "OmegaProb";
                 break;
+
         }
 
         if (LocalizationSettings.SelectedLocale == null)
