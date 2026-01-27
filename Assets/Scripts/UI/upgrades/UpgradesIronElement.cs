@@ -101,5 +101,14 @@ public class UpgradesIronElement : UpgradesElement
     {
         return Stats.Instance.iron.isBigger(CalculLevelUpCost());
     }
+
+    protected override void SetLogos()
+    {
+        Texture2D logoTexture = Resources.Load<Texture2D>("logos/iron");
+        StyleBackground background = new StyleBackground(logoTexture);
+        VE_levelUpCostLogo.style.backgroundImage = background;
+        Lbl_levelUpCost.AddToClassList("ironColor");
+    }
+
     #endregion
 }

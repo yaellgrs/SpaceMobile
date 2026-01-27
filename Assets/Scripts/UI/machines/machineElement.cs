@@ -297,7 +297,10 @@ public partial class machineElement : Button
                 Lbl_level.text = "1/" + levelMax;
             }
             else
-                Lbl_level.text = "max";
+            {
+                Lbl_level.text = "MAX";
+                Lbl_upCost.style.display = DisplayStyle.None;
+            }
         }
         else
         {

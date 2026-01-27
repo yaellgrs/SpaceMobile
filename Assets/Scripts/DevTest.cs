@@ -74,9 +74,9 @@ public class DevTest : MonoBehaviour
             for (int i = 0; i < 5; i++) //level up 5 fois
                 MainUi.Instance.xpUI.LevelUp();
 
-            Stats.Instance.addPrestige(new BigNumber(1, 10)); // donne 1^10 prestige
-            Stats.Instance.AddIron(new BigNumber(1, 10));// donne 1^10 fer
-            Stats.Instance.AddUranium(new BigNumber(1, 10));// donne 1^10 uranium
+            Stats.Instance.addPrestige(new BigNumber(1, 100)); // donne 1^100 prestige
+            Stats.Instance.AddIron(new BigNumber(1, 100));// donne 1^100 fer
+            Stats.Instance.AddUranium(new BigNumber(1, 100));// donne 1^100 uranium
         }
     }
 

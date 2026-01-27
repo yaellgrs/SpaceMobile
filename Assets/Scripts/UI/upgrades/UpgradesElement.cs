@@ -76,6 +76,7 @@ public partial class UpgradesElement : VisualElement
         Lbl_level.AddToClassList("upgradeLevel");
         Lbl_description.AddToClassList("upgradeDescription");
 
+
         Add(Lbl_name);
         Add(Lbl_description);
         Add(VE_logo);
@@ -102,6 +103,7 @@ public partial class UpgradesElement : VisualElement
         VE_levelUpCostLogo.AddToClassList("upgradeLevelUpCostLogo");
         VE_levelUpLockCover.AddToClassList("upgradeLevelUpLocked");
         Lbl_levelUpLockLevel.AddToClassList("upgradeLevelUpLockedLevel");
+        //Lbl_levelUpCost.AddToClassList("uraniumColor");
 
         Add(Btn_levelUp);
         Btn_levelUp.Add(Lbl_levelUpText);
@@ -120,6 +122,7 @@ public partial class UpgradesElement : VisualElement
         LoadStat();
         LoadUI();
         GetReward();
+        SetLogos();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
         Btn_levelUp.clicked -= LevelUp;
         Btn_levelUp.clicked += LevelUp;
@@ -138,14 +141,21 @@ public partial class UpgradesElement : VisualElement
 
         if (level >= levelMax) //LEVEL MAX
         {
-            Lbl_levelUpLockLevel.text = "MAX";
+            Lbl_level.text = "MAX";
+            Lbl_levelUpCost.style.display = DisplayStyle.None;
         }
-        else Lbl_levelUpLockLevel.text = (Stats.Instance.level + 2).ToString();
+        else{
 
+            Lbl_level.text = level.ToString() + "/" + levelMax.ToString();
+            Lbl_levelUpCost.style.display = DisplayStyle.Flex;
+        }
+        Lbl_levelUpLockLevel.text = (Stats.Instance.level + 2).ToString();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
-        Lbl_level.text = level.ToString() + "/" + levelMax.ToString();
 
-        Btn_levelUp.enabledSelf = CanPay();
+
+        Btn_levelUp.enabledSelf = CanPay() && havelevel;
+
+
     }
     #endregion
 
@@ -219,6 +229,11 @@ public partial class UpgradesElement : VisualElement
 
     protected virtual void PayCost()
     {   
+
+    }
+
+    protected virtual void SetLogos()
+    {
 
     }
 

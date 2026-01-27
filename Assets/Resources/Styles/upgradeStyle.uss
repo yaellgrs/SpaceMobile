@@ -158,7 +158,7 @@
     border-bottom-right-radius: 2.5px;
     border-bottom-left-radius: 2.5px;
     display: flex;
-    visibility: visible;
+    visibility: hidden;
 }
 
 .upgradeLevelUpLockedLevel {
@@ -171,6 +171,8 @@
     display: flex;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
 }
+
+
 
 :root {
 }

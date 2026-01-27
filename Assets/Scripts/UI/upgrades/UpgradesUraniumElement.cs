@@ -83,5 +83,14 @@ public class UpgradesUraniumElement : UpgradesElement
     {
         return Stats.Instance.uranium.isBigger(CalculLevelUpCost());
     }
+
+    protected override void SetLogos()
+    {
+        Texture2D logoTexture = Resources.Load<Texture2D>("logos/uranium");
+        StyleBackground background = new StyleBackground(logoTexture);
+        VE_levelUpCostLogo.style.backgroundImage = background;
+        Lbl_levelUpCost.AddToClassList("uraniumColor");
+        Debug.Log("set logos for uranium");
+    }
     #endregion
 }

@@ -1,5 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/prestige/prestigeStyle.uss?fileID=7433441132597879392&amp;guid=0f6330a15260b2445b5faa69d4582f4e&amp;type=3#prestigeStyle"/>
+    <Style src="project://database/Assets/Resources/Styles/upgradeStyle.uss?fileID=7433441132597879392&amp;guid=145abde62b01d84429751362181e667c&amp;type=3#upgradeStyle"/>
+    <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=4557b39d9f8cb3f4ab7f4a8dfcde6d3c&amp;type=3#style"/>
     <engine:VisualElement name="black" style="flex-grow: 1; height: 100%; position: absolute; width: 100%; background-color: rgba(0, 0, 0, 0.7);"/>
     <engine:VisualElement enabled="true" name="forgeUI" class="prestigeForgeBase" style="transition-duration: 0.5s; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/art/UI/prestige/prestige2.png?fileID=2800000&amp;guid=b04c5010e019db6419fc3c70b7b4eea5&amp;type=3#prestige2&quot;); background-color: rgba(0, 0, 0, 0); visibility: visible;">
         <engine:Button name="upgrade" class="button" style="top: 48%; left: 55%; height: 5%; width: 41%; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;"/>
@@ -10,7 +12,7 @@
         </engine:Label>
         <engine:ScrollView enabled="true" focusable="false" mode="Vertical" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" horizontal-page-size="-1" mouse-wheel-scroll-size="18" usage-hints="None" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" name="scroll" style="position: absolute; height: 505px; width: 98%; top: 62%; left: 4px;">
             <engine:Button text="buy&#10;" name="buy" style="position: relative; height: 116px; width: 40%; top: 0; left: 30%; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; background-color: rgb(74, 62, 88); color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; visibility: visible; margin-top: 3%;"/>
-            <machineElement/>
+            <UpgradesElement/>
         </engine:ScrollView>
         <engine:VisualElement name="unlockLevel" enabled="true" style="flex-grow: 1; position: absolute; width: 100%; height: 41%; background-color: rgb(64, 64, 64); background-size: 100% 100%; top: 48%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; display: flex; visibility: hidden;">
             <engine:Label text="unlock at &#10;Level 5" style="color: rgb(255, 255, 255); font-size: 100px; -unity-font-style: bold; -unity-text-align: middle-center; height: 100%;"/>

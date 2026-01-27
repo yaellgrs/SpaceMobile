@@ -142,5 +142,13 @@ public class UpgradesPrestigeElement : UpgradesElement
     {
         return Stats.Instance.starPariticul.isBigger(CalculLevelUpCost());
     }
+
+    protected override void SetLogos()
+    {
+        Texture2D logoTexture = Resources.Load<Texture2D>("logos/prestige");
+        StyleBackground background = new StyleBackground(logoTexture);
+        VE_levelUpCostLogo.style.backgroundImage = background;
+        Lbl_levelUpCost.AddToClassList("prestigeColor");
+    }
     #endregion
 }

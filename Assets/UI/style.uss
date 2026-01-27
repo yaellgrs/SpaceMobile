@@ -61,12 +61,18 @@
     translate: 450px 0;
 }
 
+.upgradeLevelUpCost.ironColor {
+    color: rgb(255, 155, 0);
+}
+
+.upgradeLevelUpCost.uraniumColor {
+    color: rgb(0, 255, 14);
+}
+
+.upgradeLevelUpCost.prestigeColor {
+    color: rgb(255, 203, 0);
+}
+
 #unity-content-container {
     height: 100%;
 }
-
-
-
-
-
-
