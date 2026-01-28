@@ -5,15 +5,11 @@ using UnityEngine.UIElements;
 
 public class UraniumUI : BaseUI
 {
-    
     private Button ironButton;
     private Button prestigeButton;
     private Button unlockButton;
     private VisualElement uraniumUnlockedVE;
     private Label uraniumLabel;
-
-
-
     public override void InitMachines()
     {
         List<machineUraniumElement> mach = new List<machineUraniumElement>();
@@ -28,17 +24,12 @@ public class UraniumUI : BaseUI
             foreach (machineUraniumElement machUp in Stats.Instance.machinesUranium)
             {
                 if (m.machineName == machUp.machineName)
-                {
                     x = 1;
-                }
             }
             if (x == 0)
-            {
                 Stats.Instance.machinesUranium.Add(m);
-            }
         }
     }
-
     public override void InitUpgrades()
     {
         List<UpgradesElement> mach = new List<UpgradesElement>();
@@ -54,118 +45,41 @@ public class UraniumUI : BaseUI
             foreach (UpgradesElement machUp in Stats.Instance.upgradesUranium)
             {
                 if (m.name == machUp.name)
-                {
                     x = 1;
-                }
             }
             if (x == 0)
-            {
                 Stats.Instance.upgradesUranium.Add(m);
-            }
         }
     }
-
-    public override void initializeUpgrade()
-    {/*
-        List<UpgradesUranium> ups = new List<UpgradesUranium>();
-        UpgradesUranium upgrade1 = new UpgradesUranium()
-        {
-            upgradeName = "upgrade1",
-            upgradeType = UpgradesUranium.UpgradeType2.SpeedAuto,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-
-        UpgradesUranium upgrade2 = new UpgradesUranium()
-        {
-            upgradeName = "upgrade2",
-            upgradeType = UpgradesUranium.UpgradeType2.AreaSlow,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-
-        UpgradesUranium upgrade3 = new UpgradesUranium()
-        {
-            upgradeName = "upgrade3",
-            upgradeType = UpgradesUranium.UpgradeType2.AreaWidth,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-        UpgradesUranium upgrade4 = new UpgradesUranium()
-        {
-            upgradeName = "upgrade4",
-            upgradeType = UpgradesUranium.UpgradeType2.RocketReload,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-        UpgradesUranium upgrade5 = new UpgradesUranium()
-        {
-            upgradeName = "upgrade5",
-            upgradeType = UpgradesUranium.UpgradeType2.RocketMultiplier,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-
-        ups.Add(upgrade1);
-        ups.Add(upgrade2);
-        ups.Add(upgrade3);
-        ups.Add(upgrade4);
-        ups.Add(upgrade5);
-        foreach(UpgradesUranium up in ups)
-        {
-            int x = 0;
-            foreach(UpgradesUranium StatsUp in Stats.Instance.upgradesUranium)
-            {
-                if(up.upgradeName == StatsUp.upgradeName)
-                {
-                    x = 1;
-                }
-            }
-            if(x == 0)
-            {
-                Stats.Instance.upgradesUranium.Add(up);
-            }
-        }*/
-    }
-
     protected override void Update()
     {
         base.Update();
         upUraniumLabel();
 
         foreach(machineUraniumElement machine in Stats.Instance.machinesUranium)
-        {
             machine.Update();
-        }
     }
 
     public void upUraniumLabel()
     {
         if(uraniumLabel != null)
-        {
             uraniumLabel.text = Stats.Instance.uranium.ToString();
-        }
-       
     }
 
     private void ironClicked()
     {
-        Debug.Log("iron clicked");
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.ironUI.gameObject.SetActive(true);
         MainUi.Instance.ironUI.loadForgeUI();
-
     }
 
     private void prestigeClicked()
     {
-
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
         MainUi.Instance.prestigeUI.loadForgeUI();
-
     }
 
     public override void IronClicked()
@@ -193,7 +107,6 @@ public class UraniumUI : BaseUI
             gameManager.instance.SetPause(true);
             loadForgeUI();
         }
-
     }
 
     public override void loadForgeUI()
@@ -210,9 +123,7 @@ public class UraniumUI : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         foreach (machineElement machine in Stats.Instance.machinesUranium)
-        {
             scroll.Add(machine);
-        }
 
         if (classActived)
         {
@@ -224,39 +135,24 @@ public class UraniumUI : BaseUI
             forgeUiVE.RemoveFromClassList("prestigeUITrans");
         }).StartingIn(50);
 
-
         prestigeButton.clicked += prestigeClicked;
         ironButton.clicked += ironClicked;
 
         if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             uraniumUnlockedVE.style.visibility = Visibility.Hidden;
-
+            uraniumLabel = root.Q<Label>("uranium");
             uraniumLabel = root.Q<Label>("uranium");
             upUraniumLabel();
-            uraniumLabel = root.Q<Label>("uranium");
 
             foreach (machineUraniumElement machine in Stats.Instance.machinesUranium)
-            {
                 machine.LoadMachine();
-            }
         }
         else
-        {
             uraniumUnlockedVE.style.visibility = Visibility.Visible;
-        }
-
-
 
         if (!Stats.Instance.uraniumTuto && XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
-        {
-            Debug.Log("load uranium tuto");
             Tuto.Instance.LoadForgeTuto(false);
-        }
-        else
-        {
-            Debug.Log("uranium tuto already done");
-        }
     }
 
     public override void loadUpdateUI()
@@ -269,16 +165,12 @@ public class UraniumUI : BaseUI
         forgeUiVE = root.Q<VisualElement>("forgeUI");
         upUraniumLabel();
 
+        //scroll
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesElement machine in Stats.Instance.upgradesUranium)
-        {
-            scroll.Add(machine);
-            Debug.Log("Add : " + machine.name);
-        }
-
         foreach (UpgradesElement upgrade in Stats.Instance.upgradesUranium)
         {
+            scroll.Add(upgrade);
             upgrade.Load();
         }
 

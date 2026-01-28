@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static Machine;
 
-
-
 [UxmlElement]
 public partial class UpgradesElement : VisualElement
 {

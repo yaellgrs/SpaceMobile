@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using static UpgradesPrestigeElement.UpgradeType;
 
 /*
-    - supprimer les class machinesiron et uranium et machines.
+
  */
 
 

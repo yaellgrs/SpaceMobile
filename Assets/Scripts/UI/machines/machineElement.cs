@@ -7,10 +7,6 @@ using UnityEngine.UIElements;
 using static Machine;
 using static UnityEngine.Android.AndroidGame;
 
-/*
-   - calcul level up cost : c'est pas fait en sorte de la valeur de départ, a revoir ( c'est mis a 25 )
- 
- */
 
 [UxmlElement]
 public partial class machineElement : Button
@@ -373,16 +369,16 @@ public partial class machineElement : Button
 
         if (multiplicator == 0)//changement de grade ( ex : fer -> or )
         {
-            calculedNumber = new BigNumber(25);
+            calculedNumber.Set(BN_price);
             calculedNumber *= 2.5f * Mathf.Pow(n, 1.7f);
-            calculedNumber.Multiply(BN_price);
             calculedNumber *= Stats.Instance.upgradesPriceReducer;
         }
         else
         {
+            BigNumber temp = new BigNumber(0);
             for (int i = 0; i < multiplicator; i++)
             {
-                BigNumber temp = new BigNumber(25);
+                temp.Set(BN_price);
                 temp.Multiply(Mathf.Pow(n + i, 1.7f));
                 temp.Multiply(Stats.Instance.upgradesPriceReducer);
                 calculedNumber.Add(temp);

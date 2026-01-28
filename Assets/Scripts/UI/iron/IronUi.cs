@@ -12,7 +12,6 @@ public class IronUi : BaseUI
     private Button uraniumButton;
     private Button prestigeButton;
     private Label ironLabel;
-
     protected override void Start()
     {
         base.Start();
@@ -36,14 +35,10 @@ public class IronUi : BaseUI
             foreach (machineIronElement machUp in Stats.Instance.machineIron)
             {
                 if (m.machineName == machUp.machineName)
-                {
                     x = 1;
-                }
             }
             if (x == 0)
-            {
                 Stats.Instance.machineIron.Add(m);
-            }
         }
     }
 
@@ -62,93 +57,18 @@ public class IronUi : BaseUI
             foreach (UpgradesElement machUp in Stats.Instance.upgradesIron)
             {
                 if (m.name == machUp.name)
-                {
                     x = 1;
-                }
             }
             if (x == 0)
-            {
                 Stats.Instance.upgradesIron.Add(m);
-            }
         }
-    }
-
-    public override void initializeUpgrade()
-    {/*
-        List<UpgradesIron> ups = new List<UpgradesIron>();
-        UpgradesIron upgrade1 = new UpgradesIron()
-        {
-            upgradeName = "upgrade1",
-            upgradeType = UpgradesIron.UpgradeType2.Life,
-            levelCostMachine1 = new BigNumber(50, 0),
-            machineLevelMax1 = 100
-        };
-
-        UpgradesIron upgrade2 = new UpgradesIron()
-        {
-            upgradeName = "upgrade2",
-            upgradeType = UpgradesIron.UpgradeType2.Damage,
-            levelCostMachine1 = new BigNumber(50, 0),
-            machineLevelMax1 = 100
-        };
-        UpgradesIron upgrade3 = new UpgradesIron()
-        {
-            upgradeName = "upgrade3",
-            upgradeType = UpgradesIron.UpgradeType2.WorldSize,
-            levelCostMachine1 = new BigNumber(50, 0),
-            machineLevelMax1 = 100
-        };
-
-        UpgradesIron upgrade4 = new UpgradesIron()
-        {
-            upgradeName = "upgrade4",
-            upgradeType = UpgradesIron.UpgradeType2.Shield,
-            levelCostMachine1 = new BigNumber(50, 0),
-            machineLevelMax1 = 100
-        };
-        UpgradesIron upgrade5 = new UpgradesIron()
-        {
-            upgradeName = "upgrade5",
-            upgradeType = UpgradesIron.UpgradeType2.RegenShield,
-            levelCostMachine1 = new BigNumber(50, 0),
-            machineLevelMax1 = 100
-        };
-
-        ups.Add(upgrade1);
-        ups.Add(upgrade2);
-        ups.Add(upgrade3);
-        ups.Add(upgrade4);
-        ups.Add(upgrade5);
-
-        foreach (UpgradesIron up in ups)
-        {
-            int x = 0;
-            foreach (UpgradesIron StatsUp in Stats.Instance.upgradesIron)
-            {
-                if (up.upgradeName == StatsUp.upgradeName)
-                {
-                    x = 1;
-                }
-            }
-            if (x == 0)
-            {
-                Stats.Instance.upgradesIron.Add(up);
-            }
-        }*/
     }
 
     protected override void Update()
     {
         base.Update();
-
         foreach (machineElement machine in Stats.Instance.machineIron)
-        {
             machine.Update();
-        }
-/*        foreach (UpgradesElement upgrade in Stats.Instance.upgradesIron)
-        {
-            upgrade.update();
-        }*/
         upIronRaffinedUi();
     }
 
@@ -158,13 +78,9 @@ public class IronUi : BaseUI
         {
             string className = "";
             if (forgeUI.gameObject.activeInHierarchy)
-            {
                className = "forgeIronTrans";
-            }
             else
-            {
                 className = "ironUpTrans";
-            }
             forgeUiVE.RemoveFromClassList(className);
             if (!stopAnim)
             {
@@ -188,15 +104,13 @@ public class IronUi : BaseUI
                 gameManager.instance.SetPause(false);
             }
 
-                classActived = true;
+            classActived = true;
         }
         else
         {
             gameManager.instance.SetPause(true);
             if (!Stats.Instance.ironTuto)
-            {
                 Tuto.Instance.LoadForgeTuto(true);
-            }
             loadForgeUI();
         }
 
@@ -206,10 +120,7 @@ public class IronUi : BaseUI
     public void upIronRaffinedUi()
     {
         if (ironLabel != null)
-        {
             ironLabel.text = Stats.Instance.iron.ToString();
-        }
-
     }
 
     public override void loadForgeUI()
@@ -225,7 +136,6 @@ public class IronUi : BaseUI
         {
             if (classActived)
             {
-
                 classActived = false;
                 forgeUiVE.AddToClassList("forgeIronTrans");
             }
@@ -238,26 +148,22 @@ public class IronUi : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (machineElement machine in Stats.Instance.machineIron)
-        {
-            scroll.Add(machine);
-        }
 
         bool show = true;
         foreach (machineElement machine in Stats.Instance.machineIron)
         {
-            if(show) { 
+            scroll.Add(machine);
+            if (show) { 
                 machine.LoadMachine();
                 machine.style.display = DisplayStyle.Flex;
             }
             else machine.style.display = DisplayStyle.None;
 
-            if (!machine.isBuyed) show = false;
+            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
         }
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
-
     }
 
     public override void loadUpdateUI()
@@ -273,37 +179,29 @@ public class IronUi : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesElement machine in Stats.Instance.upgradesIron)
+        foreach (UpgradesElement upgrade in Stats.Instance.upgradesIron)
         {
-            scroll.Add(machine);
+            scroll.Add(upgrade);
+            upgrade.Load();
         }
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
-
-        foreach (UpgradesElement up in Stats.Instance.upgradesIron)
-        {
-            up.Load();
-        }
     }
 
     private void uraniumClicked()
     {
-
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
         MainUi.Instance.uraniumUI.loadForgeUI();
-
     }
 
     private void prestigeClicked()
     {
-
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
         MainUi.Instance.prestigeUI.loadForgeUI();
-
     }
 }
