@@ -71,7 +71,7 @@ public class OfflineUI : MonoBehaviour
 
         timeLabel.text = Utility.TimeToString_dhms(time);
 
-        if(Stats.Instance.level < 12)
+        if(Ship.Current.level < 12)
         {
             timeLabel.text = "";
             Lbl_message.text = "You first need to have the automation for this.";

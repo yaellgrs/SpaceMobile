@@ -54,7 +54,7 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Stats.Instance.level += 100;//level max
+            Ship.Current.level += 100;//level max
         }
 
         HandleBanner();

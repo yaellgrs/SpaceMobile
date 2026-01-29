@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
-using static Machine;
-using static UnityEngine.Android.AndroidGame;
 
+public enum borderColor { white, bronze, iron, gold, diamand, black };
 
 [UxmlElement]
 public partial class machineElement : Button
@@ -415,7 +414,7 @@ public partial class machineElement : Button
     public void upMachineCostText()
     {
         Lbl_lockedLevel.text = (levelLimite).ToString();
-        VE_lockedLevelCover.style.visibility = (Stats.Instance.level < levelLimite) ? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden;
+        VE_lockedLevelCover.style.visibility = (Ship.Current.level < levelLimite) ? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden;
 
         Lbl_upCost.text = CalculLevelUpCost().ToString();
         //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???
@@ -454,7 +453,7 @@ public partial class machineElement : Button
         int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
         levelMax = levelMaxs[(int)color];
 
-        levelLimite = Mathf.Min(Stats.Instance.level + 1, levelMax);
+        levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
     }
 
     private void AnimAutoBar()

@@ -2,7 +2,6 @@ using System.Drawing;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static Machine;
 
 [UxmlElement]
 public partial class UpgradesElement : VisualElement
@@ -116,7 +115,6 @@ public partial class UpgradesElement : VisualElement
     #region ----- Loads ----
     public void Load()
     {
-        Debug.Log("load");
         LoadStat();
         LoadUI();
         GetReward();
@@ -132,8 +130,7 @@ public partial class UpgradesElement : VisualElement
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
 
         //check if the player can upgrade
-        bool havelevel = level < Stats.Instance.level + 1;
-        Debug.Log("up : " + name + " have Level : " + havelevel);
+        bool havelevel = level < Ship.Current.level + 1;
         VE_levelUpLockCover.style.display = havelevel ? DisplayStyle.None : DisplayStyle.Flex;
         Btn_levelUp.SetEnabled(havelevel);
 
@@ -147,7 +144,7 @@ public partial class UpgradesElement : VisualElement
             Lbl_level.text = level.ToString() + "/" + levelMax.ToString();
             Lbl_levelUpCost.style.display = DisplayStyle.Flex;
         }
-        Lbl_levelUpLockLevel.text = (Stats.Instance.level + 2).ToString();
+        Lbl_levelUpLockLevel.text = (Ship.Current.level + 2).ToString();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
 
 

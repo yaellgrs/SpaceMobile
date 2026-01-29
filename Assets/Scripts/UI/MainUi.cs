@@ -325,14 +325,14 @@ public class MainUi : MonoBehaviour
 
     public void upLevelUI()
     {
-        if (Stats.Instance.level > 100) Stats.Instance.level = 100;
-        if (Stats.Instance.level == 100)
+        if (Ship.Current.level > 100) Ship.Current.level = 100;
+        if (Ship.Current.level == 100)
         {
             xpBar.style.width = Length.Percent(100f);
             xpLabel.text = "100";
             return;
         }
-        xpLabel.text = Stats.Instance.level.ToString();
+        xpLabel.text = Ship.Current.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         xpBar.style.height = Length.Percent(100f);
         float targetPercent = Stats.Instance.BN_xp.GetPercentByDivided(Stats.Instance.BN_xpMax);

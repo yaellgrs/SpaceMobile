@@ -2,9 +2,6 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
-using static Machine;
-using static UnityEngine.Android.AndroidGame;
-
 
 public class machineUraniumElement : machineElement
 {

@@ -32,16 +32,6 @@ public class BaseUI : MonoBehaviour
 
     public bool stopAnim = false;
 
-    //machine 1
-    /* Faire une class pour chaque machine ? */
-    Machine machine1;
-    Machine machine2;
-    Machine machine3;
-
-    Upgrades upgrade1;
-    Upgrades upgrade2;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {

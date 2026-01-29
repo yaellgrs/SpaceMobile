@@ -1,33 +1,34 @@
+using System;
 using System.Globalization;
 using UnityEngine;
 
-enum SpaceShipType { Basic, Fire, Ice };
+public enum SpaceShipType { Basic, Fire, Ice };
+
+[Serializable]
+public class SpaceShipDico //pour pouvoir serialiser le dictionnaire
+{
+    public SpaceShipType type;
+    public SpaceShipData data;
+}
 
 [System.Serializable]
 public class SpaceShipData
 {
-    public BigNumber BN_money_basic; // iron, 
+/*    public BigNumber BN_money_basic; // iron, 
     public BigNumber BN_money_advanced; // uranium, 
-    public BigNumber BN_starParticle;
+    public BigNumber BN_starParticle;*/
 
-    public int level;
+    public int level = 0;
     //levels des spaceships
 
     //upgrades ( List<Upgrades>
     //machine ? 
+
+    public SpaceShipData()
+    {
+
+    }
 }
-
-/*
- string newChaine = "";
-for(i < len(chaine){
-
-    switch(chaine[i])
- 
- }
- */
-
-
-
 
 /*
  Stats
@@ -47,6 +48,4 @@ Dictionnaire<spaceShiptype, SpaceShipData>{
 SpaceShipManager
 
 *setIcons
-
- 
  */

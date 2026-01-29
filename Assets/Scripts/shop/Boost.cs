@@ -83,7 +83,7 @@ public class Boost
         {
             if (type == Type.time)
             {
-                if(Stats.Instance.level < 12)
+                if(Ship.Current.level < 12)
                 {
                     shopUI.Close();
                     MainUi.Instance.offlineUI.showErrorMessage = true;

@@ -80,11 +80,11 @@ public class XpUI : MonoBehaviour
         shieldBonus = root.Q<Label>("shield");
 
         
-        level =+ Stats.Instance.level + 1;
+        level =+Ship.Current.level + 1;
         if (level % 2 == 1) level++;
 
 
-        if (Stats.Instance.level == 100) {
+        if (Ship.Current.level == 100) {
             xpBar.style.width = Length.Percent(100);
             xpLabel.text = "MAX";
         }
@@ -99,7 +99,7 @@ public class XpUI : MonoBehaviour
         exit.clicked -= Clicked;
         back.clicked += Clicked;
         exit.clicked += Clicked;
-        levelLabel.text = Stats.Instance.level.ToString();
+        levelLabel.text = Ship.Current.level.ToString();
 
         levelBack.clicked += levelBackClicked;
         levelNext.clicked += levelNextClicked;
@@ -118,7 +118,7 @@ public class XpUI : MonoBehaviour
         loadRewardImage();
         rewardLevelLabel.text = "Level " + level.ToString();
 
-        if(level > Stats.Instance.level) VE_mainReward.enabledSelf = false;
+        if(level > Ship.Current.level) VE_mainReward.enabledSelf = false;
 
         damageBonus.text = Stats.Instance.damage_Multiplicator_Lvl*100 + "%";
         lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl*100 + "%";
@@ -152,18 +152,18 @@ public class XpUI : MonoBehaviour
 
     public void LevelUp()
     {
-        Stats.Instance.level++;
+        Ship.Current.level++;
 
-        if (Stats.Instance.level % 2 == 0) loadLevelUpUI();
+        if (Ship.Current.level % 2 == 0) loadLevelUpUI();
 
         Stats.Instance.BN_xp.Set(0);
-        Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
+        Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
 
         loadBonus();
 
 /*        foreach(MachineIron m in Stats.Instance.machinesIron)
         {
-            m.levelLimite = Stats.Instance.level;
+            m.levelLimite = Ship.Current.level;
             if(m.levelLimite > m.levelMax)
             {
                 m.levelLimite = m.levelMax;
@@ -198,7 +198,7 @@ public class XpUI : MonoBehaviour
         lifeBonus = root.Q<Label>("life");
         shieldBonus = root.Q<Label>("shield");
 
-        level = Stats.Instance.level;
+        level = Ship.Current.level;
         rewardLevelLabel.text = "Level " + level;
         setRewardText(bonusLabel);
 
@@ -222,7 +222,7 @@ public class XpUI : MonoBehaviour
         {
             levelBack.enabledSelf = false;
         }
-        if (level <= Stats.Instance.level) VE_mainReward.enabledSelf = true;
+        if (level <= Ship.Current.level) VE_mainReward.enabledSelf = true;
 
         loadRewardImage();
         setRewardText(bonusLabel);
@@ -238,7 +238,7 @@ public class XpUI : MonoBehaviour
             levelNext.enabledSelf = false;
             level = 100;
         }
-        if (level > Stats.Instance.level) VE_mainReward.enabledSelf = false;
+        if (level > Ship.Current.level) VE_mainReward.enabledSelf = false;
         rewardLevelLabel.text = "Level " + level.ToString();
         loadRewardImage();
         setRewardText(bonusLabel);
@@ -307,9 +307,9 @@ public class XpUI : MonoBehaviour
 
     public void loadBonus()
     {
-        Stats.Instance.damage_Multiplicator_Lvl = 1f + (Stats.Instance.level - 1) * 0.1f;
-        Stats.Instance.life_Multiplicator_Lvl = 1f + (Stats.Instance.level - 1) * 0.1f;
-        Stats.Instance.shield_Multiplicator_Lvl = 1f + (Stats.Instance.level - 1) * 0.1f;
+        Stats.Instance.damage_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
+        Stats.Instance.life_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
+        Stats.Instance.shield_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
 
         setBonusAutoFer();
         setBonusAutoUranium();
@@ -363,7 +363,7 @@ public class XpUI : MonoBehaviour
     private int GetEnumRewardCount(BonusLevel bonus)
     {
         int cpt = 0;
-        for(int i = 1; i <= Stats.Instance.level; i++)
+        for(int i = 1; i <= Ship.Current.level; i++)
         {
             if (GetEnumReward(i) == bonus) cpt++;
         }
