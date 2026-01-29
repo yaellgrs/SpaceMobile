@@ -202,7 +202,7 @@ public class Stats
         else
         {
             string data = System.IO.File.ReadAllText(path);
-            Instance = JsonConvert.DeserializeObject<Stats>(data);
+            Instance = JsonUtility.FromJson<Stats>(data);
         }
         Instance.life.Set(spaceShip.instance.getMaxLife());
         Instance.shield.Set(spaceShip.instance.getMaxShield());
@@ -212,7 +212,7 @@ public class Stats
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         string path = Application.persistentDataPath + "stats.json";
-        string stat = JsonConvert.SerializeObject(this);
+        string stat = JsonUtility.ToJson(this);
         System.IO.File.WriteAllText(path, stat);
         QuestStats.Instance.Save();
         Data.Instance.Save();
