@@ -18,7 +18,7 @@ public class SpaceShipData
     public BigNumber BN_money_advanced; // uranium, 
     public BigNumber BN_starParticle;*/
 
-    public int level = 0;
+    public int level = 1;
     //levels des spaceships
 
     //upgrades ( List<Upgrades>

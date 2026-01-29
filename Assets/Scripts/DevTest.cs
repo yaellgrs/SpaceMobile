@@ -60,6 +60,19 @@ public class DevTest : MonoBehaviour
         HandleBanner();
         gives();
         testTutos();
+        testShips();
+    }
+
+    private void testShips()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ShipManager.Instance.SwitchShip(SpaceShipType.Fire);
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ShipManager.Instance.SwitchShip(SpaceShipType.Basic);
+        }
     }
 
     private void gives()

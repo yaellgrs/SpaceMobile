@@ -23,8 +23,22 @@ public class ShipManager : MonoBehaviour
         ships[SpaceShipType.Ice] = new SpaceShipData();
 
         if (Stats.Instance == null) return;
-/*        foreach(var (key, value) in ships)
-            if (Stats.Instance.spaceShips.ContainsKey(key)) Stats.Instance.spaceShips[key] = value;*/
+        foreach (var (key, value) in ships)
+            if (Stats.Instance.spaceShips.Find(e => e.type == key) == null)
+            {
+                Stats.Instance.spaceShips.Add(new SpaceShipDico
+                {
+                    type = key,
+                    data = value
+                });
+            }
+    }
+
+    public void SwitchShip(SpaceShipType type)
+    {
+        Debug.Log("switch " + Stats.Instance.currentSpaceShipType + " -> " + type);
+        Stats.Instance.currentSpaceShipType = type;
+
     }
 
     void Start()

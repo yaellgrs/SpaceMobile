@@ -46,9 +46,9 @@ public class Stats
     public int version = 1;
 
     //ships
-    private SpaceShipType _currentSpaceShipType = SpaceShipType.Basic;
+    public SpaceShipType currentSpaceShipType = SpaceShipType.Basic;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
-    public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == _currentSpaceShipType)?.data;
+    public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
     //public SpaceShipData space = new SpaceShipData();
     //public SpaceShipData CurrentSpaceShip => space;
 

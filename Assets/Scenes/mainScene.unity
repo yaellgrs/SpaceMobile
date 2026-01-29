@@ -384,7 +384,6 @@ MonoBehaviour:
   upModeMultiplicator: 1
   classActived: 1
   stopAnim: 0
-  newSprite: {fileID: 0}
 --- !u!1 &256186169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,6 +2683,7 @@ GameObject:
   - component: {fileID: 1752593083}
   - component: {fileID: 1752593085}
   - component: {fileID: 1752593086}
+  - component: {fileID: 1752593087}
   m_Layer: 0
   m_Name: gameManager
   m_TagString: Untagged
@@ -2723,6 +2723,7 @@ MonoBehaviour:
     Exp: 0
   isPaused: 0
   bossStage: 0
+  meteors: []
 --- !u!4 &1752593084
 Transform:
   m_ObjectHideFlags: 0
@@ -2766,6 +2767,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upSpeed: 0
   upModeMultiplicator: 1
+--- !u!114 &1752593087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752593082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a61f276a0acc0e244b39f8b6413a114d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipManager
 --- !u!1 &1778446109
 GameObject:
   m_ObjectHideFlags: 0

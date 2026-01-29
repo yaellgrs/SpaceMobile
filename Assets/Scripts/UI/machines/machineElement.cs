@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -13,30 +14,30 @@ public partial class machineElement : Button
     //attributs
     #region ------ UI Elements ------
     //progress Barre
-    public VisualElement VE_progressCadre;
-    public VisualElement VE_rewardLogo;
-    public VisualElement VE_progressBar;
-    public Label Lbl_progressTime;
-    public Label Lbl_reward;
-    public Label Lbl_time;
+    [JsonIgnore]  public VisualElement VE_progressCadre;
+    [JsonIgnore] public VisualElement VE_rewardLogo;
+    [JsonIgnore] public VisualElement VE_progressBar;
+    [JsonIgnore] public Label Lbl_progressTime;
+    [JsonIgnore] public Label Lbl_reward;
+    [JsonIgnore] public Label Lbl_time;
 
     //Button
-    public Button Btn_up;
-    public VisualElement VE_lockedLevelCover;
-    public VisualElement VE_upCostLogo;
-    public Label Lbl_upName;
-    public Label Lbl_upCost;
-    public Label Lbl_lockedLevel;
+    [JsonIgnore] public Button Btn_up;
+    [JsonIgnore] public VisualElement VE_lockedLevelCover;
+    [JsonIgnore] public VisualElement VE_upCostLogo;
+    [JsonIgnore] public Label Lbl_upName;
+    [JsonIgnore] public Label Lbl_upCost;
+    [JsonIgnore] public Label Lbl_lockedLevel;
 
     //buy
-    private Label Lbl_buyPrice;
-    private VisualElement VE_buyLogo;
-    private VisualElement VE_buyCover;
+    [JsonIgnore] private Label Lbl_buyPrice;
+    [JsonIgnore] private VisualElement VE_buyLogo;
+    [JsonIgnore] private VisualElement VE_buyCover;
 
     //other
-    public Label Lbl_level;
-    public Label Lbl_name;
-    public VisualElement VE_logo;
+    [JsonIgnore] public Label Lbl_level;
+    [JsonIgnore] public Label Lbl_name;
+    [JsonIgnore] public VisualElement VE_logo;
 
     #endregion
 
