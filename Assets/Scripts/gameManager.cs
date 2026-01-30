@@ -265,10 +265,9 @@ public class gameManager : MonoBehaviour
         isPaused = isPause;
         if (isPause && Settings.Instance.isPausable)
         { 
-            spaceObject[] enemies = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-            foreach (spaceObject obj in enemies)
+            foreach (spaceObject m in meteors)
             {
-                obj.Pause();
+                m.Pause();
 
             }
             canon.instance.setPause(true);
@@ -286,12 +285,11 @@ public class gameManager : MonoBehaviour
                 timer = 0f;
             }
 
-                spaceObject[] enemies = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-            foreach (spaceObject obj in enemies)
+            foreach (spaceObject meteor in meteors)
             {
-                if (obj.isPause)
+                if (meteor.isPause)
                 {
-                    obj.Move();
+                    meteor.Move();
                 }
 
 
@@ -353,11 +351,10 @@ public class gameManager : MonoBehaviour
     public void setMeteorScale()
     {
         meteorScale = Stats.Instance.scale;
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        foreach(spaceObject obj in meteors)
+        foreach(spaceObject meteor in meteors)
         {
-            obj.transform.localScale = obj.baseScale;
-            obj.transform.localScale *= Stats.Instance.scale;
+            meteor.transform.localScale = meteor.baseScale;
+            meteor.transform.localScale *= Stats.Instance.scale;
         }
     }
 }
