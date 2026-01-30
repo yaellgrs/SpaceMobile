@@ -84,6 +84,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScatterMeteor
       objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.6301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.23661795
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.56147796
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.5924529
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.12855102
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.41705716
+      objectReference: {fileID: 0}
     - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: type
       value: 2

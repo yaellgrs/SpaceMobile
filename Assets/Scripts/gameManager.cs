@@ -1,5 +1,5 @@
 
-using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     public spaceObject miniMeteorPrefab;
     public spaceObject ironMeteorPrefab;
     public spaceObject uraniumMeteorPrefab;
+    public spaceObject bossMeteorPrefab;
 
     float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
@@ -32,6 +33,9 @@ public class gameManager : MonoBehaviour
     public BigNumber BN_xpEarned = new BigNumber(0);
 
     public bool isPaused = false;
+    public bool bossStage = false;
+
+    public List<spaceObject> meteors = new List<spaceObject>();
 
     float autoSaveTimer = 0f;
     private void Awake()
@@ -39,10 +43,10 @@ public class gameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            Stats.Initialize();
             Settings.Init();
             QuestStats.Init();
             Data.Init();
-            Stats.Initialize();
 
             SetPause(true);
         }
@@ -55,8 +59,9 @@ public class gameManager : MonoBehaviour
     // Start is calledonce before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        calculMeteorToKill();
+
         Application.targetFrameRate = 60;
+        LoadStage();
     }
 
     private void calculMeteorToKill()
@@ -67,7 +72,7 @@ public class gameManager : MonoBehaviour
         {
             meteorToKill++;
         }
-        MainUi.Instance.updateStage();
+        MainUi.Instance.upStage();
     }
 
     private void OnApplicationQuit()
@@ -89,12 +94,12 @@ public class gameManager : MonoBehaviour
         autoSaveTimer += Time.deltaTime;
         Data.Instance.time += Time.deltaTime;
 
-        if(timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
+        if(!bossStage && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
             spawnSpaceObject();
             timer = 0f;
         }
-        upStage();
+        updateStage();
         if(autoSaveTimer > 10f)
         {
             Stats.Instance.save();
@@ -102,38 +107,76 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void upStage()
+    public void updateStage()
     {
         if (meteorKilled >= meteorToKill)
         {
-            meteorKilled = 0;
-            MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
-            Stats.Instance.stage++;
-            if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
-            {
-                Stats.Instance.stage++;
-            }
-            getStageReward();
-            MainUi.Instance.updateStage();
-            calculMeteorToKill();
+            upStage();
 
-            if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
+        }
+    }
+
+    public void upStage()
+    {
+        //end stage
+
+        Stats.Instance.stage++;
+        if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
+        {
+            Stats.Instance.stage++;
+            getStageReward(1.70f, 0.75f);
+            MainUi.Instance.ShowStageSkip();
+        }
+        getStageReward(1.95f);
+        MainUi.Instance.upStage();
+        LoadStage();
+
+
+        if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
+        {
+            if (new BigNumber(Stats.Instance.stage).isBigger(QuestManager.Instance.objectif))
             {
-                if(new BigNumber(Stats.Instance.stage).isBigger(QuestManager.Instance.objectif))
-                {
-                    QuestStats.Instance.timeCompleted = Data.Instance.time;
-                }
+                QuestStats.Instance.timeCompleted = Data.Instance.time;
             }
         }
     }
 
-    public void getStageReward()
+    public void LoadStage()
     {
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), 1.9f * (Screen.height / 3f), 10));
+        meteorKilled = 0;
+        calculMeteorToKill();
+        if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
+
+        CheckStageBoss();
+        MainUi.Instance.updateStage();
+
+        MainUi.Instance.ShowBossLife(bossStage);
+
+
+    }
+
+    public void CheckStageBoss() {
+        if (Stats.Instance.stage % 10 == 0)
+        {
+            Debug.Log("BOOSSSSS TIME");
+            bossStage = true;
+            SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
+            if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
+            meteorToKill = 1;
+        }
+        else
+        {
+            bossStage = false;
+        }
+    }
+
+    public void getStageReward(float posY, float fontFactor = 1f)
+    {
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), posY * (Screen.height / 3f), 10));
         float reward;
         MarkerType type;
         if (Random.Range(0, 2) == 1)
-        {//xp
+        {//BN_xp
             reward = Stats.Instance.stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
@@ -142,21 +185,21 @@ public class gameManager : MonoBehaviour
         }
         else 
         {
-            if(Stats.Instance.uraniumUnlocked && Random.Range(0, 2) == 1)
+            if(XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && Random.Range(0, 2) == 1)
             {//uranium 
                 reward = (int)(Stats.Instance.stage * 0.5f);
                 type = MarkerType.Uranium;
-                Stats.Instance.upUranium(new BigNumber(reward), true);
+                Stats.Instance.AddUranium(new BigNumber(reward));
 
             }
             else
             {//iron
                 reward  = (int)(Stats.Instance.stage * 2.5f);
                 type = MarkerType.Iron;
-                Stats.Instance.upIron(new BigNumber(reward), true);
+                Stats.Instance.AddIron(new BigNumber(reward));
             }
         }
-        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f);
+        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
     }
 
     public void SmallVibrate()
@@ -196,7 +239,7 @@ public class gameManager : MonoBehaviour
             SpawnMeteor(DiamandMeteorPrefab, meteorType.Diamand);
         else if(x < rareLimit)
         {
-            if (Stats.Instance.uraniumUnlocked && UnityEngine.Random.Range(0, 2) == 0)
+            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && UnityEngine.Random.Range(0, 2) == 0)
                 SpawnMeteor(uraniumMeteorPrefab, meteorType.Uranium);
             else
                 SpawnMeteor(ironMeteorPrefab, meteorType.Iron);
@@ -214,6 +257,7 @@ public class gameManager : MonoBehaviour
         spaceObject obj = Instantiate(meteorPredab);
         obj.type = type;
         obj.Init();
+        meteors.Add(obj);
     }
 
     public void SetPause(bool isPause)
@@ -260,6 +304,7 @@ public class gameManager : MonoBehaviour
 
     public void DestroyMeteors()
     {
+        Debug.Log("destroy meteors");
         spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)
         {

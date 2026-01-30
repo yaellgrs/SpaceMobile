@@ -10,6 +10,7 @@ using System.Linq;
 using Newtonsoft.Json.Bson;
 using UnityEngine.Localization.Components;
 using Unity.Loading;
+using System;
 
 public class QuestUI : MonoBehaviour
 {
@@ -83,7 +84,7 @@ public class QuestUI : MonoBehaviour
         progress = root.Q<Label>("progress");
         questCount = root.Q<Label>("questCount");
         diamandReward = root.Q<Label>("diamand");
-        xpReward = root.Q<Label>("xp");
+        xpReward = root.Q<Label>("BN_xp");
 
 
         refreshQuestUI();
@@ -94,6 +95,7 @@ public class QuestUI : MonoBehaviour
         exit.clicked += Close;
         Btn_switch.clicked += Switch;
 
+        claim.clicked += ClaimClicked;
         claim.clicked -= ClaimClicked;
 
 
@@ -159,6 +161,7 @@ public class QuestUI : MonoBehaviour
     {
         if (QuestStats.Instance.questLevel <= QuestStats.Instance.questMaxLevel)
         {
+            //dialogue
             string key = "Quest_dialogue-" + (QuestStats.Instance.questLevel);
             LocalizedString localizesDialogue = new LocalizedString("UI_Quests", key);
             localizesDialogue.StringChanged += (localizedValue) =>
@@ -166,38 +169,8 @@ public class QuestUI : MonoBehaviour
                 dialogue.text = localizedValue;
             };
 
-            key = "Quest_objectif-";
-            switch (QuestManager.Instance.type)
-            {
-                case QuestType.MeteorToKill:
-                    key += "killMeteor";
-                    break;
-                case QuestType.ironMeteor:
-                    key += "IronMeteor";
-                    break;
-                case QuestType.ironUpgrade:
-                    key += "IronUpgrade";
-                    break;
-                case QuestType.starParticule:
-                    key += "StarParticule";
-                    break;
-                case QuestType.uraniumUpgrade:
-                    key += "UraniumUpgrade";
-                    break;
-                case QuestType.uraniumMeteor:
-                    key += "UraniumMeteor";
-                    break;
-                case QuestType.upMachines:
-                    key += "upMachines";
-                    break;
-                case QuestType.unlockMachine:
-                    key += "unlockMachine";
-                    break;
-                case QuestType.Speed:
-                    key += "speed";
-                    break;
-            }
-
+            //objectif
+            key = "Quest_objectif-" + QuestManager.Instance.type.ToString();
             LocalizedString localizesQuest = new LocalizedString("UI_Quests", key);
             if(QuestManager.Instance.type == QuestType.Speed)
             {
@@ -208,14 +181,14 @@ public class QuestUI : MonoBehaviour
                 quest.text = localizedValue;
             };
             localizesQuest.RefreshString();
-
-
+            
+            //avancement
             if (QuestManager.Instance.type != QuestType.Speed)
             {
                 progress.text = QuestStats.Instance.progress.ToString() + "/" + QuestManager.Instance.objectif.ToString();
             }
             else
-            {
+            { //speed
                 if (!QuestManager.Instance.isCompleted())
                 {
                     progress.text = BigNumber.floatToTimeMinute(Data.Instance.time);
@@ -229,7 +202,7 @@ public class QuestUI : MonoBehaviour
 
 
         }
-        else
+        else //level Max
         {
             string key = "Quest_dialogue-end";
             LocalizedString localizesDialogue = new LocalizedString("UI_Quests", key);
@@ -259,6 +232,15 @@ public class QuestUI : MonoBehaviour
         back.clicked += Close;
         exit.clicked += Close;
         Btn_switch.clicked += Switch;
+
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+
+        scroll.Clear();
+
+        foreach(SuccessType key in Enum.GetValues(typeof(SuccessType)))
+        {
+            scroll.Add(new SuccessElement(key));
+        }
 
         refreshSuccessUi();
 

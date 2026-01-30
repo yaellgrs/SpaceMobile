@@ -69,6 +69,7 @@ public class spaceShip : MonoBehaviour
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
+            Stats.Instance.isDead = true;
             ResurectionUI.Instance.loadResurection();
         }
     }
@@ -101,18 +102,20 @@ public class spaceShip : MonoBehaviour
     {
         if (Stats.Instance.shield.isBigger(amount))
         {
-            Stats.Instance.upShield(amount, false);
+            Stats.Instance.shield -= amount;
+            if(new BigNumber(0).isBigger(Stats.Instance.shield)) Stats.Instance.shield.Set(0);
         }
         else
         {
-
-            BigNumber x = new BigNumber(amount.Mantisse, amount.Exp);
-            x.Subtract(Stats.Instance.shield);
+            BigNumber x = new BigNumber(amount);
+            x -= Stats.Instance.shield;
             if (Stats.Instance.shield.Mantisse != 0)
             {
-                Stats.Instance.shield = new BigNumber(0, 0);
+                Stats.Instance.shield.Set(0);
             }
-            Stats.Instance.upLife(x, false);
+
+            Stats.Instance.life -= x;
+            if (new BigNumber(0).isBigger(Stats.Instance.life)) Stats.Instance.life.Set(0);
         }
 
         MainUi.Instance.upShieldBar();
@@ -120,7 +123,7 @@ public class spaceShip : MonoBehaviour
 
     public void setAreaScale(float scale)
     {
-        if (Stats.Instance.uraniumUnlocked)
+        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             area.gameObject.SetActive(true);
             area.transform.localScale = new Vector3(0.5386925f, 0.4774579f, 1f);

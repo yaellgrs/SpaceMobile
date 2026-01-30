@@ -46,7 +46,7 @@ public class canon : MonoBehaviour
             timer += Time.deltaTime;
 
             moveCanon(); // appel shoot 
-            if (Stats.Instance.uraniumUnlocked)
+            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
             {
                 autoShoot();
             }

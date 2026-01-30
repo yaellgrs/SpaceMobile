@@ -84,6 +84,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigMeteor
       objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.23933779
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.27142933
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.3056603
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.20751159
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.23124991
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472625872471762975, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.2528302
+      objectReference: {fileID: 0}
     - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: type
       value: 1
