@@ -37,7 +37,9 @@ public class ShipManager : MonoBehaviour
     public void SwitchShip(SpaceShipType type)
     {
         Debug.Log("switch " + Stats.Instance.currentSpaceShipType + " -> " + type);
+
         Stats.Instance.currentSpaceShipType = type;
+        spaceShip.instance.LoadAnimation();
 
     }
 

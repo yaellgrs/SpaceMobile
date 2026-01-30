@@ -18,6 +18,8 @@ public class spaceShip : MonoBehaviour
     private bool animUp = false;
     public float animSpeed = 0.0025f;
 
+    private Animator animator;
+
     private void Awake()
     {
         if(instance == null)
@@ -32,9 +34,16 @@ public class spaceShip : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GetComponent<Animator>().speed = 0.75f;
+        animator  = GetComponent<Animator>();
+        animator.speed = 0.75f;
         initAreaScale = area.transform.localScale;
         initScale = area.transform.localScale;
+        LoadAnimation();
+    }
+
+    public void LoadAnimation()
+    {
+        animator.SetBool("isFire", Stats.Instance.currentSpaceShipType == SpaceShipType.Fire);
     }
 
     // Update is called once per frame
