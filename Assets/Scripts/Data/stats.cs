@@ -226,6 +226,15 @@ public class Stats
         QuestStats.Instance.reset();
         Data.Instance.reset();
         MainUi.Instance.upStage();
+        Tuto.Instance.loadPopupTuto();
+        if (Instance.spaceShips.Count == 0)
+        {
+            Instance.spaceShips.Add(new SpaceShipDico
+            {
+                type = SpaceShipType.Basic,
+                data = new SpaceShipData()
+            });
+        }
     }
 }
 

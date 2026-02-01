@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class DevTest : MonoBehaviour
 
     private void ShowTuto(bool show)
     {
-        foreach (PopupTuto tuto in Stats.Instance.popupTutos.Keys)
+        foreach (PopupTuto tuto in Stats.Instance.popupTutos.Keys.ToList())
         {
             Stats.Instance.popupTutos[tuto] = !show;
         }

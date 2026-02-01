@@ -47,7 +47,7 @@ public class Tuto: MonoBehaviour
         loadPopupTuto();
     }
 
-    private void loadPopupTuto()
+    public void loadPopupTuto()
     {
         foreach (PopupTuto tuto in Enum.GetValues(typeof(PopupTuto)))
         {
