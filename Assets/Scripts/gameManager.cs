@@ -158,7 +158,6 @@ public class gameManager : MonoBehaviour
     public void CheckStageBoss() {
         if (Stats.Instance.stage % 10 == 0)
         {
-            Debug.Log("BOOSSSSS TIME");
             bossStage = true;
             SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
             if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";

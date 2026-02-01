@@ -83,7 +83,6 @@ public class spaceObject : MonoBehaviour
         else if(type == meteorType.Boss)
         {
            lifeMax *= 15;
-            Debug.Log("meteor boss");
         }
 
         List<(int stage, float mult)> paliers = new()
@@ -151,7 +150,7 @@ public class spaceObject : MonoBehaviour
         }
         else if (type == meteorType.Boss)
         {
-            spaceObjectSpeed *= 0.5f;
+            spaceObjectSpeed *= 0.75f;
         }
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator;
         if(type != meteorType.Boss)
@@ -231,7 +230,7 @@ public class spaceObject : MonoBehaviour
         if(type == meteorType.Boss)
         {
             x = bottomLeft.x - 0.5f;
-            y = topRight.y * 0.75f;
+            y = topRight.y * 0.55f;
         }
 
         transform.position = new Vector3(x, y, 0);

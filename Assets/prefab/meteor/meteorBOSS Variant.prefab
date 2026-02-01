@@ -76,6 +76,14 @@ PrefabInstance:
       propertyPath: type
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: baseScale.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: baseScale.y
+      value: 1.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

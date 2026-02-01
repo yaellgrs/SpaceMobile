@@ -25,13 +25,9 @@ public class canon : MonoBehaviour
     private void Awake()
     {
         if(instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     private void Start()
@@ -48,9 +44,7 @@ public class canon : MonoBehaviour
 
             moveCanon(); // appel shoot 
             if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
-            {
                 autoShoot();
-            }
         }  
     }
 
