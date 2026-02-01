@@ -253,15 +253,27 @@ public class PrestigeUI : BaseUI
 
         bonus.Add(Stats.Instance.prestigeWaiting);
         totalLabel.text = "Total : " + bonus;
-        backButton1.clicked += backClicked;
-        prestigeReset.clicked += PrestigeResetClicked;
-        if(Stats.Instance.diamand >= 50)
-        {
-            diamandBtn.enabledSelf = true;
-            diamandBtn.clicked += diamandClicked;
+
+        if (Stats.Instance.prestigeWaiting.EqualZero()){
+            prestigeReset.enabledSelf = false;
+            diamandBtn.enabledSelf = false;
         }
         else
-            diamandBtn.enabledSelf = false;
+        {
+            prestigeReset.enabledSelf = true;
+            prestigeReset.clicked -= PrestigeResetClicked;
+            prestigeReset.clicked += PrestigeResetClicked;
+            if (Stats.Instance.diamand >= 50)
+            {
+                diamandBtn.enabledSelf = true;
+                diamandBtn.clicked += diamandClicked;
+                diamandBtn.clicked -= diamandClicked;
+            }
+        }
+
+
+        backButton1.clicked += backClicked;
+
     }
     private void diamandClicked()
     {
