@@ -331,6 +331,7 @@ public class gameManager : MonoBehaviour
 
         MainUi.Instance.enemyLabel.text = meteorToKill.ToString();
         MainUi.Instance.healthBar.style.width = Length.Percent(100);
+        MainUi.Instance.updateStage();
     }
     public void launchMiniMeteor(Transform trans)
     {

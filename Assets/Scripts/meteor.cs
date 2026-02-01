@@ -180,7 +180,6 @@ public class spaceObject : MonoBehaviour
         Vector3 dir = ( shipDir + perp * 5f ).normalized;
         transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
 
-
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
     }

@@ -12,17 +12,14 @@ public class ResurectionUI : MonoBehaviour
 
     private Button diamand;
     private Button pub;
+    private Button Btn_backStage;
 
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -56,6 +53,7 @@ public class ResurectionUI : MonoBehaviour
 
         diamand = root.Q<Button>("diamand");
         pub = root.Q<Button>("pub");
+        Btn_backStage = root.Q<Button>("backStage");
 
         if (Stats.Instance.diamand >= 5)
         {
@@ -72,6 +70,9 @@ public class ResurectionUI : MonoBehaviour
             pub.style.visibility = Visibility.Visible;
         }
         else pub.style.visibility = Visibility.Hidden;
+
+        Btn_backStage.clicked -= backStage;
+        Btn_backStage.clicked += backStage;
     }
 
     private void diamandClicked()
@@ -85,6 +86,13 @@ public class ResurectionUI : MonoBehaviour
     {
         if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(Ads.RewardType.Resurection);
         else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
+        Close();
+    }
+
+    private void backStage()
+    {
+        Stats.Instance.stage -= 5;
+        gameManager.instance.RestartStage();
         Close();
     }
 
