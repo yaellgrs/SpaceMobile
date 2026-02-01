@@ -342,6 +342,8 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
         Data.Instance.PrestigeCount += 1;
+
+        gameManager.instance.InitGame();
     }
 
 

@@ -62,7 +62,7 @@ public class UpgradesUraniumElement : UpgradesElement
                 break;
             case UpgradeType.AreaWidth:
                 Stats.Instance.areaSize = 1f + 0.3f * Mathf.Pow(level, 0.4f);
-                spaceShip.instance.setAreaScale(Stats.Instance.areaSize);
+                spaceShip.instance.setAreaScale();
                 break;
             case UpgradeType.RocketReload:
                 Stats.Instance.rocketTimerMax = 25f - Mathf.Pow(level, 0.4f);

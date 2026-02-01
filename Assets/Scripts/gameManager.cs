@@ -25,7 +25,6 @@ public class gameManager : MonoBehaviour
     public int meteorToKill = 10;
     public int meteorKilled = 0;
 
-    public float meteorScale = 1f;
     private Vector3 initialScale;
 
     private BigNumber enemyLife = new BigNumber(1, 0);
@@ -61,6 +60,7 @@ public class gameManager : MonoBehaviour
     {
 
         Application.targetFrameRate = 60;
+        InitGame();
         LoadStage();
     }
 
@@ -73,6 +73,18 @@ public class gameManager : MonoBehaviour
             meteorToKill++;
         }
         MainUi.Instance.upStage();
+    }
+
+    public void InitGame()
+    {
+        SetWorldScale();
+    }
+
+    public void SetWorldScale()
+    {
+        setMeteorScale();
+        spaceShip.instance.setAreaScale();
+        spaceShip.instance.setScale();
     }
 
     private void OnApplicationQuit()
@@ -301,13 +313,9 @@ public class gameManager : MonoBehaviour
 
     public void DestroyMeteors()
     {
-        Debug.Log("destroy meteors");
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)
         {
-
             Destroy(obj.gameObject);
-
         }
     }
     public void RestartStage()
@@ -349,7 +357,6 @@ public class gameManager : MonoBehaviour
 
     public void setMeteorScale()
     {
-        meteorScale = Stats.Instance.scale;
         foreach(spaceObject meteor in meteors)
         {
             meteor.transform.localScale = meteor.baseScale;

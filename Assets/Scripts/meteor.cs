@@ -102,7 +102,7 @@ public class spaceObject : MonoBehaviour
         }
 
         life = new BigNumber(lifeMax.Mantisse, lifeMax.Exp);
-        transform.localScale *= gameManager.instance.meteorScale;
+        transform.localScale *= Stats.Instance.scale;
         lifeText.text = life.ToString();
         if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
         {
@@ -172,8 +172,8 @@ public class spaceObject : MonoBehaviour
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
-        Vector3 dir = ( shipDir + perp * 5f).normalized;
-        transform.position += dir * spaceObjectSpeed * Time.deltaTime;
+        Vector3 dir = ( shipDir + perp * 5f ).normalized;
+        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
 
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -191,7 +191,7 @@ public class spaceObject : MonoBehaviour
             isStart = false;
         }
         float angle = Mathf.Atan2(direction.y, direction.x);
-        GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * spaceObjectSpeed;
+        GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * spaceObjectSpeed * Stats.Instance.scale;
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle-180);
         GetComponentInChildren<Canvas>().transform.rotation = Quaternion.Euler(0, 0,0);

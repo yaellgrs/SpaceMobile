@@ -316,7 +316,7 @@ public class XpUI : MonoBehaviour
         if (rewardUnlocked(BonusLevel.UnlockPrestige) ) Stats.Instance.prestigeUnlocked = true;
         if (rewardUnlocked(BonusLevel.UnlockUranium) )
         {
-            spaceShip.instance.setAreaScale(1f);
+            spaceShip.instance.setAreaScale();
         }
         if (rewardUnlocked(BonusLevel.UnlockRocket))
         {

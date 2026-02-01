@@ -71,8 +71,7 @@ public class UpgradesIronElement : UpgradesElement
             case UpgradeType.WorldSize:
                 Stats.Instance.scale = 1f;
                 Stats.Instance.scale = Mathf.Pow(0.992f, level + 1);
-                spaceShip.instance.setScale(Stats.Instance.scale);
-                gameManager.instance.setMeteorScale();
+                gameManager.instance.SetWorldScale();
                 break;
             case UpgradeType.Shield:
                 diff = new BigNumber(spaceShip.instance.getMaxShield());

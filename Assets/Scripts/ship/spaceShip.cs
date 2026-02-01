@@ -130,23 +130,23 @@ public class spaceShip : MonoBehaviour
         MainUi.Instance.upShieldBar();
     }
 
-    public void setAreaScale(float scale)
+    public void setAreaScale()
     {
         if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             area.gameObject.SetActive(true);
             area.transform.localScale = new Vector3(0.5386925f, 0.4774579f, 1f);
-            area.transform.localScale *= scale;
+            area.transform.localScale *= Stats.Instance.scale * Stats.Instance.areaSize;
         }
         else
         {
             area.gameObject.SetActive(false);
         }
     }
-    public void setScale(float scale)
+    public void setScale()
     {
         transform.localScale = new Vector3(0.75f, 0.75f, 1f);
-        transform.localScale *= scale;
+        transform.localScale *= Stats.Instance.scale;
     }
 
     public BigNumber getMaxLife()
