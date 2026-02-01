@@ -164,6 +164,7 @@ public class Ads : MonoBehaviour
                 Stats.Instance.AddUranium(getUraniumAdsReward());
                 break;
             case RewardType.Resurection:
+                Stats.Instance.ReduceLifeBoss = true;
                 Stats.Instance.deadPubWatch++;
                 break;
         }

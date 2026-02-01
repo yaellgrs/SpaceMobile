@@ -12,9 +12,6 @@ public class ResurectionUI : MonoBehaviour
 
     private Button diamand;
     private Button pub;
-    private Button prestige;
-
-
 
     private void Awake()
     {
@@ -48,7 +45,6 @@ public class ResurectionUI : MonoBehaviour
 
         var root = resurectionUI.rootVisualElement;
 
-
         main = root.Q<VisualElement>("main");
 
         main.AddToClassList("trans");
@@ -60,7 +56,6 @@ public class ResurectionUI : MonoBehaviour
 
         diamand = root.Q<Button>("diamand");
         pub = root.Q<Button>("pub");
-        prestige = root.Q<Button>("prestige");
 
         if (Stats.Instance.diamand >= 5)
         {
@@ -77,16 +72,12 @@ public class ResurectionUI : MonoBehaviour
             pub.style.visibility = Visibility.Visible;
         }
         else pub.style.visibility = Visibility.Hidden;
-
-
-
-        prestige.clicked -= prestigeClicked;
-        prestige.clicked += prestigeClicked;
     }
 
     private void diamandClicked()
     {
-        Stats.Instance.AddDiamand(5 * Stats.Instance.deadPubWatch);
+        Stats.Instance.AddDiamand(-5 * Stats.Instance.deadPubWatch);
+        Stats.Instance.ReduceLifeBoss = true;
         Close();
     }
 
@@ -95,10 +86,6 @@ public class ResurectionUI : MonoBehaviour
         if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(Ads.RewardType.Resurection);
         else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
         Close();
-    }
-    private void prestigeClicked()
-    {
-        MainUi.Instance.prestigeUI.LoadPrestige();
     }
 
     public void Close()

@@ -105,6 +105,7 @@
   <ItemGroup>
     <None Include="Assets\UI\IronUpgradeUITest.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\UI\ResurectionTest.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\UI\menu\setting.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />

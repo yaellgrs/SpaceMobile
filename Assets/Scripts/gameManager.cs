@@ -106,10 +106,13 @@ public class gameManager : MonoBehaviour
         autoSaveTimer += Time.deltaTime;
         Data.Instance.time += Time.deltaTime;
 
-        if(!bossStage && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
+        if(timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
-            spawnSpaceObject();
-            timer = 0f;
+            CheckStageBoss();
+            if(!bossStage){
+                spawnSpaceObject();
+                timer = 0f;
+            }
         }
         updateStage();
         if(autoSaveTimer > 10f)
@@ -168,16 +171,17 @@ public class gameManager : MonoBehaviour
     }
 
     public void CheckStageBoss() {
-        if (Stats.Instance.stage % 10 == 0)
+        if (!bossStage && Stats.Instance.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
         {
             bossStage = true;
             SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
             if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
+            MainUi.Instance.ShowBossLife(true);
             meteorToKill = 1;
         }
-        else
+        else if(Stats.Instance.stage % Stats.BOSS_STAGE_GAP != 0)
         {
-            bossStage = false;
+            MainUi.Instance.ShowBossLife(false);
         }
     }
 
@@ -279,7 +283,6 @@ public class gameManager : MonoBehaviour
             foreach (spaceObject m in meteors)
             {
                 m.Pause();
-
             }
             canon.instance.setPause(true);
             timerSave = timer;

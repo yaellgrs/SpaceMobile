@@ -101,7 +101,12 @@ public class spaceObject : MonoBehaviour
             }
         }
 
-        life = new BigNumber(lifeMax.Mantisse, lifeMax.Exp);
+        life = new BigNumber(lifeMax);
+        if (type == meteorType.Boss && Stats.Instance.ReduceLifeBoss) {
+            life *= 0.6f;
+            Stats.Instance.ReduceLifeBoss = false;  
+        }
+
         transform.localScale *= Stats.Instance.scale;
         lifeText.text = life.ToString();
         if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
@@ -168,7 +173,7 @@ public class spaceObject : MonoBehaviour
 
     public void MoveBoss()
     {
-        //if (isPause) return;
+        if (isPause) return;
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
@@ -182,9 +187,8 @@ public class spaceObject : MonoBehaviour
 
     public void Move()
     {
-        if(type == meteorType.Boss) return;
         isPause = gameManager.instance.isPaused;
-        if (isPause) return;
+        if (type == meteorType.Boss || isPause) return;
         if (isStart)
         {
             direction = spaceShip.instance.transform.position - transform.position;
@@ -325,7 +329,6 @@ public class spaceObject : MonoBehaviour
             if(type != meteorType.Diamand && !(Stats.Instance.life.EqualZero()))
             {
                 spaceShip.instance.getDamage(lifeMax);
-                gameManager.instance.meteorKilled++;
                 MainUi.Instance.upMeteorUI();
                 if (Stats.Instance.life.EqualZero())
                 {
@@ -371,5 +374,7 @@ public class spaceObject : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
+
+        if(type == meteorType.Boss) gameManager.instance.bossStage = false;
     }
 }

@@ -76,7 +76,6 @@ public class MainUi : MonoBehaviour
     Label Lbl_bossLife;
     VisualElement VE_bossLife;
     VisualElement VE_bossLifeLerp;
-    BigNumber bossLifeMax;
     float currentBossPercent;
     float LerpBossPercent;
 
@@ -201,10 +200,7 @@ public class MainUi : MonoBehaviour
     public void ShowBossLife(bool show)
     {
         if (show)
-        {
-            bossLifeMax = new BigNumber(gameManager.instance.meteors[0].life);
             currentBossPercent = LerpBossPercent = 100f;
-        }
 
         mainUI.rootVisualElement.Q<VisualElement>("boss").style.visibility = show ? Visibility.Visible : Visibility.Hidden;
     }
@@ -259,10 +255,11 @@ public class MainUi : MonoBehaviour
 
         if (gameManager.instance.bossStage)
         {
+            Debug.Log("bossstage");
             if (gameManager.instance.meteors.Count > 0)
             {
-                Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + bossLifeMax.ToString();
-                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(bossLifeMax);
+                Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + gameManager.instance.meteors[0].lifeMax.ToString();
+                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
                 currentBossPercent = Mathf.Lerp(currentBossPercent, targetPercent, Time.deltaTime * 30f);
                 LerpBossPercent = Mathf.Lerp(LerpBossPercent, targetPercent, Time.deltaTime * 2.5f);
 

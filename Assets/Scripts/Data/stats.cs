@@ -15,7 +15,6 @@ using static UpgradesPrestigeElement.UpgradeType;
 
 
 
-
 public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
 
 
@@ -45,15 +44,16 @@ public class Stats
 
     public int version = 1;
 
+    //constantes
+    public const int BOSS_STAGE_GAP = 10;
+
     //ships
     public SpaceShipType currentSpaceShipType = SpaceShipType.Basic;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
     public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
-    //public SpaceShipData space = new SpaceShipData();
-    //public SpaceShipData CurrentSpaceShip => space;
 
     //global
-    public int diamand { get; private set; } = 1;
+    public int diamand { get; private set; } = 100;
 
     public long lastConnection;
     public bool firstConnection = true;
@@ -66,6 +66,7 @@ public class Stats
     public float xpBoostTime = 0f;
     public float pvShieldBoostTime = 0f;
     public float ressourcesBoostTime = 0f;
+    public bool ReduceLifeBoss = false;
 
     //tutos
     public bool ironTuto = false;
