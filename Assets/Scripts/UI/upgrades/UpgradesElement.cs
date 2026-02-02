@@ -115,10 +115,13 @@ public partial class UpgradesElement : VisualElement
     #region ----- Loads ----
     public void Load()
     {
+        if (level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement) level = Stats.Instance.MinimalLevel;
+
         LoadStat();
         LoadUI();
         GetReward();
         SetLogos();
+
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
         Btn_levelUp.clicked -= LevelUp;
         Btn_levelUp.clicked += LevelUp;

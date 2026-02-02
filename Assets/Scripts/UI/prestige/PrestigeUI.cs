@@ -59,7 +59,7 @@ public class PrestigeUI : BaseUI
     {
         Stats.Instance.AddUranium(-calculCostPrestige());
         
-        UpgradesPrestigeElement.UpgradeType type;
+        UpgradeType type;
         if (prestige == 1)
             type = Stats.Instance.nextPrestigeToBuy;
         else
@@ -75,7 +75,7 @@ public class PrestigeUI : BaseUI
         if (Stats.Instance.prestigeToBuy.Count == 0)
         {
             buyButton.enabledSelf = false;
-            Stats.Instance.nextPrestigeToBuy = UpgradesPrestigeElement.UpgradeType.Max;
+            Stats.Instance.nextPrestigeToBuy = UpgradeType.Max;
         }
         else
             SetNextPrestigesToBuy();
@@ -86,17 +86,17 @@ public class PrestigeUI : BaseUI
 
     private void SetNextPrestigesToBuy()
     {
-        var list = new List<UpgradesPrestigeElement.UpgradeType>(Stats.Instance.prestigeToBuy);
-        list.Remove(UpgradesPrestigeElement.UpgradeType.Max);
+        var list = new List<UpgradeType>(Stats.Instance.prestigeToBuy);
+        list.Remove(UpgradeType.Max);
 
         if (list == null || list.Count <= 1){
-            Stats.Instance.nextPrestigeToBuy2 = UpgradesPrestigeElement.UpgradeType.Max;
-            Stats.Instance.nextPrestigeToBuy = (list.Count == 1) ? list[0] : UpgradesPrestigeElement.UpgradeType.Max;
+            Stats.Instance.nextPrestigeToBuy2 = UpgradeType.Max;
+            Stats.Instance.nextPrestigeToBuy = (list.Count == 1) ? list[0] : UpgradeType.Max;
             return;
         }
         else
         {
-            UpgradesPrestigeElement.UpgradeType first = list[Random.Range(0, list.Count)]; ;
+            UpgradeType first = list[Random.Range(0, list.Count)]; ;
             list.Remove(first);
             Stats.Instance.nextPrestigeToBuy = first;
             Stats.Instance.nextPrestigeToBuy2 = list[Random.Range(0, list.Count)]; ;
@@ -211,7 +211,7 @@ public class PrestigeUI : BaseUI
             scroll.Add(buyButtonUI);
 
             upPrestigeLabel();
-            if (Stats.Instance.nextPrestigeToBuy == UpgradesPrestigeElement.UpgradeType.Max && UpgradesPrestigeElement.UpgradeType.Max == Stats.Instance.nextPrestigeToBuy2)
+            if (Stats.Instance.nextPrestigeToBuy == UpgradeType.Max && UpgradeType.Max == Stats.Instance.nextPrestigeToBuy2)
             {
                 buyButtonUI.enabledSelf = false;
             }
@@ -398,7 +398,7 @@ public class PrestigeUI : BaseUI
         backButton2.clicked -= backClicked;
         backButton2.clicked += backClicked;
 
-        if(UpgradesPrestigeElement.UpgradeType.Max == Stats.Instance.nextPrestigeToBuy2)
+        if(UpgradeType.Max == Stats.Instance.nextPrestigeToBuy2)
         {
             nextPrestige.enabledSelf = false;
         }
@@ -408,7 +408,7 @@ public class PrestigeUI : BaseUI
             refreshButton.enabledSelf = false;
             buyButton.enabledSelf = false;
         }
-        else if (Stats.Instance.nextPrestigeToBuy == UpgradesPrestigeElement.UpgradeType.Max)
+        else if (Stats.Instance.nextPrestigeToBuy == UpgradeType.Max)
         {
             refreshButton.enabledSelf = false;
             buyButton.enabledSelf = false;
@@ -474,7 +474,7 @@ public class PrestigeUI : BaseUI
         LastPrestigeClicked();
     }
 
-    private void setTextBuyUI(UpgradesPrestigeElement.UpgradeType type)
+    private void setTextBuyUI(UpgradeType type)
     {
         VisualElement logo = buyUI.rootVisualElement.Q<VisualElement>("logo");
         string logoPath = "Upgrades/prestige/" ;
@@ -484,7 +484,7 @@ public class PrestigeUI : BaseUI
         logo.style.backgroundImage = logoTexutre;
 
         string key = type.ToString();
-        if (type != UpgradesPrestigeElement.UpgradeType.Max)
+        if (type != UpgradeType.Max)
         {
             string key_name = "Prestige_name_" + key;
             localizesName = new LocalizedString("UI_Rewards", key_name);

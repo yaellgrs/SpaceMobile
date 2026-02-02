@@ -59,6 +59,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2835034690872410297
+  - m_Id: 78086939524042752
+    m_Localized: 'minimum level : {0}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Newtonsoft.Json;
 
-using static UpgradesPrestigeElement.UpgradeType;
-
 /*
     pouvoir changer de ship:
        -class pour stocker ce qui est spécifique au ship
@@ -125,6 +123,7 @@ public class Stats
     public float prest_damage_multiplicator = 1f;
     public float probabilitéOfOmega = 5f;
     public float stageSkipProb = 0f;
+    public int MinimalLevel = 1;
 
         //levels
     public int diamandProb =5; // / 1000
@@ -140,19 +139,21 @@ public class Stats
     public float shield_Regen_Time = 4f;
 
 
-    public List<UpgradesPrestigeElement.UpgradeType> prestigeToBuy = new List<UpgradesPrestigeElement.UpgradeType> {
-            PrestigeMultiplicator,
-            LessMeteor,
-            LessTimeMachine,
-            LessPriceUpgrades,
-            XpBoost,
-            DamageMultiplicator,
-            StageSkip,
-            OmegaProb };
+    public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
+            UpgradeType.PrestigeMultiplicator,
+            UpgradeType.LessMeteor,
+            UpgradeType.LessTimeMachine,
+            UpgradeType.LessPriceUpgrades,
+            UpgradeType.XpBoost,
+            UpgradeType.DamageMultiplicator,
+            UpgradeType.StageSkip,
+            UpgradeType.OmegaProb, 
+            UpgradeType.MinimumLevel, 
+    };
 
 
-    public UpgradesPrestigeElement.UpgradeType nextPrestigeToBuy = DamageMultiplicator;
-    public UpgradesPrestigeElement.UpgradeType nextPrestigeToBuy2 = PrestigeMultiplicator;
+    public UpgradeType nextPrestigeToBuy = UpgradeType.DamageMultiplicator;
+    public UpgradeType nextPrestigeToBuy2 = UpgradeType.PrestigeMultiplicator;
 
     public void AddXP(BigNumber amount)
     {
@@ -212,7 +213,7 @@ public class Stats
     public void save() {
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        string path = Application.persistentDataPath + "stats.json";
+        string path = Application.persistentDataPath + "/stats.json";
         string stat = JsonUtility.ToJson(this);
         System.IO.File.WriteAllText(path, stat);
         QuestStats.Instance.Save();
