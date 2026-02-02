@@ -12,7 +12,7 @@ public class DevTest : MonoBehaviour
 
     private void Init()
     {
-        ShowTuto(false); // desactive les tutos
+        ShowTuto(true); // desactive les tutos
     }
 
     private void ShowTuto(bool show)

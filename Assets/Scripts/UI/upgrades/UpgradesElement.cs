@@ -47,7 +47,7 @@ public partial class UpgradesElement : VisualElement
 
     #region ----- INIT -----
 
-    private void Init()
+    protected virtual void Init()
     {
         StyleSheet styleSheet = Resources.Load<StyleSheet>("styles/upgradeStyle");
         styleSheets.Add(styleSheet);
@@ -125,6 +125,8 @@ public partial class UpgradesElement : VisualElement
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
         Btn_levelUp.clicked -= LevelUp;
         Btn_levelUp.clicked += LevelUp;
+
+        SetLevelUpButton();
     }
 
 
@@ -135,7 +137,6 @@ public partial class UpgradesElement : VisualElement
         //check if the player can upgrade
         bool havelevel = level < Ship.Current.level + 1;
         VE_levelUpLockCover.style.display = havelevel ? DisplayStyle.None : DisplayStyle.Flex;
-        Btn_levelUp.SetEnabled(havelevel);
 
         if (level >= levelMax) //LEVEL MAX
         {
@@ -149,10 +150,11 @@ public partial class UpgradesElement : VisualElement
         }
         Lbl_levelUpLockLevel.text = (Ship.Current.level + 2).ToString();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
+    }
 
-
-        Btn_levelUp.enabledSelf = CanPay() && havelevel;
-
+    protected void SetLevelUpButton()
+    {
+        Btn_levelUp.enabledSelf = CanPay() && level < Ship.Current.level + 1;
 
     }
     #endregion
@@ -180,7 +182,7 @@ public partial class UpgradesElement : VisualElement
         }
         Load();
         gameManager.instance.SmallVibrate();
-    }
+    }   
 
     #endregion
 

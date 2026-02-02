@@ -93,7 +93,7 @@ public partial class machineElement : Button
 
     #region -------- INIT -------
 
-    private void Init()
+    protected virtual void Init()
     {
         AddToClassList("machineCadre");//machineCadre
         AddToClassList("forgeButton");//machineCadrefdf
@@ -121,6 +121,8 @@ public partial class machineElement : Button
         SetLogos();
 
         SetEarnPerSecond();
+
+
     }
 
 
@@ -241,12 +243,13 @@ public partial class machineElement : Button
 
         SetBorderColor();
         SetEarnPerSecond();
-        SetLevelUpButton();
         upMachineCostText();
 
         this.clicked += StartProduction;
         Btn_up.clicked -= LevelUp;
         Btn_up.clicked += LevelUp;
+
+        SetLevelUpButton();
     }
 
     protected virtual void StartProduction() // == machine1Clicked
@@ -262,7 +265,10 @@ public partial class machineElement : Button
             }
             reloadUI();
         }
-        else if (time < 0)  time = 0f; //start production
+        else if (time < 0)
+        { //start production
+            time = 0f;
+        }
     }
 
     protected virtual void LevelUp()
@@ -313,8 +319,12 @@ public partial class machineElement : Button
         if (QuestManager.Instance.type == QuestType.UpgradeMachine)
             QuestManager.Instance.upQuest();
 
-        SetLevelUpButton();
         gameManager.instance.SmallVibrate();
+
+        if (this is machineIronElement && !Stats.Instance.ironTuto)
+        {
+            Tuto.Instance.ironCloseTuto(true);
+        }
     }
 
     
@@ -339,11 +349,12 @@ public partial class machineElement : Button
                     time = -1f;
                     VE_progressBar.style.width = Length.Percent(100);
                     Lbl_time.text = timeMaxReal.ToString("F1") + "s";
-                    SetLevelUpButton();
+                    if (this is machineIronElement && !Stats.Instance.ironTuto)
+                        Tuto.Instance.AddMachineClicked();
                 }
             }
         }
-        else
+        else//automatic
         {
             time += Time.deltaTime;
             AnimAutoBar();
@@ -352,7 +363,6 @@ public partial class machineElement : Button
             {
                 HandleMoney(BN_earnPerScd);
                 time = 0f;
-                SetLevelUpButton();
             }
         }
 

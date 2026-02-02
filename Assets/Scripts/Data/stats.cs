@@ -45,11 +45,13 @@ public class Stats
     //constantes
     public const int BOSS_STAGE_GAP = 10;
 
+    //actions 
+    public event Action OnIronChanged;
+
     //ships
     public SpaceShipType currentSpaceShipType = SpaceShipType.Basic;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
     public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
-
     //global
     public int diamand { get; private set; } = 100;
 
@@ -92,12 +94,8 @@ public class Stats
 
 
     //machines upgrades
-    //public List<MachineIron> machinesIron = new List<MachineIron>();
-    //public List<machineUranium> machinesUranium = new List<machineUranium>();
-    //public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
-
     public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
     public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();

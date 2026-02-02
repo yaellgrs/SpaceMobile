@@ -23,6 +23,13 @@ public class UpgradesIronElement : UpgradesElement
 
     #region ----- overrides Methods -----
 
+    protected override void Init()
+    {
+        base.Init();
+        Stats.Instance.OnIronChanged -= SetLevelUpButton;
+        Stats.Instance.OnIronChanged += SetLevelUpButton;
+    }
+
     protected override void LoadStat()
     {
         switch (type)

@@ -182,6 +182,8 @@ public class MainUi : MonoBehaviour
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
         shieldRegenLabel.text = "+ " + Stats.Instance.regenShield;
+
+        Stats.Instance.OnIronChanged += upIronUI;
     }
 
     public void adaptBanner(bool adapt)

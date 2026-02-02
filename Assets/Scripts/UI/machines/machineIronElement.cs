@@ -15,6 +15,14 @@ public class machineIronElement : machineElement
         : base(machineName, initPrice, time)
     {
     }
+
+    protected override void Init()
+    {
+        base.Init();
+        Stats.Instance.OnIronChanged -= SetLevelUpButton;
+        Stats.Instance.OnIronChanged += SetLevelUpButton;
+    }
+
     protected override string getLogoPath()
     {
         return "iron";
