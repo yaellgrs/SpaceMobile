@@ -80,7 +80,7 @@ public partial class machineElement : Button
 
     public machineElement(string machineName, BigNumber initPrice, float time)
     {
-        if(initPrice == new BigNumber(0))
+        if(initPrice < new BigNumber(100))
             isBuyed = true;
 
         this.BN_price = initPrice;
@@ -275,20 +275,16 @@ public partial class machineElement : Button
     {
         if (!(canBuy(CalculLevelUpCost()) && color != borderColor.black)) return;
 
-        Debug.Log("upMode : " + UpMode.Instance.upModeMultiplicator + " level limite : " +( levelLimite - level));
-
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator,( levelLimite - level) + 1 );
         HandleMoney(-CalculLevelUpCost());
-        Debug.Log("level before " + level);
         level += multiplicator;
         realLevel += multiplicator;
-        Debug.Log("level after " + level);
         upMachineCostText();
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
         SetEarnPerSecond();
 
-        if (level >= levelMax)
+        if (level > levelMax)
         {
             color++;
             SetBorderColor();
@@ -372,7 +368,7 @@ public partial class machineElement : Button
 
     #region ------ calculs methods ------ 
 
-    protected virtual BigNumber CalculLevelUpCost()
+    protected BigNumber CalculLevelUpCost()
     {
         float n = realLevel;
         BigNumber calculedNumber = new BigNumber(0);
@@ -424,8 +420,9 @@ public partial class machineElement : Button
 
     public void upMachineCostText()
     {
-        Lbl_lockedLevel.text = (levelLimite).ToString();
-        VE_lockedLevelCover.style.visibility = (Ship.Current.level < levelLimite) ? Visibility.Visible : VE_lockedLevelCover.style.visibility = Visibility.Hidden;
+        int limit = Ship.Current.level + 1;
+        Lbl_lockedLevel.text = (limit).ToString();
+        VE_lockedLevelCover.style.visibility = (level < limit) ? Visibility.Hidden : Visibility.Visible;
 
         Lbl_upCost.text = CalculLevelUpCost().ToString();
         //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???

@@ -136,7 +136,7 @@ public partial class UpgradesElement : VisualElement
 
         //check if the player can upgrade
         bool havelevel = level < Ship.Current.level + 1;
-        VE_levelUpLockCover.style.display = havelevel ? DisplayStyle.None : DisplayStyle.Flex;
+        VE_levelUpLockCover.style.visibility = havelevel ? Visibility.Hidden : Visibility.Visible;
 
         if (level >= levelMax) //LEVEL MAX
         {
