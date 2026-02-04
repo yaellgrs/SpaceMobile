@@ -374,15 +374,15 @@ public class XpUI : MonoBehaviour
     {
         int x = GetEnumRewardCount(BonusLevel.FerAuto);
 
-        for (int i = 0; i < Stats.Instance.machineIron.Count; i++)
+        for (int i = 0; i < Ship.Current.machineIron.Count; i++)
         {
             if (x > i)
             {
-                Stats.Instance.machineIron[i].isAutomatic = true;
+                Ship.Current.machineIron[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machineIron[i].isAutomatic = false;
+                Ship.Current.machineIron[i].isAutomatic = false;
             }
         }
     }
@@ -390,15 +390,15 @@ public class XpUI : MonoBehaviour
     {
         int x = GetEnumRewardCount(BonusLevel.UraniumAuto);
 
-        for (int i = 0; i < Stats.Instance.machinesUranium.Count; i++)
+        for (int i = 0; i < Ship.Current.machinesUranium.Count; i++)
         {
             if (x > i)
             {
-                Stats.Instance.machinesUranium[i].isAutomatic = true;
+                Ship.Current.machinesUranium[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machinesUranium[i].isAutomatic = false;
+                Ship.Current.machinesUranium[i].isAutomatic = false;
             }
         }
     }

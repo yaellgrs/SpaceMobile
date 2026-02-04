@@ -289,11 +289,11 @@ public class PrestigeUI : BaseUI
 
         Stats.Instance.stage = 1;
 
-        Stats.Instance.machineIron.Clear();
-        Stats.Instance.upgradesIron.Clear();
+        Ship.Current.machineIron.Clear();
+        Ship.Current.upgradesIron.Clear();
 
-        Stats.Instance.machinesUranium.Clear();
-        Stats.Instance.upgradesUranium.Clear();
+        Ship.Current.machinesUranium.Clear();
+        Ship.Current.upgradesUranium.Clear();
 
         MainUi.Instance.ironUI.initializeUpgrade();
         MainUi.Instance.uraniumUI.initializeUpgrade();

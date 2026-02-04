@@ -238,5 +238,21 @@ public partial class UpgradesElement : VisualElement
     }
 
     #endregion
+
+
+    #region ------ comparateurs ------
+    public override bool Equals(object obj)
+    {
+        if (obj is UpgradesElement other)
+            return name == other.name;
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return name.GetHashCode();
+    }
+    #endregion
 }
 

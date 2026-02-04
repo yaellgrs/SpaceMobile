@@ -10,53 +10,13 @@ public class UraniumUI : BaseUI
     private Button unlockButton;
     private VisualElement uraniumUnlockedVE;
     private Label uraniumLabel;
-    public override void InitMachines()
-    {
-        List<machineUraniumElement> mach = new List<machineUraniumElement>();
-        mach.Add(new machineUraniumElement("Anvil", new BigNumber(0), 3f));
-        mach.Add(new machineUraniumElement("ironMachine", new BigNumber(5, 3), 10f));
-        mach.Add(new machineUraniumElement("ironMachines", new BigNumber(5, 6), 25f));
-        mach.Add(new machineUraniumElement("usine", new BigNumber(5, 9), 45f));
-        mach.Add(new machineUraniumElement("usines", new BigNumber(5, 12), 100f));
-        foreach (machineUraniumElement m in mach)
-        {
-            int x = 0;
-            foreach (machineUraniumElement machUp in Stats.Instance.machinesUranium)
-            {
-                if (m.machineName == machUp.machineName)
-                    x = 1;
-            }
-            if (x == 0)
-                Stats.Instance.machinesUranium.Add(m);
-        }
-    }
-    public override void InitUpgrades()
-    {
-        List<UpgradesElement> mach = new List<UpgradesElement>();
-        mach.Add(new UpgradesUraniumElement("SpeedAuto", UpgradesUraniumElement.UpgradeType.SpeedAuto));
-        mach.Add(new UpgradesUraniumElement("AreaSlow", UpgradesUraniumElement.UpgradeType.AreaSlow));
-        mach.Add(new UpgradesUraniumElement("AreaWidth", UpgradesUraniumElement.UpgradeType.AreaWidth));
-        mach.Add(new UpgradesUraniumElement("RocketReload", UpgradesUraniumElement.UpgradeType.RocketReload));
-        mach.Add(new UpgradesUraniumElement("RocketMultiplier", UpgradesUraniumElement.UpgradeType.RocketMultiplier));
 
-        foreach (UpgradesElement m in mach)
-        {
-            int x = 0;
-            foreach (UpgradesElement machUp in Stats.Instance.upgradesUranium)
-            {
-                if (m.name == machUp.name)
-                    x = 1;
-            }
-            if (x == 0)
-                Stats.Instance.upgradesUranium.Add(m);
-        }
-    }
     protected override void Update()
     {
         base.Update();
         upUraniumLabel();
 
-        foreach(machineUraniumElement machine in Stats.Instance.machinesUranium)
+        foreach(machineUraniumElement machine in Ship.Current.machinesUranium)
             machine.Update();
     }
 
@@ -122,7 +82,7 @@ public class UraniumUI : BaseUI
         forgeUiVE = root.Q<VisualElement>("forgeUI");
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
-        foreach (machineElement machine in Stats.Instance.machinesUranium)
+        foreach (machineElement machine in Ship.Current.machinesUranium)
             scroll.Add(machine);
 
         if (classActived)
@@ -145,7 +105,7 @@ public class UraniumUI : BaseUI
             uraniumLabel = root.Q<Label>("uranium");
             upUraniumLabel();
 
-            foreach (machineUraniumElement machine in Stats.Instance.machinesUranium)
+            foreach (machineUraniumElement machine in Ship.Current.machinesUranium)
                 machine.LoadMachine();
         }
         else
@@ -168,7 +128,7 @@ public class UraniumUI : BaseUI
         //scroll
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesElement upgrade in Stats.Instance.upgradesUranium)
+        foreach (UpgradesElement upgrade in Ship.Current.upgradesUranium) 
         {
             scroll.Add(upgrade);
             upgrade.Load();

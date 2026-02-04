@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Tilemaps;
@@ -315,6 +316,8 @@ public partial class machineElement : Button
         if (QuestManager.Instance.type == QuestType.UpgradeMachine)
             QuestManager.Instance.upQuest();
 
+
+
         gameManager.instance.SmallVibrate();
 
         if (this is machineIronElement && !Stats.Instance.ironTuto)
@@ -517,4 +520,19 @@ public partial class machineElement : Button
     }
 
     #endregion
+
+    #region ------ comparateurs ------
+    public override bool Equals(object obj)
+    {
+        if (obj is machineElement other)
+            return machineName == other.machineName;
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return machineName.GetHashCode();
+    }
+#endregion
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
-public partial class shipUpgradeElement : VisualElement
+public partial class shipUpgradeElement : Button
 {
     Label Lbl_name;
     Label Lbl_price;
@@ -31,6 +31,7 @@ public partial class shipUpgradeElement : VisualElement
     public shipUpgradeElement()
     {
         AddToClassList("ShipElement");
+        AddToClassList("button");
 
         Lbl_name = new Label();
         VE_logoPrice = new VisualElement();
@@ -48,6 +49,7 @@ public partial class shipUpgradeElement : VisualElement
         VE_progressBar.AddToClassList("ShipProgressBar");
         Lbl_price.AddToClassList("ShipPrice");
         Btn_buy.AddToClassList("ShipBuy");
+        Btn_buy.AddToClassList("button");
 
         Lbl_name.text = "Basic SpaceShip";
         Btn_buy.text = "UP";

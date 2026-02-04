@@ -24,6 +24,7 @@ public class ShipManager : MonoBehaviour
 
         if (Stats.Instance == null) return;
         foreach (var (key, value) in ships)
+        {
             if (Stats.Instance.spaceShips.Find(e => e.type == key) == null)
             {
                 Stats.Instance.spaceShips.Add(new SpaceShipDico
@@ -32,15 +33,16 @@ public class ShipManager : MonoBehaviour
                     data = value
                 });
             }
+        }
+        SwitchShip(Stats.Instance.currentSpaceShipType);
     }
+
 
     public void SwitchShip(SpaceShipType type)
     {
-        Debug.Log("switch " + Stats.Instance.currentSpaceShipType + " -> " + type);
-
         Stats.Instance.currentSpaceShipType = type;
+        Ship.Current.Load();
         spaceShip.instance.LoadAnimation();
-
     }
 
     void Start()

@@ -21,53 +21,10 @@ public class IronUi : BaseUI
         forgeUI.gameObject.SetActive(false);
     }
 
-    public override void InitMachines()
-    {
-        List<machineIronElement> mach = new List<machineIronElement>();
-        mach.Add(new machineIronElement("Anvil", new BigNumber(10), 1f));
-        mach.Add(new machineIronElement("ironMachine", new BigNumber(1, 3), 5f));
-        mach.Add(new machineIronElement("ironMachines", new BigNumber(1, 6), 15f));
-        mach.Add(new machineIronElement("usine", new BigNumber(1, 9), 30f));
-        mach.Add(new machineIronElement("usines", new BigNumber(1, 12), 60f));
-        foreach (machineIronElement m in mach)
-        {
-            int x = 0;
-            foreach (machineIronElement machUp in Stats.Instance.machineIron)
-            {
-                if (m.machineName == machUp.machineName)
-                    x = 1;
-            }
-            if (x == 0)
-                Stats.Instance.machineIron.Add(m);
-        }
-    }
-
-    public override void InitUpgrades()
-    {
-        List<UpgradesElement> mach = new List<UpgradesElement>();
-        mach.Add(new UpgradesIronElement("life", UpgradesIronElement.UpgradeType.Life));
-        mach.Add(new UpgradesIronElement("Damage", UpgradesIronElement.UpgradeType.Damage));
-        mach.Add(new UpgradesIronElement("WorldSize", UpgradesIronElement.UpgradeType.WorldSize));
-        mach.Add(new UpgradesIronElement("Shield", UpgradesIronElement.UpgradeType.Shield));
-        mach.Add(new UpgradesIronElement("RegenShield", UpgradesIronElement.UpgradeType.RegenShield));
-
-        foreach (UpgradesElement m in mach)
-        {
-            int x = 0;
-            foreach (UpgradesElement machUp in Stats.Instance.upgradesIron)
-            {
-                if (m.name == machUp.name)
-                    x = 1;
-            }
-            if (x == 0)
-                Stats.Instance.upgradesIron.Add(m);
-        }
-    }
-
     protected override void Update()
     {
         base.Update();
-        foreach (machineElement machine in Stats.Instance.machineIron)
+        foreach (machineElement machine in Ship.Current.machineIron)
             machine.Update();
         upIronRaffinedUi();
     }
@@ -150,7 +107,7 @@ public class IronUi : BaseUI
         scroll.Clear();
 
         bool show = true;
-        foreach (machineElement machine in Stats.Instance.machineIron)
+        foreach (machineElement machine in Ship.Current.machineIron)
         {
             scroll.Add(machine);
             if (show) { 
@@ -179,7 +136,7 @@ public class IronUi : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesElement upgrade in Stats.Instance.upgradesIron)
+        foreach (UpgradesElement upgrade in Ship.Current.upgradesIron)
         {
             scroll.Add(upgrade);
             upgrade.Load();

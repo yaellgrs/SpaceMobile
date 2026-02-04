@@ -115,7 +115,7 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (machineIronElement m in Stats.Instance.machineIron)
+        foreach (machineIronElement m in Ship.Current.machineIron)
         {
             if (m.isBuyed)
             {
@@ -142,7 +142,7 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (machineUraniumElement m in Stats.Instance.machinesUranium)
+        foreach (machineUraniumElement m in Ship.Current.machinesUranium)
         {
             if (m.isBuyed)
             {

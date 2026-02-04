@@ -94,10 +94,6 @@ public class Stats
 
 
     //machines upgrades
-    public List<machineIronElement> machineIron = new List<machineIronElement>();
-    public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
-    public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
-    public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
     public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
 
     public float scale = 1f;
