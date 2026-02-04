@@ -287,7 +287,7 @@ public class spaceObject : MonoBehaviour
         {
             if (Settings.Instance.displayXpMarker)
             {
-                Stats.Instance.AddXP(calculXp());
+                Ship.Current.AddXP(calculXp());
                 PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
             Data.Instance.basicMeteorKilled += 1;
@@ -354,7 +354,7 @@ public class spaceObject : MonoBehaviour
         BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
         //xpToLevelUp = 50 * 1.15^level
         //XpByMeteorDestroyed = 0.5 * stage * 1.1^stage
-        //  Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
+        //  Ship.Current.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
         switch (type)
         {
             case meteorType.Big:

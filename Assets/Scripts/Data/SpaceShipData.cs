@@ -32,11 +32,16 @@ public class SpaceShipData
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
     //machine ? 
 
+    public BigNumber BN_xp { get; private set; } = new BigNumber(0);
+    public BigNumber BN_xpMax = new BigNumber(100);
+
     public SpaceShipData()
     {
 
     }
 
+    #region ------ load ----------
+ 
     public void Load()
     {
         LoadMachines();
@@ -89,6 +94,21 @@ public class SpaceShipData
                 data.Add(m);
         }
     }
+
+    #endregion
+
+    #region ------ add ----------
+    public void AddXP(BigNumber amount)
+    {
+        BN_xp += amount;
+        if (BN_xp > BN_xpMax)
+        {
+            MainUi.Instance.xpUI.LevelUp();
+        }
+        MainUi.Instance.upLevelUI();
+    }
+
+    #endregion
 
 }
 

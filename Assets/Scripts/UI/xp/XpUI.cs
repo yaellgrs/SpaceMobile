@@ -90,8 +90,8 @@ public class XpUI : MonoBehaviour
         }
         else
         {
-            xpBar.style.width = Stats.Instance.BN_xp.GetPercentByDivided(Stats.Instance.BN_xpMax);
-            xpLabel.text = Stats.Instance.BN_xp.ToString() + "/" + Stats.Instance.BN_xpMax.ToString() + "XP";
+            xpBar.style.width = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+            xpLabel.text = Ship.Current.BN_xp.ToString() + "/" + Ship.Current.BN_xpMax.ToString() + "XP";
         }
 
 
@@ -156,8 +156,8 @@ public class XpUI : MonoBehaviour
 
         if (Ship.Current.level % 2 == 0) loadLevelUpUI();
 
-        Stats.Instance.BN_xp.Set(0);
-        Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
+        Ship.Current.BN_xp.Set(0);
+        Ship.Current.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
 
         loadBonus();
 

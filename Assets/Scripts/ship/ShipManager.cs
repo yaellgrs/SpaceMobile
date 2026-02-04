@@ -15,7 +15,7 @@ public class ShipManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void LoadShips()
+    public void LoadShips()
     {
         Dictionary<SpaceShipType, SpaceShipData> ships = new Dictionary<SpaceShipType, SpaceShipData>();
         ships[SpaceShipType.Basic] = new SpaceShipData();
@@ -42,6 +42,7 @@ public class ShipManager : MonoBehaviour
     {
         Stats.Instance.currentSpaceShipType = type;
         Ship.Current.Load();
+
         spaceShip.instance.LoadAnimation();
     }
 

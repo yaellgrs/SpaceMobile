@@ -4,15 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Newtonsoft.Json;
 
-/*
-    pouvoir changer de ship:
-       -class pour stocker ce qui est spécifique au ship
-       - Stats.instance.ships : array<> pour stocker les différents vaisceaux;
-           - init dans un shipmanager comme les upgrades pour vérifier si ils y sont tous.
- */
-
-
-
 public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
 
 
@@ -75,9 +66,6 @@ public class Stats
 
     //Ship
     public int stage = 1;
-
-    public BigNumber BN_xp { get; private set; } = new BigNumber(0);
-    public BigNumber BN_xpMax = new BigNumber(100);
 
     public bool isDead = false;
     
@@ -149,15 +137,6 @@ public class Stats
     public UpgradeType nextPrestigeToBuy = UpgradeType.DamageMultiplicator;
     public UpgradeType nextPrestigeToBuy2 = UpgradeType.PrestigeMultiplicator;
 
-    public void AddXP(BigNumber amount)
-    {
-        BN_xp += amount;
-        if (BN_xp > BN_xpMax)
-        {
-            MainUi.Instance.xpUI.LevelUp();
-        }
-        MainUi.Instance.upLevelUI();
-    }
 
     public void AddDiamand(int amount)
     {

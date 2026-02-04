@@ -195,7 +195,7 @@ public class gameManager : MonoBehaviour
             reward = Stats.Instance.stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
-            Stats.Instance.AddXP(new BigNumber(reward));
+            Ship.Current.AddXP(new BigNumber(reward));
             type = MarkerType.Xp;
         }
         else 

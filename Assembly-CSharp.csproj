@@ -103,9 +103,7 @@
     <Compile Include="Assets\Scripts\upSpeed.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\UI\IronUpgradeUITest.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
-    <None Include="Assets\UI\ResurectionTest.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\UI\menu\setting.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
@@ -154,6 +152,7 @@
     <None Include="Assets\UI\IronForge.uxml" />
     <None Include="Assets\UI\xpstyle.uss" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\UI\menu\bonusTest.uxml" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />
     <None Include="Assets\Resources\Data\Quests\readme.txt" />
@@ -165,10 +164,8 @@
     <None Include="Assets\UI\successStyle.uss" />
     <None Include="Assets\UI\menu\bonus.uxml" />
     <None Include="Assets\UI\UraniumUpdate.uxml" />
-    <None Include="Assets\UI\prestige\upgradeTemplate.uxml" />
     <None Include="Assets\UI\menu\tutorial.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\UI\forgeTest.uxml" />
     <None Include="Assets\UI\xpUI.uxml" />
     <None Include="Assets\UI\menu\menuUSS.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Android.dll" />
