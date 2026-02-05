@@ -71,7 +71,7 @@ public class XpUI : MonoBehaviour
         xpBar = root.Q<VisualElement>("xpBar");
         rewardVE = root.Q<VisualElement>("reward");
         VE_mainReward = root.Q<VisualElement>("mainReward");
-        xpLabel = root.Q<Label>("BN_xp");
+        xpLabel = root.Q<Label>("xp");
         rewardLevelLabel = root.Q<Label>("levelReward");
         levelLabel = root.Q<Label>("level");
         bonusLabel = root.Q<Label>("bonus");
@@ -88,8 +88,13 @@ public class XpUI : MonoBehaviour
             xpBar.style.width = Length.Percent(100);
             xpLabel.text = "MAX";
         }
+        else if (xpLabel ==null)
+        {
+            Debug.LogError("Ship.Current est NULL dans XpUI.Load()");
+        }
         else
         {
+
             xpBar.style.width = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
             xpLabel.text = Ship.Current.BN_xp.ToString() + "/" + Ship.Current.BN_xpMax.ToString() + "XP";
         }
