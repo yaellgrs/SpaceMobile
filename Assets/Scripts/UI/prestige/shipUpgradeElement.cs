@@ -18,6 +18,9 @@ public partial class shipUpgradeElement : Button
     public int _level;
 
     [UxmlAttribute]
+    public SpaceShipType type;
+
+    [UxmlAttribute]
     public int Level
     {
         get => _level;
@@ -62,7 +65,10 @@ public partial class shipUpgradeElement : Button
         Add(VE_progressBar);
         VE_progressBar.Add(VE_progressCadre);
         Lbl_price.Add(VE_logoPrice);
-        
+
+        clicked += SwitchShip;
+
+
     }
 
     public void SetShipLevel(int level)
@@ -71,7 +77,14 @@ public partial class shipUpgradeElement : Button
         Texture2D tex = Resources.Load<Texture2D>(path);
         VE_progressBar.style.backgroundImage = new StyleBackground(tex);
 
+    }
 
+    private void SwitchShip()
+    {
+        if(ShipManager.Instance != null)
+        {
+            ShipManager.Instance.SwitchShip(type);
+        }
     }
  
 
