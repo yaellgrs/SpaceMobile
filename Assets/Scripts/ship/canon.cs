@@ -75,13 +75,10 @@ public class canon : MonoBehaviour
         if (type == 0)
         {
             projectil = Instantiate(lazer);
-            projectil.degats = spaceShip.instance.damage;
         }
         else
         {
             projectil = Instantiate(rocket);
-            projectil.degats = new BigNumber(spaceShip.instance.damage);
-            projectil.degats.Multiply(Stats.Instance.rocketMultiplier);
             projectil.isRocket = true;
             rocketSpeed = 0.5f;
         }

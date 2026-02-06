@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,20 +18,18 @@ public class SpaceShipDico //pour pouvoir serialiser le dictionnaire
 [System.Serializable]
 public class SpaceShipData
 {
-/*    public BigNumber BN_money_basic; // iron, 
-    public BigNumber BN_money_advanced; // uranium, 
-    public BigNumber BN_starParticle;*/
 
     public int level = 1;
-    //levels des spaceships
 
-    //upgrades ( List<Upgrades>
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
 
     public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
-    //machine ? 
+
+
+    [JsonIgnore] public DamageData damage;
+
 
     public BigNumber BN_xp { get; private set; } = new BigNumber(0);
     public BigNumber BN_xpMax = new BigNumber(100);
@@ -46,6 +45,8 @@ public class SpaceShipData
     {
         LoadMachines();
         LoadUpgrades();
+
+        InitTempData();
     }
 
     private void LoadMachines()
@@ -95,6 +96,24 @@ public class SpaceShipData
         }
     }
 
+    public void InitTempData()
+    {
+        damage = new DamageData();
+
+        LoadBonus();
+    }
+
+    public void LoadBonus()
+    {
+        foreach(var upgrade in upgradesIron)
+            upgrade.GetReward();
+        foreach (var upgrade in upgradesUranium)
+            upgrade.GetReward();
+        foreach (var upgrade in Stats.Instance.upgradesPrestige)
+            upgrade.GetReward();
+    }
+
+
     #endregion
 
     #region ------ add ----------
@@ -111,6 +130,34 @@ public class SpaceShipData
     #endregion
 
 }
+
+
+
+public class DamageData
+{
+    //stocker ailleurs qu'ici ou stats pour ne pas sauvegarder cette donné, c'est inutile de la sauvegarder
+    public BigNumber damageBase;
+    public float prestige_multiplicator = 1f;
+    public float rocket_multiplicator = 1f;
+    public int critical_multiplicator = 5;
+    public BigNumber getDamage(bool isRocket, bool critical)
+    {
+        float leveBonus = 1f + (Ship.Current.level - 1) * 0.1f;
+        BigNumber damage = new BigNumber(damageBase) * prestige_multiplicator * leveBonus;
+        if(isRocket) damage *= rocket_multiplicator;
+        if(critical) damage *= critical_multiplicator;
+        return damage;
+    }
+    /*
+                     dmg.Multiply(Stats.Instance.damage_Multiplicator_Lvl);
+                dmg.Multiply(Stats.Instance.perm_Damage_Multiplicator_Lvl);
+                if (Stats.Instance.damageBoostTime > 0) dmg.Multiply(2);
+     */
+
+}
+
+
+
 
 /*
  Stats

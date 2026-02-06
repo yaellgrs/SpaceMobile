@@ -38,7 +38,7 @@ public class UpgradesIronElement : UpgradesElement
                 Lbl_description.text = "Life : " + Stats.Instance.lifeMax;
                 break;
             case UpgradeType.Damage:
-                Lbl_description.text = "Damage : " + spaceShip.instance.damage;
+                Lbl_description.text = "Damage : " + Ship.Current.damage.damageBase;
                 break;
             case UpgradeType.WorldSize:
                 Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
@@ -55,7 +55,7 @@ public class UpgradesIronElement : UpgradesElement
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
 
-    protected override void GetReward()
+    public override void GetReward()
     {
         switch (type)
         {
@@ -71,9 +71,9 @@ public class UpgradesIronElement : UpgradesElement
                 MainUi.Instance.upHealthBar();
                 break;
             case UpgradeType.Damage:
-                spaceShip.instance.damage = new BigNumber(1, 0);
-                spaceShip.instance.damage.Multiply(Mathf.Pow(1.3f, level));
-                spaceShip.instance.damage.Add(0.5f * (level - 1));
+                Ship.Current.damage.damageBase = new BigNumber(1);
+                Ship.Current.damage.damageBase *= Mathf.Pow(1.3f, level);
+                Ship.Current.damage.damageBase += (int)( 0.5f * (level - 1));
                 break;
             case UpgradeType.WorldSize:
                 Stats.Instance.scale = 1f;

@@ -70,7 +70,7 @@ public class UpgradesPrestigeElement : UpgradesElement
         localizeUpgrades.RefreshString();
     }
 
-    protected override void GetReward()
+    public override void GetReward()
     {
         switch (type)
         {
@@ -90,7 +90,7 @@ public class UpgradesPrestigeElement : UpgradesElement
                 Stats.Instance.XpMultiplicator = 1f + 0.25f * (level);
                 break;
             case UpgradeType.DamageMultiplicator:
-                Stats.Instance.prest_damage_multiplicator = 1f + 0.2f * (level);
+                Ship.Current.damage.prestige_multiplicator = 1f + 0.2f * (level);
                 break;
             case UpgradeType.StageSkip:
                 Stats.Instance.prest_damage_multiplicator = level;

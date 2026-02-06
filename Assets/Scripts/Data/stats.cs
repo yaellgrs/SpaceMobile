@@ -43,6 +43,7 @@ public class Stats
     public SpaceShipType currentSpaceShipType = SpaceShipType.Basic;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
     public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
+
     //global
     public int diamand { get; private set; } = 100;
 
@@ -65,9 +66,9 @@ public class Stats
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
     //Ship
-    public int stage = 1;
+    public int stage = 1; //
 
-    public bool isDead = false;
+    public bool isDead = false; //
     
     //iron
     public BigNumber iron { get; private set; } = new BigNumber(1, 0);
@@ -84,19 +85,19 @@ public class Stats
     //machines upgrades
     public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
 
-    public float scale = 1f;
-    public float speedAuto = 5f;
-    public float areaSpeed = 1f;
+    public float scale = 1f; 
+    public float speedAuto = 5f; 
+    public float areaSpeed = 1f; 
     public float areaSize = 1.25f;
     public float rocketTimerMax = 25f;
     public float rocketMultiplier = 5f;
 
         //prestige
 
-    public bool prestigeUnlocked = false;
+    public bool prestigeUnlocked = false; //
 
-    public BigNumber starPariticul { get; private set; } = new BigNumber(1, 0);
-    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(1, 0);
+    public BigNumber starPariticul { get; private set; } = new BigNumber(1, 0); //
+    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(1, 0);//
     public float star_multiplicator_prestige = 1f;
     public float enemyPerStage = 10f;
     public float machineTimeReducer = 1f;
@@ -210,5 +211,6 @@ public class Stats
             });
         }
     }
-}
 
+
+}

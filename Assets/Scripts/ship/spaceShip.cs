@@ -7,7 +7,6 @@ public class spaceShip : MonoBehaviour
     static public spaceShip instance;
     public GameObject area;
 
-    public BigNumber damage = new BigNumber(1, 0);
     public float shootTimer = 0.1f;
     public float shieldRegen = 0f;
 

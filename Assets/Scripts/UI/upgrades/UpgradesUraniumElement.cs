@@ -49,7 +49,7 @@ public class UpgradesUraniumElement : UpgradesElement
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
 
-    protected override void GetReward()
+    public override void GetReward()
     {
         switch (type)
         {
@@ -68,7 +68,7 @@ public class UpgradesUraniumElement : UpgradesElement
                 Stats.Instance.rocketTimerMax = 25f - Mathf.Pow(level, 0.4f);
                 break;
             case UpgradeType.RocketMultiplier:
-                Stats.Instance.rocketMultiplier = 5f + 0.25f * Mathf.Pow(level - 1, 1.15f);
+                Ship.Current.damage.rocket_multiplicator = 5f + 0.25f * Mathf.Pow(level - 1, 1.15f);
                 break;
         }
 

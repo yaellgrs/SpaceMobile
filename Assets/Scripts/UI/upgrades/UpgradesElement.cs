@@ -218,10 +218,11 @@ public partial class UpgradesElement : VisualElement
 
     }
 
-    protected virtual void GetReward()
+    public virtual void GetReward()
     {
 
     }
+    
     protected virtual bool CanPay()
     {
         return false;
