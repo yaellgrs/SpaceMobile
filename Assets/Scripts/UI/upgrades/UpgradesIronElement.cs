@@ -105,7 +105,7 @@ public class UpgradesIronElement : UpgradesElement
 
     protected override bool CanPay()
     {
-        return Stats.Instance.iron.isBigger(CalculLevelUpCost());
+        return Ship.Current.iron.isBigger(CalculLevelUpCost());
     }
 
     protected override void SetLogos()

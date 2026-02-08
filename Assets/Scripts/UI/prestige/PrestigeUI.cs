@@ -287,7 +287,7 @@ public class PrestigeUI : BaseUI
         Stats.Instance.AddUranium(bonus);
         Stats.Instance.prestigeWaiting.Set(0);
 
-        Stats.Instance.stage = 1;
+        Ship.Current.stage = 1;
 
         Ship.Current.machineIron.Clear();
         Ship.Current.upgradesIron.Clear();
@@ -298,8 +298,8 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.ironUI.initializeUpgrade();
         MainUi.Instance.uraniumUI.initializeUpgrade();
 
-        Stats.Instance.iron.Set(0);
-        Stats.Instance.uranium.Set(0);
+        Ship.Current.iron.Set(0);
+        Ship.Current.uranium.Set(0);
 
         MainUi.Instance.ironUI.upIronRaffinedUi();
         MainUi.Instance.uraniumUI.upUraniumLabel();

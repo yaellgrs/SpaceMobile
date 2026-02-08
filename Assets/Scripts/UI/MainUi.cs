@@ -445,7 +445,7 @@ public class MainUi : MonoBehaviour
     {
         if (ironLabel != null)
         {
-            string txt = Stats.Instance.iron.ToString();
+            string txt = Ship.Current.iron.ToString();
             ironLabel.text = txt;
             ironLabel.style.fontSize = 50 - (2 * txt.Length);
         }
@@ -455,7 +455,7 @@ public class MainUi : MonoBehaviour
     {
         if (uraniumLabel != null)
         {
-            string txt = Stats.Instance.uranium.ToString();
+            string txt = Ship.Current.uranium.ToString();
             uraniumLabel.text = txt;
             uraniumLabel.style.fontSize = 50 - (2 * txt.Length);
         }
@@ -594,7 +594,7 @@ public class MainUi : MonoBehaviour
     {
         if (stageLabel == null)
             stageLabel = mainUI.rootVisualElement.Q<Label>("stage");
-        stageLabel.text = "Stage : " + Stats.Instance.stage;
+        stageLabel.text = "Stage : " + Ship.Current.stage;
     }
 
     public void ShowStageSkip()

@@ -77,7 +77,7 @@ public class spaceShip : MonoBehaviour
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
-            if (Stats.Instance.stage % Stats.BOSS_STAGE_GAP == 0)
+            if (Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0)
             {
                 Stats.Instance.isDead = true;
                 ResurectionUI.Instance.loadResurection();

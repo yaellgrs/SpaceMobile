@@ -23,7 +23,7 @@ public class UraniumUI : BaseUI
     public void upUraniumLabel()
     {
         if(uraniumLabel != null)
-            uraniumLabel.text = Stats.Instance.uranium.ToString();
+            uraniumLabel.text = Ship.Current.uranium.ToString();
     }
 
     private void ironClicked()

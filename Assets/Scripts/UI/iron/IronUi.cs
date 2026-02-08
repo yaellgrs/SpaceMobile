@@ -77,7 +77,7 @@ public class IronUi : BaseUI
     public void upIronRaffinedUi()
     {
         if (ironLabel != null)
-            ironLabel.text = Stats.Instance.iron.ToString();
+            ironLabel.text = Ship.Current.iron.ToString();
     }
 
     public override void loadForgeUI()

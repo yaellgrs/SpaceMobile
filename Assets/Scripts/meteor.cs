@@ -47,10 +47,10 @@ public class spaceObject : MonoBehaviour
             Spawn();
         }
 
-        int x = Stats.Instance.stage - 1;
+        int x = Ship.Current.stage - 1;
         float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
         lifeMax = new BigNumber((int)hp);
-        //lifeMax = new BigNumber( 2 + (Mathf.Pow(1.2f, Stats.Instance.stage)));
+        //lifeMax = new BigNumber( 2 + (Mathf.Pow(1.2f, Ship.Current.stage)));
 
 
         if(type == meteorType.Big)
@@ -95,7 +95,7 @@ public class spaceObject : MonoBehaviour
 
         foreach(var palier in paliers)
         {
-            if(Stats.Instance.stage >= palier.stage)
+            if(Ship.Current.stage >= palier.stage)
             {
                 lifeMax *= palier.mult;
             }
@@ -109,7 +109,7 @@ public class spaceObject : MonoBehaviour
 
         transform.localScale *= Stats.Instance.scale;
         lifeText.text = life.ToString();
-        if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
+        if (Stats.Instance.prestigeUnlocked && Ship.Current.stage >= 10)
         {
             if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10 || true)
             {
@@ -296,8 +296,8 @@ public class spaceObject : MonoBehaviour
         if (isOmega)
         {
             
-            Stats.Instance.AddPrestigeWainting(new BigNumber(Stats.Instance.stage) * 0.5f);
-            PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
+            Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);
+            PoolManager.Instance.LaunchPrefab(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
             Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)
@@ -351,7 +351,7 @@ public class spaceObject : MonoBehaviour
 
     public BigNumber calculXp()
     {
-        BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
+        BigNumber result = new BigNumber(Ship.Current.stage * 1.25f);
         //xpToLevelUp = 50 * 1.15^level
         //XpByMeteorDestroyed = 0.5 * stage * 1.1^stage
         //  Ship.Current.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));

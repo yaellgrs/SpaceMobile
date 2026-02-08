@@ -135,10 +135,10 @@ public class gameManager : MonoBehaviour
     {
         //end stage
 
-        Stats.Instance.stage++;
+        Ship.Current.stage++;
         if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
         {
-            Stats.Instance.stage++;
+            Ship.Current.stage++;
             getStageReward(1.70f, 0.75f);
             MainUi.Instance.ShowStageSkip();
         }
@@ -149,7 +149,7 @@ public class gameManager : MonoBehaviour
 
         if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
         {
-            if (new BigNumber(Stats.Instance.stage).isBigger(QuestManager.Instance.objectif))
+            if (new BigNumber(Ship.Current.stage).isBigger(QuestManager.Instance.objectif))
             {
                 QuestStats.Instance.timeCompleted = Data.Instance.time;
             }
@@ -171,7 +171,7 @@ public class gameManager : MonoBehaviour
     }
 
     public void CheckStageBoss() {
-        if (!bossStage && Stats.Instance.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
+        if (!bossStage && Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
         {
             bossStage = true;
             SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
@@ -179,7 +179,7 @@ public class gameManager : MonoBehaviour
             MainUi.Instance.ShowBossLife(true);
             meteorToKill = 1;
         }
-        else if(Stats.Instance.stage % Stats.BOSS_STAGE_GAP != 0)
+        else if(Ship.Current.stage % Stats.BOSS_STAGE_GAP != 0)
         {
             MainUi.Instance.ShowBossLife(false);
         }
@@ -192,7 +192,7 @@ public class gameManager : MonoBehaviour
         MarkerType type;
         if (Random.Range(0, 2) == 1)
         {//BN_xp
-            reward = Stats.Instance.stage * 1.25f * 5;
+            reward = Ship.Current.stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
             Ship.Current.AddXP(new BigNumber(reward));
@@ -202,14 +202,14 @@ public class gameManager : MonoBehaviour
         {
             if(XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && Random.Range(0, 2) == 1)
             {//uranium 
-                reward = (int)(Stats.Instance.stage * 0.5f);
+                reward = (int)(Ship.Current.stage * 0.5f);
                 type = MarkerType.Uranium;
                 Stats.Instance.AddUranium(new BigNumber(reward));
 
             }
             else
             {//iron
-                reward  = (int)(Stats.Instance.stage * 2.5f);
+                reward  = (int)(Ship.Current.stage * 2.5f);
                 type = MarkerType.Iron;
                 Stats.Instance.AddIron(new BigNumber(reward));
             }
@@ -240,7 +240,7 @@ public class gameManager : MonoBehaviour
         int BigProb;
         int ScatterProb;
 
-        int stage = Stats.Instance.stage;
+        int stage = Ship.Current.stage;
 
         BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 25%
 

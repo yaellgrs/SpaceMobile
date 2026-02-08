@@ -66,21 +66,14 @@ public class Stats
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
     //Ship
-    public int stage = 1; //
 
     public bool isDead = false; //
-    
-    //iron
-    public BigNumber iron { get; private set; } = new BigNumber(1, 0);
-    public BigNumber uranium { get; private set; } = new BigNumber(0, 0);
 
     public BigNumber life = new BigNumber(10);
     public BigNumber lifeMax = new BigNumber(10);
     public BigNumber shield = new BigNumber(5);
     public BigNumber shieldMax = new BigNumber(5);
     public BigNumber regenShield = new BigNumber(2);
-
-
 
     //machines upgrades
     public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
@@ -147,13 +140,13 @@ public class Stats
 
     public void AddIron(BigNumber amount)
     {
-        iron += amount;
+        Ship.Current.iron += amount;
         MainUi.Instance.upIronUI();
     }
 
     public void AddUranium(BigNumber amount)
     {
-        uranium += amount;
+        Ship.Current.uranium += amount;
         MainUi.Instance.upUraniumUI();
     }
 

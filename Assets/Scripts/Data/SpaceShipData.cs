@@ -16,8 +16,8 @@ public class SpaceShipDico //pour pouvoir serialiser le dictionnaire
 [System.Serializable]
 public class SpaceShipData
 {
-
     public int level = 1;
+    public int stage = 1;
 
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
@@ -25,13 +25,16 @@ public class SpaceShipData
     public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
 
-
     [JsonIgnore] public ShipTempStat damage;
     [JsonIgnore] public ShipTempStat life;
     [JsonIgnore] public ShipTempStat shield;
-
     public BigNumber lifeMax;
     public BigNumber shieldMax;
+
+    public BigNumber iron = new BigNumber(0);
+    public BigNumber uranium = new BigNumber(0);
+
+
 
     public BigNumber BN_xp { get; private set; } = new BigNumber(0);
     public BigNumber BN_xpMax = new BigNumber(100);
@@ -134,7 +137,6 @@ public class SpaceShipData
     #endregion
 
 }
-
 
 public class ShipTempStat
 {

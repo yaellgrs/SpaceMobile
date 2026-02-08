@@ -25,7 +25,7 @@ public class machineUraniumElement : machineElement
 
     protected override bool canBuy(BigNumber price)
     {
-        return Stats.Instance.uranium.isBigger(price);
+        return Ship.Current.uranium.isBigger(price);
     }
 
     protected override void reloadUI()

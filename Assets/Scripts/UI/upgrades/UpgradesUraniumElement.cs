@@ -81,7 +81,7 @@ public class UpgradesUraniumElement : UpgradesElement
 
     protected override bool CanPay()
     {
-        return Stats.Instance.uranium.isBigger(CalculLevelUpCost());
+        return Ship.Current.uranium.isBigger(CalculLevelUpCost());
     }
 
     protected override void SetLogos()
