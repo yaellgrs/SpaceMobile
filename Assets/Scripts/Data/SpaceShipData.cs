@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UIElements;
-
-
 public enum SpaceShipType { Basic, Fire, Ice };
 
 [Serializable]
@@ -28,8 +26,12 @@ public class SpaceShipData
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
 
 
-    [JsonIgnore] public DamageData damage;
+    [JsonIgnore] public ShipTempStat damage;
+    [JsonIgnore] public ShipTempStat life;
+    [JsonIgnore] public ShipTempStat shield;
 
+    public BigNumber lifeMax;
+    public BigNumber shieldMax;
 
     public BigNumber BN_xp { get; private set; } = new BigNumber(0);
     public BigNumber BN_xpMax = new BigNumber(100);
@@ -98,7 +100,9 @@ public class SpaceShipData
 
     public void InitTempData()
     {
-        damage = new DamageData();
+        damage = new ShipTempStat();
+        life = new ShipTempStat();
+        shield = new ShipTempStat();
 
         LoadBonus();
     }
@@ -132,49 +136,26 @@ public class SpaceShipData
 }
 
 
-
-public class DamageData
+public class ShipTempStat
 {
     //stocker ailleurs qu'ici ou stats pour ne pas sauvegarder cette donné, c'est inutile de la sauvegarder
-    public BigNumber damageBase;
+    public BigNumber initial;
     public float prestige_multiplicator = 1f;
     public float rocket_multiplicator = 1f;
     public int critical_multiplicator = 5;
-    public BigNumber getDamage(bool isRocket, bool critical)
+
+    public BigNumber getTotal()
     {
         float leveBonus = 1f + (Ship.Current.level - 1) * 0.1f;
-        BigNumber damage = new BigNumber(damageBase) * prestige_multiplicator * leveBonus;
-        if(isRocket) damage *= rocket_multiplicator;
-        if(critical) damage *= critical_multiplicator;
+        BigNumber total = new BigNumber(initial) * prestige_multiplicator * leveBonus;
+
+        return total;
+    }
+    public BigNumber getTotal(bool isRocket, bool critical)
+    {
+        BigNumber damage = getTotal();
+        if (isRocket) damage *= rocket_multiplicator;
+        if (critical) damage *= critical_multiplicator;
         return damage;
     }
-    /*
-                     dmg.Multiply(Stats.Instance.damage_Multiplicator_Lvl);
-                dmg.Multiply(Stats.Instance.perm_Damage_Multiplicator_Lvl);
-                if (Stats.Instance.damageBoostTime > 0) dmg.Multiply(2);
-     */
-
 }
-
-
-
-
-/*
- Stats
-
-enum spaceShiptype;
-
-spaceShiptype curentShip( enum ? ) 
-Dictionnaire<spaceShiptype, SpaceShipData>{
-	//monnaie des spaceShip 
-	//levels des spaceships
-
-	//upgrades ( List<Upgrades> ) -> stocker les ~données dans des scriptable objects
-	//machine ? 
-}
-
-
-SpaceShipManager
-
-*setIcons
- */

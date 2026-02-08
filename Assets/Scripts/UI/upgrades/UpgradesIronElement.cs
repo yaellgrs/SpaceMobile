@@ -38,7 +38,7 @@ public class UpgradesIronElement : UpgradesElement
                 Lbl_description.text = "Life : " + Stats.Instance.lifeMax;
                 break;
             case UpgradeType.Damage:
-                Lbl_description.text = "Damage : " + Ship.Current.damage.damageBase;
+                Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
                 break;
             case UpgradeType.WorldSize:
                 Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
@@ -71,9 +71,9 @@ public class UpgradesIronElement : UpgradesElement
                 MainUi.Instance.upHealthBar();
                 break;
             case UpgradeType.Damage:
-                Ship.Current.damage.damageBase = new BigNumber(1);
-                Ship.Current.damage.damageBase *= Mathf.Pow(1.3f, level);
-                Ship.Current.damage.damageBase += (int)( 0.5f * (level - 1));
+                Ship.Current.damage.initial = new BigNumber(1);
+                Ship.Current.damage.initial *= Mathf.Pow(1.3f, level);
+                Ship.Current.damage.initial += (int)( 0.5f * (level - 1));
                 break;
             case UpgradeType.WorldSize:
                 Stats.Instance.scale = 1f;

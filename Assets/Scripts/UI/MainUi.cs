@@ -366,14 +366,14 @@ public class MainUi : MonoBehaviour
 
     private void rocketClicked()
     {
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        if (rocketTimer <= 0 && meteors.Length > 0)
+        float lenght = gameManager.instance.meteors.Count;
+        if (rocketTimer <= 0 && lenght > 0)
         {
             rocketTimer = Stats.Instance.rocketTimerMax;
             rocketCover.style.height = Length.Percent(100);
             canon.instance.rocketShoot();
         }
-        else if (meteors.Length <= 0)
+        else if (lenght <= 0)
         {
             meteorWarningTimer = 0f;
             Lbl_meteorWarning.style.visibility = Visibility.Visible;
@@ -586,11 +586,8 @@ public class MainUi : MonoBehaviour
         updateStage();
 
         stageClearTimer = 0f;
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        foreach (spaceObject obj in meteors)
-        {
+        foreach (spaceObject obj in gameManager.instance.meteors)
             Destroy(obj.gameObject);
-        }
     }
 
     public void updateStage()
