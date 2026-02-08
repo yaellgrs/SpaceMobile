@@ -117,7 +117,6 @@ public class BigNumber
         Normalize();
     }
 
-
     public void Add(float n)
     {
         this.Add(new BigNumber(n));
@@ -189,14 +188,6 @@ public class BigNumber
             Exp = 0;
         }
     }
-
-    /*
-        Mantisse * Mantisse
-        Exposant + Exposant
-        
-     3^2 * 4^4 = 1.2^7  validé
-     */
-
 
     public void Multiply(BigNumber n)
     {

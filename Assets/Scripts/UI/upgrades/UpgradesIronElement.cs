@@ -35,7 +35,7 @@ public class UpgradesIronElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.Life:
-                Lbl_description.text = "Life : " + Stats.Instance.lifeMax;
+                Lbl_description.text = "Life : " + Ship.Current.lifeMax;
                 break;
             case UpgradeType.Damage:
                 Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
@@ -44,10 +44,10 @@ public class UpgradesIronElement : UpgradesElement
                 Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
                 break;
             case UpgradeType.Shield:
-                Lbl_description.text = "Shield : " + Stats.Instance.shieldMax;
+                Lbl_description.text = "Shield : " + Ship.Current.shieldMax;
                 break;
             case UpgradeType.RegenShield:
-                Lbl_description.text = "Regen Shield : " + Stats.Instance.regenShield;
+                Lbl_description.text = "Regen Shield : " + Ship.Current.regenShield;
                 break;
         }
 
@@ -61,17 +61,17 @@ public class UpgradesIronElement : UpgradesElement
         {
             case UpgradeType.Life:
                 BigNumber diff = new BigNumber(spaceShip.instance.getMaxLife());
-                diff.Subtract(Stats.Instance.life);
+                diff.Subtract(Ship.Current.life);
 
-                Stats.Instance.lifeMax = new BigNumber(10, 0);
-                Stats.Instance.lifeMax.Multiply(0.5f * Mathf.Pow(level + 1, 1.6f));
+                Ship.Current.lifeMax.initial.Set(10);
+                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(level + 1, 1.6f);
 
-                Stats.Instance.life = new BigNumber(spaceShip.instance.getMaxLife());
-                Stats.Instance.life.Subtract(diff);
+                Ship.Current.life.Set(spaceShip.instance.getMaxLife());
+                Ship.Current.life.Subtract(diff);
                 MainUi.Instance.upHealthBar();
                 break;
             case UpgradeType.Damage:
-                Ship.Current.damage.initial = new BigNumber(1);
+                Ship.Current.damage.initial.Set(1);
                 Ship.Current.damage.initial *= Mathf.Pow(1.3f, level);
                 Ship.Current.damage.initial += (int)( 0.5f * (level - 1));
                 break;
@@ -82,15 +82,16 @@ public class UpgradesIronElement : UpgradesElement
                 break;
             case UpgradeType.Shield:
                 diff = new BigNumber(spaceShip.instance.getMaxShield());
-                diff.Subtract(Stats.Instance.shield);
-                Stats.Instance.shieldMax = new BigNumber(10, 0);
-                Stats.Instance.shieldMax.Multiply(0.5f * Mathf.Pow(level + 1, 1.4f));
-                Stats.Instance.shield = new BigNumber(spaceShip.instance.getMaxShield());
-                Stats.Instance.shield.Subtract(diff);
+                diff.Subtract(Ship.Current.shield);
+                Ship.Current.shieldMax.initial.Set(10);
+                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(level + 1, 1.4f);
+
+                Ship.Current.shield.Set(spaceShip.instance.getMaxShield());
+                Ship.Current.shield.Subtract(diff);
                 break;
             case UpgradeType.RegenShield:
-                Stats.Instance.regenShield = new BigNumber(10, 0);
-                Stats.Instance.regenShield.Multiply(0.20f * Mathf.Pow(level + 1, 1.30f));
+                Ship.Current.regenShield = new BigNumber(10, 0);
+                Ship.Current.regenShield.Multiply(0.20f * Mathf.Pow(level + 1, 1.30f));
                 break;
             default:
                 break;

@@ -326,8 +326,8 @@ public class gameManager : MonoBehaviour
         DestroyMeteors();
 
         meteorKilled = 0;
-        Stats.Instance.life = new BigNumber(spaceShip.instance.getMaxLife());
-        Stats.Instance.shield = new BigNumber(spaceShip.instance.getMaxShield());
+        Ship.Current.life = new BigNumber(spaceShip.instance.getMaxLife());
+        Ship.Current.shield = new BigNumber(spaceShip.instance.getMaxShield());
 
         MainUi.Instance.enemyLabel.text = meteorToKill.ToString();
         MainUi.Instance.healthBar.style.width = Length.Percent(100);

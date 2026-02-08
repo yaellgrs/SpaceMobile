@@ -171,8 +171,8 @@ public class MainUi : MonoBehaviour
 
         if (Stats.Instance.lastConnection == 0)
         {
-            Stats.Instance.life = new BigNumber(Stats.Instance.lifeMax);
-            Stats.Instance.shield = new BigNumber(Stats.Instance.shieldMax);
+            Ship.Current.life = new BigNumber(Ship.Current.lifeMax.getTotal());
+            Ship.Current.shield = new BigNumber(Ship.Current.lifeMax.getTotal());
         }
 
         UpSpeed.Instance.load(speedButton);
@@ -181,7 +181,7 @@ public class MainUi : MonoBehaviour
         loadRocketButton();
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
-        shieldRegenLabel.text = "+ " + Stats.Instance.regenShield;
+        shieldRegenLabel.text = "+ " + Ship.Current.regenShield;
 
         Stats.Instance.OnIronChanged += upIronUI;
     }
@@ -473,13 +473,13 @@ public class MainUi : MonoBehaviour
     {
         if (healthBar != null)
         {
-            string lifeText = Stats.Instance.life + "/" + spaceShip.instance.getMaxLife();
+            string lifeText = Ship.Current.life + "/" + spaceShip.instance.getMaxLife();
             lifeLabel.text = lifeText;
             lifeLabel.style.width = Length.Percent(40 + 20 * (lifeText.Length - 9.5f));
 
 
             float currentPercent = healthBar.style.width.value.value;
-            float targetPercent = Stats.Instance.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
+            float targetPercent = Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -503,12 +503,12 @@ public class MainUi : MonoBehaviour
     {
         if (shieldBar != null)
         {
-            string shieldText = Stats.Instance.shield + "/" + spaceShip.instance.getMaxShield();
+            string shieldText = Ship.Current.shield + "/" + spaceShip.instance.getMaxShield();
             shieldLabel.text = shieldText;
             shieldLabel.style.width = Length.Percent(20 + 5 * (shieldText.Length - 5));
 
             float currentPercent = shieldBar.style.width.value.value;
-            float targetPercent = Stats.Instance.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
+            float targetPercent = Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
 
 
             if (currentPercent > targetPercent + 0.25f)

@@ -305,8 +305,8 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.uraniumUI.upUraniumLabel();
 
 
-        Stats.Instance.life = new BigNumber(Stats.Instance.lifeMax);
-        Stats.Instance.shield = new BigNumber(Stats.Instance.shieldMax);
+        Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
 
         gameManager.instance.RestartStage();
 

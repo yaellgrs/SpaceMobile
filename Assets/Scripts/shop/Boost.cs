@@ -110,8 +110,8 @@ public class Boost
             if(type == Type.pvShield)
             {
                 Stats.Instance.pvShieldBoostTime = time * 3600;
-                Stats.Instance.life = spaceShip.instance.getMaxLife();
-                Stats.Instance.shield = spaceShip.instance.getMaxShield();
+                Ship.Current.life = spaceShip.instance.getMaxLife();
+                Ship.Current.shield = spaceShip.instance.getMaxShield();
                 loadBonusActive();
             }
             if(type == Type.ressources)

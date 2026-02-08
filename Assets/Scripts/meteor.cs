@@ -325,11 +325,11 @@ public class spaceObject : MonoBehaviour
 
         if(collision.gameObject.layer == LayerMask.NameToLayer("spaceShip"))
         {
-            if(type != meteorType.Diamand && !(Stats.Instance.life.EqualZero()))
+            if(type != meteorType.Diamand && !(Ship.Current.life.EqualZero()))
             {
                 spaceShip.instance.getDamage(lifeMax);
                 MainUi.Instance.upMeteorUI();
-                if (Stats.Instance.life.EqualZero())
+                if (Ship.Current.life.EqualZero())
                 {
                     Song.Instance.lauchTransitionMusic(Song.Instance.main_music, Song.Instance.dead_music);
                 }

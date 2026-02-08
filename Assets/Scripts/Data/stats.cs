@@ -67,14 +67,6 @@ public class Stats
 
     //Ship
 
-    public bool isDead = false; //
-
-    public BigNumber life = new BigNumber(10);
-    public BigNumber lifeMax = new BigNumber(10);
-    public BigNumber shield = new BigNumber(5);
-    public BigNumber shieldMax = new BigNumber(5);
-    public BigNumber regenShield = new BigNumber(2);
-
     //machines upgrades
     public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
 
@@ -172,9 +164,9 @@ public class Stats
         {
             string data = System.IO.File.ReadAllText(path);
             Instance = JsonUtility.FromJson<Stats>(data);
-        }
-        Instance.life.Set(spaceShip.instance.getMaxLife());
-        Instance.shield.Set(spaceShip.instance.getMaxShield());
+        }   
+        if(Ship.Current.lifeMax != null )Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
 
     public void save() {

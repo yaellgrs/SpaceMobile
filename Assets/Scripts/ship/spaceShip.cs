@@ -49,37 +49,37 @@ public class spaceShip : MonoBehaviour
     void Update()
     {
         Animation();
-        if (!Stats.Instance.shield.isBigger(getMaxShield()))
+        if (!Ship.Current.shield.isBigger(getMaxShield()))
         {
             if (!gameManager.instance.isPaused)
             {
                 shieldRegen += Time.deltaTime;
             }
             MainUi.Instance.upShieldRegenUI();
-            if (shieldRegen > Stats.Instance.shield_Regen_Time && Stats.Instance.life.isBigger(new BigNumber(0)))
+            if (shieldRegen > Stats.Instance.shield_Regen_Time && Ship.Current.life.isBigger(new BigNumber(0)))
             {
                 BigNumber x = new BigNumber(getMaxShield());
-                x.Subtract(Stats.Instance.shield);
-                if (x.isBigger(Stats.Instance.regenShield))
+                x.Subtract(Ship.Current.shield);
+                if (x.isBigger(Ship.Current.regenShield))
                 {
-                    Stats.Instance.shield.Add(Stats.Instance.regenShield);
+                    Ship.Current.shield.Add(Ship.Current.regenShield);
                 }
                 else
                 {
-                    Stats.Instance.shield.Add(x);
+                    Ship.Current.shield.Add(x);
                 }
                 MainUi.Instance.upShieldBar();
                 shieldRegen = 0;
             }
 
         }
-        if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && new BigNumber(1, 0).isBigger(Stats.Instance.life)) 
+        if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && new BigNumber(1, 0).isBigger(Ship.Current.life)) 
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
             if (Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0)
             {
-                Stats.Instance.isDead = true;
+                Ship.Current.isDead = true;
                 ResurectionUI.Instance.loadResurection();
             }
         }
@@ -111,22 +111,22 @@ public class spaceShip : MonoBehaviour
 
     public void getDamage(BigNumber amount)
     {
-        if (Stats.Instance.shield.isBigger(amount))
+        if (Ship.Current.shield.isBigger(amount))
         {
-            Stats.Instance.shield -= amount;
-            if(new BigNumber(0).isBigger(Stats.Instance.shield)) Stats.Instance.shield.Set(0);
+            Ship.Current.shield -= amount;
+            if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);
         }
         else
         {
             BigNumber x = new BigNumber(amount);
-            x -= Stats.Instance.shield;
-            if (Stats.Instance.shield.Mantisse != 0)
+            x -= Ship.Current.shield;
+            if (Ship.Current.shield.Mantisse != 0)
             {
-                Stats.Instance.shield.Set(0);
+                Ship.Current.shield.Set(0);
             }
 
-            Stats.Instance.life -= x;
-            if (new BigNumber(0).isBigger(Stats.Instance.life)) Stats.Instance.life.Set(0);
+            Ship.Current.life -= x;
+            if (new BigNumber(0).isBigger(Ship.Current.life)) Ship.Current.life.Set(0);
         }
 
         MainUi.Instance.upShieldBar();
@@ -153,7 +153,7 @@ public class spaceShip : MonoBehaviour
 
     public BigNumber getMaxLife()
     {
-        BigNumber life = new BigNumber(Stats.Instance.lifeMax);
+        BigNumber life = new BigNumber(Ship.Current.lifeMax.getTotal());
         life.Multiply(Stats.Instance.life_Multiplicator_Lvl);
         if (Stats.Instance.pvShieldBoostTime > 0) {
             life.Multiply(2);
@@ -163,7 +163,7 @@ public class spaceShip : MonoBehaviour
 
     public BigNumber getMaxShield()
     {
-        BigNumber shield = new BigNumber(Stats.Instance.shieldMax);
+        BigNumber shield = new BigNumber(Ship.Current.shieldMax.getTotal());
         shield.Multiply(Stats.Instance.shield_Multiplicator_Lvl);
         if (Stats.Instance.pvShieldBoostTime > 0)
         {

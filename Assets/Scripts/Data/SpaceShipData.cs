@@ -18,6 +18,9 @@ public class SpaceShipData
 {
     public int level = 1;
     public int stage = 1;
+    public bool isDead = false; 
+
+
 
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
@@ -26,10 +29,11 @@ public class SpaceShipData
     public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
 
     [JsonIgnore] public ShipTempStat damage;
-    [JsonIgnore] public ShipTempStat life;
-    [JsonIgnore] public ShipTempStat shield;
-    public BigNumber lifeMax;
-    public BigNumber shieldMax;
+    [JsonIgnore] public ShipTempStat lifeMax;
+    [JsonIgnore] public ShipTempStat shieldMax;
+    public BigNumber life;
+    public BigNumber shield;
+    public BigNumber regenShield = new BigNumber(2);
 
     public BigNumber iron = new BigNumber(0);
     public BigNumber uranium = new BigNumber(0);
@@ -104,8 +108,8 @@ public class SpaceShipData
     public void InitTempData()
     {
         damage = new ShipTempStat();
-        life = new ShipTempStat();
-        shield = new ShipTempStat();
+        lifeMax = new ShipTempStat();
+        shieldMax = new ShipTempStat();
 
         LoadBonus();
     }
@@ -141,7 +145,7 @@ public class SpaceShipData
 public class ShipTempStat
 {
     //stocker ailleurs qu'ici ou stats pour ne pas sauvegarder cette donné, c'est inutile de la sauvegarder
-    public BigNumber initial;
+    public BigNumber initial = new BigNumber(5);
     public float prestige_multiplicator = 1f;
     public float rocket_multiplicator = 1f;
     public int critical_multiplicator = 5;
@@ -149,7 +153,8 @@ public class ShipTempStat
     public BigNumber getTotal()
     {
         float leveBonus = 1f + (Ship.Current.level - 1) * 0.1f;
-        BigNumber total = new BigNumber(initial) * prestige_multiplicator * leveBonus;
+        BigNumber total = new BigNumber(initial);
+        total *= prestige_multiplicator * leveBonus;
 
         return total;
     }

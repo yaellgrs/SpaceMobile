@@ -126,8 +126,8 @@ public class XpUI : MonoBehaviour
         if(level > Ship.Current.level) VE_mainReward.enabledSelf = false;
 
         damageBonus.text = Stats.Instance.damage_Multiplicator_Lvl*100 + "%";
-        lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl*100 + "%";
-        shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl*100 + "%";
+        lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl *100 + "%";
+        shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl *100 + "%";
     }
 
     // Update is called once per frame
@@ -313,8 +313,8 @@ public class XpUI : MonoBehaviour
     public void loadBonus()
     {
         Stats.Instance.damage_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
-        Stats.Instance.life_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
-        Stats.Instance.shield_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
+		Stats.Instance.life_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
+		Stats.Instance.shield_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
 
         setBonusAutoFer();
         setBonusAutoUranium();
@@ -334,7 +334,7 @@ public class XpUI : MonoBehaviour
         Stats.Instance.SpeedLevel = 1 + GetEnumRewardCount(BonusLevel.Speed);
         Stats.Instance.offline_Prod_Part = 0.25f + GetEnumRewardCount(BonusLevel.OfflineProduction) * 0.15f;
         Stats.Instance.critical_Prob = 10 + GetEnumRewardCount(BonusLevel.Critical) * 10;
-        Stats.Instance.shield_Regen_Time = 10f - 2*GetEnumRewardCount(BonusLevel.ShieldRegen);
+		Stats.Instance.shield_Regen_Time = 10f - 2*GetEnumRewardCount(BonusLevel.ShieldRegen);
     }
 
 
