@@ -134,6 +134,7 @@ public class Stats
     {
         Ship.Current.iron += amount;
         MainUi.Instance.upIronUI();
+        OnIronChanged.Invoke();
     }
 
     public void AddUranium(BigNumber amount)

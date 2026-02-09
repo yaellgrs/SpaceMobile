@@ -37,13 +37,14 @@ public class ShipManager : MonoBehaviour
         SwitchShip(Stats.Instance.currentSpaceShipType);
     }
 
-
     public void SwitchShip(SpaceShipType type)
     {
         Stats.Instance.currentSpaceShipType = type;
         Ship.Current.Load();
 
         spaceShip.instance.LoadAnimation();
+
+        Debug.Log("life : " + Ship.Current.life + "lifeMax : " + Ship.Current.lifeMax.getTotal());
     }
 
     void Start()

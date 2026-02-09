@@ -56,6 +56,14 @@ public class SpaceShipData
         LoadUpgrades();
 
         InitTempData();
+        MainUi.Instance.xpUI.loadBonus();
+        Stats.Instance.AddIron(new BigNumber(0));
+        Stats.Instance.AddUranium(new BigNumber(0));
+        
+        if(life.isBigger(lifeMax.getTotal()))
+            life.Set(lifeMax.getTotal());
+        if (shield.isBigger(shieldMax.getTotal()))
+            shield.Set(shieldMax.getTotal());
     }
 
     private void LoadMachines()
