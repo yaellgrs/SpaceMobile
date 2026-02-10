@@ -19,8 +19,8 @@ public class ShipManager : MonoBehaviour
     {
         Dictionary<SpaceShipType, SpaceShipData> ships = new Dictionary<SpaceShipType, SpaceShipData>();
         ships[SpaceShipType.Basic] = new SpaceShipData();
-        ships[SpaceShipType.Fire] = new SpaceShipData();
-        ships[SpaceShipType.Ice] = new SpaceShipData();
+/*        ships[SpaceShipType.Fire] = new SpaceShipData();
+        ships[SpaceShipType.Ice] = new SpaceShipData();*/
 
         if (Stats.Instance == null) return;
         foreach (var (key, value) in ships)
@@ -44,7 +44,6 @@ public class ShipManager : MonoBehaviour
 
         spaceShip.instance.LoadAnimation();
 
-        Debug.Log("life : " + Ship.Current.life + "lifeMax : " + Ship.Current.lifeMax.getTotal());
     }
 
     void Start()

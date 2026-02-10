@@ -77,8 +77,7 @@ public class Stats
     public float rocketTimerMax = 25f;
     public float rocketMultiplier = 5f;
 
-        //prestige
-
+    //prestige
     public bool prestigeUnlocked = false; //
 
     public BigNumber starPariticul { get; private set; } = new BigNumber(1, 0); //
