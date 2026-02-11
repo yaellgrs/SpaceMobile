@@ -32,6 +32,7 @@ public partial class machineElement : Button
     //other
     [JsonIgnore] public Label Lbl_level;
     [JsonIgnore] public Label Lbl_name;
+    [JsonIgnore] public Label Lbl_production_cps;
     [JsonIgnore] public VisualElement VE_logo;
 
     #endregion
@@ -62,6 +63,8 @@ public partial class machineElement : Button
     public string machineName = "";
 
     borderColor color = borderColor.white;
+
+    int production_cps = 0;
 
     #endregion
 
@@ -95,19 +98,27 @@ public partial class machineElement : Button
 
         Lbl_level = new Label();
         Lbl_name = new Label();
+        Lbl_production_cps = new Label();
         VE_logo = new VisualElement();
 
         Lbl_level.text = "1/5";
         Lbl_name.text = "Anvil";
+        Lbl_production_cps.text = "x2";
+
+        Lbl_production_cps.name = "production_cps";
+        Lbl_name.name = "name";
+        Lbl_level.name = "level";
 
 
         VE_logo.AddToClassList("machineLogo");
         Lbl_name.AddToClassList("machineName");
+        Lbl_production_cps.AddToClassList("production_cps");
         Lbl_level.AddToClassList("machineLevel");
 
         VE_logo.Add(Lbl_level);
         Add(Lbl_name);
         Add(VE_logo);
+        Add(Lbl_production_cps);
 
         InitUpButton();
         InitBuyCover();
@@ -204,7 +215,8 @@ public partial class machineElement : Button
         SetEarnPerSecond();
         upMachineCostText();
 
-        this.clicked += StartProduction;
+        clicked -= StartProduction;
+        clicked += StartProduction;
         Btn_up.clicked -= LevelUp;
         Btn_up.clicked += LevelUp;
 
@@ -224,8 +236,8 @@ public partial class machineElement : Button
             }
             reloadUI();
         }
-        else if (time < 0)
-        { //start production
+        else
+        {
             HandleMoney(CalculReward());
             if (this is machineIronElement && !Stats.Instance.ironTuto)
                 Tuto.Instance.AddMachineClicked();
@@ -288,16 +300,13 @@ public partial class machineElement : Button
     {
         if (!isBuyed) return;
 
-        if (isAutomatic) {
+        if (production_cps > 0) {
             time += Time.deltaTime;
-            AnimAutoBar();
-            if(time >= 1f)
-            {
-                HandleMoney(BN_earnPerScd);
+            if (time >= (1.0f / (float)production_cps)){
+                HandleMoney(CalculReward());
                 time = 0f;
             }
         }
-
     }
 
     #endregion
@@ -395,7 +404,12 @@ public partial class machineElement : Button
         }
 
         int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
+        int[] cps = { 0, 1, 2, 4, 6, 10 };
+        production_cps = cps[(int)color];
         levelMax = levelMaxs[(int)color];
+
+        Lbl_production_cps.text = "x" + production_cps;
+        Lbl_production_cps.style.visibility = production_cps == 0 ? Visibility.Hidden : Visibility.Visible;
 
         levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
     }
