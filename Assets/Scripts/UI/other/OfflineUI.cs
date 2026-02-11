@@ -122,9 +122,7 @@ public class OfflineUI : MonoBehaviour
                 if(m.isAutomatic || !offline) //!offline = booster acheté
                 {
                     BigNumber earn = m.CalculReward();
-                    earn *= time;
-                    earn.Divide(m.timeMaxReal);
-
+                    earn *= time * m.production_cps;
                     totaEarn.Add(earn);
                 }
             }
@@ -149,9 +147,7 @@ public class OfflineUI : MonoBehaviour
                 if (m.isAutomatic || !offline) //!offline = booster acheté
                 {
                     BigNumber earn = m.CalculReward();
-                    earn *= time;
-                    earn.Divide(m.timeMaxReal);
-
+                    earn *= time * m.production_cps;
                     totaEarn.Add(earn);
                 }
             }

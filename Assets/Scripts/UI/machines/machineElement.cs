@@ -40,20 +40,13 @@ public partial class machineElement : Button
     #region ------ variables ------
 
     //variables
-    private float timeMax = 1f;
-    public float timeMaxReal = 1f;
-    private float initialTimeMax = 1f;
-
     private int levelMax = 5;
     private int levelLimite = 1;
     private int realLevel = 1;
     private int level = 1;
 
-    private float time = -1f;
-    private float timerAuto = 0f;
-    private int cptAuto = 1;
+    private float time = 0f;
 
-    BigNumber BN_earnPerScd;
     BigNumber BN_price = new BigNumber(15000);
 
     public bool isBuyed = false;
@@ -64,7 +57,7 @@ public partial class machineElement : Button
 
     borderColor color = borderColor.white;
 
-    int production_cps = 0;
+    public int production_cps = 0;
 
     #endregion
 
@@ -83,7 +76,6 @@ public partial class machineElement : Button
 
         this.BN_price = initPrice;
         this.machineName = machineName;
-        this.timeMax = this.initialTimeMax = time;
         Init();
     }
 
@@ -124,10 +116,6 @@ public partial class machineElement : Button
         InitBuyCover();
 
         SetLogos();
-
-        SetEarnPerSecond();
-
-
     }
 
 
@@ -198,8 +186,6 @@ public partial class machineElement : Button
     #region ------ mainworkflow -------
     public virtual void LoadMachine()// a revoir
     {
-        timeMaxReal = timeMax * Stats.Instance.machineTimeReducer;
-
         Lbl_level.text = (level == levelMax) ? "UP" : Lbl_level.text = level + "/" + levelMax;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
@@ -212,7 +198,6 @@ public partial class machineElement : Button
         Lbl_name.text = machineName;
 
         SetBorderColor();
-        SetEarnPerSecond();
         upMachineCostText();
 
         clicked -= StartProduction;
@@ -255,16 +240,11 @@ public partial class machineElement : Button
         upMachineCostText();
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
-        SetEarnPerSecond();
 
         if (level > levelMax)
         {
             color++;
             SetBorderColor();
-
-            timeMax -= timeMax / 3;
-            timeMaxReal -= timeMaxReal / 3;
-
             if (color != borderColor.black)
             {
                 level = 1;
@@ -343,7 +323,7 @@ public partial class machineElement : Button
     public BigNumber CalculReward()
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.20f, realLevel) * (initialTimeMax * initialTimeMax)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Multiply(Mathf.Pow(1.20f, realLevel)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(realLevel - 1);
         return reward;
     }
@@ -351,12 +331,6 @@ public partial class machineElement : Button
     #endregion
 
     #region ------ set methods ------
-    private void SetEarnPerSecond()
-    {
-        BN_earnPerScd = new BigNumber(CalculReward());
-        BN_earnPerScd.Divide(timeMaxReal);
-        
-    }
 
     protected virtual void SetLevelUpButton()
     {
@@ -370,7 +344,6 @@ public partial class machineElement : Button
         VE_lockedLevelCover.style.visibility = (level < limit) ? Visibility.Hidden : Visibility.Visible;
 
         Lbl_upCost.text = CalculLevelUpCost().ToString();
-        //Lbl_upCost.style.visibility = Visibility.Visible; //utile ???
     }
     #endregion
 
@@ -412,22 +385,6 @@ public partial class machineElement : Button
         Lbl_production_cps.style.visibility = production_cps == 0 ? Visibility.Hidden : Visibility.Visible;
 
         levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
-    }
-
-    private void AnimAutoBar()
-    {
-        timerAuto += Time.deltaTime;
-        string path = "bar/barAnim" + cptAuto;
-        Texture2D texture = Resources.Load<Texture2D>(path);
-        if (timerAuto > 0.08f)
-        {
-            timerAuto = 0f;
-            cptAuto--;
-            if (cptAuto == 0)
-            {
-                cptAuto = 4;
-            }
-        }
     }
 
     #endregion
