@@ -36,7 +36,7 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
             Init();
-            ShipManager.Instance.LoadShips();
+
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

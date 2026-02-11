@@ -31,9 +31,9 @@ public class SpaceShipData
     [JsonIgnore] public ShipTempStat damage;
     [JsonIgnore] public ShipTempStat lifeMax;
     [JsonIgnore] public ShipTempStat shieldMax;
-    public BigNumber life;
-    public BigNumber shield;
-    public BigNumber regenShield = new BigNumber(2);
+    public BigNumber life = new BigNumber(0);
+    public BigNumber shield = new BigNumber(0);
+    public BigNumber regenShield = new BigNumber(0);
 
     public BigNumber iron = new BigNumber(0);
     public BigNumber uranium = new BigNumber(0);

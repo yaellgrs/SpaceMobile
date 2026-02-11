@@ -15,12 +15,6 @@ public partial class machineElement : Button
     //attributs
     #region ------ UI Elements ------
     //progress Barre
-    [JsonIgnore]  public VisualElement VE_progressCadre;
-    [JsonIgnore] public VisualElement VE_rewardLogo;
-    [JsonIgnore] public VisualElement VE_progressBar;
-    [JsonIgnore] public Label Lbl_progressTime;
-    [JsonIgnore] public Label Lbl_reward;
-    [JsonIgnore] public Label Lbl_time;
 
     //Button
     [JsonIgnore] public Button Btn_up;
@@ -115,7 +109,6 @@ public partial class machineElement : Button
         Add(Lbl_name);
         Add(VE_logo);
 
-        InitProgressBar();
         InitUpButton();
         InitBuyCover();
 
@@ -127,31 +120,6 @@ public partial class machineElement : Button
     }
 
 
-    private void InitProgressBar()
-    {
-        VE_progressCadre = new VisualElement();
-        VE_progressBar = new VisualElement();
-        VE_rewardLogo = new VisualElement();
-
-        Lbl_time = new Label();
-        Lbl_progressTime = new Label();
-        Lbl_reward = new Label();
-
-        VE_progressCadre.AddToClassList("machineProgressCadre");
-        VE_progressBar.AddToClassList("machineProgressBar");
-        VE_rewardLogo.AddToClassList("machineRewardLogo");
-
-        Lbl_time.text = "3s";
-        Lbl_reward.text = "x10";
-        Lbl_time.AddToClassList("machineTime");
-        Lbl_reward.AddToClassList("machineReward");
-
-        Add(VE_progressCadre);
-        VE_progressCadre.Add(VE_progressBar);
-        VE_progressCadre.Add(Lbl_time);
-        VE_progressCadre.Add(Lbl_reward);
-        Lbl_reward.Add(VE_rewardLogo);
-    }
 
     private void InitUpButton()
     {
@@ -205,7 +173,6 @@ public partial class machineElement : Button
     {
         Texture2D logoTexture = Resources.Load<Texture2D>("logos/" + getLogoPath());
         StyleBackground background = new StyleBackground(logoTexture);
-        VE_rewardLogo.style.backgroundImage = background;
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
 
@@ -222,18 +189,9 @@ public partial class machineElement : Button
     {
         timeMaxReal = timeMax * Stats.Instance.machineTimeReducer;
 
-        Lbl_reward.text = CalculReward().ToString();//???
         Lbl_level.text = (level == levelMax) ? "UP" : Lbl_level.text = level + "/" + levelMax;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
-        if (isAutomatic)
-        {
-            Lbl_time.text = "";
-
-            VE_progressBar.style.width = Length.Percent(100);
-        }
-        else
-            Lbl_time.text = timeMaxReal.ToString("F1") + "s";
 
         VE_buyCover.style.display = isBuyed ? DisplayStyle.None : DisplayStyle.Flex;
 
@@ -268,7 +226,9 @@ public partial class machineElement : Button
         }
         else if (time < 0)
         { //start production
-            time = 0f;
+            HandleMoney(CalculReward());
+            if (this is machineIronElement && !Stats.Instance.ironTuto)
+                Tuto.Instance.AddMachineClicked();
         }
     }
 
@@ -292,7 +252,6 @@ public partial class machineElement : Button
 
             timeMax -= timeMax / 3;
             timeMaxReal -= timeMaxReal / 3;
-            Lbl_time.text = timeMaxReal.ToString("F1") + "s";
 
             if (color != borderColor.black)
             {
@@ -308,8 +267,6 @@ public partial class machineElement : Button
         else
         {
             Lbl_level.text = level + "/" + levelMax;
-            Lbl_reward.text = CalculReward().ToString();
-            Lbl_time.text = timeMaxReal.ToString("F1") + "s";
             Lbl_upCost.text = CalculLevelUpCost().ToString();
         }
 
@@ -331,33 +288,9 @@ public partial class machineElement : Button
     {
         if (!isBuyed) return;
 
-        if (!isAutomatic)
-        {
-            if (time >= 0)
-            {
-                time += Time.deltaTime;
-                Lbl_time.text = (timeMaxReal - time).ToString("F1") + "s";
-                if (time / timeMaxReal > 0)
-                {
-                    VE_progressBar.style.width = Length.Percent((time / timeMaxReal) * 100);
-                }
-
-                if (time >= timeMaxReal)
-                {
-                    HandleMoney(CalculReward());
-                    time = -1f;
-                    VE_progressBar.style.width = Length.Percent(100);
-                    Lbl_time.text = timeMaxReal.ToString("F1") + "s";
-                    if (this is machineIronElement && !Stats.Instance.ironTuto)
-                        Tuto.Instance.AddMachineClicked();
-                }
-            }
-        }
-        else//automatic
-        {
+        if (isAutomatic) {
             time += Time.deltaTime;
             AnimAutoBar();
-            if(Lbl_reward!= null ) Lbl_reward.text = BN_earnPerScd.ToString() + " / s";
             if(time >= 1f)
             {
                 HandleMoney(BN_earnPerScd);
@@ -472,14 +405,6 @@ public partial class machineElement : Button
         timerAuto += Time.deltaTime;
         string path = "bar/barAnim" + cptAuto;
         Texture2D texture = Resources.Load<Texture2D>(path);
-        if (texture != null)
-        {
-            VE_progressBar.style.backgroundImage = texture;
-        }
-        else
-        {
-            Debug.LogWarning("texture auto null");
-        }
         if (timerAuto > 0.08f)
         {
             timerAuto = 0f;

@@ -594,7 +594,7 @@ public class MainUi : MonoBehaviour
     {
         if (stageLabel == null)
             stageLabel = mainUI.rootVisualElement.Q<Label>("stage");
-        stageLabel.text = "Stage : " + Ship.Current.stage;
+        if(Ship.Current != null) stageLabel.text = "Stage : " + Ship.Current.stage;
     }
 
     public void ShowStageSkip()

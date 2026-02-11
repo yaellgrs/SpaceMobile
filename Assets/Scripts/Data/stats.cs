@@ -182,6 +182,7 @@ public class Stats
     public void reset()
     {
         Instance = new Stats();
+        ShipManager.Instance.LoadShips();
         save();
         QuestStats.Instance.reset();
         Data.Instance.reset();

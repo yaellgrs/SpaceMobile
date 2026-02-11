@@ -34,7 +34,7 @@ public class ShipManager : MonoBehaviour
                 });
             }
         }
-        SwitchShip(Stats.Instance.currentSpaceShipType);
+        SwitchShip(SpaceShipType.Basic);
     }
 
     public void SwitchShip(SpaceShipType type)
