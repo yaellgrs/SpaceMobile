@@ -29,10 +29,10 @@
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
-    font-size: 27px;
+    font-size: 40px;
     position: absolute;
     left: 22%;
-    top: 64%;
+    top: 58%;
 }
 
 .machineLevel {

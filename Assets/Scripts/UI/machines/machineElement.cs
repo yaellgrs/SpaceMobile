@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Tilemaps;
@@ -176,7 +177,6 @@ public partial class machineElement : Button
         VE_buyLogo.style.backgroundImage = background;
 
         Lbl_upCost.AddToClassList(getLogoPath() + "Color");
-        Debug.LogWarning("add class : " + (getLogoPath() + "Color"));
 
 
         SetLogo();
@@ -357,6 +357,19 @@ public partial class machineElement : Button
         {
             styleSheets.Add(blackBorderStyle);
             styleSheets.Remove(styleSheet);
+
+
+            string pathCadre = "machines/" + color.ToString() + "/cadre";
+            string pathButton = "machines/" + color.ToString() + "/button";
+
+            Texture2D textureCadre = Resources.Load<Texture2D>(pathCadre);
+            Texture2D textureButton = Resources.Load<Texture2D>(pathButton);
+
+            if (textureCadre != null)
+            {
+                style.backgroundImage = textureCadre;
+                Btn_up.style.backgroundImage = textureButton;
+            }
         }
         else
         {
@@ -364,17 +377,9 @@ public partial class machineElement : Button
             styleSheets.Add(styleSheet);
         }
 
-        string pathCadre = "machines/" + color.ToString() + "/cadre";
-        string pathButton = "machines/" + color.ToString() + "/button";
-
-        Texture2D textureCadre = Resources.Load<Texture2D>(pathCadre);
-        Texture2D textureButton = Resources.Load<Texture2D>(pathButton);
-
-        if (textureCadre != null)
-        {
-            this.style.backgroundImage = textureCadre;
-            Btn_up.style.backgroundImage = textureButton;
-        }
+        Color[] colors = { Color.white, Color.orange, Color.silver, Color.gold, Color.darkBlue, Color.white };
+        style.unityBackgroundImageTintColor = colors[(int)color];
+        Btn_up.style.unityBackgroundImageTintColor = colors[(int)color];
 
         int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
         int[] cps = { 0, 1, 2, 4, 6, 10 };
