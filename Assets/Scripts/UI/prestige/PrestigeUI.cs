@@ -241,7 +241,7 @@ public class PrestigeUI : BaseUI
             forgeUiVE.RemoveFromClassList("trans");
         }).StartingIn(50);
 
-        backButton1 = root.Q<Button>("Btn_back");
+        backButton1 = root.Q<Button>("back");
         prestigeReset = root.Q<Button>("prestige");
         diamandBtn = root.Q<Button>("diamand");
         rewardLabel = root.Q<Label>("reward");
@@ -378,7 +378,7 @@ public class PrestigeUI : BaseUI
             forgeUiVE.RemoveFromClassList("trans");
         }).StartingIn(50);
 
-        backButton2 = root.Q<Button>("Btn_back");
+        backButton2 = root.Q<Button>("back");
         buyButton = root.Q<Button>("buy");
         refreshButton = root.Q<Button>("refresh");
         nextPrestige = root.Q<Button>("nextPrestige");
@@ -455,7 +455,7 @@ public class PrestigeUI : BaseUI
     }
     private void backClicked(UIDocument document)
     {
-
+        if (forgeUiVE == null) return;
         forgeUiVE.RemoveFromClassList("trans");
         forgeUiVE.schedule.Execute(() =>
         {
@@ -511,6 +511,8 @@ public class PrestigeUI : BaseUI
     {
         base.loadUpdateUI();
         var root = upgradeUI.rootVisualElement;
+
+
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("updateUI");
@@ -529,7 +531,16 @@ public class PrestigeUI : BaseUI
         upgradeShip.gameObject.SetActive(true);
         var root = upgradeShip.rootVisualElement;
 
-        Button Btn_back = root.Q<Button>("Btn_back");
+
+        forgeUiVE = root.Q<VisualElement>("main");
+        forgeUiVE.AddToClassList("trans");
+        forgeUiVE.schedule.Execute(() =>
+        {
+            forgeUiVE.RemoveFromClassList("trans");
+        }).StartingIn(50);
+
+
+        Button Btn_back = root.Q<Button>("back");
 
         Btn_back.clicked -= () => { backClicked(upgradeShip); };
         Btn_back.clicked += () => { backClicked(upgradeShip); };
