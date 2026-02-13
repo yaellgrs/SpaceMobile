@@ -70,6 +70,7 @@ public class Stats
 
     //machines upgrades
     public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
+    public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
 
     public float scale = 1f; 
     public float speedAuto = 5f; 

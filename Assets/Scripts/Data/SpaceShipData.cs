@@ -74,7 +74,7 @@ public class SpaceShipData
         machinesIron.Add(new machineIronElement("ironMachines", new BigNumber(1, 6), 15f));
         machinesIron.Add(new machineIronElement("usine", new BigNumber(1, 9), 30f));
         machinesIron.Add(new machineIronElement("usines", new BigNumber(1, 12), 60f));
-        AddMachineToData(machinesIron, Ship.Current.machineIron);
+        Utility.AddMachineToData(machinesIron, Ship.Current.machineIron);
 
         List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
         machinesUranium.Add(new machineUraniumElement("Anvil", new BigNumber(0), 3f));
@@ -82,7 +82,7 @@ public class SpaceShipData
         machinesUranium.Add(new machineUraniumElement("ironMachines", new BigNumber(5, 6), 25f));
         machinesUranium.Add(new machineUraniumElement("usine", new BigNumber(5, 9), 45f));
         machinesUranium.Add(new machineUraniumElement("usines", new BigNumber(5, 12), 100f));
-        AddMachineToData(machinesUranium, Ship.Current.machinesUranium);
+        Utility.AddMachineToData(machinesUranium, Ship.Current.machinesUranium);
     }
 
     private void LoadUpgrades()
@@ -93,7 +93,7 @@ public class SpaceShipData
         upgradesIron.Add(new UpgradesIronElement("WorldSize", UpgradesIronElement.UpgradeType.WorldSize));
         upgradesIron.Add(new UpgradesIronElement("Shield", UpgradesIronElement.UpgradeType.Shield));
         upgradesIron.Add(new UpgradesIronElement("RegenShield", UpgradesIronElement.UpgradeType.RegenShield));
-        AddMachineToData(upgradesIron, Ship.Current.upgradesIron);
+        Utility.AddMachineToData(upgradesIron, Ship.Current.upgradesIron);
 
         List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
         upgradesUranium.Add(new UpgradesUraniumElement("SpeedAuto", UpgradesUraniumElement.UpgradeType.SpeedAuto));
@@ -101,16 +101,7 @@ public class SpaceShipData
         upgradesUranium.Add(new UpgradesUraniumElement("AreaWidth", UpgradesUraniumElement.UpgradeType.AreaWidth));
         upgradesUranium.Add(new UpgradesUraniumElement("RocketReload", UpgradesUraniumElement.UpgradeType.RocketReload));
         upgradesUranium.Add(new UpgradesUraniumElement("RocketMultiplier", UpgradesUraniumElement.UpgradeType.RocketMultiplier));
-        AddMachineToData(upgradesUranium, Ship.Current.upgradesUranium);
-    }
-
-    private void AddMachineToData<T>(List<T> init, List<T> data)
-    {
-        foreach (T m in init)
-        {
-            if (!data.Contains(m))
-                data.Add(m);
-        }
+        Utility.AddMachineToData(upgradesUranium, Ship.Current.upgradesUranium);
     }
 
     public void InitTempData()

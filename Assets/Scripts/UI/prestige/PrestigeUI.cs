@@ -468,7 +468,7 @@ public class PrestigeUI : BaseUI
         {
             document.gameObject.SetActive(false);
 
-            loadForgeUI();
+            //loadForgeUI();
         }).StartingIn(300);
 
     }
@@ -524,6 +524,15 @@ public class PrestigeUI : BaseUI
         Lbl_shipMoney = root.Q<Label>("shipMoney");
 
         loadShipMoney();
+
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        scroll.Clear();
+        foreach (UpgradesElement upgrade in Stats.Instance.upgradesShip)
+        {
+            scroll.Add(upgrade);
+            upgrade.Load();
+        }
+        //scroll.Add(buyButtonUI);
 
         uraniumButton.clicked += uraniumClicked;
         ironButton.clicked += ironClicked;

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesElement.cs" />
     <Compile Include="Assets\Scripts\ship\canon.cs" />
     <Compile Include="Assets\Scripts\Data\settings.cs" />
+    <Compile Include="Assets\Scripts\UI\upgrades\UpgradesShipElement.cs" />
     <Compile Include="Assets\Scripts\ship\lazer.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineUraniumElement.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesIronElement.cs" />
