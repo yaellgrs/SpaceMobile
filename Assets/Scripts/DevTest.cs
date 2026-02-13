@@ -82,6 +82,14 @@ public class DevTest : MonoBehaviour
             Stats.Instance.AddUranium(new BigNumber(1, 100));// donne 1^100 uranium
             Stats.Instance.AddDiamand(100);
         }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Stats.Instance.AddShipMoney(new BigNumber(50), true);
+        }
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            Stats.Instance.AddShipMoney(new BigNumber(30), false);
+        }
     }
 
     private void testTutos()

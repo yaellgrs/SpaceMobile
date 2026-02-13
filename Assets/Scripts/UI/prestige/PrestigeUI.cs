@@ -49,6 +49,9 @@ public class PrestigeUI : BaseUI
 
     private int prestigeSelected = 1;
 
+    //shipUI
+    Label Lbl_shipMoney;
+
     protected override void Start()
     {
         forgeUI.gameObject.SetActive(false);
@@ -518,12 +521,23 @@ public class PrestigeUI : BaseUI
         forgeUiVE = root.Q<VisualElement>("updateUI");
         Button Btn_ship = root.Q<Button>("ship");
         black = root.Q<VisualElement>("black");
+        Lbl_shipMoney = root.Q<Label>("shipMoney");
+
+        loadShipMoney();
 
         uraniumButton.clicked += uraniumClicked;
         ironButton.clicked += ironClicked;
 
         Btn_ship.clicked -= loadUpgradeShip;
         Btn_ship.clicked += loadUpgradeShip;
+
+        Stats.Instance.OnShipMoneyChanged -= loadShipMoney;
+        Stats.Instance.OnShipMoneyChanged += loadShipMoney;
+    }
+
+    private void loadShipMoney()
+    {
+        if(Lbl_shipMoney != null) Lbl_shipMoney.text = Stats.Instance.BN_shipMoney.ToString() + " (+" + Stats.Instance.BN_shipMoneyWaiting.ToString() +")";  
     }
 
     private void loadUpgradeShip()

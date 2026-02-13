@@ -38,6 +38,7 @@ public class Stats
 
     //actions 
     public event Action OnIronChanged;
+    public event Action OnShipMoneyChanged;
 
     //ships
     public SpaceShipType currentSpaceShipType = SpaceShipType.Basic;
@@ -80,8 +81,12 @@ public class Stats
     //prestige
     public bool prestigeUnlocked = false; //
 
-    public BigNumber starPariticul { get; private set; } = new BigNumber(1, 0); //
-    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(1, 0);//
+    public BigNumber starPariticul { get; private set; } = new BigNumber(0, 0); //
+    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(0, 0);//
+
+    public BigNumber BN_shipMoney = new BigNumber(0);
+    public BigNumber BN_shipMoneyWaiting = new BigNumber(0);
+
     public float star_multiplicator_prestige = 1f;
     public float enemyPerStage = 10f;
     public float machineTimeReducer = 1f;
@@ -127,6 +132,13 @@ public class Stats
     {
         diamand += amount;
         MainUi.Instance.upDiamandUI();
+    }
+
+    public void AddShipMoney(BigNumber amount, bool waiting)
+    {
+        if (waiting) BN_shipMoneyWaiting += amount;
+        else BN_shipMoney += amount;
+        OnShipMoneyChanged.Invoke();
     }
 
     public void AddIron(BigNumber amount)
