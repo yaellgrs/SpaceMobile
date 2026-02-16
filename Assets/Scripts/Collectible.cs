@@ -79,14 +79,10 @@ public class Collectible : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
-        
-
     }
 
     private void checkCollected(Vector3 pos)
     {
-;
         float dist = Vector3.Distance(pos, transform.position);
 
         if (dist <= 0.5f)
@@ -103,7 +99,6 @@ public class Collectible : MonoBehaviour
         Vector3 bottomCenterWorld = Camera.main.ScreenToWorldPoint(bottomCenterScreen);
 
         Vector3 direction = bottomCenterWorld - transform.position;
-
         GetComponent<Rigidbody2D>().AddForce(direction*60);
         
         switch (type)

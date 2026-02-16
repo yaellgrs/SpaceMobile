@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
-public partial class shipUpgradeElement : VisualElement
+public partial class shipUpgradeElement : Button
 {
     Label Lbl_name;
     Label Lbl_price;
@@ -16,6 +16,9 @@ public partial class shipUpgradeElement : VisualElement
     Button Btn_buy;
 
     public int _level;
+
+    [UxmlAttribute]
+    public SpaceShipType type;
 
     [UxmlAttribute]
     public int Level
@@ -31,6 +34,7 @@ public partial class shipUpgradeElement : VisualElement
     public shipUpgradeElement()
     {
         AddToClassList("ShipElement");
+        AddToClassList("button");
 
         Lbl_name = new Label();
         VE_logoPrice = new VisualElement();
@@ -48,6 +52,7 @@ public partial class shipUpgradeElement : VisualElement
         VE_progressBar.AddToClassList("ShipProgressBar");
         Lbl_price.AddToClassList("ShipPrice");
         Btn_buy.AddToClassList("ShipBuy");
+        Btn_buy.AddToClassList("button");
 
         Lbl_name.text = "Basic SpaceShip";
         Btn_buy.text = "UP";
@@ -60,7 +65,10 @@ public partial class shipUpgradeElement : VisualElement
         Add(VE_progressBar);
         VE_progressBar.Add(VE_progressCadre);
         Lbl_price.Add(VE_logoPrice);
-        
+
+        clicked += SwitchShip;
+
+
     }
 
     public void SetShipLevel(int level)
@@ -69,7 +77,14 @@ public partial class shipUpgradeElement : VisualElement
         Texture2D tex = Resources.Load<Texture2D>(path);
         VE_progressBar.style.backgroundImage = new StyleBackground(tex);
 
+    }
 
+    private void SwitchShip()
+    {
+        if(ShipManager.Instance != null)
+        {
+            ShipManager.Instance.SwitchShip(type);
+        }
     }
  
 

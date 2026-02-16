@@ -12,27 +12,21 @@ public class ResurectionUI : MonoBehaviour
 
     private Button diamand;
     private Button pub;
-    private Button prestige;
-
-
+    private Button Btn_backStage;
 
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         resurectionUI.gameObject.SetActive(false);
-        if (Stats.Instance.isDead) loadResurection();
+        if (Ship.Current.isDead) loadResurection();
     }
 
     // Update is called once per frame
@@ -48,7 +42,6 @@ public class ResurectionUI : MonoBehaviour
 
         var root = resurectionUI.rootVisualElement;
 
-
         main = root.Q<VisualElement>("main");
 
         main.AddToClassList("trans");
@@ -60,7 +53,7 @@ public class ResurectionUI : MonoBehaviour
 
         diamand = root.Q<Button>("diamand");
         pub = root.Q<Button>("pub");
-        prestige = root.Q<Button>("prestige");
+        Btn_backStage = root.Q<Button>("backStage");
 
         if (Stats.Instance.diamand >= 5)
         {
@@ -78,15 +71,14 @@ public class ResurectionUI : MonoBehaviour
         }
         else pub.style.visibility = Visibility.Hidden;
 
-
-
-        prestige.clicked -= prestigeClicked;
-        prestige.clicked += prestigeClicked;
+        Btn_backStage.clicked -= backStage;
+        Btn_backStage.clicked += backStage;
     }
 
     private void diamandClicked()
     {
-        Stats.Instance.AddDiamand(5 * Stats.Instance.deadPubWatch);
+        Stats.Instance.AddDiamand(-5 * Stats.Instance.deadPubWatch);
+        Stats.Instance.ReduceLifeBoss = true;
         Close();
     }
 
@@ -96,9 +88,12 @@ public class ResurectionUI : MonoBehaviour
         else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
         Close();
     }
-    private void prestigeClicked()
+
+    private void backStage()
     {
-        MainUi.Instance.prestigeUI.LoadPrestige();
+        Ship.Current.stage -= 5;
+        gameManager.instance.RestartStage();
+        Close();
     }
 
     public void Close()
@@ -113,7 +108,7 @@ public class ResurectionUI : MonoBehaviour
         {
             resurectionUI.gameObject.SetActive(false);
             gameManager.instance.SetPause(false);
-            Stats.Instance.isDead = false;  
+            Ship.Current.isDead = false;  
         }).StartingIn(400);
     }
 }

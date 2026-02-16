@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,7 +24,6 @@ public class gameManager : MonoBehaviour
     public int meteorToKill = 10;
     public int meteorKilled = 0;
 
-    public float meteorScale = 1f;
     private Vector3 initialScale;
 
     private BigNumber enemyLife = new BigNumber(1, 0);
@@ -61,6 +59,7 @@ public class gameManager : MonoBehaviour
     {
 
         Application.targetFrameRate = 60;
+        InitGame();
         LoadStage();
     }
 
@@ -73,6 +72,23 @@ public class gameManager : MonoBehaviour
             meteorToKill++;
         }
         MainUi.Instance.upStage();
+    }
+
+    public void InitGame()
+    {
+        SetWorldScale();
+        List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
+
+        foreach(UpgradesShipElement.UpgradeType type in System.Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
+            upgradesShip.Add(new UpgradesShipElement(type.ToString(), type));
+        Utility.AddMachineToData(upgradesShip, Stats.Instance.upgradesShip);
+    }
+
+    public void SetWorldScale()
+    {
+        setMeteorScale();
+        spaceShip.instance.setAreaScale();
+        spaceShip.instance.setScale();
     }
 
     private void OnApplicationQuit()
@@ -94,10 +110,13 @@ public class gameManager : MonoBehaviour
         autoSaveTimer += Time.deltaTime;
         Data.Instance.time += Time.deltaTime;
 
-        if(!bossStage && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
+        if(timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
-            spawnSpaceObject();
-            timer = 0f;
+            CheckStageBoss();
+            if(!bossStage){
+                spawnSpaceObject();
+                timer = 0f;
+            }
         }
         updateStage();
         if(autoSaveTimer > 10f)
@@ -120,10 +139,10 @@ public class gameManager : MonoBehaviour
     {
         //end stage
 
-        Stats.Instance.stage++;
+        Ship.Current.stage++;
         if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
         {
-            Stats.Instance.stage++;
+            Ship.Current.stage++;
             getStageReward(1.70f, 0.75f);
             MainUi.Instance.ShowStageSkip();
         }
@@ -134,7 +153,7 @@ public class gameManager : MonoBehaviour
 
         if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
         {
-            if (new BigNumber(Stats.Instance.stage).isBigger(QuestManager.Instance.objectif))
+            if (new BigNumber(Ship.Current.stage).isBigger(QuestManager.Instance.objectif))
             {
                 QuestStats.Instance.timeCompleted = Data.Instance.time;
             }
@@ -156,17 +175,17 @@ public class gameManager : MonoBehaviour
     }
 
     public void CheckStageBoss() {
-        if (Stats.Instance.stage % 10 == 0)
+        if (!bossStage && Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
         {
-            Debug.Log("BOOSSSSS TIME");
             bossStage = true;
             SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
             if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
+            MainUi.Instance.ShowBossLife(true);
             meteorToKill = 1;
         }
-        else
+        else if(Ship.Current.stage % Stats.BOSS_STAGE_GAP != 0)
         {
-            bossStage = false;
+            MainUi.Instance.ShowBossLife(false);
         }
     }
 
@@ -177,24 +196,24 @@ public class gameManager : MonoBehaviour
         MarkerType type;
         if (Random.Range(0, 2) == 1)
         {//BN_xp
-            reward = Stats.Instance.stage * 1.25f * 5;
+            reward = Ship.Current.stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
-            Stats.Instance.AddXP(new BigNumber(reward));
+            Ship.Current.AddXP(new BigNumber(reward));
             type = MarkerType.Xp;
         }
         else 
         {
             if(XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && Random.Range(0, 2) == 1)
             {//uranium 
-                reward = (int)(Stats.Instance.stage * 0.5f);
+                reward = (int)(Ship.Current.stage * 0.5f);
                 type = MarkerType.Uranium;
                 Stats.Instance.AddUranium(new BigNumber(reward));
 
             }
             else
             {//iron
-                reward  = (int)(Stats.Instance.stage * 2.5f);
+                reward  = (int)(Ship.Current.stage * 2.5f);
                 type = MarkerType.Iron;
                 Stats.Instance.AddIron(new BigNumber(reward));
             }
@@ -205,7 +224,7 @@ public class gameManager : MonoBehaviour
     public void SmallVibrate()
     {
         /*
-            Called : meteor destroy, upLevel machie/upgrade, collect collectible
+            Called : meteor destroy, upLevel machine/upgrade, on collectible collected
          */
 
         if (!Settings.Instance.isVibrate) return;
@@ -225,7 +244,7 @@ public class gameManager : MonoBehaviour
         int BigProb;
         int ScatterProb;
 
-        int stage = Stats.Instance.stage;
+        int stage = Ship.Current.stage;
 
         BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 25%
 
@@ -265,11 +284,9 @@ public class gameManager : MonoBehaviour
         isPaused = isPause;
         if (isPause && Settings.Instance.isPausable)
         { 
-            spaceObject[] enemies = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-            foreach (spaceObject obj in enemies)
+            foreach (spaceObject m in meteors)
             {
-                obj.Pause();
-
+                m.Pause();
             }
             canon.instance.setPause(true);
             timerSave = timer;
@@ -286,12 +303,11 @@ public class gameManager : MonoBehaviour
                 timer = 0f;
             }
 
-                spaceObject[] enemies = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-            foreach (spaceObject obj in enemies)
+            foreach (spaceObject meteor in meteors)
             {
-                if (obj.isPause)
+                if (meteor.isPause)
                 {
-                    obj.Move();
+                    meteor.Move();
                 }
 
 
@@ -304,13 +320,9 @@ public class gameManager : MonoBehaviour
 
     public void DestroyMeteors()
     {
-        Debug.Log("destroy meteors");
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
         foreach (spaceObject obj in meteors)
         {
-
             Destroy(obj.gameObject);
-
         }
     }
     public void RestartStage()
@@ -318,11 +330,12 @@ public class gameManager : MonoBehaviour
         DestroyMeteors();
 
         meteorKilled = 0;
-        Stats.Instance.life = new BigNumber(spaceShip.instance.getMaxLife());
-        Stats.Instance.shield = new BigNumber(spaceShip.instance.getMaxShield());
+        Ship.Current.life = new BigNumber(spaceShip.instance.getMaxLife());
+        Ship.Current.shield = new BigNumber(spaceShip.instance.getMaxShield());
 
         MainUi.Instance.enemyLabel.text = meteorToKill.ToString();
         MainUi.Instance.healthBar.style.width = Length.Percent(100);
+        MainUi.Instance.updateStage();
     }
     public void launchMiniMeteor(Transform trans)
     {
@@ -352,12 +365,10 @@ public class gameManager : MonoBehaviour
 
     public void setMeteorScale()
     {
-        meteorScale = Stats.Instance.scale;
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        foreach(spaceObject obj in meteors)
+        foreach(spaceObject meteor in meteors)
         {
-            obj.transform.localScale = obj.baseScale;
-            obj.transform.localScale *= Stats.Instance.scale;
+            meteor.transform.localScale = meteor.baseScale;
+            meteor.transform.localScale *= Stats.Instance.scale;
         }
     }
 }

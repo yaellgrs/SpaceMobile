@@ -71,7 +71,7 @@ public class OfflineUI : MonoBehaviour
 
         timeLabel.text = Utility.TimeToString_dhms(time);
 
-        if(Stats.Instance.level < 12)
+        if(Ship.Current.level < 12)
         {
             timeLabel.text = "";
             Lbl_message.text = "You first need to have the automation for this.";
@@ -115,16 +115,14 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (MachineIron m in Stats.Instance.machinesIron)
+        foreach (machineIronElement m in Ship.Current.machineIron)
         {
-            if (m.isActive)
+            if (m.isBuyed)
             {
-                if(m.automatic || !offline)
+                if(m.isAutomatic || !offline) //!offline = booster acheté
                 {
-                    BigNumber earn = new BigNumber(m.BN_earn);
-                    earn.Multiply(time);
-                    earn.Divide(m.timeMaxReal);
-
+                    BigNumber earn = m.CalculReward();
+                    earn *= time * m.production_cps;
                     totaEarn.Add(earn);
                 }
             }
@@ -142,16 +140,14 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (machineUranium m in Stats.Instance.machinesUranium)
+        foreach (machineUraniumElement m in Ship.Current.machinesUranium)
         {
-            if (m.isActive)
+            if (m.isBuyed)
             {
-                if (m.automatic || !offline)
+                if (m.isAutomatic || !offline) //!offline = booster acheté
                 {
-                    BigNumber earn = new BigNumber(m.BN_earn.Mantisse, m.BN_earn.Exp);
-                    earn.Multiply(time);
-                    earn.Divide(m.timeMaxReal);
-
+                    BigNumber earn = m.CalculReward();
+                    earn *= time * m.production_cps;
                     totaEarn.Add(earn);
                 }
             }

@@ -1,0 +1,439 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
+using UnityEngine;
+using UnityEngine.Purchasing;
+using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
+
+public enum borderColor { white, bronze, iron, gold, diamand, black };
+
+[UxmlElement]
+public partial class machineElement : Button
+{
+    //attributs
+    #region ------ UI Elements ------
+    //progress Barre
+
+    //Button
+    [JsonIgnore] public Button Btn_up;
+    [JsonIgnore] public VisualElement VE_lockedLevelCover;
+    [JsonIgnore] public VisualElement VE_upCostLogo;
+    [JsonIgnore] public Label Lbl_upName;
+    [JsonIgnore] public Label Lbl_upCost;
+    [JsonIgnore] public Label Lbl_lockedLevel;
+
+    //buy
+    [JsonIgnore] private Label Lbl_buyPrice;
+    [JsonIgnore] private VisualElement VE_buyLogo;
+    [JsonIgnore] private VisualElement VE_buyCover;
+
+    //other
+    [JsonIgnore] public Label Lbl_level;
+    [JsonIgnore] public Label Lbl_name;
+    [JsonIgnore] public Label Lbl_production_cps;
+    [JsonIgnore] public VisualElement VE_logo;
+
+    #endregion
+
+    #region ------ variables ------
+
+    //variables
+    private int levelMax = 5;
+    private int levelLimite = 1;
+    private int realLevel = 1;
+    private int level = 1;
+
+    private float time = 0f;
+
+    BigNumber BN_price = new BigNumber(15000);
+
+    public bool isBuyed = false;
+    public bool isAutomatic = false;
+    protected int multiplicator;
+
+    public string machineName = "";
+
+    borderColor color = borderColor.white;
+
+    public int production_cps = 0;
+
+    #endregion
+
+    //methods
+    #region ------ constructors ------
+
+    public machineElement()
+    {
+        Init();
+    }
+
+    public machineElement(string machineName, BigNumber initPrice, float time)
+    {
+        if(initPrice < new BigNumber(100))
+            isBuyed = true;
+
+        this.BN_price = initPrice;
+        this.machineName = machineName;
+        Init();
+    }
+
+    #endregion
+
+    #region -------- INIT -------
+
+    protected virtual void Init()
+    {
+        AddToClassList("machineCadre");//machineCadre
+        AddToClassList("forgeButton");//machineCadrefdf
+
+        Lbl_level = new Label();
+        Lbl_name = new Label();
+        Lbl_production_cps = new Label();
+        VE_logo = new VisualElement();
+
+        Lbl_level.text = "1/5";
+        Lbl_name.text = "Anvil";
+        Lbl_production_cps.text = "x2";
+
+        Lbl_production_cps.name = "production_cps";
+        Lbl_name.name = "name";
+        Lbl_level.name = "level";
+
+
+        VE_logo.AddToClassList("machineLogo");
+        Lbl_name.AddToClassList("machineName");
+        Lbl_production_cps.AddToClassList("production_cps");
+        Lbl_level.AddToClassList("machineLevel");
+
+        VE_logo.Add(Lbl_level);
+        Add(Lbl_name);
+        Add(VE_logo);
+        Add(Lbl_production_cps);
+
+        InitUpButton();
+        InitBuyCover();
+
+        SetLogos();
+    }
+
+
+
+    private void InitUpButton()
+    {
+        Btn_up = new Button();
+        VE_lockedLevelCover = new VisualElement();
+        VE_upCostLogo = new VisualElement();
+        Lbl_upName = new Label();
+        Lbl_upCost = new Label();
+        Lbl_lockedLevel = new Label();
+
+        Btn_up.AddToClassList("machineUpButton");
+        Btn_up.AddToClassList("button");
+
+        VE_lockedLevelCover.AddToClassList("machineLockedCover");
+        VE_upCostLogo.AddToClassList("machineUpCostLogo");
+
+        Lbl_upName.text = "UPGRADE";
+        Lbl_upCost.text = "10";
+        Lbl_lockedLevel.text = "1";
+        Lbl_upName.AddToClassList("machineUpName");
+        Lbl_upCost.AddToClassList("machineUpCost");
+        Lbl_lockedLevel.AddToClassList("machineLockedLevel");
+
+        Add(Btn_up);
+        Btn_up.Add(Lbl_upName);
+        Btn_up.Add(Lbl_upCost);
+        Btn_up.Add(VE_lockedLevelCover);
+
+        Lbl_upCost.Add(VE_upCostLogo);
+        VE_lockedLevelCover.Add(Lbl_lockedLevel);
+    }
+
+    private void InitBuyCover()
+    {
+        VE_buyCover = new VisualElement();
+        VE_buyLogo = new VisualElement();
+        Lbl_buyPrice = new Label();
+
+        VE_buyCover.AddToClassList("machineBuyCover");
+        VE_buyLogo.AddToClassList("machineBuyCoverLogo");
+        Lbl_buyPrice.AddToClassList("machineBuyCoverPrice");
+
+        Lbl_buyPrice.text = "15k";
+
+        Add(VE_buyCover);
+        VE_buyCover.Add(Lbl_buyPrice);
+        Lbl_buyPrice.Add(VE_buyLogo);
+    }
+
+    public void SetLogos()
+    {
+        Texture2D logoTexture = Resources.Load<Texture2D>("logos/" + getLogoPath());
+        StyleBackground background = new StyleBackground(logoTexture);
+        VE_upCostLogo.style.backgroundImage = background;
+        VE_buyLogo.style.backgroundImage = background;
+
+        Lbl_upCost.AddToClassList(getLogoPath() + "Color");
+
+
+        SetLogo();
+    }
+    #endregion
+
+    #region ------ mainworkflow -------
+    public virtual void LoadMachine()// a revoir
+    {
+        Lbl_level.text = (level == levelMax) ? "UP" : Lbl_level.text = level + "/" + levelMax;
+        Lbl_upCost.text = CalculLevelUpCost().ToString();
+
+
+        VE_buyCover.style.display = isBuyed ? DisplayStyle.None : DisplayStyle.Flex;
+
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
+
+        Lbl_buyPrice.text = BN_price.ToString();
+        Lbl_name.text = machineName;
+
+        SetBorderColor();
+        upMachineCostText();
+
+        clicked -= StartProduction;
+        clicked += StartProduction;
+        Btn_up.clicked -= LevelUp;
+        Btn_up.clicked += LevelUp;
+
+        SetLevelUpButton();
+    }
+
+    protected virtual void StartProduction() // == machine1Clicked
+    {
+        if (!isBuyed && canBuy(BN_price)) //buy machine
+        {
+            HandleMoney(-BN_price);
+            VE_buyCover.style.display = DisplayStyle.None;
+            isBuyed = true;
+            if (QuestManager.Instance.type == QuestType.UnlockMachine)
+            {
+                QuestManager.Instance.upQuest();
+            }
+            reloadUI();
+        }
+        else
+        {
+            HandleMoney(CalculReward());
+            if (this is machineIronElement && !Stats.Instance.ironTuto)
+                Tuto.Instance.AddMachineClicked();
+        }
+    }
+
+    protected virtual void LevelUp()
+    {
+        if (!(canBuy(CalculLevelUpCost()) && color != borderColor.black)) return;
+
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator,( levelLimite - level) + 1 );
+        HandleMoney(-CalculLevelUpCost());
+        level += multiplicator;
+        realLevel += multiplicator;
+        upMachineCostText();
+
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
+
+        if (level > levelMax)
+        {
+            color++;
+            SetBorderColor();
+            if (color != borderColor.black)
+            {
+                level = 1;
+                Lbl_level.text = "1/" + levelMax;
+            }
+            else
+            {
+                Lbl_level.text = "MAX";
+                Lbl_upCost.style.display = DisplayStyle.None;
+            }
+        }
+        else
+        {
+            Lbl_level.text = level + "/" + levelMax;
+            Lbl_upCost.text = CalculLevelUpCost().ToString();
+        }
+
+        if (QuestManager.Instance.type == QuestType.UpgradeMachine)
+            QuestManager.Instance.upQuest();
+
+
+
+        gameManager.instance.SmallVibrate();
+
+        if (this is machineIronElement && !Stats.Instance.ironTuto)
+        {
+            Tuto.Instance.ironCloseTuto(true);
+        }
+    }
+
+    
+    public virtual void Update()
+    {
+        if (!isBuyed) return;
+
+        if (production_cps > 0) {
+            time += Time.deltaTime;
+            if (time >= (1.0f / (float)production_cps)){
+                HandleMoney(CalculReward());
+                time = 0f;
+            }
+        }
+    }
+
+    #endregion
+
+    #region ------ calculs methods ------ 
+
+    protected BigNumber CalculLevelUpCost()
+    {
+        float n = realLevel;
+        BigNumber calculedNumber = new BigNumber(0);
+
+        if (multiplicator == 0)//changement de grade ( ex : fer -> or )
+        {
+            calculedNumber.Set(BN_price);
+            calculedNumber *= 2.5f * Mathf.Pow(n, 1.7f);
+            calculedNumber *= Stats.Instance.upgradesPriceReducer;
+        }
+        else
+        {
+            BigNumber temp = new BigNumber(0);
+            for (int i = 0; i < multiplicator; i++)
+            {
+                temp.Set(BN_price);
+                temp.Multiply(Mathf.Pow(n + i, 1.7f));
+                temp.Multiply(Stats.Instance.upgradesPriceReducer);
+                calculedNumber.Add(temp);
+            }
+        }
+
+        calculedNumber.Normalize();
+        return calculedNumber;
+    }
+
+    public BigNumber CalculReward()
+    {
+        BigNumber reward = new BigNumber(1);
+        reward.Multiply(Mathf.Pow(1.20f, realLevel)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Add(realLevel - 1);
+        return reward;
+    }
+
+    #endregion
+
+    #region ------ set methods ------
+
+    protected virtual void SetLevelUpButton()
+    {
+        Btn_up.enabledSelf = canBuy(CalculLevelUpCost());
+    }
+
+    public void upMachineCostText()
+    {
+        int limit = Ship.Current.level + 1;
+        Lbl_lockedLevel.text = (limit).ToString();
+        VE_lockedLevelCover.style.visibility = (level < limit) ? Visibility.Hidden : Visibility.Visible;
+
+        Lbl_upCost.text = CalculLevelUpCost().ToString();
+    }
+    #endregion
+
+    #region ------ adaptativeStyle ------
+    protected void SetBorderColor()
+    {
+        StyleSheet blackBorderStyle = Resources.Load<StyleSheet>("styles/machineBlackBorderStyle");
+        StyleSheet styleSheet = Resources.Load<StyleSheet>("styles/machineStyle");
+
+        if (color == borderColor.black)
+        {
+            styleSheets.Add(blackBorderStyle);
+            styleSheets.Remove(styleSheet);
+
+
+            string pathCadre = "machines/" + color.ToString() + "/cadre";
+            string pathButton = "machines/" + color.ToString() + "/button";
+
+            Texture2D textureCadre = Resources.Load<Texture2D>(pathCadre);
+            Texture2D textureButton = Resources.Load<Texture2D>(pathButton);
+
+            if (textureCadre != null)
+            {
+                style.backgroundImage = textureCadre;
+                Btn_up.style.backgroundImage = textureButton;
+            }
+        }
+        else
+        {
+            styleSheets.Remove(blackBorderStyle);
+            styleSheets.Add(styleSheet);
+        }
+
+        Color[] colors = { Color.white, Color.orange, Color.silver, Color.gold, Color.darkBlue, Color.white };
+        style.unityBackgroundImageTintColor = colors[(int)color];
+        Btn_up.style.unityBackgroundImageTintColor = colors[(int)color];
+
+        int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
+        int[] cps = { 0, 1, 2, 4, 6, 10 };
+        production_cps = cps[(int)color];
+        levelMax = levelMaxs[(int)color];
+
+        Lbl_production_cps.text = "x" + production_cps;
+        Lbl_production_cps.style.visibility = production_cps == 0 ? Visibility.Hidden : Visibility.Visible;
+
+        levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
+    }
+
+    #endregion
+
+    #region ------ virtual methods ------
+
+    protected virtual void HandleMoney(BigNumber amount)
+    {
+
+    }
+    protected virtual bool canBuy(BigNumber price)
+    {
+        return false;
+    }
+
+    protected virtual void reloadUI()
+    {
+
+    }
+
+    protected virtual string getLogoPath()
+    {
+        return "";
+    }
+
+    protected virtual void SetLogo()
+    {
+
+    }
+
+    #endregion
+
+    #region ------ comparateurs ------
+    public override bool Equals(object obj)
+    {
+        if (obj is machineElement other)
+            return machineName == other.machineName;
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return machineName.GetHashCode();
+    }
+#endregion
+}

@@ -81,7 +81,7 @@ public class QuestManager
     {
         QuestStats.Instance.questLevel++;
         Stats.Instance.AddDiamand(reward);
-        Stats.Instance.AddXP(CalculXpReward());
+        Ship.Current.AddXP(CalculXpReward());
 
         MainUi.Instance.questUI.refreshQuestUI();
         QuestStats.Instance.progress = new BigNumber(0);

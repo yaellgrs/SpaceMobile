@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -49,6 +50,16 @@ public static class Utility
         Color color = label.resolvedStyle.color;
         color.a = alpha;
         label.style.color = color;
+    }
+
+
+    public static void AddMachineToData<T>(List<T> init, List<T> data)
+    {
+        foreach (T m in init)
+        {
+            if (!data.Contains(m))
+                data.Add(m);
+        }
     }
 
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -31,27 +32,21 @@ public class BaseUI : MonoBehaviour
 
     public bool stopAnim = false;
 
-    //machine 1
-    /* Faire une class pour chaque machine ? */
-    Machine machine1;
-    Machine machine2;
-    Machine machine3;
-
-    Upgrades upgrade1;
-    Upgrades upgrade2;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
-        initializeMachine();
+        //initializeMachine();
         initializeUpgrade();
 
     }
 
-    public virtual void initializeMachine()
+    public virtual void InitMachines()
+    {
+    }
+
+    public virtual void InitUpgrades()
     {
 
     }
@@ -171,6 +166,8 @@ public class BaseUI : MonoBehaviour
     {
         forgeUI.gameObject.SetActive(true);
 
+        InitMachines();
+
         var root = forgeUI.rootVisualElement;
         scrollView = root.Query<ScrollView>("scrollView");
         backButton = root.Q<Button>("back");
@@ -207,6 +204,8 @@ public class BaseUI : MonoBehaviour
     public virtual void loadUpdateUI()
     {
         upgradeUI.gameObject.SetActive(true);
+
+        InitUpgrades();
 
         var root = upgradeUI.rootVisualElement;
         scrollView = root.Query<ScrollView>("scrollView");

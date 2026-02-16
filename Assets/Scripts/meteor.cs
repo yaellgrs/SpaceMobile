@@ -47,10 +47,10 @@ public class spaceObject : MonoBehaviour
             Spawn();
         }
 
-        int x = Stats.Instance.stage - 1;
+        int x = Ship.Current.stage - 1;
         float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
         lifeMax = new BigNumber((int)hp);
-        //lifeMax = new BigNumber( 2 + (Mathf.Pow(1.2f, Stats.Instance.stage)));
+        //lifeMax = new BigNumber( 2 + (Mathf.Pow(1.2f, Ship.Current.stage)));
 
 
         if(type == meteorType.Big)
@@ -83,7 +83,6 @@ public class spaceObject : MonoBehaviour
         else if(type == meteorType.Boss)
         {
            lifeMax *= 15;
-            Debug.Log("meteor boss");
         }
 
         List<(int stage, float mult)> paliers = new()
@@ -96,16 +95,21 @@ public class spaceObject : MonoBehaviour
 
         foreach(var palier in paliers)
         {
-            if(Stats.Instance.stage >= palier.stage)
+            if(Ship.Current.stage >= palier.stage)
             {
                 lifeMax *= palier.mult;
             }
         }
 
-        life = new BigNumber(lifeMax.Mantisse, lifeMax.Exp);
-        transform.localScale *= gameManager.instance.meteorScale;
+        life = new BigNumber(lifeMax);
+        if (type == meteorType.Boss && Stats.Instance.ReduceLifeBoss) {
+            life *= 0.6f;
+            Stats.Instance.ReduceLifeBoss = false;  
+        }
+
+        transform.localScale *= Stats.Instance.scale;
         lifeText.text = life.ToString();
-        if (Stats.Instance.prestigeUnlocked && Stats.Instance.stage >= 10)
+        if (Stats.Instance.prestigeUnlocked && Ship.Current.stage >= 10)
         {
             if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10 || true)
             {
@@ -151,7 +155,7 @@ public class spaceObject : MonoBehaviour
         }
         else if (type == meteorType.Boss)
         {
-            spaceObjectSpeed *= 0.5f;
+            spaceObjectSpeed *= 0.75f;
         }
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator;
         if(type != meteorType.Boss)
@@ -169,13 +173,12 @@ public class spaceObject : MonoBehaviour
 
     public void MoveBoss()
     {
-        //if (isPause) return;
+        if (isPause) return;
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
-        Vector3 dir = ( shipDir + perp * 5f).normalized;
-        transform.position += dir * spaceObjectSpeed * Time.deltaTime;
-
+        Vector3 dir = ( shipDir + perp * 5f ).normalized;
+        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
@@ -183,16 +186,15 @@ public class spaceObject : MonoBehaviour
 
     public void Move()
     {
-        if(type == meteorType.Boss) return;
         isPause = gameManager.instance.isPaused;
-        if (isPause) return;
+        if (type == meteorType.Boss || isPause) return;
         if (isStart)
         {
             direction = spaceShip.instance.transform.position - transform.position;
             isStart = false;
         }
         float angle = Mathf.Atan2(direction.y, direction.x);
-        GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * spaceObjectSpeed;
+        GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * spaceObjectSpeed * Stats.Instance.scale;
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle-180);
         GetComponentInChildren<Canvas>().transform.rotation = Quaternion.Euler(0, 0,0);
@@ -231,7 +233,7 @@ public class spaceObject : MonoBehaviour
         if(type == meteorType.Boss)
         {
             x = bottomLeft.x - 0.5f;
-            y = topRight.y * 0.75f;
+            y = topRight.y * 0.55f;
         }
 
         transform.position = new Vector3(x, y, 0);
@@ -285,7 +287,7 @@ public class spaceObject : MonoBehaviour
         {
             if (Settings.Instance.displayXpMarker)
             {
-                Stats.Instance.AddXP(calculXp());
+                Ship.Current.AddXP(calculXp());
                 PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
             Data.Instance.basicMeteorKilled += 1;
@@ -294,8 +296,8 @@ public class spaceObject : MonoBehaviour
         if (isOmega)
         {
             
-            Stats.Instance.AddPrestigeWainting(new BigNumber(Stats.Instance.stage) * 0.5f);
-            PoolManager.Instance.LaunchPrefab(transform.position, Stats.Instance.stage.ToString(), MarkerType.Prestige);
+            Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);
+            PoolManager.Instance.LaunchPrefab(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
             Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)
@@ -323,12 +325,11 @@ public class spaceObject : MonoBehaviour
 
         if(collision.gameObject.layer == LayerMask.NameToLayer("spaceShip"))
         {
-            if(type != meteorType.Diamand && !(Stats.Instance.life.EqualZero()))
+            if(type != meteorType.Diamand && !(Ship.Current.life.EqualZero()))
             {
                 spaceShip.instance.getDamage(lifeMax);
-                gameManager.instance.meteorKilled++;
                 MainUi.Instance.upMeteorUI();
-                if (Stats.Instance.life.EqualZero())
+                if (Ship.Current.life.EqualZero())
                 {
                     Song.Instance.lauchTransitionMusic(Song.Instance.main_music, Song.Instance.dead_music);
                 }
@@ -350,10 +351,10 @@ public class spaceObject : MonoBehaviour
 
     public BigNumber calculXp()
     {
-        BigNumber result = new BigNumber(Stats.Instance.stage * 1.25f);
+        BigNumber result = new BigNumber(Ship.Current.stage * 1.25f);
         //xpToLevelUp = 50 * 1.15^level
         //XpByMeteorDestroyed = 0.5 * stage * 1.1^stage
-        //  Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
+        //  Ship.Current.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
         switch (type)
         {
             case meteorType.Big:
@@ -372,5 +373,7 @@ public class spaceObject : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
+
+        if(type == meteorType.Boss) gameManager.instance.bossStage = false;
     }
 }

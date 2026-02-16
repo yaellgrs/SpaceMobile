@@ -76,7 +76,6 @@ public class MainUi : MonoBehaviour
     Label Lbl_bossLife;
     VisualElement VE_bossLife;
     VisualElement VE_bossLifeLerp;
-    BigNumber bossLifeMax;
     float currentBossPercent;
     float LerpBossPercent;
 
@@ -172,8 +171,8 @@ public class MainUi : MonoBehaviour
 
         if (Stats.Instance.lastConnection == 0)
         {
-            Stats.Instance.life = new BigNumber(Stats.Instance.lifeMax);
-            Stats.Instance.shield = new BigNumber(Stats.Instance.shieldMax);
+            Ship.Current.life = new BigNumber(Ship.Current.lifeMax.getTotal());
+            Ship.Current.shield = new BigNumber(Ship.Current.lifeMax.getTotal());
         }
 
         UpSpeed.Instance.load(speedButton);
@@ -182,7 +181,9 @@ public class MainUi : MonoBehaviour
         loadRocketButton();
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
-        shieldRegenLabel.text = "+ " + Stats.Instance.regenShield;
+        shieldRegenLabel.text = "+ " + Ship.Current.regenShield;
+
+        Stats.Instance.OnIronChanged += upIronUI;
     }
 
     public void adaptBanner(bool adapt)
@@ -201,10 +202,7 @@ public class MainUi : MonoBehaviour
     public void ShowBossLife(bool show)
     {
         if (show)
-        {
-            bossLifeMax = new BigNumber(gameManager.instance.meteors[0].life);
             currentBossPercent = LerpBossPercent = 100f;
-        }
 
         mainUI.rootVisualElement.Q<VisualElement>("boss").style.visibility = show ? Visibility.Visible : Visibility.Hidden;
     }
@@ -259,10 +257,11 @@ public class MainUi : MonoBehaviour
 
         if (gameManager.instance.bossStage)
         {
+            Debug.Log("bossstage");
             if (gameManager.instance.meteors.Count > 0)
             {
-                Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + bossLifeMax.ToString();
-                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(bossLifeMax);
+                Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + gameManager.instance.meteors[0].lifeMax.ToString();
+                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
                 currentBossPercent = Mathf.Lerp(currentBossPercent, targetPercent, Time.deltaTime * 30f);
                 LerpBossPercent = Mathf.Lerp(LerpBossPercent, targetPercent, Time.deltaTime * 2.5f);
 
@@ -325,17 +324,17 @@ public class MainUi : MonoBehaviour
 
     public void upLevelUI()
     {
-        if (Stats.Instance.level > 100) Stats.Instance.level = 100;
-        if (Stats.Instance.level == 100)
+        if (Ship.Current.level > 100) Ship.Current.level = 100;
+        if (Ship.Current.level == 100)
         {
             xpBar.style.width = Length.Percent(100f);
             xpLabel.text = "100";
             return;
         }
-        xpLabel.text = Stats.Instance.level.ToString();
+        xpLabel.text = Ship.Current.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         xpBar.style.height = Length.Percent(100f);
-        float targetPercent = Stats.Instance.BN_xp.GetPercentByDivided(Stats.Instance.BN_xpMax);
+        float targetPercent = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
 
         if (currentPercent < targetPercent - 0.25f)
         {
@@ -367,14 +366,14 @@ public class MainUi : MonoBehaviour
 
     private void rocketClicked()
     {
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        if (rocketTimer <= 0 && meteors.Length > 0)
+        float lenght = gameManager.instance.meteors.Count;
+        if (rocketTimer <= 0 && lenght > 0)
         {
             rocketTimer = Stats.Instance.rocketTimerMax;
             rocketCover.style.height = Length.Percent(100);
             canon.instance.rocketShoot();
         }
-        else if (meteors.Length <= 0)
+        else if (lenght <= 0)
         {
             meteorWarningTimer = 0f;
             Lbl_meteorWarning.style.visibility = Visibility.Visible;
@@ -446,7 +445,7 @@ public class MainUi : MonoBehaviour
     {
         if (ironLabel != null)
         {
-            string txt = Stats.Instance.iron.ToString();
+            string txt = Ship.Current.iron.ToString();
             ironLabel.text = txt;
             ironLabel.style.fontSize = 50 - (2 * txt.Length);
         }
@@ -456,7 +455,7 @@ public class MainUi : MonoBehaviour
     {
         if (uraniumLabel != null)
         {
-            string txt = Stats.Instance.uranium.ToString();
+            string txt = Ship.Current.uranium.ToString();
             uraniumLabel.text = txt;
             uraniumLabel.style.fontSize = 50 - (2 * txt.Length);
         }
@@ -474,13 +473,13 @@ public class MainUi : MonoBehaviour
     {
         if (healthBar != null)
         {
-            string lifeText = Stats.Instance.life + "/" + spaceShip.instance.getMaxLife();
+            string lifeText = Ship.Current.life + "/" + spaceShip.instance.getMaxLife();
             lifeLabel.text = lifeText;
             lifeLabel.style.width = Length.Percent(40 + 20 * (lifeText.Length - 9.5f));
 
 
             float currentPercent = healthBar.style.width.value.value;
-            float targetPercent = Stats.Instance.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
+            float targetPercent = Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -504,12 +503,12 @@ public class MainUi : MonoBehaviour
     {
         if (shieldBar != null)
         {
-            string shieldText = Stats.Instance.shield + "/" + spaceShip.instance.getMaxShield();
+            string shieldText = Ship.Current.shield + "/" + spaceShip.instance.getMaxShield();
             shieldLabel.text = shieldText;
             shieldLabel.style.width = Length.Percent(20 + 5 * (shieldText.Length - 5));
 
             float currentPercent = shieldBar.style.width.value.value;
-            float targetPercent = Stats.Instance.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
+            float targetPercent = Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -587,18 +586,15 @@ public class MainUi : MonoBehaviour
         updateStage();
 
         stageClearTimer = 0f;
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        foreach (spaceObject obj in meteors)
-        {
+        foreach (spaceObject obj in gameManager.instance.meteors)
             Destroy(obj.gameObject);
-        }
     }
 
     public void updateStage()
     {
         if (stageLabel == null)
             stageLabel = mainUI.rootVisualElement.Q<Label>("stage");
-        stageLabel.text = "Stage : " + Stats.Instance.stage;
+        if(Ship.Current != null) stageLabel.text = "Stage : " + Ship.Current.stage;
     }
 
     public void ShowStageSkip()
