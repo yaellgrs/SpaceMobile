@@ -24,7 +24,7 @@ public class Stats
             if (Instance.spaceShips.Count == 0)
             {
                 Instance.spaceShips.Add(new SpaceShipDico{
-                    type = SpaceShipType.Basic,
+                    type = SpaceShipType.Main,
                     data = new SpaceShipData()
                 });
             }
@@ -41,7 +41,7 @@ public class Stats
     public event Action OnShipMoneyChanged;
 
     //ships
-    public SpaceShipType currentSpaceShipType = SpaceShipType.Basic;
+    public SpaceShipType currentSpaceShipType = SpaceShipType.Main;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
     public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
 
@@ -206,7 +206,7 @@ public class Stats
         {
             Instance.spaceShips.Add(new SpaceShipDico
             {
-                type = SpaceShipType.Basic,
+                type = SpaceShipType.Main,
                 data = new SpaceShipData()
             });
         }

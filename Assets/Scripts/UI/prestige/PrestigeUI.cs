@@ -527,10 +527,12 @@ public class PrestigeUI : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesElement upgrade in Stats.Instance.upgradesShip)
+        foreach (UpgradesShipElement upgrade in Stats.Instance.upgradesShip)
         {
+            if(upgrade.isUnlocked()){
             scroll.Add(upgrade);
-            upgrade.Load();
+                upgrade.Load();
+            }
         }
         //scroll.Add(buyButtonUI);
 
@@ -564,9 +566,20 @@ public class PrestigeUI : BaseUI
 
 
         Button Btn_back = root.Q<Button>("back");
+        Button Btn_buy = root.Q<Button>("buy");
 
-        Btn_back.clicked -= () => { backClicked(upgradeShip); };
-        Btn_back.clicked += () => { backClicked(upgradeShip); };
+        Btn_back.clicked -= () => { backClicked(upgradeShip); loadUpdateUI(); };
+        Btn_back.clicked += () => { backClicked(upgradeShip); loadUpdateUI(); };
+
+        Btn_buy.clicked -= BuyNextShip;
+        Btn_buy.clicked += BuyNextShip;
+    }
+
+    private void BuyNextShip()
+    {
+        Ship.Current.type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + 1 ,0,  System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
+        loadUpdateUI();
+        backClicked(upgradeShip);
     }
 
 }

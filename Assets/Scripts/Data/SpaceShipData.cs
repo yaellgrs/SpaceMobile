@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UIElements;
-public enum SpaceShipType { Basic, Fire, Ice };
+public enum SpaceShipType { Main };
 
 [Serializable]
 public class SpaceShipDico //pour pouvoir serialiser le dictionnaire
@@ -16,6 +16,9 @@ public class SpaceShipDico //pour pouvoir serialiser le dictionnaire
 [System.Serializable]
 public class SpaceShipData
 {
+    public enum SpaceShipElement { Wood, Iron, Magnetic, Fire, Poison };
+    public SpaceShipElement type;
+
     public int level = 1;
     public int stage = 1;
     public bool isDead = false; 

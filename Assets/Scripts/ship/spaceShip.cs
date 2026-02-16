@@ -42,7 +42,7 @@ public class spaceShip : MonoBehaviour
 
     public void LoadAnimation()
     {
-        animator.SetBool("isFire", Stats.Instance.currentSpaceShipType == SpaceShipType.Fire);
+        //animator.SetBool("isFire", Stats.Instance.currentSpaceShipType == SpaceShipType.Fire);
     }
 
     // Update is called once per frame

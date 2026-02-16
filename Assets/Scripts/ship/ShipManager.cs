@@ -18,10 +18,7 @@ public class ShipManager : MonoBehaviour
     public void LoadShips()
     {
         Dictionary<SpaceShipType, SpaceShipData> ships = new Dictionary<SpaceShipType, SpaceShipData>();
-        ships[SpaceShipType.Basic] = new SpaceShipData();
-/*        ships[SpaceShipType.Fire] = new SpaceShipData();
-        ships[SpaceShipType.Ice] = new SpaceShipData();*/
-
+        ships[SpaceShipType.Main] = new SpaceShipData();
         if (Stats.Instance == null) return;
         foreach (var (key, value) in ships)
         {
@@ -34,7 +31,7 @@ public class ShipManager : MonoBehaviour
                 });
             }
         }
-        SwitchShip(SpaceShipType.Basic);
+        SwitchShip(SpaceShipType.Main);
     }
 
     public void SwitchShip(SpaceShipType type)

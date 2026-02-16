@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class UpgradesShipElement : UpgradesElement
 {
     #region ----- variables -----
-    public enum UpgradeType { AdditionalLevel, DpsBooster, truc };
+    public enum UpgradeType { AdditionalLevel, Magnectic, DamageOverTime, ZoneDamage };
 
     public UpgradeType type;
     #endregion
@@ -27,12 +27,17 @@ public class UpgradesShipElement : UpgradesElement
     }
     #endregion
 
+    public bool isUnlocked()
+    {
+        return (int)type < (int)Ship.Current.type;
+    }
+
     #region ----- overrides Methods -----
 
     protected override void LoadStat()
     {
-        string str = "";
-        string key = "Prestige_upgrade_" + type;
+        //string str = "";
+        //string key = "Prestige_upgrade_" + type;
 
         //string logo_path = "prestige/";
 
@@ -43,11 +48,13 @@ public class UpgradesShipElement : UpgradesElement
 
         Lbl_name.text = type.ToString();
 
-        Lbl_description.text = "no defined for instance";
+        Lbl_description.text = "no defined";
     }
 
     public override void GetReward()
     {
+        if (!isUnlocked()) return;
+
         switch (type)
         {
 
