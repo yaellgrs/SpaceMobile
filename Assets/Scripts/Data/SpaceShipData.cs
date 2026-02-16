@@ -88,19 +88,16 @@ public class SpaceShipData
     private void LoadUpgrades()
     {
         List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
-        upgradesIron.Add(new UpgradesIronElement("life", UpgradesIronElement.UpgradeType.Life));
-        upgradesIron.Add(new UpgradesIronElement("Damage", UpgradesIronElement.UpgradeType.Damage));
-        upgradesIron.Add(new UpgradesIronElement("WorldSize", UpgradesIronElement.UpgradeType.WorldSize));
-        upgradesIron.Add(new UpgradesIronElement("Shield", UpgradesIronElement.UpgradeType.Shield));
-        upgradesIron.Add(new UpgradesIronElement("RegenShield", UpgradesIronElement.UpgradeType.RegenShield));
+        foreach(UpgradesIronElement.UpgradeType type in Enum.GetValues(typeof(UpgradesIronElement.UpgradeType))){
+            upgradesIron.Add(new UpgradesIronElement(type.ToString(), type));
+        }
         Utility.AddMachineToData(upgradesIron, Ship.Current.upgradesIron);
 
         List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
-        upgradesUranium.Add(new UpgradesUraniumElement("SpeedAuto", UpgradesUraniumElement.UpgradeType.SpeedAuto));
-        upgradesUranium.Add(new UpgradesUraniumElement("AreaSlow", UpgradesUraniumElement.UpgradeType.AreaSlow));
-        upgradesUranium.Add(new UpgradesUraniumElement("AreaWidth", UpgradesUraniumElement.UpgradeType.AreaWidth));
-        upgradesUranium.Add(new UpgradesUraniumElement("RocketReload", UpgradesUraniumElement.UpgradeType.RocketReload));
-        upgradesUranium.Add(new UpgradesUraniumElement("RocketMultiplier", UpgradesUraniumElement.UpgradeType.RocketMultiplier));
+        foreach (UpgradesUraniumElement.UpgradeType type in Enum.GetValues(typeof(UpgradesUraniumElement.UpgradeType)))
+        {
+            upgradesUranium.Add(new UpgradesUraniumElement(type.ToString(), type));
+        }
         Utility.AddMachineToData(upgradesUranium, Ship.Current.upgradesUranium);
     }
 

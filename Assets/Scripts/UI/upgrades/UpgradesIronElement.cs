@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 public class UpgradesIronElement : UpgradesElement
 {
     #region ----- variables -----
-    public enum UpgradeType { Life, Damage, WorldSize, Shield, RegenShield }
+    public enum UpgradeType { Life, Damage, Shield, RegenShield }
     public UpgradeType type;
     #endregion
 
@@ -40,9 +40,6 @@ public class UpgradesIronElement : UpgradesElement
             case UpgradeType.Damage:
                 Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
                 break;
-            case UpgradeType.WorldSize:
-                Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
-                break;
             case UpgradeType.Shield:
                 Lbl_description.text = "Shield : " + Ship.Current.shieldMax;
                 break;
@@ -74,11 +71,6 @@ public class UpgradesIronElement : UpgradesElement
                 Ship.Current.damage.initial.Set(1);
                 Ship.Current.damage.initial *= Mathf.Pow(1.3f, level);
                 Ship.Current.damage.initial += (int)( 0.5f * (level - 1));
-                break;
-            case UpgradeType.WorldSize:
-                Stats.Instance.scale = 1f;
-                Stats.Instance.scale = Mathf.Pow(0.992f, level + 1);
-                gameManager.instance.SetWorldScale();
                 break;
             case UpgradeType.Shield:
                 diff = new BigNumber(spaceShip.instance.getMaxShield());

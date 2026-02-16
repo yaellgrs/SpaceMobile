@@ -44,31 +44,6 @@ public class UpgradesShipElement : UpgradesElement
         Lbl_name.text = type.ToString();
 
         Lbl_description.text = "no defined for instance";
-/*        str = type switch
-        {
-            UpgradeType.PrestigeMultiplicator => Stats.Instance.star_multiplicator_prestige.ToString("F2"),
-            UpgradeType.LessMeteor => Stats.Instance.enemyPerStage.ToString("F2"),
-            UpgradeType.LessTimeMachine => Stats.Instance.machineTimeReducer.ToString("F2"),
-            UpgradeType.LessPriceUpgrades => Stats.Instance.upgradesPriceReducer.ToString("F2"),
-            UpgradeType.XpBoost => Stats.Instance.XpMultiplicator.ToString("F2"),
-            UpgradeType.DamageMultiplicator => Stats.Instance.prest_damage_multiplicator.ToString("F2"),
-            UpgradeType.StageSkip => Stats.Instance.stageSkipProb.ToString("F2"),
-            UpgradeType.OmegaProb => Stats.Instance.probabilitéOfOmega.ToString("F2"),
-            UpgradeType.MinimumLevel => Stats.Instance.MinimalLevel.ToString("F2"),
-            _ => "",
-        };*/
-
-/*        if (LocalizationSettings.SelectedLocale == null)
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
-
-        LocalizedString localizeUpgrades = new LocalizedString("UI_Upgrades", key);
-
-        localizeUpgrades.Arguments = new object[] { str };
-        localizeUpgrades.StringChanged += (localizeValue) =>
-        {
-            Lbl_description.text = localizeValue.ToString();
-        };
-        localizeUpgrades.RefreshString();*/
     }
 
     public override void GetReward()

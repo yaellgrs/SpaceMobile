@@ -115,7 +115,6 @@ public class Stats
     public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
             UpgradeType.PrestigeMultiplicator,
             UpgradeType.LessMeteor,
-            UpgradeType.LessTimeMachine,
             UpgradeType.LessPriceUpgrades,
             UpgradeType.XpBoost,
             UpgradeType.DamageMultiplicator,

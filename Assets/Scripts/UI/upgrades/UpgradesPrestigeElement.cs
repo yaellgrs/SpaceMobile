@@ -5,7 +5,7 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-public enum UpgradeType { PrestigeMultiplicator, LessMeteor, LessTimeMachine, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, MinimumLevel, Max };
+public enum UpgradeType { PrestigeMultiplicator, LessMeteor, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, MinimumLevel, Max };
 
 public class UpgradesPrestigeElement : UpgradesElement
 {
@@ -47,7 +47,6 @@ public class UpgradesPrestigeElement : UpgradesElement
         {
             UpgradeType.PrestigeMultiplicator => Stats.Instance.star_multiplicator_prestige.ToString("F2"),
             UpgradeType.LessMeteor => Stats.Instance.enemyPerStage.ToString("F2"),
-            UpgradeType.LessTimeMachine => Stats.Instance.machineTimeReducer.ToString("F2"),
             UpgradeType.LessPriceUpgrades => Stats.Instance.upgradesPriceReducer.ToString("F2"),
             UpgradeType.XpBoost => Stats.Instance.XpMultiplicator.ToString("F2"),
             UpgradeType.DamageMultiplicator => Stats.Instance.prest_damage_multiplicator.ToString("F2"),
@@ -79,9 +78,6 @@ public class UpgradesPrestigeElement : UpgradesElement
                 break;
             case UpgradeType.LessMeteor:
                 Stats.Instance.enemyPerStage = 10f - 0.16f * (level);
-                break;
-            case UpgradeType.LessTimeMachine:
-                Stats.Instance.machineTimeReducer = 1f - 0.229f * Mathf.Log(level);
                 break;
             case UpgradeType.LessPriceUpgrades:
                 Stats.Instance.upgradesPriceReducer = 1f - 0.229f * Mathf.Log(level);

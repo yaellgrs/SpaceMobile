@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 public class UpgradesUraniumElement : UpgradesElement
 {
     #region ----- variables -----
-    public enum UpgradeType { SpeedAuto, AreaSlow, AreaWidth, RocketReload, RocketMultiplier }
+    public enum UpgradeType { SpeedAuto, AreaSlow, AreaWidth, WorldSize,  RocketReload, RocketMultiplier }
     public UpgradeType type;
     #endregion
 
@@ -36,6 +36,9 @@ public class UpgradesUraniumElement : UpgradesElement
             case UpgradeType.AreaWidth:
                 Lbl_description.text = "Area Width : " + Stats.Instance.areaSize.ToString("F2");
                 break;
+            case UpgradeType.WorldSize:
+                Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
+                break;
             case UpgradeType.RocketReload:
                 Lbl_description.text = "Time to reload : " + Stats.Instance.rocketTimerMax.ToString("F2");
                 break;
@@ -63,6 +66,11 @@ public class UpgradesUraniumElement : UpgradesElement
             case UpgradeType.AreaWidth:
                 Stats.Instance.areaSize = 1f + 0.3f * Mathf.Pow(level, 0.4f);
                 spaceShip.instance.setAreaScale();
+                break;
+            case UpgradeType.WorldSize:
+                Stats.Instance.scale = 1f;
+                Stats.Instance.scale = Mathf.Pow(0.992f, level + 1);
+                gameManager.instance.SetWorldScale();
                 break;
             case UpgradeType.RocketReload:
                 Stats.Instance.rocketTimerMax = 25f - Mathf.Pow(level, 0.4f);
