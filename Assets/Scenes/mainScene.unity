@@ -2304,6 +2304,75 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
+--- !u!1001 &1534806646
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1281047723487592964, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_Name
+      value: meteorBOSS Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.1163673
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4119022
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460227884661643138, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460227884661643138, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460227884661643138, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
 --- !u!1 &1551023418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2723,6 +2792,7 @@ MonoBehaviour:
     Exp: 0
   isPaused: 0
   bossStage: 0
+  meteors: []
 --- !u!4 &1752593084
 Transform:
   m_ObjectHideFlags: 0
@@ -3688,3 +3758,4 @@ SceneRoots:
   - {fileID: 1778446112}
   - {fileID: 347153588841976946}
   - {fileID: 66367654}
+  - {fileID: 1534806646}
