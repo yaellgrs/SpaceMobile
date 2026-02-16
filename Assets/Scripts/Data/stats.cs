@@ -97,8 +97,9 @@ public class Stats
     public float probabilitéOfOmega = 5f;
     public float stageSkipProb = 0f;
     public int MinimalLevel = 1;
+    public float critical_Prob = 5;
 
-        //levels
+    //levels
     public int diamandProb =5; // / 1000
     public float machineBoost_Lvl = 1f;
     public float star_mutliplicator_level = 1f;
@@ -108,7 +109,7 @@ public class Stats
     public float shield_Multiplicator_Lvl = 1f;
     public int SpeedLevel = 1;
     public float offline_Prod_Part = 0.25f;
-    public float critical_Prob = 5;
+
     public float shield_Regen_Time = 4f;
 
 
@@ -121,6 +122,7 @@ public class Stats
             UpgradeType.StageSkip,
             UpgradeType.OmegaProb, 
             UpgradeType.MinimumLevel, 
+            UpgradeType.CriticalProbability, 
     };
 
 

@@ -5,7 +5,7 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-public enum UpgradeType { PrestigeMultiplicator, LessMeteor, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, MinimumLevel, Max };
+public enum UpgradeType { PrestigeMultiplicator, LessMeteor, LessPriceUpgrades, XpBoost, DamageMultiplicator, StageSkip, OmegaProb, MinimumLevel, CriticalProbability, Max };
 
 public class UpgradesPrestigeElement : UpgradesElement
 {
@@ -53,6 +53,7 @@ public class UpgradesPrestigeElement : UpgradesElement
             UpgradeType.StageSkip => Stats.Instance.stageSkipProb.ToString("F2"),
             UpgradeType.OmegaProb => Stats.Instance.probabilitéOfOmega.ToString("F2"),
             UpgradeType.MinimumLevel => Stats.Instance.MinimalLevel.ToString("F2"),
+            UpgradeType.CriticalProbability => Stats.Instance.critical_Prob.ToString("F2"),
             _ => "",
         };
 
@@ -96,6 +97,9 @@ public class UpgradesPrestigeElement : UpgradesElement
                 break;
             case UpgradeType.MinimumLevel:
                 Stats.Instance.MinimalLevel = level;
+                break;
+            case UpgradeType.CriticalProbability:
+                Stats.Instance.critical_Prob = level * 5f;
                 break;
         }
        LoadStat();
