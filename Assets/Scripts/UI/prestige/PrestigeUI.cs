@@ -573,6 +573,8 @@ public class PrestigeUI : BaseUI
 
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;
+
+
     }
 
     private void BuyNextShip()

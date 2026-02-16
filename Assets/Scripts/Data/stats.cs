@@ -168,7 +168,7 @@ public class Stats
         MainUi.Instance.prestigeUI.upPrestigeLabel();
     }
     public void load() {
-        string path = Application.persistentDataPath + "stats.json";
+        string path = Application.persistentDataPath + "/stats.json";
 
         if (!System.IO.File.Exists(path))
         {
