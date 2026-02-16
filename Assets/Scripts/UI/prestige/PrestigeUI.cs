@@ -14,6 +14,9 @@ public class PrestigeUI : BaseUI
     public UIDocument prestigeUI;
     public UIDocument buyUI;
 
+    public UIDocument upgradeShip;
+
+
     private Button uraniumButton;
     private Button ironButton;
     private Button prestigeButton;
@@ -46,107 +49,73 @@ public class PrestigeUI : BaseUI
 
     private int prestigeSelected = 1;
 
+    //shipUI
+    Label Lbl_shipMoney;
+
     protected override void Start()
     {
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         prestigeUI.gameObject.SetActive(false);
         buyUI.gameObject.SetActive(false);
+        upgradeShip.gameObject.SetActive(false);
     }
 
 
     public void addNewUpgrades(int prestige)
     {
         Stats.Instance.AddUranium(-calculCostPrestige());
-        string name = "upgrade" + (Stats.Instance.upgradesPrestige.Count + 1);
-        UpgradePrestige.UpgradeType type;
+        
+        UpgradeType type;
         if (prestige == 1)
-        {
             type = Stats.Instance.nextPrestigeToBuy;
-        }
         else
-        {
             type = Stats.Instance.nextPrestigeToBuy2;
-        }
-        UpgradePrestige upgrade1 = new UpgradePrestige()
-        {
-            upgradeName = name,
-            upgradeType = type,
-            levelCostMachine1 = new BigNumber(10, 0),
-            machineLevelMax1 = 100
-        };
-        upgrade1.loadUpgrade(forgeUI);
-        upgrade1.cadre.style.visibility = Visibility.Visible;
 
-        upgrade1.cadre.style.translate = new Translate(0, 215f * (Stats.Instance.upgradesPrestige.Count), 0);
-        Stats.Instance.upgradesPrestige.Add(upgrade1);
-        buyButtonUI.style.translate = new Translate(0, 215f * (Stats.Instance.upgradesPrestige.Count), 0);
+        Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(type.ToString(), type));
 
-        Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy);
+        if (prestige == 1)
+            Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy);
+        else
+            Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy2);
 
         if (Stats.Instance.prestigeToBuy.Count == 0)
         {
             buyButton.enabledSelf = false;
-            Stats.Instance.nextPrestigeToBuy = UpgradePrestige.UpgradeType.Max;
+            Stats.Instance.nextPrestigeToBuy = UpgradeType.Max;
         }
         else
-        {
-            setNextPrestigeToBuy();
-            setNextPrestigeToBuy2();
-        }
+            SetNextPrestigesToBuy();
         buyUI.gameObject.SetActive(false);
         forgeUI.gameObject.SetActive(false);
         loadForgeUI();
     }
 
-    public static void setNextPrestigeToBuy()
+    private void SetNextPrestigesToBuy()
     {
-        UpgradePrestige.UpgradeType type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
-        if(Stats.Instance.prestigeToBuy.Count > 1)
-        {
-            while (Stats.Instance.nextPrestigeToBuy == type)
-            {
-                if (type == UpgradePrestige.UpgradeType.Max)
-                    continue;
-                type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
-            }
+        var list = new List<UpgradeType>(Stats.Instance.prestigeToBuy);
+        list.Remove(UpgradeType.Max);
+
+        if (list == null || list.Count <= 1){
+            Stats.Instance.nextPrestigeToBuy2 = UpgradeType.Max;
+            Stats.Instance.nextPrestigeToBuy = (list.Count == 1) ? list[0] : UpgradeType.Max;
+            return;
         }
         else
         {
-            type = Stats.Instance.prestigeToBuy[0];
+            UpgradeType first = list[Random.Range(0, list.Count)]; ;
+            list.Remove(first);
+            Stats.Instance.nextPrestigeToBuy = first;
+            Stats.Instance.nextPrestigeToBuy2 = list[Random.Range(0, list.Count)]; ;
         }
-
-        Stats.Instance.nextPrestigeToBuy = type;
-    }
-
-    public static void setNextPrestigeToBuy2()
-    {
-        UpgradePrestige.UpgradeType type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
-        if (Stats.Instance.prestigeToBuy.Count > 1)
-        {
-            while (Stats.Instance.nextPrestigeToBuy2 == type || type == Stats.Instance.nextPrestigeToBuy)
-            {
-                if (type == UpgradePrestige.UpgradeType.Max)
-                    continue;
-                type = Stats.Instance.prestigeToBuy[Random.Range(0, Stats.Instance.prestigeToBuy.Count)];
-            }
-        }
-        else
-        {
-            type = Stats.Instance.prestigeToBuy[0];
-        }
-
-        Stats.Instance.nextPrestigeToBuy2 = type;
     }
 
     private void uraniumClicked()
     {
-
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
         MainUi.Instance.uraniumUI.loadForgeUI();
-
     }
 
     private void ironClicked()
@@ -165,10 +134,6 @@ public class PrestigeUI : BaseUI
     protected override void Update()
     {
         base.Update();
-        foreach (UpgradePrestige upgrade in Stats.Instance.upgradesPrestige)
-        {
-            upgrade.update();
-        }
     }
 
     public void upPrestigeLabel()
@@ -240,32 +205,31 @@ public class PrestigeUI : BaseUI
             buyButtonUI = root.Q<Button>("buy");
             prestigeLabel = root.Q<Label>("prestigeMoney");
 
-
+            prestigeButton.clicked -= LoadPrestige;
             prestigeButton.clicked += LoadPrestige;
 
-            int i = 0;
-            foreach (UpgradePrestige upgrade in Stats.Instance.upgradesPrestige)
+            ScrollView scroll = root.Q<ScrollView>("scroll");
+            scroll.Clear();
+            foreach (UpgradesElement upgrade in Stats.Instance.upgradesPrestige)
             {
-                upgrade.loadUpgrade(forgeUI);
-                upgrade.cadre.style.translate = new Translate(0, 215f * i, 0);
-                i++;
+                scroll.Add(upgrade);
+                upgrade.Load();
             }
+            scroll.Add(buyButtonUI);
+
             upPrestigeLabel();
-            buyButtonUI.style.translate = new Translate(0, 215f * (Stats.Instance.upgradesPrestige.Count), 0);
-            if (Stats.Instance.prestigeToBuy.Count == 0)
+            if (Stats.Instance.nextPrestigeToBuy == UpgradeType.Max && UpgradeType.Max == Stats.Instance.nextPrestigeToBuy2)
             {
                 buyButtonUI.enabledSelf = false;
             }
             else
             {
+                buyButtonUI.clicked -= LoadBuy;
                 buyButtonUI.clicked += LoadBuy;
             }
         }
         else
-        {
             unlockLevel.style.visibility = Visibility.Visible;
-        }
-
     }
 
     public void LoadPrestige()
@@ -274,9 +238,7 @@ public class PrestigeUI : BaseUI
         var root = prestigeUI.rootVisualElement;
 
         forgeUiVE = root.Q<VisualElement>("main");
-
         forgeUiVE.AddToClassList("trans");
-
         forgeUiVE.schedule.Execute(() =>
         {
             forgeUiVE.RemoveFromClassList("trans");
@@ -289,7 +251,6 @@ public class PrestigeUI : BaseUI
         bonusLabel = root.Q<Label>("bonus");
         totalLabel = root.Q<Label>("total");
 
-
         rewardLabel.text = "Normal Reward : " + Stats.Instance.prestigeWaiting;
         bonus = new BigNumber(Stats.Instance.prestigeWaiting);
 
@@ -299,17 +260,27 @@ public class PrestigeUI : BaseUI
 
         bonus.Add(Stats.Instance.prestigeWaiting);
         totalLabel.text = "Total : " + bonus;
-        backButton1.clicked += backClicked;
-        prestigeReset.clicked += PrestigeResetClicked;
-        if(Stats.Instance.diamand >= 50)
-        {
-            diamandBtn.enabledSelf = true;
-            diamandBtn.clicked += diamandClicked;
+
+        if (Stats.Instance.prestigeWaiting.EqualZero()){
+            prestigeReset.enabledSelf = false;
+            diamandBtn.enabledSelf = false;
         }
         else
         {
-            diamandBtn.enabledSelf = false;
+            prestigeReset.enabledSelf = true;
+            prestigeReset.clicked -= PrestigeResetClicked;
+            prestigeReset.clicked += PrestigeResetClicked;
+            if (Stats.Instance.diamand >= 50)
+            {
+                diamandBtn.enabledSelf = true;
+                diamandBtn.clicked += diamandClicked;
+                diamandBtn.clicked -= diamandClicked;
+            }
         }
+
+
+        backButton1.clicked -= () => { backClicked(prestigeUI); };
+        backButton1.clicked += () => { backClicked(prestigeUI); };
 
     }
     private void diamandClicked()
@@ -324,33 +295,35 @@ public class PrestigeUI : BaseUI
         Stats.Instance.AddUranium(bonus);
         Stats.Instance.prestigeWaiting.Set(0);
 
-        Stats.Instance.stage = 1;
-        Stats.Instance.machinesIron.Clear();
-        Stats.Instance.upgradesIron.Clear();
-        Stats.Instance.machinesUranium.Clear();
-        Stats.Instance.upgradesUranium = new List<UpgradesUranium>();
+        Ship.Current.stage = 1;
 
-        MainUi.Instance.ironUI.initializeMachine();
+        Ship.Current.machineIron.Clear();
+        Ship.Current.upgradesIron.Clear();
+
+        Ship.Current.machinesUranium.Clear();
+        Ship.Current.upgradesUranium.Clear();
+
         MainUi.Instance.ironUI.initializeUpgrade();
-        MainUi.Instance.uraniumUI.initializeMachine();
         MainUi.Instance.uraniumUI.initializeUpgrade();
 
-        Stats.Instance.iron.Set(0);
-        Stats.Instance.uranium.Set(0);
+        Ship.Current.iron.Set(0);
+        Ship.Current.uranium.Set(0);
 
         MainUi.Instance.ironUI.upIronRaffinedUi();
         MainUi.Instance.uraniumUI.upUraniumLabel();
 
 
-        Stats.Instance.life = new BigNumber(Stats.Instance.lifeMax);
-        Stats.Instance.shield = new BigNumber(Stats.Instance.shieldMax);
+        Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
 
         gameManager.instance.RestartStage();
 
 
         Data.Instance.Prestige();
 
-        backClicked();
+        backClicked(forgeUI);
+        backClicked(buyUI);
+
         MainUi.Instance.xpUI.setBonusAutoFer();
         MainUi.Instance.xpUI.setBonusAutoUranium();
 
@@ -392,6 +365,7 @@ public class PrestigeUI : BaseUI
         upPrestigeLabel();
         Data.Instance.PrestigeCount += 1;
 
+        gameManager.instance.InitGame();
     }
 
 
@@ -401,9 +375,7 @@ public class PrestigeUI : BaseUI
         var root = buyUI.rootVisualElement;
 
         forgeUiVE = root.Q<VisualElement>("main");
-
         forgeUiVE.AddToClassList("trans");
-        
         forgeUiVE.schedule.Execute(() =>
         {
             forgeUiVE.RemoveFromClassList("trans");
@@ -429,35 +401,33 @@ public class PrestigeUI : BaseUI
 
         //set logo 
 
+        refreshButton.clicked -= refreshClicked;
+        refreshButton.clicked += refreshClicked;
+        buyButton.clicked -= buyClicked;
+        buyButton.clicked += buyClicked;
+        backButton2.clicked -= () => { backClicked(buyUI); }; 
+        backButton2.clicked += () => { backClicked(buyUI); }; 
 
-
+        if (UpgradeType.Max == Stats.Instance.nextPrestigeToBuy2)
+        {
+            nextPrestige.enabledSelf = false;
+        }
 
         if (!Stats.Instance.starPariticul.isBigger(cost))
         {
             refreshButton.enabledSelf = false;
             buyButton.enabledSelf = false;
         }
+        else if (Stats.Instance.nextPrestigeToBuy == UpgradeType.Max)
+        {
+            refreshButton.enabledSelf = false;
+            buyButton.enabledSelf = false;
+        }
         else
         {
-            refreshButton.clicked -= refreshClicked;
-            refreshButton.clicked += refreshClicked;
-            if (Stats.Instance.prestigeToBuy.Count == 1)
-            {
-                refreshButton.enabledSelf = false;
-                buyButton.enabledSelf = false;
-                nameNextPrestige.style.visibility = Visibility.Hidden;
-                descriptionNextPrestige.style.visibility = Visibility.Hidden;
-            }
-            else
-            {
-                refreshButton.enabledSelf = true;
-                buyButton.enabledSelf = true;
-                buyButton.clicked -= buyClicked;
-                buyButton.clicked += buyClicked;
-            }
+            refreshButton.enabledSelf = true;
+            buyButton.enabledSelf = true;
         }
-        backButton2.clicked -= backClicked;
-        backButton2.clicked += backClicked;
     }
 
     private void NextPrestigeClicked()
@@ -480,17 +450,15 @@ public class PrestigeUI : BaseUI
     {
         addNewUpgrades(prestigeSelected);
         if (MainUi.Instance.prestigeUI.buyUI.gameObject.activeSelf == true)
-        {
             MainUi.Instance.prestigeUI.buyUI.gameObject.SetActive(false);
-        }
     }
     private BigNumber calculCostPrestige()
     {
         return new BigNumber(15*Mathf.Pow(5, Stats.Instance.upgradesPrestige.Count));
     }
-    private void backClicked()
+    private void backClicked(UIDocument document)
     {
-
+        if (forgeUiVE == null) return;
         forgeUiVE.RemoveFromClassList("trans");
         forgeUiVE.schedule.Execute(() =>
         {
@@ -498,69 +466,32 @@ public class PrestigeUI : BaseUI
         }).StartingIn(50);
         forgeUiVE.schedule.Execute(() =>
         {
-            if (prestigeUI.gameObject.activeSelf)
-            {
-                prestigeUI.gameObject.SetActive(false);
-            }
-            else
-            {
-                buyUI.gameObject.SetActive(false);
-            }
+            document.gameObject.SetActive(false);
 
-            loadForgeUI();
+            //loadForgeUI();
         }).StartingIn(300);
 
     }
 
     private void refreshClicked()
     {
-        setNextPrestigeToBuy();
-        setNextPrestigeToBuy2();
+        SetNextPrestigesToBuy();
         Stats.Instance.AddUranium(-calculCostPrestige());
         setTextBuyUI(Stats.Instance.nextPrestigeToBuy);
         LastPrestigeClicked();
     }
-    //{ , , , , , , StageSkip, , Max }
-    private void setTextBuyUI(UpgradePrestige.UpgradeType type)
+
+    private void setTextBuyUI(UpgradeType type)
     {
         VisualElement logo = buyUI.rootVisualElement.Q<VisualElement>("logo");
         string logoPath = "Upgrades/prestige/" ;
         Texture2D logoTexutre = Resources.Load<Texture2D>(logoPath + type);
         if(logoTexutre == null) logoTexutre = Resources.Load<Texture2D>(logoPath + "CadresBlanc");
+
         logo.style.backgroundImage = logoTexutre;
 
-        string key = "";
-        switch (type)
-        {
-            case UpgradePrestige.UpgradeType.PrestigeMultiplicator:
-                key = "PrestigeMultiplicator";
-                break;
-            case UpgradePrestige.UpgradeType.LessMeteor:
-                key = "LessMeteor";
-                break;
-            case UpgradePrestige.UpgradeType.LessTimeMachine:
-                key = "LessTimeMachine";
-                break;
-            case UpgradePrestige.UpgradeType.LessPriceUpgrades:
-                key = "LessPriceUpgrades";
-                break;
-            case UpgradePrestige.UpgradeType.XpBoost:
-                key = "XpBoost";
-                break;
-            case UpgradePrestige.UpgradeType.DamageMultiplicator:
-                key = "DamageMultiplicator";
-                break;
-            case UpgradePrestige.UpgradeType.OmegaProb:
-                key = "OmegaProb";
-                break;
-            case UpgradePrestige.UpgradeType.StageSkip:
-                key = "StageSkip";
-                break;
-            case UpgradePrestige.UpgradeType.Max:
-                nameNextPrestige.text = "Max";
-                break;
-        }
-        if (type != UpgradePrestige.UpgradeType.Max)
+        string key = type.ToString();
+        if (type != UpgradeType.Max)
         {
             string key_name = "Prestige_name_" + key;
             localizesName = new LocalizedString("UI_Rewards", key_name);
@@ -583,12 +514,59 @@ public class PrestigeUI : BaseUI
     {
         base.loadUpdateUI();
         var root = upgradeUI.rootVisualElement;
+
+
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("updateUI");
+        Button Btn_ship = root.Q<Button>("ship");
         black = root.Q<VisualElement>("black");
+        Lbl_shipMoney = root.Q<Label>("shipMoney");
+
+        loadShipMoney();
+
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        scroll.Clear();
+        foreach (UpgradesElement upgrade in Stats.Instance.upgradesShip)
+        {
+            scroll.Add(upgrade);
+            upgrade.Load();
+        }
+        //scroll.Add(buyButtonUI);
 
         uraniumButton.clicked += uraniumClicked;
         ironButton.clicked += ironClicked;
+
+        Btn_ship.clicked -= loadUpgradeShip;
+        Btn_ship.clicked += loadUpgradeShip;
+
+        Stats.Instance.OnShipMoneyChanged -= loadShipMoney;
+        Stats.Instance.OnShipMoneyChanged += loadShipMoney;
     }
+
+    private void loadShipMoney()
+    {
+        if(Lbl_shipMoney != null) Lbl_shipMoney.text = Stats.Instance.BN_shipMoney.ToString() + " (+" + Stats.Instance.BN_shipMoneyWaiting.ToString() +")";  
+    }
+
+    private void loadUpgradeShip()
+    {
+        upgradeShip.gameObject.SetActive(true);
+        var root = upgradeShip.rootVisualElement;
+
+
+        forgeUiVE = root.Q<VisualElement>("main");
+        forgeUiVE.AddToClassList("trans");
+        forgeUiVE.schedule.Execute(() =>
+        {
+            forgeUiVE.RemoveFromClassList("trans");
+        }).StartingIn(50);
+
+
+        Button Btn_back = root.Q<Button>("back");
+
+        Btn_back.clicked -= () => { backClicked(upgradeShip); };
+        Btn_back.clicked += () => { backClicked(upgradeShip); };
+    }
+
 }

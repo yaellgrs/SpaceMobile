@@ -117,7 +117,6 @@ public class BigNumber
         Normalize();
     }
 
-
     public void Add(float n)
     {
         this.Add(new BigNumber(n));
@@ -189,6 +188,12 @@ public class BigNumber
             Exp = 0;
         }
     }
+
+    public void Multiply(BigNumber n)
+    {
+
+    }
+
 
     public void Divide(float n)
     {

@@ -84,7 +84,7 @@ public class QuestUI : MonoBehaviour
         progress = root.Q<Label>("progress");
         questCount = root.Q<Label>("questCount");
         diamandReward = root.Q<Label>("diamand");
-        xpReward = root.Q<Label>("BN_xp");
+        xpReward = root.Q<Label>("xp");
 
 
         refreshQuestUI();

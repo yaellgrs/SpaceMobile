@@ -71,7 +71,7 @@ public class XpUI : MonoBehaviour
         xpBar = root.Q<VisualElement>("xpBar");
         rewardVE = root.Q<VisualElement>("reward");
         VE_mainReward = root.Q<VisualElement>("mainReward");
-        xpLabel = root.Q<Label>("BN_xp");
+        xpLabel = root.Q<Label>("xp");
         rewardLevelLabel = root.Q<Label>("levelReward");
         levelLabel = root.Q<Label>("level");
         bonusLabel = root.Q<Label>("bonus");
@@ -80,18 +80,23 @@ public class XpUI : MonoBehaviour
         shieldBonus = root.Q<Label>("shield");
 
         
-        level =+ Stats.Instance.level + 1;
+        level =+Ship.Current.level + 1;
         if (level % 2 == 1) level++;
 
 
-        if (Stats.Instance.level == 100) {
+        if (Ship.Current.level == 100) {
             xpBar.style.width = Length.Percent(100);
             xpLabel.text = "MAX";
         }
+        else if (xpLabel ==null)
+        {
+            Debug.LogError("Ship.Current est NULL dans XpUI.Load()");
+        }
         else
         {
-            xpBar.style.width = Stats.Instance.BN_xp.GetPercentByDivided(Stats.Instance.BN_xpMax);
-            xpLabel.text = Stats.Instance.BN_xp.ToString() + "/" + Stats.Instance.BN_xpMax.ToString() + "XP";
+
+            xpBar.style.width = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+            xpLabel.text = Ship.Current.BN_xp.ToString() + "/" + Ship.Current.BN_xpMax.ToString() + "XP";
         }
 
 
@@ -99,7 +104,7 @@ public class XpUI : MonoBehaviour
         exit.clicked -= Clicked;
         back.clicked += Clicked;
         exit.clicked += Clicked;
-        levelLabel.text = Stats.Instance.level.ToString();
+        levelLabel.text = Ship.Current.level.ToString();
 
         levelBack.clicked += levelBackClicked;
         levelNext.clicked += levelNextClicked;
@@ -118,11 +123,11 @@ public class XpUI : MonoBehaviour
         loadRewardImage();
         rewardLevelLabel.text = "Level " + level.ToString();
 
-        if(level > Stats.Instance.level) VE_mainReward.enabledSelf = false;
+        if(level > Ship.Current.level) VE_mainReward.enabledSelf = false;
 
         damageBonus.text = Stats.Instance.damage_Multiplicator_Lvl*100 + "%";
-        lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl*100 + "%";
-        shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl*100 + "%";
+        lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl *100 + "%";
+        shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl *100 + "%";
     }
 
     // Update is called once per frame
@@ -152,23 +157,23 @@ public class XpUI : MonoBehaviour
 
     public void LevelUp()
     {
-        Stats.Instance.level++;
+        Ship.Current.level++;
 
-        if (Stats.Instance.level % 2 == 0) loadLevelUpUI();
+        if (Ship.Current.level % 2 == 0) loadLevelUpUI();
 
-        Stats.Instance.BN_xp.Set(0);
-        Stats.Instance.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Stats.Instance.level));
+        Ship.Current.BN_xp.Set(0);
+        Ship.Current.BN_xpMax = new BigNumber(50 * Mathf.Pow(1.15f, Ship.Current.level));
 
         loadBonus();
 
-        foreach(MachineIron m in Stats.Instance.machinesIron)
+/*        foreach(MachineIron m in Stats.Instance.machinesIron)
         {
-            m.levelLimite = Stats.Instance.level;
+            m.levelLimite = Ship.Current.level;
             if(m.levelLimite > m.levelMax)
             {
                 m.levelLimite = m.levelMax;
             }
-        }
+        }*/
     }
 
     public void loadLevelUpUI()
@@ -198,7 +203,7 @@ public class XpUI : MonoBehaviour
         lifeBonus = root.Q<Label>("life");
         shieldBonus = root.Q<Label>("shield");
 
-        level = Stats.Instance.level;
+        level = Ship.Current.level;
         rewardLevelLabel.text = "Level " + level;
         setRewardText(bonusLabel);
 
@@ -222,7 +227,7 @@ public class XpUI : MonoBehaviour
         {
             levelBack.enabledSelf = false;
         }
-        if (level <= Stats.Instance.level) VE_mainReward.enabledSelf = true;
+        if (level <= Ship.Current.level) VE_mainReward.enabledSelf = true;
 
         loadRewardImage();
         setRewardText(bonusLabel);
@@ -238,7 +243,7 @@ public class XpUI : MonoBehaviour
             levelNext.enabledSelf = false;
             level = 100;
         }
-        if (level > Stats.Instance.level) VE_mainReward.enabledSelf = false;
+        if (level > Ship.Current.level) VE_mainReward.enabledSelf = false;
         rewardLevelLabel.text = "Level " + level.ToString();
         loadRewardImage();
         setRewardText(bonusLabel);
@@ -307,16 +312,16 @@ public class XpUI : MonoBehaviour
 
     public void loadBonus()
     {
-        Stats.Instance.damage_Multiplicator_Lvl = 1f + (Stats.Instance.level - 1) * 0.1f;
-        Stats.Instance.life_Multiplicator_Lvl = 1f + (Stats.Instance.level - 1) * 0.1f;
-        Stats.Instance.shield_Multiplicator_Lvl = 1f + (Stats.Instance.level - 1) * 0.1f;
+        Stats.Instance.damage_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
+		Stats.Instance.life_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
+		Stats.Instance.shield_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
 
         setBonusAutoFer();
         setBonusAutoUranium();
         if (rewardUnlocked(BonusLevel.UnlockPrestige) ) Stats.Instance.prestigeUnlocked = true;
         if (rewardUnlocked(BonusLevel.UnlockUranium) )
         {
-            spaceShip.instance.setAreaScale(1f);
+            spaceShip.instance.setAreaScale();
         }
         if (rewardUnlocked(BonusLevel.UnlockRocket))
         {
@@ -329,7 +334,7 @@ public class XpUI : MonoBehaviour
         Stats.Instance.SpeedLevel = 1 + GetEnumRewardCount(BonusLevel.Speed);
         Stats.Instance.offline_Prod_Part = 0.25f + GetEnumRewardCount(BonusLevel.OfflineProduction) * 0.15f;
         Stats.Instance.critical_Prob = 10 + GetEnumRewardCount(BonusLevel.Critical) * 10;
-        Stats.Instance.shield_Regen_Time = 10f - 2*GetEnumRewardCount(BonusLevel.ShieldRegen);
+		Stats.Instance.shield_Regen_Time = 10f - 2*GetEnumRewardCount(BonusLevel.ShieldRegen);
     }
 
 
@@ -363,7 +368,7 @@ public class XpUI : MonoBehaviour
     private int GetEnumRewardCount(BonusLevel bonus)
     {
         int cpt = 0;
-        for(int i = 1; i <= Stats.Instance.level; i++)
+        for(int i = 1; i <= Ship.Current.level; i++)
         {
             if (GetEnumReward(i) == bonus) cpt++;
         }
@@ -374,15 +379,15 @@ public class XpUI : MonoBehaviour
     {
         int x = GetEnumRewardCount(BonusLevel.FerAuto);
 
-        for (int i = 0; i < Stats.Instance.machinesIron.Count; i++)
+        for (int i = 0; i < Ship.Current.machineIron.Count; i++)
         {
             if (x > i)
             {
-                Stats.Instance.machinesIron[i].automatic = true;
+                Ship.Current.machineIron[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machinesIron[i].automatic = false;
+                Ship.Current.machineIron[i].isAutomatic = false;
             }
         }
     }
@@ -390,15 +395,15 @@ public class XpUI : MonoBehaviour
     {
         int x = GetEnumRewardCount(BonusLevel.UraniumAuto);
 
-        for (int i = 0; i < Stats.Instance.machinesUranium.Count; i++)
+        for (int i = 0; i < Ship.Current.machinesUranium.Count; i++)
         {
             if (x > i)
             {
-                Stats.Instance.machinesUranium[i].automatic = true;
+                Ship.Current.machinesUranium[i].isAutomatic = true;
             }
             else
             {
-                Stats.Instance.machinesUranium[i].automatic = false;
+                Ship.Current.machinesUranium[i].isAutomatic = false;
             }
         }
     }

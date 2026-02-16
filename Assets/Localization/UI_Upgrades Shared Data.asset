@@ -47,6 +47,10 @@ MonoBehaviour:
     m_Key: Prestige_upgrade_OmegaProb
     m_Metadata:
       m_Items: []
+  - m_Id: 78086939524042752
+    m_Key: Prestige_upgrade_MinimumLevel
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

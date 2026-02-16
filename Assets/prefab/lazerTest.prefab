@@ -183,7 +183,7 @@ MonoBehaviour:
   degats:
     Mantisse: 1
     Exp: 0
-  lazerSound: {fileID: 0}
+  isRocket: 0
 --- !u!82 &5122409911820172669
 AudioSource:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7309820ba3d73b14e9f985460fc83d6b, type: 3}
+  m_Resource: {fileID: 8300000, guid: aaa12f365d41a89408bedfadadf082db, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

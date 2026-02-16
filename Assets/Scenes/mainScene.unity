@@ -384,7 +384,6 @@ MonoBehaviour:
   upModeMultiplicator: 1
   classActived: 1
   stopAnim: 0
-  newSprite: {fileID: 0}
 --- !u!1 &256186169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,6 +1082,61 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: e6f4e1ad1a8e30049bc90212a89fe40c, type: 3}
   m_SortingOrder: 2
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!1 &752820519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 752820520}
+  - component: {fileID: 752820521}
+  m_Layer: 0
+  m_Name: upgradeShip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &752820520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752820519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1553905377}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &752820521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752820519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 420f1a79e0887ad469c3adf5e7d3f6b8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 470d40bb5bbcc4d4f8fae187373c7e8a, type: 3}
+  m_SortingOrder: 4
   m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -1820,9 +1874,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   area: {fileID: 1027929323}
-  damage:
-    Mantisse: 1
-    Exp: 0
   shootTimer: 0.1
   shieldRegen: 0
   animSpeed: 0.001
@@ -2486,6 +2537,7 @@ Transform:
   - {fileID: 78005074}
   - {fileID: 1935611410}
   - {fileID: 17498658}
+  - {fileID: 752820520}
   m_Father: {fileID: 1369320541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1553905378
@@ -2507,6 +2559,7 @@ MonoBehaviour:
   stopAnim: 0
   prestigeUI: {fileID: 1935611411}
   buyUI: {fileID: 17498659}
+  upgradeShip: {fileID: 752820521}
 --- !u!1 &1557385609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,6 +2806,7 @@ GameObject:
   - component: {fileID: 1752593083}
   - component: {fileID: 1752593085}
   - component: {fileID: 1752593086}
+  - component: {fileID: 1752593087}
   m_Layer: 0
   m_Name: gameManager
   m_TagString: Untagged
@@ -2783,7 +2837,6 @@ MonoBehaviour:
   timer: 0
   meteorToKill: 10
   meteorKilled: 0
-  meteorScale: 1
   BN_ironEarned:
     Mantisse: 0
     Exp: 0
@@ -2836,6 +2889,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upSpeed: 0
   upModeMultiplicator: 1
+--- !u!114 &1752593087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752593082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a61f276a0acc0e244b39f8b6413a114d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipManager
 --- !u!1 &1778446109
 GameObject:
   m_ObjectHideFlags: 0

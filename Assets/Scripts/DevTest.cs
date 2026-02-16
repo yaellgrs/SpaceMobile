@@ -1,20 +1,9 @@
+using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DevTest : MonoBehaviour
 {
-    /*
-     ASTRIIIIIDDDDDDDDD ( c'est pour être sur que tu lises ) 
-
-    je te laisses ce script ouvert pour que tu puisses savoirs ce que fond les touches
-    si jamais tu le veux tu peux modifier a ta guise tant que y'a pas d'erreur ( sinon au mieux tu retourne en arriere ) 
-    et au pire tu supprime tout pour que ça marche quand même ( taura juste pas les touches ) 
-
-    je pense que le code est relativement compréhensible sinon tant pis tu pourras pas tester le jeu comme tu le souhaite
-     
-
-    regardes whatsapp si jamais
-     */
 
     private void Start()
     {
@@ -28,7 +17,7 @@ public class DevTest : MonoBehaviour
 
     private void ShowTuto(bool show)
     {
-        foreach (PopupTuto tuto in Stats.Instance.popupTutos.Keys)
+        foreach (PopupTuto tuto in Stats.Instance.popupTutos.Keys.ToList())
         {
             Stats.Instance.popupTutos[tuto] = !show;
         }
@@ -47,6 +36,7 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
             Init();
+
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -54,12 +44,25 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Stats.Instance.level += 100;//level max
+            Ship.Current.level += 100;//level max
         }
 
         HandleBanner();
         gives();
         testTutos();
+        testShips();
+    }
+
+    private void testShips()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ShipManager.Instance.SwitchShip(SpaceShipType.Fire);
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ShipManager.Instance.SwitchShip(SpaceShipType.Basic);
+        }
     }
 
     private void gives()
@@ -71,12 +74,21 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            for (int i = 0; i < 5; i++) //level up 5 fois
+            for (int i = 0; i < 50; i++) //level up 5 fois
                 MainUi.Instance.xpUI.LevelUp();
 
-            Stats.Instance.addPrestige(new BigNumber(1, 10)); // donne 1^10 prestige
-            Stats.Instance.AddIron(new BigNumber(1, 10));// donne 1^10 fer
-            Stats.Instance.AddUranium(new BigNumber(1, 10));// donne 1^10 uranium
+            Stats.Instance.addPrestige(new BigNumber(1, 100)); // donne 1^100 prestige
+            Stats.Instance.AddIron(new BigNumber(1, 100));// donne 1^100 fer
+            Stats.Instance.AddUranium(new BigNumber(1, 100));// donne 1^100 uranium
+            Stats.Instance.AddDiamand(100);
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Stats.Instance.AddShipMoney(new BigNumber(50), true);
+        }
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            Stats.Instance.AddShipMoney(new BigNumber(30), false);
         }
     }
 
