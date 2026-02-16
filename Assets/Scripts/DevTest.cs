@@ -55,13 +55,9 @@ public class DevTest : MonoBehaviour
 
     private void testShips()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            ShipManager.Instance.SwitchShip(SpaceShipType.Fire);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ShipManager.Instance.SwitchShip(SpaceShipType.Basic);
+            Debug.Log("Type Ship Used : " + Ship.Current.type);
         }
     }
 
