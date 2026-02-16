@@ -48,7 +48,7 @@ public class UpgradesUraniumElement : UpgradesElement
         }
         //Lbl_description
 
-        string logo_path = "Upgrades/Iron/" + type.ToString();
+        string logo_path = "Upgrades/Uranium/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
 

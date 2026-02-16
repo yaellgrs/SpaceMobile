@@ -315,4 +315,5 @@
     background-image: resource("upgrades/iron/shield");
     aspect-ratio: 1.2;
     overflow: visible;
+    visibility: visible;
 }
