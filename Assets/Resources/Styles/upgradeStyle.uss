@@ -1,6 +1,6 @@
 .upgradeCadre {
     height: 184px;
-    background-image: resource("machines/white/WhiteMachine");
+    background-image: resource("machines/cadre");
     position: relative;
     width: 92.5%;
     top: 0;
@@ -171,8 +171,6 @@
     display: flex;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
 }
-
-
 
 :root {
 }

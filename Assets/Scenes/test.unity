@@ -771,10 +771,10 @@ MonoBehaviour:
   miniMeteorPrefab: {fileID: 2963011495043054338, guid: ae90cab106598914390aa66d5ea0a82a, type: 3}
   ironMeteorPrefab: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
   uraniumMeteorPrefab: {fileID: 5482572478085618534, guid: c0960c5c47888ea41808ac9f64cec58c, type: 3}
+  bossMeteorPrefab: {fileID: 0}
   timer: 0
   meteorToKill: 10
   meteorKilled: 0
-  meteorScale: 1
   BN_ironEarned:
     Mantisse: 0
     Exp: 0
@@ -782,6 +782,8 @@ MonoBehaviour:
     Mantisse: 0
     Exp: 0
   isPaused: 0
+  bossStage: 0
+  meteors: []
 --- !u!4 &1336267565
 Transform:
   m_ObjectHideFlags: 0
@@ -1478,9 +1480,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   area: {fileID: 969230932}
-  damage:
-    Mantisse: 1
-    Exp: 0
   shootTimer: 0.1
   shieldRegen: 0
   animSpeed: 0.001
