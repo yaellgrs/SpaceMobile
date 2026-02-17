@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4346356708166336025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2194695972966590875, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194695972966590875, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194695972966590875, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2981131
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.1163673
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4119022
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284934456727501853, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: m_Name
+      value: meteorBOSS Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: type
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: baseScale.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+      propertyPath: baseScale.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}

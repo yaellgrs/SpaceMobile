@@ -2,22 +2,51 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Newtonsoft.Json;
 
-using static UpgradePrestige.UpgradeType;
+public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
+
 
 [System.Serializable]
 public class Stats
 {
+    public static Stats Instance;
+    public static void Initialize()
+    {
+        if (Instance == null)
+        {
+            Instance = new Stats();
+            float version = Instance.version;
+            Instance.load();
+            if (Instance.version < version)
+                Instance.reset();
+
+            if (Instance.spaceShips.Count == 0)
+            {
+                Instance.spaceShips.Add(new SpaceShipDico{
+                    type = SpaceShipType.Main,
+                    data = new SpaceShipData()
+                });
+            }
+        }
+    }
+
     public int version = 1;
 
-    public static Stats Instance;
+    //constantes
+    public const int BOSS_STAGE_GAP = 10;
 
-    public int stage = 1;
+    //actions 
+    public event Action OnIronChanged;
+    public event Action OnShipMoneyChanged;
 
-    public float xp = 0;
-    public float xpLevelUp = 100;
-    public int level = 1;
-    public int diamand = 1;
+    //ships
+    public SpaceShipType currentSpaceShipType = SpaceShipType.Main;
+    public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
+    public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
+
+    //global
+    public int diamand { get; private set; } = 100;
 
     public long lastConnection;
     public bool firstConnection = true;
@@ -25,38 +54,40 @@ public class Stats
     public long lastPub = 0;
     public bool HasNoAds = false;
 
-    public bool rocketUnlocked = false;
+    //boost
+    public float damageBoostTime = 0f;
+    public float xpBoostTime = 0f;
+    public float pvShieldBoostTime = 0f;
+    public float ressourcesBoostTime = 0f;
+    public bool ReduceLifeBoss = false;
 
-    //iron
-    public List<MachineIron> machinesIron = new List<MachineIron>();
-    public List<UpgradesIron> upgradesIron = new List<UpgradesIron>();
+    //tutos
+    public bool ironTuto = false;
+    public bool uraniumTuto = false;
+    public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
-    public BigNumber iron = new BigNumber(1, 0);
-    public BigNumber lifeMax = new BigNumber(10);
-    public BigNumber life = new BigNumber(10);
-    public BigNumber shield = new BigNumber(5);
-    public BigNumber shieldMax = new BigNumber(5);
-    public BigNumber regenShield = new BigNumber(2);
-    public float scale = 1f;
+    //Ship
 
-    //uranium
-    public List<machineUranium> machinesUranium = new List<machineUranium>();
-    public List<UpgradesUranium> upgradesUranium = new List<UpgradesUranium>();
-    public bool uraniumUnlocked = false;
+    //machines upgrades
+    public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
+    public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
 
-    public BigNumber uranium = new BigNumber(0, 0);
-    public float speedAuto = 5f;
-    public float areaSpeed = 1f;
+    public float scale = 1f; 
+    public float speedAuto = 5f; 
+    public float areaSpeed = 1f; 
     public float areaSize = 1.25f;
     public float rocketTimerMax = 25f;
     public float rocketMultiplier = 5f;
 
     //prestige
-    public List<UpgradePrestige> upgradesPrestige = new List<UpgradePrestige>();
-    public bool prestigeUnlocked = false;
+    public bool prestigeUnlocked = false; //
 
-    public BigNumber starPariticul = new BigNumber(1, 0);
-    public BigNumber prestigeWaiting = new BigNumber(1, 0);
+    public BigNumber starPariticul { get; private set; } = new BigNumber(0, 0); //
+    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(0, 0);//
+
+    public BigNumber BN_shipMoney = new BigNumber(0);
+    public BigNumber BN_shipMoneyWaiting = new BigNumber(0);
+
     public float star_multiplicator_prestige = 1f;
     public float enemyPerStage = 10f;
     public float machineTimeReducer = 1f;
@@ -65,6 +96,8 @@ public class Stats
     public float prest_damage_multiplicator = 1f;
     public float probabilitéOfOmega = 5f;
     public float stageSkipProb = 0f;
+    public int MinimalLevel = 1;
+    public float critical_Prob = 5;
 
     //levels
     public int diamandProb =5; // / 1000
@@ -76,167 +109,66 @@ public class Stats
     public float shield_Multiplicator_Lvl = 1f;
     public int SpeedLevel = 1;
     public float offline_Prod_Part = 0.25f;
-    public float critical_Prob = 5;
+
     public float shield_Regen_Time = 4f;
 
-    //boost
-    public float damageBoostTime = 0f;
-    public float xpBoostTime = 0f;
-    public float pvShieldBoostTime = 0f;
-    public float ressourcesBoostTime = 0f;
 
-    //tutos
-    public bool ironTuto = false;
-    public bool uraniumTuto = false;
-    //public bool ironMeteorTuto = false;
-    public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
+    public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
+            UpgradeType.PrestigeMultiplicator,
+            UpgradeType.LessMeteor,
+            UpgradeType.LessPriceUpgrades,
+            UpgradeType.XpBoost,
+            UpgradeType.DamageMultiplicator,
+            UpgradeType.StageSkip,
+            UpgradeType.OmegaProb, 
+            UpgradeType.MinimumLevel, 
+            UpgradeType.CriticalProbability, 
+    };
 
-    
+
+    public UpgradeType nextPrestigeToBuy = UpgradeType.DamageMultiplicator;
+    public UpgradeType nextPrestigeToBuy2 = UpgradeType.PrestigeMultiplicator;
 
 
-    public List<UpgradePrestige.UpgradeType> prestigeToBuy = new List<UpgradePrestige.UpgradeType> {
-        PrestigeMultiplicator,
-        LessMeteor,
-        LessTimeMachine,
-        LessPriceUpgrades,
-        XpBoost,
-        DamageMultiplicator,
-        StageSkip,
-        OmegaProb };
-    public UpgradePrestige.UpgradeType nextPrestigeToBuy = DamageMultiplicator;
-    public UpgradePrestige.UpgradeType nextPrestigeToBuy2 = PrestigeMultiplicator;
-
-    public static void Initialize()
+    public void AddDiamand(int amount)
     {
-        if (Instance == null)
-        {
-            Instance = new Stats();
-
-            float version = Instance.version;
-            Instance.load();
-            if (Instance.version < version)
-            {
-                Instance.reset();
-            }
-        }
-    }
-
-    public void upDiamand(int amount, bool positive)
-    {
-        if (positive) {
-            diamand += amount;
-        }
-        else
-        {
-            diamand -= amount;
-        }
+        diamand += amount;
         MainUi.Instance.upDiamandUI();
     }
 
-    public void upIron(BigNumber amount, bool positive)
+    public void AddShipMoney(BigNumber amount, bool waiting)
     {
-        if (positive)
-        {
-            iron.Add(amount);
-        }
-        else
-        {
-            iron.Subtract(amount);
-        }
-        MainUi.Instance.upIronUI();
+        if (waiting) BN_shipMoneyWaiting += amount;
+        else BN_shipMoney += amount;
+        OnShipMoneyChanged.Invoke();
     }
 
-    public void upUranium(BigNumber amount, bool positive)
+    public void AddIron(BigNumber amount)
     {
-        if (positive)
-        {
-            uranium.Add(amount);
-        }
-        else
-        {
-            uranium.Subtract(amount);
-        }
+        Ship.Current.iron += amount;
+        MainUi.Instance.upIronUI();
+        OnIronChanged.Invoke();
+    }
+
+    public void AddUranium(BigNumber amount)
+    {
+        Ship.Current.uranium += amount;
         MainUi.Instance.upUraniumUI();
     }
 
-    public void upPrestige(BigNumber amount, bool positive)
+    public void addPrestige(BigNumber amount)
     {
-        if (positive)
-        {
-            starPariticul.Add(amount);
-        }
-        else
-        {
-            starPariticul.Subtract(amount);
-        }
+        starPariticul += amount;
         MainUi.Instance.prestigeUI.upPrestigeLabel();
     }
 
-    public void upPrestigeWaiting(BigNumber amount, bool positive)
+    public void AddPrestigeWainting(BigNumber amount)
     {
-        if (positive)
-        {
-            prestigeWaiting.Add(amount);
-        }
-        else
-        {
-            prestigeWaiting.Subtract(amount);
-        }
+        prestigeWaiting += amount;
         MainUi.Instance.prestigeUI.upPrestigeLabel();
     }
-
-
-
-    public void upLife(BigNumber amount, bool positive)
-    {
-        
-        if (positive)
-        {
-            life.Add(amount);
-        }
-        else
-        {
-            life.Subtract(amount);
-        }
-        if( new BigNumber(0, 0).isBigger(life))
-        {
-            life = new BigNumber(0);
-        }
-
-    }
-
-    public void upShield(BigNumber amount, bool positive)
-    {
-
-        if (positive)
-        {
-            shield.Add(amount);
-        }
-        else
-        {
-            shield.Subtract(amount);
-        }
-        if (new BigNumber(0, 0).isBigger(shield))
-        {
-            shield = new BigNumber(0);
-        }
-
-    }
-    public void upLifeMax(BigNumber amount, bool positive)
-    {
-        
-        if (positive)
-        {
-            lifeMax.Add(amount);
-        }
-        else
-        {
-            lifeMax.Subtract(amount);
-        }
-    }
-
     public void load() {
-        string path = Application.persistentDataPath + "stats.json";
+        string path = Application.persistentDataPath + "/stats.json";
 
         if (!System.IO.File.Exists(path))
         {
@@ -246,15 +178,15 @@ public class Stats
         {
             string data = System.IO.File.ReadAllText(path);
             Instance = JsonUtility.FromJson<Stats>(data);
-        }
-        Instance.life = new BigNumber(spaceShip.instance.getMaxLife());
-        Instance.shield = new BigNumber(spaceShip.instance.getMaxShield());
+        }   
+        if(Ship.Current.lifeMax != null )Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
 
     public void save() {
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        string path = Application.persistentDataPath + "stats.json";
+        string path = Application.persistentDataPath + "/stats.json";
         string stat = JsonUtility.ToJson(this);
         System.IO.File.WriteAllText(path, stat);
         QuestStats.Instance.Save();
@@ -264,11 +196,21 @@ public class Stats
     public void reset()
     {
         Instance = new Stats();
+        ShipManager.Instance.LoadShips();
         save();
         QuestStats.Instance.reset();
         Data.Instance.reset();
+        MainUi.Instance.upStage();
+        Tuto.Instance.loadPopupTuto();
+        if (Instance.spaceShips.Count == 0)
+        {
+            Instance.spaceShips.Add(new SpaceShipDico
+            {
+                type = SpaceShipType.Main,
+                data = new SpaceShipData()
+            });
+        }
     }
 
 
 }
-

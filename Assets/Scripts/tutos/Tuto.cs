@@ -28,16 +28,14 @@ public class Tuto: MonoBehaviour
     Button Btn_back;
     VisualElement VE_main;
 
+    private int machineClicked = 0;
+
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,13 +45,18 @@ public class Tuto: MonoBehaviour
         loadPopupTuto();
     }
 
-    private void loadPopupTuto()
+    public void loadPopupTuto()
     {
         foreach (PopupTuto tuto in Enum.GetValues(typeof(PopupTuto)))
-        {
             if (!Stats.Instance.popupTutos.ContainsKey(tuto)) Stats.Instance.popupTutos[tuto] = false;
-        }
     }
+
+    public void AddMachineClicked()
+    {
+        machineClicked++;
+        if(machineClicked == 3) loadIronUpgradeTuto(true);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -118,15 +121,10 @@ public class Tuto: MonoBehaviour
 
         VisualElement forgeElements = root.Query<VisualElement>("forge");
 
-        if(isIron)
+/*        if(isIron)
             MainUi.Instance.ironUI.forgeUpgradeClicked();
         else
-            MainUi.Instance.uraniumUI.forgeUpgradeClicked();
-
-        if (isIron)
-            Stats.Instance.upIron(new BigNumber(160), true);
-        else
-            Stats.Instance.upUranium(new BigNumber(160), true);
+            MainUi.Instance.uraniumUI.forgeUpgradeClicked();*/
 
         forgeElements.style.display = DisplayStyle.None;
 

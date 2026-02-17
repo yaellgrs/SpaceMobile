@@ -157,13 +157,14 @@ public class Ads : MonoBehaviour
         switch (type)
         {
             case RewardType.Diamand:
-                Stats.Instance.upDiamand(5, true);
+                Stats.Instance.AddDiamand(5);
                 break;
             case RewardType.Ressources:
-                Stats.Instance.upIron(getIronAdsReward(), true);
-                Stats.Instance.upUranium(getUraniumAdsReward(), true);
+                Stats.Instance.AddIron(getIronAdsReward());
+                Stats.Instance.AddUranium(getUraniumAdsReward());
                 break;
             case RewardType.Resurection:
+                Stats.Instance.ReduceLifeBoss = true;
                 Stats.Instance.deadPubWatch++;
                 break;
         }

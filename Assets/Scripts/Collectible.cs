@@ -64,29 +64,25 @@ public class Collectible : MonoBehaviour
                 switch (type)
                 {
                     case CollectibleType.iron:
-                        Stats.Instance.upIron(reward, true);
-                        if (MainUi.Instance.questUI.type == QuestUI.questType.ironMeteor) MainUi.Instance.questUI.upQuest(reward);
+                        Stats.Instance.AddIron(reward);
+                        if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
                         break;
                     case CollectibleType.uranium:
-                        Stats.Instance.upUranium(reward, true);
-                        if (MainUi.Instance.questUI.type == QuestUI.questType.uraniumMeteor) MainUi.Instance.questUI.upQuest(reward);
+                        Stats.Instance.AddUranium(reward);
+                        if (QuestManager.Instance.type == QuestType.KillUraniumMeteor) QuestManager.Instance.upQuest(reward);
                         break;
                     case CollectibleType.Diamand:
-                        Stats.Instance.upDiamand(1, true);
+                        Stats.Instance.AddDiamand(1);
                         break;
                 }
 
                 Destroy(gameObject);
             }
         }
-
-        
-
     }
 
     private void checkCollected(Vector3 pos)
     {
-;
         float dist = Vector3.Distance(pos, transform.position);
 
         if (dist <= 0.5f)
@@ -103,19 +99,18 @@ public class Collectible : MonoBehaviour
         Vector3 bottomCenterWorld = Camera.main.ScreenToWorldPoint(bottomCenterScreen);
 
         Vector3 direction = bottomCenterWorld - transform.position;
-
         GetComponent<Rigidbody2D>().AddForce(direction*60);
         
         switch (type)
         {
             case CollectibleType.iron:
-                PoolManager.Instance.LaunchPrefab(transform.position, reward.ToString(), PoolManager.markerType.Iron);
+                PoolManager.Instance.LaunchPrefab(transform.position, reward.ToString(), MarkerType.Iron);
                 break;
             case CollectibleType.uranium:
-                PoolManager.Instance.LaunchPrefab(transform.position, reward.ToString(), PoolManager.markerType.Uranium);
+                PoolManager.Instance.LaunchPrefab(transform.position, reward.ToString(), MarkerType.Uranium);
                 break;
             case CollectibleType.Diamand:
-                PoolManager.Instance.LaunchPrefab(transform.position, "", PoolManager.markerType.Diamand);
+                PoolManager.Instance.LaunchPrefab(transform.position, "", MarkerType.Diamand);
                 break;
         }
 

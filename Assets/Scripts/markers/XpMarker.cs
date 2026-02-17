@@ -10,16 +10,23 @@ public class XpMarker : MonoBehaviour
     public Image img;
     private float timer = 0f;
 
-    public PoolManager.markerType type;
+    private const float DISPLAY_TIME = 2f;  
+    private const float MOVE_Y = 0.025f;  
+    public float alpha_decrease = 0.975f;
+    public float speed = 1f;
+
+    private float move_x = 0.0025f;
+
+    public MarkerType type;
 
     public void init(Vector3 position, string xp)
     {
-        if (type == PoolManager.markerType.Damage || type == PoolManager.markerType.Critique)
+        if (type == MarkerType.Damage || type == MarkerType.Critique)
         {
             label.text = "-" + xp;
             position.y += 0.3f;
         }
-        else if (type == PoolManager.markerType.Iron || type == PoolManager.markerType.Uranium || type == PoolManager.markerType.Prestige || type == PoolManager.markerType.Xp)
+        else if (type == MarkerType.Iron || type == MarkerType.Uranium || type == MarkerType.Prestige || type == MarkerType.Xp)
         {
             label.text = "+" + xp;
             position.y += 0.3f;
@@ -36,26 +43,26 @@ public class XpMarker : MonoBehaviour
             img.color = new Color(img.color.r, img.color.g, img.color.b, 1f);
         }
 
-
+        if (speed > 0.5f) move_x = Random.Range(-0.0025f, 0.0025f);
+        else move_x = 0f;
+            Debug.Log("move_x: " + move_x);
     }
     private void Update()
     {
         timer += Time.deltaTime;
 
-        transform.position = transform.position + new Vector3(0f, 0.01f, 0);
-        if(label != null)
+        transform.position = transform.position + new Vector3(move_x, MOVE_Y * speed * 50 * Time.deltaTime, 0);
+        float alphaNormalized = Mathf.Pow(alpha_decrease, Time.deltaTime * 60f);
+        if (label != null)
         {
-            label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * 0.95f);
+            label.color = new Color(label.color.r, label.color.g, label.color.b, label.color.a * alphaNormalized);
         }
         if (img != null)
         {
-            img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a * 0.95f);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a * alphaNormalized);
         }
-            
-        
 
-
-        if(timer > 2f)
+        if(timer > DISPLAY_TIME)
         {
             timer = 0f;
             PoolManager.Instance.returnPrefab(this);

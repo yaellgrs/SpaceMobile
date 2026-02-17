@@ -16,27 +16,27 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: f08e391c545fdab4d9c91542a36284fb
   m_Entries:
   - m_Id: 285480005632
-    m_Key: Quest_objectif-killMeteor
+    m_Key: Quest_objectif-KillMeteor
     m_Metadata:
       m_Items: []
   - m_Id: 86366347014144
-    m_Key: Quest_objectif-IronMeteor
+    m_Key: Quest_objectif-KillIronMeteor
     m_Metadata:
       m_Items: []
   - m_Id: 336272101945344
-    m_Key: Quest_objectif-IronUpgrade
+    m_Key: Quest_objectif-UpgradeIron
     m_Metadata:
       m_Items: []
   - m_Id: 466121177116672
-    m_Key: Quest_objectif-StarParticule
+    m_Key: Quest_objectif-GetStarParticle
     m_Metadata:
       m_Items: []
   - m_Id: 739707456532480
-    m_Key: Quest_objectif-UraniumMeteor
+    m_Key: Quest_objectif-KillUraniumMeteor
     m_Metadata:
       m_Items: []
   - m_Id: 739708047929344
-    m_Key: Quest_objectif-UraniumUpgrade
+    m_Key: Quest_objectif-UpgradeUranium
     m_Metadata:
       m_Items: []
   - m_Id: 5438910464
@@ -84,15 +84,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1246248500670464
-    m_Key: Quest_objectif-upMachines
+    m_Key: Quest_objectif-UpgradeMachine
     m_Metadata:
       m_Items: []
   - m_Id: 1246249826070528
-    m_Key: Quest_objectif-unlockMachine
+    m_Key: Quest_objectif-UnlockMachine
     m_Metadata:
       m_Items: []
   - m_Id: 1246252795637760
-    m_Key: Quest_objectif-speed
+    m_Key: Quest_objectif-Speed
     m_Metadata:
       m_Items: []
   m_Metadata:

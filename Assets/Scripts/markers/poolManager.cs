@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Timeline;
 
+public enum MarkerType { Xp, Diamand, Damage, Iron, Uranium, Critique, Prestige };
+
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance;
@@ -26,7 +28,7 @@ public class PoolManager : MonoBehaviour
 
     private List<MarkerPool> pools = new List<MarkerPool>();
 
-    public enum markerType { Xp, Diamand, Damage, Iron, Uranium, Critique, Prestige};
+
 
     private void Awake()
     {
@@ -42,13 +44,13 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        xp_pool = new MarkerPool(XpPrefab, markerType.Xp);
-        diamand_pool = new MarkerPool(DiamandPrefab, markerType.Diamand);
-        damage_pool = new MarkerPool(DamagePrefab, markerType.Damage);
-        iron_pool = new MarkerPool(IronPrefab, markerType.Iron);
-        uranium_pool = new MarkerPool(UraniumPrefab, markerType.Uranium);
-        MarkerPool critique_pool = new MarkerPool(CritiquePrefab, markerType.Critique);
-        MarkerPool prestige_pool = new MarkerPool(PrestigePrefab, markerType.Prestige);
+        xp_pool = new MarkerPool(XpPrefab, MarkerType.Xp);
+        diamand_pool = new MarkerPool(DiamandPrefab, MarkerType.Diamand);
+        damage_pool = new MarkerPool(DamagePrefab, MarkerType.Damage);
+        iron_pool = new MarkerPool(IronPrefab, MarkerType.Iron);
+        uranium_pool = new MarkerPool(UraniumPrefab, MarkerType.Uranium);
+        MarkerPool critique_pool = new MarkerPool(CritiquePrefab, MarkerType.Critique);
+        MarkerPool prestige_pool = new MarkerPool(PrestigePrefab, MarkerType.Prestige);
 
         pools.Add(xp_pool);
         pools.Add(diamand_pool);
@@ -60,7 +62,7 @@ public class PoolManager : MonoBehaviour
 
     }
 
-    public XpMarker GetPrefab(markerType type)
+    public XpMarker GetPrefab(MarkerType type)
     {
         foreach(MarkerPool pool in pools)
         {
@@ -85,10 +87,13 @@ public class PoolManager : MonoBehaviour
         }
     }
     
-    public void LaunchPrefab(Vector3 position, string xp, markerType type)
+    public void LaunchPrefab(Vector3 position, string xp, MarkerType type, float speed = 1f, float alpha_decrease = 0.975f, float fontFactor = 1f)
     {
         XpMarker marker = Instance.GetPrefab(type);
+        marker.label.fontSize = 0.3f * fontFactor;
+        marker.speed = speed;
         marker.init(position, xp);
     }
+
 
 }

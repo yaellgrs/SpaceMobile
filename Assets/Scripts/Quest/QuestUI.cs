@@ -9,14 +9,19 @@ using Unity.VisualScripting;
 using System.Linq;
 using Newtonsoft.Json.Bson;
 using UnityEngine.Localization.Components;
+using Unity.Loading;
+using System;
 
 public class QuestUI : MonoBehaviour
 {
         
     public UIDocument questUI;
-    private VisualElement main;
+    public UIDocument successUI;
+
+    private VisualElement VE_main;
     private VisualElement questVE;
 
+    private Button Btn_switch;
     private Button back;
     private Button exit;
     private Button claim;
@@ -29,23 +34,15 @@ public class QuestUI : MonoBehaviour
     private Label xpReward;
 
 
-    private LocalizedString localizesDialogue;
-    private LocalizedString localizesQuest;
-
-
-    public enum questType { MeteorToKill, ironMeteor, ironUpgrade, starParticule, uraniumMeteor, uraniumUpgrade, upMachines, unlockMachine, Speed, None };
-
-    public questType type;
-
-    public BigNumber objectif = new BigNumber(100);
-    private int reward = 5;
+    private bool lauchTransition = true;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         questUI.gameObject.SetActive(false);
-        initQuest();
+        successUI.gameObject.SetActive(false);
+        QuestManager.Instance.initQuest();
 
     }
 
@@ -55,27 +52,31 @@ public class QuestUI : MonoBehaviour
         
     }
 
-    public void Load()
+    public void LoadQuestUI()
     {
         questUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
 
         var root = questUI.rootVisualElement;
-        main = root.Q<VisualElement>("main");
+        VE_main = root.Q<VisualElement>("main");
 
-
-
-        main.AddToClassList("trans");
-        main.schedule.Execute(() =>
+        if (lauchTransition)
         {
-            main.RemoveFromClassList("trans");
-        }).StartingIn(50);
+            VE_main.AddToClassList("trans");
+            VE_main.schedule.Execute(() =>
+            {
+                VE_main.RemoveFromClassList("trans");
+            }).StartingIn(50);
+
+            lauchTransition = false;
+        }
 
         questVE = root.Q<VisualElement>("questVE");
 
         back = root.Q<Button>("back");
         exit = root.Q<Button>("exit");
         claim = root.Q<Button>("claim");
+        Btn_switch = root.Q<Button>("switch");
         exit.SetEnabled(true);
 
         dialogue = root.Q<Label>("dialogue");
@@ -84,159 +85,111 @@ public class QuestUI : MonoBehaviour
         questCount = root.Q<Label>("questCount");
         diamandReward = root.Q<Label>("diamand");
         xpReward = root.Q<Label>("xp");
-        initQuest();
-        loadQuest();
 
-        diamandReward.text = reward.ToString();
-        xpReward.text = CalculXpReward().ToString("F0");
+
+        refreshQuestUI();
 
         back.clicked -= Close;
         exit.clicked -= Close;
         back.clicked += Close;
         exit.clicked += Close;
+        Btn_switch.clicked += Switch;
 
-        claim.clicked -= Claim;
-        if (isCompleted())
+        claim.clicked += ClaimClicked;
+        claim.clicked -= ClaimClicked;
+
+
+    }
+
+    public void refreshQuestUI()//refaire le nom
+    {
+        QuestManager.Instance.initQuest();
+        loadQuest();
+
+        diamandReward.text = QuestManager.Instance.reward.ToString();
+        xpReward.text = QuestManager.Instance.CalculXpReward().ToString();
+
+        if (QuestManager.Instance.isCompleted())
         {
             claim.SetEnabled(true);
-            claim.clicked += Claim;
+            claim.clicked += ClaimClicked;
         }
         else
-        {
             claim.SetEnabled(false);
-
-        }
-
-
     }
 
     public void Close()
     {
+        lauchTransition = true;
         gameManager.instance.SetPause(false);
 
-        main.RemoveFromClassList("trans");
-        main.schedule.Execute(() =>
+        VE_main.RemoveFromClassList("trans");
+        VE_main.schedule.Execute(() =>
         {
-            main.AddToClassList("trans");
+            VE_main.AddToClassList("trans");
             exit.SetEnabled(false);
         }).StartingIn(50);
-        main.schedule.Execute(() =>
+        VE_main.schedule.Execute(() =>
         {
             questUI.gameObject.SetActive(false);
+            successUI.gameObject.SetActive(false);
             gameManager.instance.SetPause(false);
         }).StartingIn(400);
     }
 
-    public void upQuest()
+    private void Switch()
     {
-        if (new[] { questType.MeteorToKill, questType.ironUpgrade, questType.uraniumUpgrade, questType.upMachines, questType.unlockMachine }.Contains(type))
-        {
-            QuestStats.Instance.progress.Add(1);
-        }
-
-
-        MainUi.Instance.SetQuestCompleted(isCompleted());
+        bool active = questUI.gameObject.activeSelf;
+        questUI.gameObject.SetActive(!active);
+        successUI.gameObject.SetActive(active);
+        if (active)
+            LoadSuccessUI();
+        else 
+            LoadQuestUI();    
     }
 
-    public void upQuest(BigNumber n)
+
+    public void ClaimClicked()
     {
-        if (new[] { questType.ironMeteor, questType.uraniumMeteor}.Contains(type))
-        {
-            QuestStats.Instance.progress.Add(n);
-        }
-
-        MainUi.Instance.SetQuestCompleted(isCompleted());
-    }
-
-    public void upQuest(float time)
-    {
-        if(type == questType.Speed)
-        {
-            QuestStats.Instance.progress.Add(new BigNumber(time, 0));
-        }
-    }
-
-    private void Claim()
-    {
-        QuestStats.Instance.questLevel++;
-        Stats.Instance.upDiamand(reward, true);
-        Stats.Instance.xp += CalculXpReward();
-        MainUi.Instance.upLevelUI();
-
-        //tout remettre a 0
-        QuestStats.Instance.progress = new BigNumber(0);
-        QuestStats.Instance.timeCompleted = 0;
-        initQuest();
+        QuestManager.Instance.Claim();
         loadQuest();
-
         claim.SetEnabled(false);
-        claim.clicked -= Claim;
-        MainUi.Instance.SetQuestCompleted(isCompleted());
+        claim.clicked -= ClaimClicked;
     }
 
-    private void loadQuest()
+    public void loadQuest()
     {
         if (QuestStats.Instance.questLevel <= QuestStats.Instance.questMaxLevel)
         {
+            //dialogue
             string key = "Quest_dialogue-" + (QuestStats.Instance.questLevel);
-            localizesDialogue = new LocalizedString("UI_Quests", key);
+            LocalizedString localizesDialogue = new LocalizedString("UI_Quests", key);
             localizesDialogue.StringChanged += (localizedValue) =>
             {
                 dialogue.text = localizedValue;
             };
 
-
-            key = "Quest_objectif-";
-            switch (type)
+            //objectif
+            key = "Quest_objectif-" + QuestManager.Instance.type.ToString();
+            LocalizedString localizesQuest = new LocalizedString("UI_Quests", key);
+            if(QuestManager.Instance.type == QuestType.Speed)
             {
-                case questType.MeteorToKill:
-                    key += "killMeteor";
-                    break;
-                case questType.ironMeteor:
-                    key += "IronMeteor";
-                    break;
-                case questType.ironUpgrade:
-                    key += "IronUpgrade";
-                    break;
-                case questType.starParticule:
-                    key += "StarParticule";
-                    break;
-                case questType.uraniumUpgrade:
-                    key += "UraniumUpgrade";
-                    break;
-                case questType.uraniumMeteor:
-                    key += "UraniumMeteor";
-                    break;
-                case questType.upMachines:
-                    key += "upMachines";
-                    break;
-                case questType.unlockMachine:
-                    key += "unlockMachine";
-                    break;
-                case questType.Speed:
-                    key += "speed";
-                    break;
-            }
-
-            localizesQuest = new LocalizedString("UI_Quests", key);
-            if(type == questType.Speed)
-            {
-                localizesQuest.Arguments = new object[] { new { stage = objectif } };
+                localizesQuest.Arguments = new object[] { new { stage = QuestManager.Instance.objectif } };
             }
             localizesQuest.StringChanged += (localizedValue) =>
             {
                 quest.text = localizedValue;
             };
             localizesQuest.RefreshString();
-
-
-            if (type != questType.Speed)
+            
+            //avancement
+            if (QuestManager.Instance.type != QuestType.Speed)
             {
-                progress.text = QuestStats.Instance.progress.ToString() + "/" + objectif.ToString();
+                progress.text = QuestStats.Instance.progress.ToString() + "/" + QuestManager.Instance.objectif.ToString();
             }
             else
-            {
-                if (!isCompleted())
+            { //speed
+                if (!QuestManager.Instance.isCompleted())
                 {
                     progress.text = BigNumber.floatToTimeMinute(Data.Instance.time);
                 }
@@ -249,10 +202,10 @@ public class QuestUI : MonoBehaviour
 
 
         }
-        else
+        else //level Max
         {
             string key = "Quest_dialogue-end";
-            localizesDialogue = new LocalizedString("UI_Quests", key);
+            LocalizedString localizesDialogue = new LocalizedString("UI_Quests", key);
             localizesDialogue.StringChanged += (localizedValue) =>
             {
                 dialogue.text = localizedValue;
@@ -264,79 +217,37 @@ public class QuestUI : MonoBehaviour
         }
     }
 
-    public void initQuest() {
 
-        switch (QuestStats.Instance.questLevel)
+    public void LoadSuccessUI()
+    {
+        var root = successUI.rootVisualElement;
+        Btn_switch = root.Q<Button>("switch");
+        VE_main = root.Q<VisualElement>("main");
+        back = root.Q<Button>("back");
+        exit = root.Q<Button>("exit");
+
+        Btn_switch.clicked -= Switch;
+        back.clicked -= Close;
+        exit.clicked -= Close;
+        back.clicked += Close;
+        exit.clicked += Close;
+        Btn_switch.clicked += Switch;
+
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+
+        scroll.Clear();
+
+        foreach(SuccessType key in Enum.GetValues(typeof(SuccessType)))
         {
-            case 1:
-                type = questType.MeteorToKill;
-                objectif = new BigNumber(100);
-                break;
-            case 2:
-                type = questType.ironMeteor;
-                objectif = new BigNumber(2.5f, 3);
-                break;
-            case 3:
-                type = questType.ironUpgrade;
-                objectif = new BigNumber(15);
-                break;
-            case 4:
-                type = questType.MeteorToKill;
-                objectif = new BigNumber(250);
-                break;
-            case 5:
-                type = questType.starParticule;
-                objectif = new BigNumber(100);
-                break;
-            case 6:
-                type = questType.uraniumMeteor;
-                objectif = new BigNumber(2.5f, 3);
-                break;
-            case 7:
-                type = questType.uraniumUpgrade;
-                objectif = new BigNumber(15);
-                break;
-            case 8:
-                type = questType.upMachines;
-                objectif = new BigNumber(25);
-                break;
-            case 9:
-                type = questType.unlockMachine;
-                objectif = new BigNumber(1);
-                break;
-            case 10:
-                type = questType.Speed;
-                objectif = new BigNumber(25);   
-                break;
-
+            scroll.Add(new SuccessElement(key));
         }
-        reward = 2;
+
+        refreshSuccessUi();
+
     }
 
-    public bool isCompleted()
+    public void refreshSuccessUi()
     {
-        if (QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel) return false;
 
-        if (type != questType.Speed)
-        {
-            if (QuestStats.Instance.progress.isBigger(objectif))
-            {
-                return true;
-            }
-        }
-        else
-        {
-            if(QuestStats.Instance.timeCompleted > 0 && QuestStats.Instance.timeCompleted < 300)
-            {
-                return true;
-            }
-        }
-            return false;
-    }
-
-
-    private float CalculXpReward()
-    {
-        return Stats.Instance.xpLevelUp*0.25f;
     }
 }

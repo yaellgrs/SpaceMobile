@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -24,13 +25,9 @@ public class canon : MonoBehaviour
     private void Awake()
     {
         if(instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     private void Start()
@@ -46,10 +43,8 @@ public class canon : MonoBehaviour
             timer += Time.deltaTime;
 
             moveCanon(); // appel shoot 
-            if (Stats.Instance.uraniumUnlocked)
-            {
+            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
                 autoShoot();
-            }
         }  
     }
 
@@ -80,18 +75,13 @@ public class canon : MonoBehaviour
         if (type == 0)
         {
             projectil = Instantiate(lazer);
-            projectil.degats = spaceShip.instance.damage;
         }
         else
         {
             projectil = Instantiate(rocket);
-            projectil.degats = new BigNumber(spaceShip.instance.damage);
-            projectil.degats.Multiply(Stats.Instance.rocketMultiplier);
             projectil.isRocket = true;
             rocketSpeed = 0.5f;
         }
-
-
         projectil.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         angle = angle * Mathf.Deg2Rad;
         projectil.transform.position = transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)*0.3f;
@@ -100,18 +90,16 @@ public class canon : MonoBehaviour
         projectil.GetComponent<Rigidbody2D>().AddForce(force*250);
     }
 
-
     public void setPause(bool pause)
     {
         isPause = pause;
     }
 
-
     public void autoShoot()
     {
         autoTimer += Time.deltaTime;
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        if (meteors.Length > 0)
+        List<spaceObject> meteors = gameManager.instance.meteors;
+        if (meteors.Count > 0)
         {
             int i = FindMeteor(meteors);
             if (i !=-1)
@@ -126,16 +114,12 @@ public class canon : MonoBehaviour
                     shoot(angle, vect, 0);
                 }
             }
-
-
         }
-
     }
 
-    private int FindMeteor(spaceObject[] meteors)
+    private int FindMeteor(List<spaceObject> meteors)
     {
-
-        for(int i = 0; i < meteors.Length; i++)
+        for(int i = 0; i < meteors.Count; i++)
         {
             if(meteors[i].type != spaceObject.meteorType.Diamand)
             {
@@ -147,24 +131,22 @@ public class canon : MonoBehaviour
 
     public void rocketShoot()
     {
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
+        List<spaceObject> meteors = gameManager.instance.meteors;
         int n = 0;
-        BigNumber maxPv = new BigNumber(meteors[0].lifeMax.Mantisse, meteors[0].lifeMax.Exp);
-        for (int i = 1; i < meteors.Length; i++)
+        BigNumber maxPv = new BigNumber(meteors[0].lifeMax);
+        for (int i = 1; i < meteors.Count; i++)
         {
             if (meteors[i].lifeMax.isBigger(maxPv))
             {
                 n = i;
-                maxPv = new BigNumber(meteors[i].lifeMax.Mantisse, meteors[i].lifeMax.Exp);
+                maxPv = new BigNumber(meteors[i].lifeMax);
             }
         }
-
         Vector3 position = meteors[n].gameObject.transform.position;
         Vector3 vect = position - transform.position;
         float angle = Mathf.Atan2(vect.y, vect.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         Song.Instance.playSound(Song.Instance.rocket_sound);
         shoot(angle, vect, 1);
-
     }
 }

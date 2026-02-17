@@ -7,7 +7,6 @@ public class spaceShip : MonoBehaviour
     static public spaceShip instance;
     public GameObject area;
 
-    public BigNumber damage = new BigNumber(1, 0);
     public float shootTimer = 0.1f;
     public float shieldRegen = 0f;
 
@@ -17,6 +16,8 @@ public class spaceShip : MonoBehaviour
     private float anim = 0f;
     private bool animUp = false;
     public float animSpeed = 0.0025f;
+
+    private Animator animator;
 
     private void Awake()
     {
@@ -32,50 +33,61 @@ public class spaceShip : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GetComponent<Animator>().speed = 0.75f;
+        animator  = GetComponent<Animator>();
+        animator.speed = 0.75f;
         initAreaScale = area.transform.localScale;
         initScale = area.transform.localScale;
+        LoadAnimation();
+    }
+
+    public void LoadAnimation()
+    {
+        //animator.SetBool("isFire", Stats.Instance.currentSpaceShipType == SpaceShipType.Fire);
     }
 
     // Update is called once per frame
     void Update()
     {
         Animation();
-        if (!Stats.Instance.shield.isBigger(getMaxShield()))
+        if (!Ship.Current.shield.isBigger(getMaxShield()))
         {
             if (!gameManager.instance.isPaused)
             {
                 shieldRegen += Time.deltaTime;
             }
             MainUi.Instance.upShieldRegenUI();
-            if (shieldRegen > Stats.Instance.shield_Regen_Time && Stats.Instance.life.isBigger(new BigNumber(0)))
+            if (shieldRegen > Stats.Instance.shield_Regen_Time && Ship.Current.life.isBigger(new BigNumber(0)))
             {
                 BigNumber x = new BigNumber(getMaxShield());
-                x.Subtract(Stats.Instance.shield);
-                if (x.isBigger(Stats.Instance.regenShield))
+                x.Subtract(Ship.Current.shield);
+                if (x.isBigger(Ship.Current.regenShield))
                 {
-                    Stats.Instance.shield.Add(Stats.Instance.regenShield);
+                    Ship.Current.shield.Add(Ship.Current.regenShield);
                 }
                 else
                 {
-                    Stats.Instance.shield.Add(x);
+                    Ship.Current.shield.Add(x);
                 }
                 MainUi.Instance.upShieldBar();
                 shieldRegen = 0;
             }
 
         }
-        if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && new BigNumber(1, 0).isBigger(Stats.Instance.life)) 
+        if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && new BigNumber(1, 0).isBigger(Ship.Current.life)) 
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
-            ResurectionUI.Instance.loadResurection();
+            if (Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0)
+            {
+                Ship.Current.isDead = true;
+                ResurectionUI.Instance.loadResurection();
+            }
         }
     }
 
     private void Animation()
     {
-        float speed = animSpeed * UpSpeed.Instance.upModeMultiplicator;
+        float speed = animSpeed * UpSpeed.Instance.upModeMultiplicator * 100 * Time.deltaTime;
         if (animUp)
         {
             Vector3 pos = transform.position;
@@ -99,48 +111,49 @@ public class spaceShip : MonoBehaviour
 
     public void getDamage(BigNumber amount)
     {
-        if (Stats.Instance.shield.isBigger(amount))
+        if (Ship.Current.shield.isBigger(amount))
         {
-            Stats.Instance.upShield(amount, false);
+            Ship.Current.shield -= amount;
+            if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);
         }
         else
         {
-
-            BigNumber x = new BigNumber(amount.Mantisse, amount.Exp);
-            x.Subtract(Stats.Instance.shield);
-            if (Stats.Instance.shield.Mantisse != 0)
+            BigNumber x = new BigNumber(amount);
+            x -= Ship.Current.shield;
+            if (Ship.Current.shield.Mantisse != 0)
             {
-                Stats.Instance.shield = new BigNumber(0, 0);
+                Ship.Current.shield.Set(0);
             }
-            Stats.Instance.upLife(x, false);
+
+            Ship.Current.life -= x;
+            if (new BigNumber(0).isBigger(Ship.Current.life)) Ship.Current.life.Set(0);
         }
 
         MainUi.Instance.upShieldBar();
     }
 
-    public void setAreaScale(float scale)
+    public void setAreaScale()
     {
-        if (Stats.Instance.uraniumUnlocked)
+        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
         {
             area.gameObject.SetActive(true);
             area.transform.localScale = new Vector3(0.5386925f, 0.4774579f, 1f);
-            area.transform.localScale *= scale;
+            area.transform.localScale *= Stats.Instance.scale * Stats.Instance.areaSize;
         }
         else
         {
             area.gameObject.SetActive(false);
         }
     }
-    public void setScale(float scale)
+    public void setScale()
     {
         transform.localScale = new Vector3(0.75f, 0.75f, 1f);
-        transform.localScale *= scale;
+        transform.localScale *= Stats.Instance.scale;
     }
 
     public BigNumber getMaxLife()
     {
-        BigNumber life = new BigNumber(Stats.Instance.lifeMax);
-        life.Multiply(Stats.Instance.life_Multiplicator_Lvl);
+        BigNumber life = new BigNumber(Ship.Current.lifeMax.getTotal());
         if (Stats.Instance.pvShieldBoostTime > 0) {
             life.Multiply(2);
         }
@@ -149,8 +162,7 @@ public class spaceShip : MonoBehaviour
 
     public BigNumber getMaxShield()
     {
-        BigNumber shield = new BigNumber(Stats.Instance.shieldMax);
-        shield.Multiply(Stats.Instance.shield_Multiplicator_Lvl);
+        BigNumber shield = new BigNumber(Ship.Current.shieldMax.getTotal());
         if (Stats.Instance.pvShieldBoostTime > 0)
         {
             shield.Multiply(2);

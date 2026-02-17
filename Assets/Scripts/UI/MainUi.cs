@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -6,6 +7,7 @@ using UnityEngine.AdaptivePerformance;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
+using static Utility;
 
 public class MainUi : MonoBehaviour
 {
@@ -33,11 +35,6 @@ public class MainUi : MonoBehaviour
     //mainUI
     private VisualElement VE_main;
 
-    protected Button normalUpButton1;
-    protected Button uraniumButton;
-    protected Button prestigeButton;
-    protected Button xpButton;
-
     protected Button fire;
 
     private Label ironLabel;
@@ -50,19 +47,17 @@ public class MainUi : MonoBehaviour
     private Label shieldRegenLabel;
     private Label stageLabel;
     public Label enemyLabel;
-    public Label stageClearLabel;
-    public Label meteorWarningLabel;
+    public Label Lbl_stageClear;
+    public Label Lbl_stageSkip;
+    public Label Lbl_meteorWarning;
     public VisualElement healthBar;
     private VisualElement shieldBar;
     public VisualElement xpBar;
 
     public Button rocketButton;
     public Label rocketLabel;
-    public Button settingButton;
     public Button speedButton;
     public Button pubButton;
-    public Button shopButton;
-    public Button questButton;
     public VisualElement questCompleted;
     public VisualElement rocketCover;
     private float rocketTimer = -1f;
@@ -72,13 +67,21 @@ public class MainUi : MonoBehaviour
     private VisualElement VE_AutoShootBar;
 
     private float stageClearTimer = -1f;
+    private float stageSkipTimer = -1f;
     private float meteorWarningTimer = -1f;
 
     public Label debugLabel;
 
+    //Debug
+    Label Lbl_bossLife;
+    VisualElement VE_bossLife;
+    VisualElement VE_bossLifeLerp;
+    float currentBossPercent;
+    float LerpBossPercent;
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -93,22 +96,22 @@ public class MainUi : MonoBehaviour
     {
         var root = mainUI.rootVisualElement;
 
-        VE_main = root.Q<VisualElement>("main"); 
-        healthBar = root.Q<VisualElement>("HealthBar"); 
-        shieldBar = root.Q<VisualElement>("shieldBar"); 
+        VE_main = root.Q<VisualElement>("main");
+        healthBar = root.Q<VisualElement>("HealthBar");
+        shieldBar = root.Q<VisualElement>("shieldBar");
         xpBar = root.Q<VisualElement>("xpBar");
-        rocketCover = root.Q<VisualElement>("rocketCover"); 
-        normalUpButton1 = root.Q<Button>("ironUI");
-        uraniumButton = root.Q<Button>("uraniumUI");
-        prestigeButton = root.Q<Button>("prestigeUI");
-        xpButton = root.Q<Button>("xpButton");
+        rocketCover = root.Q<VisualElement>("rocketCover");
+        Button normalUpButton1 = root.Q<Button>("ironUI");
+        Button uraniumButton = root.Q<Button>("uraniumUI");
+        Button prestigeButton = root.Q<Button>("prestigeUI");
+        Button xpButton = root.Q<Button>("xpButton");
         rocketButton = root.Q<Button>("rocket");
-        settingButton = root.Q<Button>("setting");
+        Button settingButton = root.Q<Button>("setting");
         speedButton = root.Q<Button>("speedButton");
         pubButton = root.Q<Button>("pubButton");
-        shopButton = root.Q<Button>("shop");
+        Button shopButton = root.Q<Button>("shop");
         fire = root.Q<Button>("fire");
-        questButton = root.Q<Button>("quest");
+        Button questButton = root.Q<Button>("quest");
         questCompleted = root.Q<VisualElement>("questCompleted");
         VE_AutoShoot = root.Q<VisualElement>("autoShoot");
         VE_AutoShootBar = root.Q<VisualElement>("autoShootBar");
@@ -122,13 +125,17 @@ public class MainUi : MonoBehaviour
         shieldTimeLabel = root.Q<Label>("shieldTime");
         shieldRegenLabel = root.Q<Label>("shieldRegen");
         debugLabel = root.Q<Label>("debug");
-        stageLabel = root.Q<Label>("stage");
         enemyLabel = root.Q<Label>("enemy");
         rocketLabel = root.Q<Label>("rocketTimer");
-        stageClearLabel = root.Q<Label>("stageClear");
-        meteorWarningLabel = root.Q<Label>("meteorWarning");
+        Lbl_stageClear = root.Q<Label>("stageClear");
+        Lbl_stageSkip = root.Q<Label>("stageSkip");
+        Lbl_meteorWarning = root.Q<Label>("meteorWarning");
         Label_AutoShoot = root.Q<Label>("autoShootTimer");
         rocketCover.style.height = Length.Percent(0);
+
+        VE_bossLife = mainUI.rootVisualElement.Q<VisualElement>("BossLifeBarre");
+        VE_bossLifeLerp = mainUI.rootVisualElement.Q<VisualElement>("BossLifeBarreLerp");
+        Lbl_bossLife = mainUI.rootVisualElement.Q<Label>("bossLife");
 
         diamandLabel.text = Stats.Instance.diamand.ToString();
 
@@ -141,29 +148,31 @@ public class MainUi : MonoBehaviour
         speedButton.clicked += speedButtonClicked;
         pubButton.clicked += pubButtonClicked;
         shopButton.clicked += shopClicked;
-        questButton.clicked += questUI.Load;
-        enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/"+ gameManager.instance.meteorToKill.ToString();
+        questButton.clicked += questUI.LoadQuestUI;
+        enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
         uraniumUI.loadUpdateUI();
         ironUI.loadUpdateUI();
-        SetQuestCompleted(questUI.isCompleted());
+        SetQuestCompleted(QuestManager.Instance.isCompleted());
 
-        upStage();
+        //updateStage();
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
-        stageClearLabel.style.visibility = Visibility.Hidden;
+        Lbl_stageClear.style.visibility = Visibility.Hidden;
+        Lbl_stageSkip.style.visibility = Visibility.Hidden;
         stageClearTimer = -1f;
+        stageSkipTimer = -1f;
 
         uraniumUI.upgradeUI.gameObject.SetActive(false);
         ironUI.upgradeUI.gameObject.SetActive(false);
         adsUI.adsUI.gameObject.SetActive(false);
 
-        if(Stats.Instance.lastConnection == 0)
+        if (Stats.Instance.lastConnection == 0)
         {
-            Stats.Instance.life = new BigNumber(Stats.Instance.lifeMax);
-            Stats.Instance.shield = new BigNumber(Stats.Instance.shieldMax);
+            Ship.Current.life = new BigNumber(Ship.Current.lifeMax.getTotal());
+            Ship.Current.shield = new BigNumber(Ship.Current.lifeMax.getTotal());
         }
 
         UpSpeed.Instance.load(speedButton);
@@ -172,7 +181,9 @@ public class MainUi : MonoBehaviour
         loadRocketButton();
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
-        shieldRegenLabel.text = "+ " + Stats.Instance.regenShield;
+        shieldRegenLabel.text = "+ " + Ship.Current.regenShield;
+
+        Stats.Instance.OnIronChanged += upIronUI;
     }
 
     public void adaptBanner(bool adapt)
@@ -188,15 +199,24 @@ public class MainUi : MonoBehaviour
         }
     }
 
+    public void ShowBossLife(bool show)
+    {
+        if (show)
+            currentBossPercent = LerpBossPercent = 100f;
+
+        mainUI.rootVisualElement.Q<VisualElement>("boss").style.visibility = show ? Visibility.Visible : Visibility.Hidden;
+    }
+
     public void loadRocketButton()
     {
-        if (Stats.Instance.rocketUnlocked)
+        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockRocket))
         {
             rocketCover.style.display = DisplayStyle.Flex;
             rocketButton.style.display = DisplayStyle.Flex;
             rocketLabel.style.display = DisplayStyle.Flex;
         }
-        else{
+        else
+        {
             rocketCover.style.display = DisplayStyle.None;
             rocketButton.style.display = DisplayStyle.None;
             rocketLabel.style.display = DisplayStyle.None;
@@ -205,7 +225,7 @@ public class MainUi : MonoBehaviour
 
     private void Fire()
     {
-        
+
         canon.instance.canFire = true;
         canon.instance.moveCanon();
     }
@@ -234,12 +254,30 @@ public class MainUi : MonoBehaviour
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
-        if (Stats.Instance.xp > Stats.Instance.xpLevelUp)
+
+        if (gameManager.instance.bossStage)
         {
-            xpUI.LevelUp();
+            Debug.Log("bossstage");
+            if (gameManager.instance.meteors.Count > 0)
+            {
+                Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + gameManager.instance.meteors[0].lifeMax.ToString();
+                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
+                currentBossPercent = Mathf.Lerp(currentBossPercent, targetPercent, Time.deltaTime * 30f);
+                LerpBossPercent = Mathf.Lerp(LerpBossPercent, targetPercent, Time.deltaTime * 2.5f);
+
+            }
+            else
+            {
+                currentBossPercent = 0f;
+                LerpBossPercent = 0f;
+            }
+            VE_bossLife.style.width = Length.Percent(currentBossPercent);
+            VE_bossLifeLerp.style.width = Length.Percent(LerpBossPercent);
+
         }
 
-        if(rocketTimer > 0 &&  !gameManager.instance.isPaused)
+
+        if (rocketTimer > 0 && !gameManager.instance.isPaused)
         {
             rocketCover.style.height = Length.Percent((rocketTimer / Stats.Instance.rocketTimerMax) * 100);
             rocketTimer -= Time.deltaTime;
@@ -250,57 +288,53 @@ public class MainUi : MonoBehaviour
             rocketLabel.text = "";
             rocketCover.style.height = Length.Percent(0);
         }
+        meteorWarningTimer = UpdatePopup(meteorWarningTimer, Lbl_meteorWarning);
+        stageSkipTimer = UpdatePopup(stageSkipTimer, Lbl_stageSkip);
+        stageClearTimer = UpdatePopup(stageClearTimer, Lbl_stageClear);
+    }
 
-        if( stageClearTimer >= 0)
+    private float UpdatePopup(float timer, Label label)
+    {
+        if (timer >= 0)
         {
-            stageClearTimer += Time.deltaTime;
-            stageClearLabel.style.color = new Color(255, 255, 255, stageClearLabel.style.color.value.a * 0.975f);
-            if ( stageClearTimer > 2f)
+            timer += Time.deltaTime;
+            float normalizedAlpha = Mathf.Pow(0.985f, timer * Time.deltaTime * 60f);
+            SetAlphaColor(label, label.resolvedStyle.color.a * normalizedAlpha);
+            if (timer > 2f)
             {
-                stageClearLabel.style.visibility = Visibility.Hidden;
-                stageClearTimer = -1f;
+                label.style.visibility = Visibility.Hidden;
+                timer = -1f;
             }
         }
-        if (meteorWarningTimer >= 0)
-        {
-            meteorWarningTimer += Time.deltaTime;
-            meteorWarningLabel.style.color = new Color(meteorWarningLabel.resolvedStyle.color.r, meteorWarningLabel.resolvedStyle.color.g, meteorWarningLabel.resolvedStyle.color.b, stageClearLabel.style.color.value.a * 0.975f);
-            Debug.Log(meteorWarningLabel.resolvedStyle.color.r);
-            
-            if (meteorWarningTimer > 2f)
-            {
-                meteorWarningLabel.style.visibility = Visibility.Hidden;
-                meteorWarningTimer = -1f;
-            }
-        }
+
+        return timer;
     }
 
     public void SetQuestCompleted(bool isCompleted)
     {
-
-            if (isCompleted)
-            {
-                questCompleted.style.visibility = Visibility.Visible;
-            }
-            else
-            {
-                questCompleted.style.visibility = Visibility.Hidden;
-            }
-        
+        if (isCompleted)
+        {
+            questCompleted.style.visibility = Visibility.Visible;
+        }
+        else
+        {
+            questCompleted.style.visibility = Visibility.Hidden;
+        }
     }
 
     public void upLevelUI()
     {
-        if (Stats.Instance.level > 100) Stats.Instance.level = 100;
-        if (Stats.Instance.level == 100)
+        if (Ship.Current.level > 100) Ship.Current.level = 100;
+        if (Ship.Current.level == 100)
         {
             xpBar.style.width = Length.Percent(100f);
             xpLabel.text = "100";
             return;
         }
-        xpLabel.text = Stats.Instance.level.ToString();
+        xpLabel.text = Ship.Current.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
-        float targetPercent = Stats.Instance.xp / Stats.Instance.xpLevelUp * 100;
+        xpBar.style.height = Length.Percent(100f);
+        float targetPercent = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
 
         if (currentPercent < targetPercent - 0.25f)
         {
@@ -332,17 +366,18 @@ public class MainUi : MonoBehaviour
 
     private void rocketClicked()
     {
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        if (rocketTimer <= 0 && meteors.Length > 0)
+        float lenght = gameManager.instance.meteors.Count;
+        if (rocketTimer <= 0 && lenght > 0)
         {
             rocketTimer = Stats.Instance.rocketTimerMax;
             rocketCover.style.height = Length.Percent(100);
             canon.instance.rocketShoot();
         }
-        else if (meteors.Length <= 0)
+        else if (lenght <= 0)
         {
             meteorWarningTimer = 0f;
-            meteorWarningLabel.style.visibility = Visibility.Visible;
+            Lbl_meteorWarning.style.visibility = Visibility.Visible;
+            SetAlphaColor(Lbl_meteorWarning, 1f);
         }
     }
 
@@ -366,7 +401,7 @@ public class MainUi : MonoBehaviour
     {
         ironUI.classActived = true;
         ironUI.IronClicked();
-        
+
     }
     private void uraniumClicked()
     {
@@ -385,9 +420,9 @@ public class MainUi : MonoBehaviour
 
     private void upAutoShootUI()
     {
-        if(VE_AutoShoot != null)
+        if (VE_AutoShoot != null)
         {
-            if (Stats.Instance.uraniumUnlocked)
+            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
             {
                 VE_AutoShoot.style.visibility = Visibility.Visible;
                 float timer = (canon.instance.autoTimer / Stats.Instance.speedAuto) * 100;
@@ -408,19 +443,19 @@ public class MainUi : MonoBehaviour
 
     public void upIronUI()
     {
-        if(ironLabel != null)
+        if (ironLabel != null)
         {
-            string txt = Stats.Instance.iron.ToString();
+            string txt = Ship.Current.iron.ToString();
             ironLabel.text = txt;
             ironLabel.style.fontSize = 50 - (2 * txt.Length);
-        } 
+        }
     }
 
     public void upUraniumUI()
     {
         if (uraniumLabel != null)
         {
-            string txt = Stats.Instance.uranium.ToString();
+            string txt = Ship.Current.uranium.ToString();
             uraniumLabel.text = txt;
             uraniumLabel.style.fontSize = 50 - (2 * txt.Length);
         }
@@ -436,15 +471,15 @@ public class MainUi : MonoBehaviour
 
     public void upHealthBar()
     {
-        if(healthBar != null)
+        if (healthBar != null)
         {
-            string lifeText = Stats.Instance.life + "/" + spaceShip.instance.getMaxLife();
+            string lifeText = Ship.Current.life + "/" + spaceShip.instance.getMaxLife();
             lifeLabel.text = lifeText;
-            lifeLabel.style.width = Length.Percent(20 + 5 * (lifeText.Length - 5));
+            lifeLabel.style.width = Length.Percent(40 + 20 * (lifeText.Length - 9.5f));
 
 
             float currentPercent = healthBar.style.width.value.value;
-            float targetPercent = Stats.Instance.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
+            float targetPercent = Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -468,12 +503,12 @@ public class MainUi : MonoBehaviour
     {
         if (shieldBar != null)
         {
-            string shieldText = Stats.Instance.shield + "/" + spaceShip.instance.getMaxShield();
+            string shieldText = Ship.Current.shield + "/" + spaceShip.instance.getMaxShield();
             shieldLabel.text = shieldText;
             shieldLabel.style.width = Length.Percent(20 + 5 * (shieldText.Length - 5));
 
             float currentPercent = shieldBar.style.width.value.value;
-            float targetPercent = Stats.Instance.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
+            float targetPercent = Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -481,7 +516,7 @@ public class MainUi : MonoBehaviour
                 float diff = currentPercent - targetPercent;
                 shieldBar.style.width = Length.Percent(shieldBar.style.width.value.value - diff / 15f);
             }
-            else if(currentPercent < targetPercent - 0.25f)
+            else if (currentPercent < targetPercent - 0.25f)
             {
                 float diff = targetPercent - currentPercent;
                 shieldBar.style.width = Length.Percent(shieldBar.style.width.value.value + diff / 15f);
@@ -496,11 +531,11 @@ public class MainUi : MonoBehaviour
     public static string ConvertIntToText(int amount)
     {
         float nAmount = (float)amount;
-        if(amount < 1000)
+        if (amount < 1000)
         {
             return amount.ToString();
         }
-        int cpt = 0 ;
+        int cpt = 0;
         while (nAmount > 1000)
         {
             nAmount = (float)nAmount / 1000;
@@ -509,10 +544,10 @@ public class MainUi : MonoBehaviour
         string prefix;
         switch (cpt)
         {
-            case 1: 
+            case 1:
                 prefix = "k";
                 break;
-            case 2: 
+            case 2:
                 prefix = "m";
                 break;
             case 3:
@@ -539,23 +574,36 @@ public class MainUi : MonoBehaviour
         }
     }
 
+
     public void upStage()
     {
-        if(stageClearLabel != null)
+        if (Lbl_stageClear != null)
         {
-            stageLabel.text = "Stage : " + Stats.Instance.stage;
-            stageClearLabel.style.visibility = Visibility.Visible;
-            stageClearLabel.style.color = new Color(255, 255, 255, 1f);
+
+            Lbl_stageClear.style.visibility = Visibility.Visible;
+            SetAlphaColor(Lbl_stageClear, 1f);
         }
+        updateStage();
 
         stageClearTimer = 0f;
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        foreach (spaceObject obj in meteors)
-        {
+        foreach (spaceObject obj in gameManager.instance.meteors)
             Destroy(obj.gameObject);
-        }
+    }
 
-                
+    public void updateStage()
+    {
+        if (stageLabel == null)
+            stageLabel = mainUI.rootVisualElement.Q<Label>("stage");
+        if(Ship.Current != null) stageLabel.text = "Stage : " + Ship.Current.stage;
+    }
+
+    public void ShowStageSkip()
+    {
+        if (Lbl_stageSkip == null) return;
+
+        stageSkipTimer = 0f;
+        Lbl_stageSkip.style.visibility = Visibility.Visible;
+        SetAlphaColor(Lbl_stageSkip, 1f);
     }
 
 }

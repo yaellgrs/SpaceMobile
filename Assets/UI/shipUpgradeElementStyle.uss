@@ -1,0 +1,113 @@
+:root {
+}
+
+.ShipElement {
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    width: 100%;
+    height: initial;
+    position: relative;
+    left: 5%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.56);
+    margin-bottom: 2%;
+    flex-shrink: 0;
+    aspect-ratio: 3.5;
+    transition-duration: 0.1s;
+}
+
+.ShipName {
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.ShipLogo {
+    width: 25%;
+    aspect-ratio: 1;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0);
+    left: 2.5%;
+    top: 5%;
+    background-image: url("project://database/Assets/art/ship/spaceShip.png?fileID=2800000&guid=8621eea3125b6c14e95e4bb78eeed959&type=3#spaceShip");
+}
+
+.ShipBuy {
+    width: 20%;
+    aspect-ratio: 1.5;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    left: 77.5%;
+    font-size: 40px;
+    -unity-font-style: bold;
+    position: absolute;
+    top: 25%;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.ShipPrice {
+    font-size: 30px;
+    -unity-font-style: bold;
+    -unity-text-align: upper-right;
+    position: absolute;
+    left: 82.5%;
+    top: 75%;
+    width: 7.5%;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    color: rgb(255, 255, 255);
+}
+
+.ShipProgressBar {
+    width: 40%;
+    height: auto;
+    background-image: url("project://database/Assets/art/ship/progressBarShip.psd?fileID=2800000&guid=a4e25747504de7e409d071cb4217c9ea&type=3#progressBarShip");
+    position: absolute;
+    visibility: visible;
+    top: 40%;
+    left: 30%;
+    -unity-background-image-tint-color: rgb(117, 0, 255);
+    aspect-ratio: 4;
+}
+
+.ShipProgressCadre {
+    background-image: url("project://database/Assets/art/ship/progresCadreShip.psd?fileID=2800000&guid=8a082fba21dd98945aeb19aba62a4757&type=3#progresCadreShip");
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4;
+    left: 0%;
+    top: 0%;
+    position: absolute;
+}
+
+.ShipLogoPrice {
+    background-image: url("project://database/Assets/art/UI/Nouveau%20dossier/iron.png?fileID=2800000&guid=841fd5a5f5b7366498b74ed346cd1921&type=3#iron");
+    width: 55%;
+    height: auto;
+    position: absolute;
+    aspect-ratio: 1;
+    left: 105%;
+    -unity-background-image-tint-color: rgb(53, 53, 53);
+}

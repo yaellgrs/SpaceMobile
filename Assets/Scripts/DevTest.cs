@@ -1,66 +1,96 @@
+using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DevTest : MonoBehaviour
 {
-    /*
-     ASTRIIIIIDDDDDDDDD ( c'est pour être sur que tu lises ) 
 
-    je te laisses ce script ouvert pour que tu puisses savoirs ce que fond les touches
-    si jamais tu le veux tu peux modifier a ta guise tant que y'a pas d'erreur ( sinon au mieux tu retourne en arriere ) 
-    et au pire tu supprime tout pour que ça marche quand même ( taura juste pas les touches ) 
+    private void Start()
+    {
+        Init();
+    }
 
-    je pense que le code est relativement compréhensible sinon tant pis tu pourras pas tester le jeu comme tu le souhaite
-     
+    private void Init()
+    {
+        ShowTuto(false); // desactive les tutos
+    }
 
-    regardes whatsapp si jamais
-     */
-
+    private void ShowTuto(bool show)
+    {
+        foreach (PopupTuto tuto in Stats.Instance.popupTutos.Keys.ToList())
+        {
+            Stats.Instance.popupTutos[tuto] = !show;
+        }
+        Stats.Instance.ironTuto = !show;
+        Stats.Instance.uraniumTuto = !show;
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            int nombreLevel = 1;
-            for(int i = 0; i < nombreLevel; i++ ) //level up 5 fois
-                MainUi.Instance.xpUI.LevelUp();
-
-            Stats.Instance.upPrestige(new BigNumber(1, 10), true); // donne 1^10 prestige
-            Stats.Instance.upIron(new BigNumber(1, 10), true);// donne 1^10 fer
-            Stats.Instance.upUranium(new BigNumber(1, 10), true);// donne 1^10 uranium
-        } 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            QuestManager.Instance.Claim();
         }
-if (Input.GetKeyDown(KeyCode.S)) {
-            Stats.Instance.stage += 10;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
+            Init();
+
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            gameManager.instance.upStage();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Stats.Instance.level += 100;
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Stats.Instance.upDiamand(50, true); //donne 50 diamands ) 
-            MainUi.Instance.xpUI.loadBonus();
+            Ship.Current.level += 100;//level max
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Ads.Instance.ShowBanner(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Ads.Instance.ShowBanner(false);
-        }
-
+        HandleBanner();
+        gives();
         testTutos();
+        testShips();
     }
 
+    private void testShips()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("Type Ship Used : " + Ship.Current.type);
+        }
+    }
+
+    private void gives()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Stats.Instance.AddDiamand(50); //donne 50 diamands ) 
+            MainUi.Instance.xpUI.loadBonus();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            for (int i = 0; i < 50; i++) //level up 5 fois
+                MainUi.Instance.xpUI.LevelUp();
+
+            Stats.Instance.addPrestige(new BigNumber(1, 100)); // donne 1^100 prestige
+            Stats.Instance.AddIron(new BigNumber(1,100));// donne 1^100 fer
+            Stats.Instance.AddUranium(new BigNumber(1, 100));// donne 1^100 uranium
+            Stats.Instance.AddDiamand(100);
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Stats.Instance.AddShipMoney(new BigNumber(50), true);
+        }
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            Stats.Instance.AddShipMoney(new BigNumber(30), false);
+        }
+    }
 
     private void testTutos()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) //touche 1 clavier
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
         }
@@ -83,6 +113,19 @@ if (Input.GetKeyDown(KeyCode.S)) {
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             Tuto.Instance.LoadPopupTuto(PopupTuto.rocket);
+        }
+    }
+
+    private void HandleBanner()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Ads.Instance.ShowBanner(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Ads.Instance.ShowBanner(false);
         }
     }
 }
