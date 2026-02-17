@@ -377,9 +377,15 @@ public partial class machineElement : Button
             styleSheets.Add(styleSheet);
         }
 
-        Color[] colors = { Color.white, Color.orange, Color.silver, Color.gold, Color.darkBlue, Color.white };
+        
+        Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
+        Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
+        Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
+        Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
+        Color[] colors = { Color.white, bronze, silver, gold, diamand, Color.white };
         style.unityBackgroundImageTintColor = colors[(int)color];
         Btn_up.style.unityBackgroundImageTintColor = colors[(int)color];
+        VE_logo.style.unityBackgroundImageTintColor = colors[(int)color];
 
         int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
         int[] cps = { 0, 1, 2, 4, 6, 10 };

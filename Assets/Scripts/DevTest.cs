@@ -25,7 +25,7 @@ public class DevTest : MonoBehaviour
         Stats.Instance.uraniumTuto = !show;
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {

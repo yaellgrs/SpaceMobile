@@ -130,6 +130,32 @@ public class Stats
     public UpgradeType nextPrestigeToBuy2 = UpgradeType.PrestigeMultiplicator;
 
 
+    public Stats()
+    {
+        Init();
+    }
+
+    public void Init()
+    {
+        //List<UpgradesElement> upPrestige = new List<UpgradesElement>();
+        //foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
+        //{
+        //    upPrestige.Add(new UpgradesPrestigeElement(type.ToString(), type));
+        //}
+        //Utility.AddMachineToData(upPrestige, upgradesPrestige);
+
+        List<UpgradesElement> upShip = new List<UpgradesElement>();
+        foreach (UpgradesShipElement.UpgradeType type in Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
+        {
+            upShip.Add(new UpgradesShipElement(type.ToString(), type));
+        }
+        Utility.AddMachineToData(upShip, upgradesShip);
+    }
+    /*
+         public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
+    public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
+     */
+
     public void AddDiamand(int amount)
     {
         diamand += amount;
@@ -196,12 +222,14 @@ public class Stats
     public void reset()
     {
         Instance = new Stats();
+        Init();
         ShipManager.Instance.LoadShips();
         save();
         QuestStats.Instance.reset();
         Data.Instance.reset();
         MainUi.Instance.upStage();
         Tuto.Instance.loadPopupTuto();
+
         if (Instance.spaceShips.Count == 0)
         {
             Instance.spaceShips.Add(new SpaceShipDico
