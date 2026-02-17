@@ -1,17 +1,18 @@
 .upgradeCadre {
-    height: 184px;
+    height: auto;
     background-image: resource("machines/cadre");
     position: relative;
-    width: 92.5%;
+    width: 108%;
     top: 0;
     left: 3.75%;
     max-height: none;
     bottom: -8px;
     background-color: rgba(188, 188, 188, 0);
     -unity-background-image-tint-color: rgb(255, 255, 255);
-    margin-top: 1%;
-    margin-bottom: 1%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
     flex-shrink: 0;
+    aspect-ratio: 5;
 }
 
 .upgradeName {

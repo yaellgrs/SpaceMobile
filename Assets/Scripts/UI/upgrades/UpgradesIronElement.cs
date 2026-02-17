@@ -11,13 +11,14 @@ public class UpgradesIronElement : UpgradesElement
     #region ----- Constructors -----
     public UpgradesIronElement() : base()
     {
-
+        Init();
     }
 
     public UpgradesIronElement(string name, UpgradeType type) : base()
     {
         this.name = name;
         this.type = type;
+        Init();
     }
     #endregion
 

@@ -297,11 +297,11 @@
 .machineLogo {
     flex-grow: 1;
     position: absolute;
-    height: 80%;
+    height: 71%;
     width: initial;
-    top: 8%;
-    left: 4%;
-    background-image: resource("Upgrades/uranium/SpeedAuto");
+    top: 14.5%;
+    left: 5.5%;
+    background-image: resource("logos/iron/anvil");
     aspect-ratio: 1.2;
     overflow: visible;
     font-size: 10px;
