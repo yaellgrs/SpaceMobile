@@ -71,7 +71,7 @@ public partial class UpgradesElement : VisualElement
         Lbl_description = new Label();
 
         Lbl_name.text = name;
-        Lbl_level.text = "1/10";
+        Lbl_level.text = "lv : 50 (+1000)";
         Lbl_description.text = "Damage : 10";
 
         Lbl_name.AddToClassList("upgradeName");
@@ -83,7 +83,7 @@ public partial class UpgradesElement : VisualElement
         Add(Lbl_name);
         Add(Lbl_description);
         Add(VE_logo);
-        VE_logo.Add(Lbl_level);
+        Add(Lbl_level);
     }
 
     private void InitLevelUp()
@@ -141,21 +141,32 @@ public partial class UpgradesElement : VisualElement
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
 
         //check if the player can upgrade
-        bool havelevel = level < Ship.Current.level + 1;
+        bool havelevel = haveLevel();   
         VE_levelUpLockCover.style.visibility = havelevel ? Visibility.Hidden : Visibility.Visible;
 
-        if (level >= levelMax) //LEVEL MAX
-        {
-            Lbl_level.text = "MAX";
-            Lbl_levelUpCost.style.display = DisplayStyle.None;
-        }
-        else{
-
-            Lbl_level.text = level.ToString() + "/" + levelMax.ToString();
-            Lbl_levelUpCost.style.display = DisplayStyle.Flex;
-        }
+        LoadLevelUI();
         Lbl_levelUpLockLevel.text = (Ship.Current.level + 2).ToString();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
+    }
+
+    public virtual void LoadLevelUI()
+    {
+        if (level >= levelMax) //LEVEL MAX
+        {
+            Lbl_level.text = "lv : MAX";
+            Lbl_levelUpCost.style.display = DisplayStyle.None;
+        }
+        else
+        {
+
+            Lbl_level.text = "lv " + level.ToString() + "/" + levelMax.ToString();
+            Lbl_levelUpCost.style.display = DisplayStyle.Flex;
+        }
+    }
+
+    public virtual bool haveLevel()
+    {
+        return level < Ship.Current.level + 1;
     }
 
     protected void SetLevelUpButton()
@@ -184,7 +195,8 @@ public partial class UpgradesElement : VisualElement
 
             GetReward();
 
-            Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
+            //set in load donc j'ai commenté
+            //Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
         }
         Load();
         gameManager.instance.SmallVibrate();

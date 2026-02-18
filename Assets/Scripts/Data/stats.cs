@@ -112,6 +112,8 @@ public class Stats
 
     public float shield_Regen_Time = 4f;
 
+    public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
+
 
     public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
             UpgradeType.PrestigeMultiplicator,

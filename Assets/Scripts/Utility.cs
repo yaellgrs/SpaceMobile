@@ -62,4 +62,21 @@ public static class Utility
         }
     }
 
+    public static bool HaveTheShipUpgrade(UpgradesShipElement.UpgradeType type)
+    {
+        switch (type)
+        {
+            case UpgradesShipElement.UpgradeType.AdditionalLevel:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Iron;
+            case UpgradesShipElement.UpgradeType.Magnectic:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Magnetic;
+            case UpgradesShipElement.UpgradeType.DamageOverTime:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Fire;
+            case UpgradesShipElement.UpgradeType.ZoneDamage:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Poison;
+        }
+        return false;
+       
+    }
+
 }
