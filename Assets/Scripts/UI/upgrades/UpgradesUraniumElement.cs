@@ -11,14 +11,12 @@ public class UpgradesUraniumElement : UpgradesElement
     #region ----- Constructors -----
     public UpgradesUraniumElement() : base()
     {
-        Init();
     }
 
-    public UpgradesUraniumElement(string name, UpgradeType type) : base()
+    public UpgradesUraniumElement(string name, UpgradeType type) : base(name)
     {
         this.name = name;
         this.type = type;
-        Init();
     }
     #endregion
 

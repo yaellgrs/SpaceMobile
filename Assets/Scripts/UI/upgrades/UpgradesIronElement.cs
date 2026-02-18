@@ -11,14 +11,12 @@ public class UpgradesIronElement : UpgradesElement
     #region ----- Constructors -----
     public UpgradesIronElement() : base()
     {
-        Init();
     }
 
-    public UpgradesIronElement(string name, UpgradeType type) : base()
+    public UpgradesIronElement(string name, UpgradeType type) : base(name)
     {
         this.name = name;
         this.type = type;
-        Init();
     }
     #endregion
 
@@ -48,7 +46,6 @@ public class UpgradesIronElement : UpgradesElement
                 Lbl_description.text = "Regen Shield : " + Ship.Current.regenShield;
                 break;
         }
-
         string logo_path = "Upgrades/Iron/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }

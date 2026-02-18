@@ -23,8 +23,6 @@ public class SpaceShipData
     public int stage = 1;
     public bool isDead = false; 
 
-
-
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
 

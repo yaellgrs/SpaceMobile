@@ -148,8 +148,12 @@ public class PrestigeUI : BaseUI
 
     public override void IronClicked()
     {
+
         if (forgeUI.gameObject.activeInHierarchy || upgradeUI.gameObject.activeInHierarchy)
         {
+            if(forgeUI.gameObject.activeInHierarchy)forgeUiVE = forgeUI.rootVisualElement.Q<VisualElement>("main");
+            if(upgradeUI.gameObject.activeInHierarchy)forgeUiVE = upgradeUI.rootVisualElement.Q<VisualElement>("main");
+
             forgeUiVE.RemoveFromClassList("prestigeUITrans");
             forgeUiVE.schedule.Execute(() =>
             {
@@ -183,7 +187,7 @@ public class PrestigeUI : BaseUI
         prestigeButton = root.Q<Button>("prestige");
         unlockLevel = root.Q<VisualElement>("unlockLevel");
         black = root.Q<VisualElement>("black");
-        forgeUiVE = root.Q<VisualElement>("forgeUI");
+        forgeUiVE = root.Q<VisualElement>("main");
 
         if (classActived)
         {
@@ -459,6 +463,7 @@ public class PrestigeUI : BaseUI
     private void backClicked(UIDocument document)
     {
         if (forgeUiVE == null) return;
+        forgeUiVE = document.rootVisualElement.Q<VisualElement>("main");    
         forgeUiVE.RemoveFromClassList("trans");
         forgeUiVE.schedule.Execute(() =>
         {
@@ -518,7 +523,7 @@ public class PrestigeUI : BaseUI
 
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
-        forgeUiVE = root.Q<VisualElement>("updateUI");
+        forgeUiVE = root.Q<VisualElement>("main");
         Button Btn_ship = root.Q<Button>("ship");
         black = root.Q<VisualElement>("black");
         Lbl_shipMoney = root.Q<Label>("shipMoney");
@@ -558,6 +563,7 @@ public class PrestigeUI : BaseUI
 
 
         forgeUiVE = root.Q<VisualElement>("main");
+
         forgeUiVE.AddToClassList("trans");
         forgeUiVE.schedule.Execute(() =>
         {
@@ -568,8 +574,8 @@ public class PrestigeUI : BaseUI
         Button Btn_back = root.Q<Button>("back");
         Button Btn_buy = root.Q<Button>("buy");
 
-        Btn_back.clicked -= () => { backClicked(upgradeShip); loadUpdateUI(); };
-        Btn_back.clicked += () => { backClicked(upgradeShip); loadUpdateUI(); };
+        Btn_back.clicked -= () => { backClicked(upgradeShip); };
+        Btn_back.clicked += () => { backClicked(upgradeShip); };
 
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;

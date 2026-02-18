@@ -10,8 +10,6 @@
             <engine:VisualElement style="flex-grow: 1; right: -79px; height: 90%; width: 27.5%; position: absolute; top: 20%; background-image: url(&quot;project://database/Assets/art/UI/Nouveau%20dossier/iron.png?fileID=2800000&amp;guid=841fd5a5f5b7366498b74ed346cd1921&amp;type=3#iron&quot;); background-size: 100% 100%;"/>
         </engine:Label>
         <engine:ScrollView enabled="true" focusable="false" mode="Vertical" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" horizontal-page-size="-1" mouse-wheel-scroll-size="18" usage-hints="None" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" name="scroll" style="position: absolute; height: 25%; width: 98%; top: 62%; left: 1%; flex-grow: 1;">
-            <machineElement/>
-            <machineElement style="width: 108%;"/>
             <UpgradesElement/>
         </engine:ScrollView>
     </engine:VisualElement>

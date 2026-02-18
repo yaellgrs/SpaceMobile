@@ -43,6 +43,12 @@ public partial class UpgradesElement : VisualElement
         Init();
     }
 
+    public UpgradesElement(string name)
+    {
+        this.name = name;
+        Init();
+    }
+
     #endregion
 
     #region ----- INIT -----
@@ -66,7 +72,7 @@ public partial class UpgradesElement : VisualElement
 
         Lbl_name.text = name;
         Lbl_level.text = "1/10";
-        Lbl_description.text = "damage : 15";
+        Lbl_description.text = "Damage : 10";
 
         Lbl_name.AddToClassList("upgradeName");
         VE_logo.AddToClassList("upgradeLogo");
