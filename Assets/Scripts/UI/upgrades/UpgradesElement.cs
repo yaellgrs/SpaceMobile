@@ -169,7 +169,7 @@ public partial class UpgradesElement : VisualElement
         return level < Ship.Current.level + 1;
     }
 
-    protected void SetLevelUpButton()
+    protected virtual void SetLevelUpButton()
     {
         Btn_levelUp.enabledSelf = CanPay() && level < Ship.Current.level + 1;
 

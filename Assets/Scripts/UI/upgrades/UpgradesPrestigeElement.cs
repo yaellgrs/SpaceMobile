@@ -50,7 +50,7 @@ public class UpgradesPrestigeElement : UpgradesElement
             UpgradeType.LessMeteor => Stats.Instance.enemyPerStage.ToString("F2"),
             UpgradeType.LessPriceUpgrades => Stats.Instance.upgradesPriceReducer.ToString("F2"),
             UpgradeType.XpBoost => Stats.Instance.XpMultiplicator.ToString("F2"),
-            UpgradeType.DamageMultiplicator => Stats.Instance.prest_damage_multiplicator.ToString("F2"),
+            UpgradeType.DamageMultiplicator => Ship.Current.damage.prestige_multiplicator.ToString("F2"),
             UpgradeType.StageSkip => Stats.Instance.stageSkipProb.ToString("F2"),
             UpgradeType.OmegaProb => Stats.Instance.probabilitéOfOmega.ToString("F2"),
             UpgradeType.MinimumLevel => Stats.Instance.MinimalLevel.ToString("F2"),
@@ -135,7 +135,14 @@ public class UpgradesPrestigeElement : UpgradesElement
 
     protected override bool CanPay()
     {
+        //if(!Stats.Instance.starPariticul.isBigger(CalculLevelUpCost())) Debug.LogError("You can't paye : " + name);
         return Stats.Instance.starPariticul.isBigger(CalculLevelUpCost());
+    }
+
+    protected override void SetLevelUpButton()
+    {
+        Btn_levelUp.enabledSelf = CanPay();
+
     }
 
     protected override void SetLogos()
