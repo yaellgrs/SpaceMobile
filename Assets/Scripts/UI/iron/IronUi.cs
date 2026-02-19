@@ -86,7 +86,7 @@ public class IronUi : BaseUI
         if (forgeUI.gameObject.activeInHierarchy)
         {
             foreach (machineElement machine in Ship.Current.machineIron)
-                machine.upMachineCostText();
+                machine.LoadMachine();
         }
         else
         {

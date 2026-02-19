@@ -34,7 +34,6 @@ public partial class machineElement : Button
     [JsonIgnore] public Label Lbl_employee;
     [JsonIgnore] public Label Lbl_reward;
     [JsonIgnore] public Label Lbl_name;
-    [JsonIgnore] public Label Lbl_production_cps;
     [JsonIgnore] public VisualElement VE_logo;
 
     #endregion
@@ -94,7 +93,6 @@ public partial class machineElement : Button
         Lbl_employee = new Label();
         Lbl_reward = new Label();
         Lbl_name = new Label();
-        Lbl_production_cps = new Label();
         VE_logo = new VisualElement();
 
         Lbl_level.text = "Lv : 1/5";
@@ -103,9 +101,7 @@ public partial class machineElement : Button
         Lbl_reward.text = "Reward : 350";
         Lbl_reward.name = "reward";
         Lbl_name.text = "Anvil";
-        Lbl_production_cps.text = "x2";
 
-        Lbl_production_cps.name = "production_cps";
         Lbl_name.name = "name";
         Lbl_level.name = "level";
 
@@ -114,7 +110,6 @@ public partial class machineElement : Button
         Lbl_employee.AddToClassList("machineEmployee");
         Lbl_reward.AddToClassList("machineReward");
         Lbl_name.AddToClassList("machineName");
-        Lbl_production_cps.AddToClassList("production_cps");
         Lbl_level.AddToClassList("machineLevel");
 
         Add(Lbl_level);
@@ -122,7 +117,6 @@ public partial class machineElement : Button
         Add(Lbl_reward);
         Add(Lbl_name);
         Add(VE_logo);
-        Add(Lbl_production_cps);
 
         InitUpButton();
         InitBuyCover();
@@ -223,7 +217,7 @@ public partial class machineElement : Button
     {
         Lbl_reward.text = "Reward : " + CalculReward().ToString();
         Lbl_employee.text = "Employee : " + (production_cps);
-        Lbl_level.text = (level == levelMax) ? "Lv : UP" : "Lv : " + level + "/" + levelMax;
+        Lbl_level.text = (level == levelMax) ? "Lv : UP" : "Lv : " + level + "/" + levelMax + " (+ " + getMulitplicator() + ")";
     }
 
     protected virtual void StartProduction() // == machine1Clicked
@@ -307,12 +301,17 @@ public partial class machineElement : Button
 
     #region ------ calculs methods ------ 
 
+    public int getMulitplicator()
+    {
+        return Mathf.Min(levelMax - level, UpMode.Instance.upModeMultiplicator);
+    }
+
     protected BigNumber CalculLevelUpCost()
     {
         float n = realLevel;
         BigNumber calculedNumber = new BigNumber(0);
 
-        int mult = Mathf.Min(levelMax - level,  UpMode.Instance.upModeMultiplicator);
+        int mult = getMulitplicator();
 
         if (level == levelMax)//changement de grade ( ex : fer -> or )
         {
@@ -323,10 +322,12 @@ public partial class machineElement : Button
         else
         {
             BigNumber temp = new BigNumber(0);
+            double pow = Mathf.Pow(1.75f, n);
             for (int i = 0; i < mult; i++)
             {
                 temp.Set(BN_price);
-                temp.Multiply(Mathf.Pow(1.75f, n + i));
+                temp.Multiply(pow);
+                pow *= 1.75f;
                 temp.Multiply(Stats.Instance.upgradesPriceReducer);
                 calculedNumber.Add(temp);
             }
@@ -335,6 +336,24 @@ public partial class machineElement : Button
         calculedNumber.Normalize();
         return calculedNumber;
     }
+    /*
+                 for (int i = 0; i < mult; i++)
+            {
+                temp.Set(BN_price);
+                temp.Multiply(Mathf.Pow(1.75f, n + i));
+                temp.Multiply(Stats.Instance.upgradesPriceReducer);
+                calculedNumber.Add(temp);
+            }
+     
+     
+     */
+    /*
+ 5 : bronze
+ 10 : argent
+ 25  : gold
+50 : diamand 
+100 : blackborder
+ */
 
     public BigNumber CalculReward()
     {
@@ -413,9 +432,6 @@ public partial class machineElement : Button
         int[] cps = { 0, 1, 2, 4, 6, 10 };
         production_cps = cps[(int)color];
         levelMax = levelMaxs[(int)color];
-
-        Lbl_production_cps.text = "x" + production_cps;
-        Lbl_production_cps.style.visibility = production_cps == 0 ? Visibility.Hidden : Visibility.Visible;
 
         levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
     }

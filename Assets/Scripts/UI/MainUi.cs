@@ -261,7 +261,7 @@ public class MainUi : MonoBehaviour
             if (gameManager.instance.meteors.Count > 0)
             {
                 Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + gameManager.instance.meteors[0].lifeMax.ToString();
-                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
+                float targetPercent = (float)gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
                 currentBossPercent = Mathf.Lerp(currentBossPercent, targetPercent, Time.deltaTime * 30f);
                 LerpBossPercent = Mathf.Lerp(LerpBossPercent, targetPercent, Time.deltaTime * 2.5f);
 
@@ -334,7 +334,7 @@ public class MainUi : MonoBehaviour
         xpLabel.text = Ship.Current.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         xpBar.style.height = Length.Percent(100f);
-        float targetPercent = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+        float targetPercent = (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
 
         if (currentPercent < targetPercent - 0.25f)
         {
@@ -479,7 +479,7 @@ public class MainUi : MonoBehaviour
 
 
             float currentPercent = healthBar.style.width.value.value;
-            float targetPercent = Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
+            float targetPercent = (float)Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -508,7 +508,7 @@ public class MainUi : MonoBehaviour
             shieldLabel.style.width = Length.Percent(20 + 5 * (shieldText.Length - 5));
 
             float currentPercent = shieldBar.style.width.value.value;
-            float targetPercent = Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
+            float targetPercent = (float)Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
 
 
             if (currentPercent > targetPercent + 0.25f)

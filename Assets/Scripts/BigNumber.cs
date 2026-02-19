@@ -6,17 +6,17 @@ using UnityEngine;
 [System.Serializable]
 public class BigNumber
 {
-    public float Mantisse;
+    public double Mantisse;
     public int Exp;
 
-    public BigNumber(float mantisse, int exp)
+    public BigNumber(double mantisse, int exp)
     {
         Mantisse = mantisse;
         Exp = exp;
         Normalize();
 
     }
-    public BigNumber(float mantisse)
+    public BigNumber(double mantisse)
     {
         Mantisse = mantisse;
         Exp = 0;
@@ -64,11 +64,11 @@ public class BigNumber
         }
         if(Exp == 0)
         {
-            Mantisse = (float)Mathf.Round(Mantisse);
+            Mantisse = Math.Round(Mantisse);
         }
         else
         {
-            Mantisse = Mathf.Round(Mantisse*1000f)/1000f;
+            Mantisse = Math.Round(Mantisse*1000f)/1000f;
         }
 
     }
@@ -98,7 +98,7 @@ public class BigNumber
         if (n.Exp > Exp)
         {
             int nexp = n.Exp - Exp;
-            float x = Mantisse / Mathf.Pow(10, nexp);
+            double x = Mantisse / Math.Pow(10, nexp);
             Mantisse =n.Mantisse + x;
             Exp = n.Exp ;
             
@@ -106,7 +106,7 @@ public class BigNumber
         else if (n.Exp < Exp)
         {
             int nexp = Exp - n.Exp;
-            float x = n.Mantisse / Mathf.Pow(10, nexp);
+            double x = n.Mantisse / Math.Pow(10, nexp);
             Mantisse += x;
         }
         else
@@ -154,7 +154,7 @@ public class BigNumber
         else if (n.Exp < Exp)
         {
             int nexp = Exp - n.Exp; 
-            float x = n.Mantisse / Mathf.Pow(10, nexp); 
+            double x = n.Mantisse / Math.Pow(10, nexp); 
 
             Mantisse -= x;
         }
@@ -199,6 +199,20 @@ public class BigNumber
         }
     }
 
+    public void Multiply(double n)
+    {
+        if (n > 0)
+        {
+            Mantisse *= n;
+            Normalize();
+        }
+        if (n == 0)
+        {
+            Mantisse = 0;
+            Exp = 0;
+        }
+    }
+
     public void Multiply(BigNumber n)
     {
         Mantisse *= n.Mantisse;
@@ -217,7 +231,7 @@ public class BigNumber
     }
 
 
-    public float GetPercentByDivided(BigNumber n)
+    public double GetPercentByDivided(BigNumber n)
     {
         if (n.Exp > Exp)
         {
@@ -254,7 +268,7 @@ public class BigNumber
         {
             case int n when (n >= 0 && n < 3):
                 prefix = "";
-                float nMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
+                double nMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
                 return nMantisse.ToString("F0") + prefix;
             case int n when (n >= 3 && n < 6):
                 prefix = "k";
@@ -272,7 +286,7 @@ public class BigNumber
                 prefix = "x" + Exp;
                 break;
         }
-        float nnMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
+        double nnMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
         switch (Exp % 3)
         {
             case 1:

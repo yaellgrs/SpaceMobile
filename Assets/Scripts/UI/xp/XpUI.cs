@@ -95,7 +95,7 @@ public class XpUI : MonoBehaviour
         else
         {
 
-            xpBar.style.width = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+            xpBar.style.width = (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
             xpLabel.text = Ship.Current.BN_xp.ToString() + "/" + Ship.Current.BN_xpMax.ToString() + "XP";
         }
 
