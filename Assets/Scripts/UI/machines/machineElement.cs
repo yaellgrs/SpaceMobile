@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Tilemaps;
@@ -221,7 +220,7 @@ public partial class machineElement : Button
             }
             reloadUI();
         }
-        else
+        else if (isBuyed) 
         {
             HandleMoney(CalculReward());
             if (this is machineIronElement && !Stats.Instance.ironTuto)
@@ -231,7 +230,9 @@ public partial class machineElement : Button
 
     protected virtual void LevelUp()
     {
-        if (!(canBuy(CalculLevelUpCost()) && color != borderColor.black)) return;
+        if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) && color != borderColor.black) return;
+
+        Debug.Log("have level : " + havelevel() + " can buy : " + canBuy(CalculLevelUpCost()) + " color : " + color);
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator,( levelLimite - level) + 1 );
         HandleMoney(-CalculLevelUpCost());
@@ -341,9 +342,15 @@ public partial class machineElement : Button
     {
         int limit = Ship.Current.level + 1;
         Lbl_lockedLevel.text = (limit).ToString();
-        VE_lockedLevelCover.style.visibility = (level < limit) ? Visibility.Hidden : Visibility.Visible;
+        VE_lockedLevelCover.style.visibility = havelevel()? Visibility.Hidden : Visibility.Visible;
 
         Lbl_upCost.text = CalculLevelUpCost().ToString();
+    }
+
+    private bool havelevel()
+    {
+        int limit = Ship.Current.level + 1;
+        return (level < limit);
     }
     #endregion
 
