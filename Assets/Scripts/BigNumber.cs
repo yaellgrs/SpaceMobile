@@ -175,6 +175,16 @@ public class BigNumber
         return result;
     }
 
+    public static BigNumber operator *(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        BigNumber result = new BigNumber(a); // ou new BigNumber(a)
+        result.Multiply(b);
+        return result;
+    }
+
     public void Multiply(float n)
     {
         if(n > 0)
@@ -191,7 +201,9 @@ public class BigNumber
 
     public void Multiply(BigNumber n)
     {
-
+        Mantisse *= n.Mantisse;
+        Exp += n.Exp;
+        Normalize();
     }
 
 

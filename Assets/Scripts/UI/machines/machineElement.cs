@@ -326,6 +326,7 @@ public partial class machineElement : Button
         BigNumber reward = new BigNumber(1);
         reward.Multiply(Mathf.Pow(1.20f, realLevel)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(realLevel - 1);
+        reward *= BN_price *0.1f;
         return reward;
     }
 
