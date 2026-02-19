@@ -80,6 +80,21 @@ public class IronUi : BaseUI
             ironLabel.text = Ship.Current.iron.ToString();
     }
 
+    protected override void upModeButtonClicked()
+    {
+        base.upModeButtonClicked();
+        if (forgeUI.gameObject.activeInHierarchy)
+        {
+            foreach (machineElement machine in Ship.Current.machineIron)
+                machine.upMachineCostText();
+        }
+        else
+        {
+            foreach (UpgradesElement upgrade in Ship.Current.upgradesIron)
+                upgrade.LoadUI();
+        }
+    }
+
     public override void loadForgeUI()
     {
         base.loadForgeUI();

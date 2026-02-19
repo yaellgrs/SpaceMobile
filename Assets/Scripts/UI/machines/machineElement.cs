@@ -69,7 +69,7 @@ public partial class machineElement : Button
         Init();
     }
 
-    public machineElement(string machineName, BigNumber initPrice, float time)
+    public machineElement(string machineName, BigNumber initPrice)
     {
         if(initPrice < new BigNumber(100))
             isBuyed = true;
@@ -232,13 +232,10 @@ public partial class machineElement : Button
     {
         if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) && color != borderColor.black) return;
 
-        Debug.Log("have level : " + havelevel() + " can buy : " + canBuy(CalculLevelUpCost()) + " color : " + color);
-
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator,( levelLimite - level) + 1 );
         HandleMoney(-CalculLevelUpCost());
         level += multiplicator;
         realLevel += multiplicator;
-        upMachineCostText();
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
 
@@ -274,6 +271,7 @@ public partial class machineElement : Button
         {
             Tuto.Instance.ironCloseTuto(true);
         }
+        upMachineCostText();
     }
 
     
@@ -299,7 +297,9 @@ public partial class machineElement : Button
         float n = realLevel;
         BigNumber calculedNumber = new BigNumber(0);
 
-        if (multiplicator == 0)//changement de grade ( ex : fer -> or )
+        int mult = Mathf.Min(levelMax - level,  UpMode.Instance.upModeMultiplicator);
+
+        if (level == levelMax)//changement de grade ( ex : fer -> or )
         {
             calculedNumber.Set(BN_price);
             calculedNumber *= 2.5f * Mathf.Pow(n, 1.7f);
@@ -308,7 +308,7 @@ public partial class machineElement : Button
         else
         {
             BigNumber temp = new BigNumber(0);
-            for (int i = 0; i < multiplicator; i++)
+            for (int i = 0; i < mult; i++)
             {
                 temp.Set(BN_price);
                 temp.Multiply(Mathf.Pow(n + i, 1.7f));
@@ -343,7 +343,6 @@ public partial class machineElement : Button
         int limit = Ship.Current.level + 1;
         Lbl_lockedLevel.text = (limit).ToString();
         VE_lockedLevelCover.style.visibility = havelevel()? Visibility.Hidden : Visibility.Visible;
-
         Lbl_upCost.text = CalculLevelUpCost().ToString();
     }
 

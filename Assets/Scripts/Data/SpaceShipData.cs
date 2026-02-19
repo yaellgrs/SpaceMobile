@@ -70,19 +70,19 @@ public class SpaceShipData
     private void LoadMachines()
     {
         List<machineIronElement> machinesIron = new List<machineIronElement>();
-        machinesIron.Add(new machineIronElement("Anvil", new BigNumber(10), 1f));
-        machinesIron.Add(new machineIronElement("ironMachine", new BigNumber(1, 3), 5f));
-        machinesIron.Add(new machineIronElement("ironMachines", new BigNumber(1, 6), 15f));
-        machinesIron.Add(new machineIronElement("usine", new BigNumber(1, 9), 30f));
-        machinesIron.Add(new machineIronElement("usines", new BigNumber(1, 12), 60f));
+        machinesIron.Add(new machineIronElement("Anvil", new BigNumber(10)));
+        machinesIron.Add(new machineIronElement("ironMachine", new BigNumber(1, 3)));
+        machinesIron.Add(new machineIronElement("ironMachines", new BigNumber(1, 6)));
+        machinesIron.Add(new machineIronElement("usine", new BigNumber(1, 9)));
+        machinesIron.Add(new machineIronElement("usines", new BigNumber(1, 12)));
         Utility.AddMachineToData(machinesIron, Ship.Current.machineIron);
 
         List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
-        machinesUranium.Add(new machineUraniumElement("Anvil", new BigNumber(0), 3f));
-        machinesUranium.Add(new machineUraniumElement("ironMachine", new BigNumber(5, 3), 10f));
-        machinesUranium.Add(new machineUraniumElement("ironMachines", new BigNumber(5, 6), 25f));
-        machinesUranium.Add(new machineUraniumElement("usine", new BigNumber(5, 9), 45f));
-        machinesUranium.Add(new machineUraniumElement("usines", new BigNumber(5, 12), 100f));
+        machinesUranium.Add(new machineUraniumElement("Anvil", new BigNumber(10)));
+        machinesUranium.Add(new machineUraniumElement("ironMachine", new BigNumber(5, 3)));
+        machinesUranium.Add(new machineUraniumElement("ironMachines", new BigNumber(5, 6)));
+        machinesUranium.Add(new machineUraniumElement("usine", new BigNumber(5, 9)));
+        machinesUranium.Add(new machineUraniumElement("usines", new BigNumber(5, 12)));
         Utility.AddMachineToData(machinesUranium, Ship.Current.machinesUranium);
     }
 

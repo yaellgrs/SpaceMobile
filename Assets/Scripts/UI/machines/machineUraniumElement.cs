@@ -9,8 +9,8 @@ public class machineUraniumElement : machineElement
     {
     }
 
-    public machineUraniumElement(string machineName, BigNumber initPrice, float time)
-        : base(machineName, initPrice, time)
+    public machineUraniumElement(string machineName, BigNumber initPrice)
+        : base(machineName, initPrice)
     {
     }
     protected override string getLogoPath()

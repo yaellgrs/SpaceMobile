@@ -42,6 +42,21 @@ public class UraniumUI : BaseUI
         MainUi.Instance.prestigeUI.loadForgeUI();
     }
 
+    protected override void upModeButtonClicked()
+    {
+        base.upModeButtonClicked();
+        if (forgeUI.gameObject.activeInHierarchy)
+        {
+            foreach (machineElement machine in Ship.Current.machinesUranium)
+                machine.upMachineCostText();
+        }
+        else
+        {
+            foreach (UpgradesElement upgrade in Ship.Current.upgradesUranium)
+                upgrade.LoadUI();
+        }
+    }
+
     public override void IronClicked()
     {
         if (forgeUI.gameObject.activeInHierarchy || upgradeUI.gameObject.activeInHierarchy)
@@ -81,9 +96,25 @@ public class UraniumUI : BaseUI
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("forgeUI");
 
-        ScrollView scroll = root.Q<ScrollView>("scroll");
+/*        ScrollView scroll = root.Q<ScrollView>("scroll");
         foreach (machineElement machine in Ship.Current.machinesUranium)
+            scroll.Add(machine);*/
+        ScrollView scroll = root.Q<ScrollView>("scroll");
+        scroll.Clear();
+
+        bool show = true;
+        foreach (machineElement machine in Ship.Current.machinesUranium)
+        {
             scroll.Add(machine);
+            if (show)
+            {
+                machine.LoadMachine();
+                machine.style.display = DisplayStyle.Flex;
+            }
+            else machine.style.display = DisplayStyle.None;
+
+            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
+        }
 
         if (classActived)
         {
@@ -113,6 +144,8 @@ public class UraniumUI : BaseUI
 
         if (!Stats.Instance.uraniumTuto && XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
             Tuto.Instance.LoadForgeTuto(false);
+
+
     }
 
     public override void loadUpdateUI()

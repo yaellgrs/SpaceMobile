@@ -11,8 +11,8 @@ public class machineIronElement : machineElement
     {
     }
 
-    public machineIronElement(string machineName, BigNumber initPrice, float time)
-        : base(machineName, initPrice, time)
+    public machineIronElement(string machineName, BigNumber initPrice)
+        : base(machineName, initPrice)
     {
     }
 

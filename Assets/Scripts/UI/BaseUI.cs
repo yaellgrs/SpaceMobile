@@ -152,7 +152,7 @@ public class BaseUI : MonoBehaviour
         }
     }
 
-    void upModeButtonClicked()
+    protected virtual void upModeButtonClicked()
     {
         UpMode.Instance.UpButton(upModeButton);
     }
