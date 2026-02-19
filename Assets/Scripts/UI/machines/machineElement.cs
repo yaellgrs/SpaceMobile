@@ -31,6 +31,8 @@ public partial class machineElement : Button
 
     //other
     [JsonIgnore] public Label Lbl_level;
+    [JsonIgnore] public Label Lbl_employee;
+    [JsonIgnore] public Label Lbl_reward;
     [JsonIgnore] public Label Lbl_name;
     [JsonIgnore] public Label Lbl_production_cps;
     [JsonIgnore] public VisualElement VE_logo;
@@ -89,11 +91,17 @@ public partial class machineElement : Button
         AddToClassList("forgeButton");//machineCadrefdf
 
         Lbl_level = new Label();
+        Lbl_employee = new Label();
+        Lbl_reward = new Label();
         Lbl_name = new Label();
         Lbl_production_cps = new Label();
         VE_logo = new VisualElement();
 
-        Lbl_level.text = "1/5";
+        Lbl_level.text = "Lv : 1/5";
+        Lbl_employee.text = "Employee : 0";
+        Lbl_employee.name = "employee";
+        Lbl_reward.text = "Reward : 350";
+        Lbl_reward.name = "reward";
         Lbl_name.text = "Anvil";
         Lbl_production_cps.text = "x2";
 
@@ -103,11 +111,15 @@ public partial class machineElement : Button
 
 
         VE_logo.AddToClassList("machineLogo");
+        Lbl_employee.AddToClassList("machineEmployee");
+        Lbl_reward.AddToClassList("machineReward");
         Lbl_name.AddToClassList("machineName");
         Lbl_production_cps.AddToClassList("production_cps");
         Lbl_level.AddToClassList("machineLevel");
 
-        VE_logo.Add(Lbl_level);
+        Add(Lbl_level);
+        Add(Lbl_employee);
+        Add(Lbl_reward);
         Add(Lbl_name);
         Add(VE_logo);
         Add(Lbl_production_cps);
@@ -185,7 +197,6 @@ public partial class machineElement : Button
     #region ------ mainworkflow -------
     public virtual void LoadMachine()// a revoir
     {
-        Lbl_level.text = (level == levelMax) ? "UP" : Lbl_level.text = level + "/" + levelMax;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
 
@@ -198,6 +209,7 @@ public partial class machineElement : Button
 
         SetBorderColor();
         upMachineCostText();
+        LoadMachineInfos();
 
         clicked -= StartProduction;
         clicked += StartProduction;
@@ -205,6 +217,13 @@ public partial class machineElement : Button
         Btn_up.clicked += LevelUp;
 
         SetLevelUpButton();
+    }
+
+    public void LoadMachineInfos()
+    {
+        Lbl_reward.text = "Reward : " + CalculReward().ToString();
+        Lbl_employee.text = "Employee : " + (production_cps);
+        Lbl_level.text = (level == levelMax) ? "Lv : UP" : "Lv : " + level + "/" + levelMax;
     }
 
     protected virtual void StartProduction() // == machine1Clicked
@@ -246,24 +265,19 @@ public partial class machineElement : Button
             if (color != borderColor.black)
             {
                 level = 1;
-                Lbl_level.text = "1/" + levelMax;
             }
             else
             {
-                Lbl_level.text = "MAX";
                 Lbl_upCost.style.display = DisplayStyle.None;
             }
         }
         else
         {
-            Lbl_level.text = level + "/" + levelMax;
             Lbl_upCost.text = CalculLevelUpCost().ToString();
         }
 
         if (QuestManager.Instance.type == QuestType.UpgradeMachine)
             QuestManager.Instance.upQuest();
-
-
 
         gameManager.instance.SmallVibrate();
 
@@ -272,6 +286,7 @@ public partial class machineElement : Button
             Tuto.Instance.ironCloseTuto(true);
         }
         upMachineCostText();
+        LoadMachineInfos();
     }
 
     
@@ -302,7 +317,7 @@ public partial class machineElement : Button
         if (level == levelMax)//changement de grade ( ex : fer -> or )
         {
             calculedNumber.Set(BN_price);
-            calculedNumber *= 2.5f * Mathf.Pow(n, 1.7f);
+            calculedNumber *= 3f * Mathf.Pow(1.75f, n);
             calculedNumber *= Stats.Instance.upgradesPriceReducer;
         }
         else
@@ -311,7 +326,7 @@ public partial class machineElement : Button
             for (int i = 0; i < mult; i++)
             {
                 temp.Set(BN_price);
-                temp.Multiply(Mathf.Pow(n + i, 1.7f));
+                temp.Multiply(Mathf.Pow(1.75f, n + i));
                 temp.Multiply(Stats.Instance.upgradesPriceReducer);
                 calculedNumber.Add(temp);
             }
@@ -324,9 +339,9 @@ public partial class machineElement : Button
     public BigNumber CalculReward()
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.20f, realLevel)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Multiply(Mathf.Pow(1.12f, realLevel)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(realLevel - 1);
-        reward *= BN_price *0.1f;
+        reward *= BN_price *0.055f;
         return reward;
     }
 

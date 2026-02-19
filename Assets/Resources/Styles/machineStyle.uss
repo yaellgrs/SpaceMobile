@@ -30,10 +30,32 @@
     color: rgb(255, 255, 255);
     position: absolute;
     top: 65%;
+    left: 25%;
+    -unity-font-style: bold;
+    width: 50%;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.machineReward {
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 65%;
     left: 0%;
     -unity-font-style: bold;
-    width: 100%;
+    width: 50%;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.machineEmployee {
+    left: 25%;
+    width: 50%;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    position: absolute;
+    top: 45%;
 }
 
 .machineBlackBorderCadre {
