@@ -54,28 +54,27 @@ public class BigNumber
 
     public void Normalize()
     {
-        if (Mantisse < 1.0f)
+        if (Mantisse == 0)
         {
-           while(Mantisse < 1.0f && Exp >0)
-           {
-                Mantisse *= 10;
-                Exp--;
-           }
+            Exp = 0;
+            return;
         }
-        else if (Mantisse >= 10.0f) 
-        {
-            while (Mantisse >= 10.0f)
-            {
-                Mantisse /= 10;
-                Exp++;
-            }
-        }
+        double abs = Math.Abs(Mantisse);
+        int shift = (int)Math.Floor(Math.Log10(abs));
 
+        if (shift > 0)
+            Mantisse /= shift < MAX_EXP_DIFF ? Pow10[shift] : Math.Pow(10, shift);
+        else 
+            Mantisse *= shift > -MAX_EXP_DIFF ? Pow10[-shift] : Math.Pow(10, -shift);
 
-        if(Exp == 0)
+        Exp += shift;
+
+        if (Exp < 0) Exp = 0;
+
+        if (Exp == 0)
             Mantisse = Math.Round(Mantisse);
         else
-            Mantisse = Math.Round(Mantisse*1000f)/1000f;
+            Mantisse = Math.Round(Mantisse * 1000f) / 1000f;
 
     }
 
@@ -99,7 +98,7 @@ public class BigNumber
         return result;
     }
 
-    public void Add(BigNumber n)
+    public void Add(BigNumber n, bool normalize = false)
     {
         if (n.Exp > Exp)
         {
@@ -128,7 +127,7 @@ public class BigNumber
             Mantisse += n.Mantisse;
         }
         
-        Normalize();
+        if(normalize) Normalize();
     }
 
     public void Add(float n)
@@ -214,12 +213,12 @@ public class BigNumber
         }
     }
 
-    public void Multiply(double n)
+    public void Multiply(double n, bool normalize = true)
     {
         if (n > 0)
         {
             Mantisse *= n;
-            Normalize();
+            if (normalize) Normalize();
         }
         if (n == 0)
         {
@@ -228,7 +227,7 @@ public class BigNumber
         }
     }
 
-    public void Multiply(BigNumber n)
+    public void Multiply(BigNumber n, bool normalize = true)
     {
         Mantisse *= n.Mantisse;
         Exp += n.Exp;

@@ -326,10 +326,10 @@ public partial class machineElement : Button
             for (int i = 0; i < mult; i++)
             {
                 temp.Set(BN_price);
-                temp.Multiply(pow);
+                temp.Multiply(pow, false);
                 pow *= 1.75f;
-                temp.Multiply(Stats.Instance.upgradesPriceReducer);
-                calculedNumber.Add(temp);
+                temp.Multiply(Stats.Instance.upgradesPriceReducer, false);
+                calculedNumber.Add(temp, false);
             }
         }
 
