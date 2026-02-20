@@ -61,6 +61,7 @@ public class gameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         InitGame();
         LoadStage();
+
     }
 
     private void calculMeteorToKill()

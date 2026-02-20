@@ -99,8 +99,7 @@ public class XpUI : MonoBehaviour
             xpLabel.text = Ship.Current.BN_xp.ToString() + "/" + Ship.Current.BN_xpMax.ToString() + "XP";
         }
 
-
-            back.clicked -= Clicked;
+        back.clicked -= Clicked;
         exit.clicked -= Clicked;
         back.clicked += Clicked;
         exit.clicked += Clicked;

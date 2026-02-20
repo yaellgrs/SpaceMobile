@@ -52,7 +52,6 @@ public partial class machineElement : Button
     //variables
     private int levelMax = 100;
     private int nextColorlevel = 5;
-    private int levelLimite = 1;
     private int level = 1;
 
     private float time = 0f;
@@ -205,9 +204,10 @@ public partial class machineElement : Button
 
         VE_buyCover.style.display = isBuyed ? DisplayStyle.None : DisplayStyle.Flex;
 
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - level);
 
         Lbl_buyPrice.text = BN_price.ToString();
+        Debug.Log("price : " + BN_price.ToString() );
         Lbl_name.text = machineName;
 
         SetBorderColor();
@@ -256,7 +256,7 @@ public partial class machineElement : Button
         HandleMoney(-CalculLevelUpCost());
         level += multiplicator;
 
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
+        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - level);
 
 
         setMaxColor();
@@ -382,17 +382,20 @@ public partial class machineElement : Button
 
     public void upMachineCostText()
     {
-        int limit = Ship.Current.level + 1;
-        Lbl_lockedLevel.text = (limit).ToString();
+        Lbl_lockedLevel.text = (getLimitLevel()).ToString();
         VE_lockedLevelCover.style.visibility = havelevel()? Visibility.Hidden : Visibility.Visible;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
     }
 
     private bool havelevel()
     {
-        int limit = Ship.Current.level + 1;
-        return (level < limit);
+        return (level < getLimitLevel());
     }
+    private int getLimitLevel()
+    {
+        return (Ship.Current.level + 1) * 2;
+    }
+
     #endregion
 
     #region ------ adaptativeStyle ------
@@ -434,8 +437,6 @@ public partial class machineElement : Button
 
         production_cps = cps[(int)color];
         nextColorlevel = levelColor[(int)color];
-
-        levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
     }
 
     #endregion
