@@ -11,7 +11,7 @@ public class BigNumber
     //tableau statique pour ne le créer qu'une seule fois, readonly pour ne pas le modifier
     const int MAX_EXP_DIFF = 15;
     private static readonly double[] Pow10 = {1d, 10d, 100d, 1000d, 10000d, 100000d, 1000000d, 10000000d, 100000000d,
-    1000000000d, 10000000000d, 100000000000d, 1000000000000d, 1000000000000d, 10000000000000d, 100000000000000d
+    1000000000d, 10000000000d, 100000000000d, 1000000000000d, 10000000000000d, 100000000000000d, 1000000000000000d
     };
 
     public double Mantisse;
@@ -69,9 +69,15 @@ public class BigNumber
 
         Exp += shift;
 
-        if (Exp < 0) Exp = 0;
+        if (Exp < 0) {
+            double realValue = Mantisse * Math.Pow(10, Exp);
 
-        if (Exp == 0)   
+            realValue = Math.Round(realValue);
+
+            Mantisse = realValue;
+            Exp = 0;
+        }
+        else if(Exp == 0)
             Mantisse = Math.Round(Mantisse);
         else
             Mantisse = Math.Round(Mantisse * 1000f) / 1000f;
@@ -298,6 +304,10 @@ public class BigNumber
 
         int mod = Exp % 3;
         double nnMantisse = Mantisse * Pow10[mod];
+
+        if(Exp <= 1)
+            return nnMantisse.ToString("F0"); ;
+        
         switch (mod)
         {
             case 1:

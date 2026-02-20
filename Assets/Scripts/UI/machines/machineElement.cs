@@ -224,7 +224,9 @@ public partial class machineElement : Button
 
     public void LoadMachineInfos()
     {
-        Lbl_reward.text = "Reward : " + CalculReward().ToString();
+        BigNumber RewardInc = new BigNumber(CalculReward(level + multiplicator));
+        RewardInc.Subtract(CalculReward());
+        Lbl_reward.text = "Reward : " + CalculReward().ToString() + "(+" + RewardInc.ToString() + ")";
         Lbl_employee.text = "Employee : " + (production_cps);
         Lbl_level.text = (level == levelMax) ? "Lv : UP" : "Lv : " + level + "/" + levelMax + " (+ " + getMulitplicator() + ")";
     }
@@ -362,12 +364,16 @@ public partial class machineElement : Button
         return addCost;
     }
 
-    public BigNumber CalculReward()
+    public BigNumber CalculReward() { return CalculReward(level); }
+
+    public BigNumber CalculReward(int lvl)
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.12f, level)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
-        reward.Add(level - 1);
+        reward.Multiply(Mathf.Pow(1.12f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Add(lvl - 1);
+
         reward *= BN_price *0.055f;
+        Debug.Log("machine :  " + machineName + " reward: " + reward.ToString() + " price : " + BN_price.ToString() );
         return reward;
     }
 
