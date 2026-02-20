@@ -210,18 +210,14 @@ public partial class UpgradesElement : VisualElement
     {
         BigNumber calculedNumber = new BigNumber(1, 0);
 
-        float currentPow = Mathf.Pow(1.60f, level); // début de la suite
+        double r = 1.60;
+        double pow = System.Math.Pow(r, level); // début de la suite
         multiplicator = Mathf.Max(1, multiplicator);
-        BigNumber temp = new BigNumber(50);
-
-        for (int i = 0; i < multiplicator; i++)
-        {
-            temp.Set(50);
-            temp.Multiply(currentPow);
-            temp.Multiply(Stats.Instance.upgradesPriceReducer);
-            calculedNumber.Add(temp);
-            currentPow *= 1.6f;
-        }
+        calculedNumber.Set(50);
+        calculedNumber.Multiply(pow, false);   
+        calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer, false);   
+        double factor = (System.Math.Pow(r, multiplicator) - 1) / (r - 1);
+        calculedNumber.Multiply(factor, false);
 
         calculedNumber.Normalize();
         return calculedNumber;

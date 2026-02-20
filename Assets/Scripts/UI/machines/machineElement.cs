@@ -309,6 +309,7 @@ public partial class machineElement : Button
     protected BigNumber CalculLevelUpCost()
     {
         float n = realLevel;
+        double r = 1.75;
         BigNumber calculedNumber = new BigNumber(0);
 
         int mult = getMulitplicator();
@@ -316,44 +317,21 @@ public partial class machineElement : Button
         if (level == levelMax)//changement de grade ( ex : fer -> or )
         {
             calculedNumber.Set(BN_price);
-            calculedNumber *= 3f * Mathf.Pow(1.75f, n);
-            calculedNumber *= Stats.Instance.upgradesPriceReducer;
+            double factor = 3.00 * System.Math.Pow(r, n) * Stats.Instance.upgradesPriceReducer;
+            calculedNumber.Multiply(factor, false);
         }
         else
         {
-            BigNumber temp = new BigNumber(0);
-            double pow = Mathf.Pow(1.75f, n);
-            for (int i = 0; i < mult; i++)
-            {
-                temp.Set(BN_price);
-                temp.Multiply(pow, false);
-                pow *= 1.75f;
-                temp.Multiply(Stats.Instance.upgradesPriceReducer, false);
-                calculedNumber.Add(temp, false);
-            }
+            double pow = System.Math.Pow(r, n);
+            calculedNumber.Set(BN_price * Stats.Instance.upgradesPriceReducer);
+            calculedNumber.Multiply(pow, false);
+            double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);
+            calculedNumber.Multiply(factor, false);
         }
 
         calculedNumber.Normalize();
         return calculedNumber;
     }
-    /*
-                 for (int i = 0; i < mult; i++)
-            {
-                temp.Set(BN_price);
-                temp.Multiply(Mathf.Pow(1.75f, n + i));
-                temp.Multiply(Stats.Instance.upgradesPriceReducer);
-                calculedNumber.Add(temp);
-            }
-     
-     
-     */
-    /*
- 5 : bronze
- 10 : argent
- 25  : gold
-50 : diamand 
-100 : blackborder
- */
 
     public BigNumber CalculReward()
     {

@@ -71,7 +71,7 @@ public class BigNumber
 
         if (Exp < 0) Exp = 0;
 
-        if (Exp == 0)
+        if (Exp == 0)   
             Mantisse = Math.Round(Mantisse);
         else
             Mantisse = Math.Round(Mantisse * 1000f) / 1000f;
