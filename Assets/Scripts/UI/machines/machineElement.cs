@@ -40,10 +40,19 @@ public partial class machineElement : Button
 
     #region ------ variables ------
 
+    //constantes
+    private static readonly int[] levelColor = { 5, 10, 25, 50, 100, 100 };
+    private static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
+
+    private static readonly Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
+    private static readonly Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
+    private static readonly Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
+    private static readonly Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
+
     //variables
-    private int levelMax = 5;
+    private int levelMax = 100;
+    private int nextColorlevel = 5;
     private int levelLimite = 1;
-    private int realLevel = 1;
     private int level = 1;
 
     private float time = 0f;
@@ -244,31 +253,14 @@ public partial class machineElement : Button
     protected virtual void LevelUp()
     {
         if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) && color != borderColor.black) return;
-
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator,( levelLimite - level) + 1 );
         HandleMoney(-CalculLevelUpCost());
         level += multiplicator;
-        realLevel += multiplicator;
 
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelLimite - level);
 
-        if (level > levelMax)
-        {
-            color++;
-            SetBorderColor();
-            if (color != borderColor.black)
-            {
-                level = 1;
-            }
-            else
-            {
-                Lbl_upCost.style.display = DisplayStyle.None;
-            }
-        }
-        else
-        {
-            Lbl_upCost.text = CalculLevelUpCost().ToString();
-        }
+
+        setMaxColor();
+        Lbl_upCost.text = CalculLevelUpCost().ToString();
 
         if (QuestManager.Instance.type == QuestType.UpgradeMachine)
             QuestManager.Instance.upQuest();
@@ -283,6 +275,25 @@ public partial class machineElement : Button
         LoadMachineInfos();
     }
 
+    public void setMaxColor()
+    {
+        int index = -1;
+        for(int i = 0; i < levelColor.Length; i++)
+        {
+            if (levelColor[i] <= level)
+                index = i;
+            else
+                break;
+        }
+
+        if(index != -1 && index != (int)color - 1 )
+        {
+            color = (borderColor)(index + 1);
+            if (color == borderColor.black)
+                Lbl_upCost.style.display = DisplayStyle.None;
+            SetBorderColor();
+        }
+    }
     
     public virtual void Update()
     {
@@ -308,36 +319,54 @@ public partial class machineElement : Button
 
     protected BigNumber CalculLevelUpCost()
     {
-        float n = realLevel;
         double r = 1.75;
         BigNumber calculedNumber = new BigNumber(0);
 
         int mult = getMulitplicator();
 
-        if (level == levelMax)//changement de grade ( ex : fer -> or )
+        if (level == nextColorlevel)//changement de grade ( ex : fer -> or )
         {
             calculedNumber.Set(BN_price);
-            double factor = 3.00 * System.Math.Pow(r, n) * Stats.Instance.upgradesPriceReducer;
+            double factor = 3.00 * System.Math.Pow(r, level) * Stats.Instance.upgradesPriceReducer;
             calculedNumber.Multiply(factor, false);
         }
         else
         {
-            double pow = System.Math.Pow(r, n);
+            double pow = System.Math.Pow(r, level);
             calculedNumber.Set(BN_price * Stats.Instance.upgradesPriceReducer);
             calculedNumber.Multiply(pow, false);
             double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);
             calculedNumber.Multiply(factor, false);
+            calculedNumber.Add(addColorCost(level, level + mult, r), false);
         }
 
         calculedNumber.Normalize();
         return calculedNumber;
     }
 
+    private BigNumber addColorCost(int baseLevel, int endLevel, double r)
+    {
+        BigNumber addCost = new BigNumber(0);
+        foreach(int lvColor in levelColor)
+        {
+            if (lvColor > baseLevel && lvColor <= endLevel)
+            {
+                BigNumber colorCost = new BigNumber(BN_price);
+                double factor = 2.00 * System.Math.Pow(r, lvColor) * Stats.Instance.upgradesPriceReducer;
+                colorCost.Multiply(factor, false);
+                addCost.Add(colorCost, false);
+            }
+        }
+
+        addCost.Normalize();
+        return addCost;
+    }
+
     public BigNumber CalculReward()
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.12f, realLevel)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
-        reward.Add(realLevel - 1);
+        reward.Multiply(Mathf.Pow(1.12f, level)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Add(level - 1);
         reward *= BN_price *0.055f;
         return reward;
     }
@@ -397,19 +426,14 @@ public partial class machineElement : Button
         }
 
         
-        Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
-        Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
-        Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
-        Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
+
         Color[] colors = { Color.white, bronze, silver, gold, diamand, Color.white };
         style.unityBackgroundImageTintColor = colors[(int)color];
         Btn_up.style.unityBackgroundImageTintColor = colors[(int)color];
         VE_logo.style.unityBackgroundImageTintColor = colors[(int)color];
 
-        int[] levelMaxs = { 5, 10, 25, 50, 100, 100 };
-        int[] cps = { 0, 1, 2, 4, 6, 10 };
         production_cps = cps[(int)color];
-        levelMax = levelMaxs[(int)color];
+        nextColorlevel = levelColor[(int)color];
 
         levelLimite = Mathf.Min(Ship.Current.level + 1, levelMax);
     }
