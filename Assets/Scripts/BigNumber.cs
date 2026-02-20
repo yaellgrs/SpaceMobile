@@ -6,6 +6,14 @@ using UnityEngine;
 [System.Serializable]
 public class BigNumber
 {
+    //on ne calcule que sur 15 puissance de 10 qu'on connait, au dela le resultat est insignifiant
+    //exemple 1e100 + 1e75 = 1e100, inutile de calculer
+    //tableau statique pour ne le créer qu'une seule fois, readonly pour ne pas le modifier
+    const int MAX_EXP_DIFF = 15;
+    private static readonly double[] Pow10 = {1d, 10d, 100d, 1000d, 10000d, 100000d, 1000000d, 10000000d, 100000000d,
+    1000000000d, 10000000000d, 100000000000d, 1000000000000d, 1000000000000d, 10000000000000d, 100000000000000d
+    };
+
     public double Mantisse;
     public int Exp;
 
@@ -62,14 +70,12 @@ public class BigNumber
                 Exp++;
             }
         }
+
+
         if(Exp == 0)
-        {
             Mantisse = Math.Round(Mantisse);
-        }
         else
-        {
             Mantisse = Math.Round(Mantisse*1000f)/1000f;
-        }
 
     }
 
@@ -98,7 +104,13 @@ public class BigNumber
         if (n.Exp > Exp)
         {
             int nexp = n.Exp - Exp;
-            double x = Mantisse / Math.Pow(10, nexp);
+            if(nexp > MAX_EXP_DIFF)
+            {
+                Exp = n.Exp;
+                Mantisse = n.Mantisse;
+                return;
+            }
+            double x = Mantisse / Pow10[nexp];
             Mantisse =n.Mantisse + x;
             Exp = n.Exp ;
             
@@ -106,7 +118,9 @@ public class BigNumber
         else if (n.Exp < Exp)
         {
             int nexp = Exp - n.Exp;
-            double x = n.Mantisse / Math.Pow(10, nexp);
+            if (nexp > MAX_EXP_DIFF) return;
+
+            double x = n.Mantisse / Pow10[nexp];
             Mantisse += x;
         }
         else
@@ -154,7 +168,8 @@ public class BigNumber
         else if (n.Exp < Exp)
         {
             int nexp = Exp - n.Exp; 
-            double x = n.Mantisse / Math.Pow(10, nexp); 
+            if(nexp > MAX_EXP_DIFF) return;
+            double x = n.Mantisse / Pow10[nexp]; 
 
             Mantisse -= x;
         }
@@ -230,14 +245,25 @@ public class BigNumber
         }
     }
 
+    public void Divide(BigNumber n)
+    {
+        if (n.Mantisse > 0)
+        {
+            Mantisse /= n.Mantisse;
+            Exp -= n.Exp;
+            Normalize();
+        }
+    }
+
 
     public double GetPercentByDivided(BigNumber n)
     {
         if (n.Exp > Exp)
         {
             BigNumber x = new BigNumber(Mantisse, Exp);
-            int exp = n.Exp - x.Exp;
-            x.Mantisse /= Mathf.Pow(10, exp);
+            int exp = n.Exp - x.Exp; ///10 / 10000
+            if (exp > MAX_EXP_DIFF) return 0f;
+            x.Mantisse /=  Pow10[exp];
             return (x.Mantisse / n.Mantisse) * 100f;
 
         }
@@ -249,7 +275,8 @@ public class BigNumber
         {
             BigNumber x = new BigNumber(Mantisse, Exp);
             int exp = x.Exp- n.Exp;
-            x.Mantisse *= Mathf.Pow(10, exp);
+            if (exp > MAX_EXP_DIFF) return 100f;
+            x.Mantisse *= Pow10[exp];
             return (x.Mantisse / n.Mantisse) * 100f;
         }
     }
@@ -263,31 +290,16 @@ public class BigNumber
 
     private string getNormalNotation()
     {
+        if(Mantisse == 0) return "0";
+
         string prefix;
-        switch (Exp)
-        {
-            case int n when (n >= 0 && n < 3):
-                prefix = "";
-                double nMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
-                return nMantisse.ToString("F0") + prefix;
-            case int n when (n >= 3 && n < 6):
-                prefix = "k";
-                break;
-            case int n when (n >= 6 && n < 9):
-                prefix = "m";
-                break;
-            case int n when (n >= 9 && n < 12):
-                prefix = "M";
-                break;
-            case int n when (n >= 12 && n < 15):
-                prefix = "B";
-                break;
-            default:
-                prefix = "x" + Exp;
-                break;
-        }
-        double nnMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
-        switch (Exp % 3)
+
+        string[] Prefixes = { "", "k", "m", "M", "B" };
+        prefix = Exp / 3 < Prefixes.Length ? Prefixes[Exp / 3] : "x" + Exp;
+
+        int mod = Exp % 3;
+        double nnMantisse = Mantisse * Pow10[mod];
+        switch (mod)
         {
             case 1:
                 return nnMantisse.ToString("F1") + prefix;
