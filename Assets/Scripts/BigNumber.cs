@@ -306,7 +306,7 @@ public class BigNumber
         double nnMantisse = Mantisse * Pow10[mod];
 
         if(Exp <= 1)
-            return nnMantisse.ToString("F0"); ;
+            return nnMantisse.ToString("F0");
         
         switch (mod)
         {

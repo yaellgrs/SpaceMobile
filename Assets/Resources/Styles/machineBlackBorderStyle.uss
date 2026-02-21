@@ -3,7 +3,7 @@
 
 .machineCadre {
     height: auto;
-    background-image: resource("machines/Black/BlackCadre");
+    background-image: resource("machines/black/cadre");
     position: relative;
     width: 105%;
     top: 0;
@@ -26,14 +26,46 @@
 }
 
 .machineLevel {
-    font-size: 25px;
+    font-size: 20px;
     color: rgb(255, 255, 255);
     position: absolute;
-    top: 65%;
+    top: 63%;
     left: 0%;
     -unity-font-style: bold;
     width: 100%;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.machineEmployee {
+    left: 25%;
+    width: 50%;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    position: absolute;
+    top: 78%;
+    -unity-text-align: upper-center;
+}
+
+.machineReward {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    -unity-text-align: middle-center;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    padding-right: 0%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    left: 25%;
+    top: 7%;
 }
 
 .machineBlackBorderCadre {
@@ -95,27 +127,6 @@
     flex-shrink: 0;
 }
 
-.machineReward {
-    width: 20%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: auto;
-    -unity-text-align: middle-right;
-    font-size: 25px;
-    color: rgb(255, 255, 255);
-    right: 5%;
-    padding-right: 15%;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
-}
-
 .machineTime {
     position: absolute;
     color: rgb(255, 255, 255);
@@ -172,7 +183,7 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
-    background-image: resource("machines/Black/BlackButton");
+    background-image: resource("machines/black/button");
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-size: 101.5% 74.5%;
     overflow: visible;

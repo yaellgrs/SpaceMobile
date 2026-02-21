@@ -41,7 +41,7 @@ public partial class machineElement : Button
     #region ------ variables ------
 
     //constantes
-    private static readonly int[] levelColor = { 5, 10, 25, 50, 100, 100 };
+    private static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
     private static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
 
     private static readonly Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
@@ -112,7 +112,6 @@ public partial class machineElement : Button
 
         Lbl_name.name = "name";
         Lbl_level.name = "level";
-
 
         VE_logo.AddToClassList("machineLogo");
         Lbl_employee.AddToClassList("machineEmployee");
@@ -217,14 +216,14 @@ public partial class machineElement : Button
         clicked -= StartProduction;
         clicked += StartProduction;
         Btn_up.clicked -= LevelUp;
-        Btn_up.clicked += LevelUp;
+        if(color != borderColor.black) Btn_up.clicked += LevelUp;
 
         SetLevelUpButton();
     }
 
     public void LoadMachineInfos()
     {
-        BigNumber RewardInc = new BigNumber(CalculReward(level + multiplicator));
+        BigNumber RewardInc = new BigNumber(CalculReward(level + getMulitplicator()));
         RewardInc.Subtract(CalculReward());
         Lbl_reward.text = "Reward : " + CalculReward().ToString() + "(+" + RewardInc.ToString() + ")";
         Lbl_employee.text = "Employee : " + (production_cps);
@@ -254,7 +253,8 @@ public partial class machineElement : Button
 
     protected virtual void LevelUp()
     {
-        if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) && color != borderColor.black) return;
+        Debug.Log("level up");
+        if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) || color == borderColor.black ) return;
         HandleMoney(-CalculLevelUpCost());
         level += multiplicator;
 
@@ -437,6 +437,7 @@ public partial class machineElement : Button
         
 
         Color[] colors = { Color.white, bronze, silver, gold, diamand, Color.white };
+        Debug.Log("color : " + color + "  index : " + (int)color);
         style.unityBackgroundImageTintColor = colors[(int)color];
         Btn_up.style.unityBackgroundImageTintColor = colors[(int)color];
         VE_logo.style.unityBackgroundImageTintColor = colors[(int)color];
