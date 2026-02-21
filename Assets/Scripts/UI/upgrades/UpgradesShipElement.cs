@@ -51,7 +51,7 @@ public class UpgradesShipElement : UpgradesElement
         Lbl_description.text = "no defined";
     }
 
-    public override void GetReward()
+    public override void SetReward()
     {
         if (!isUnlocked()) return;
 

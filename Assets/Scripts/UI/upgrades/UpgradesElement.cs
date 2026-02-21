@@ -125,7 +125,7 @@ public partial class UpgradesElement : VisualElement
 
         LoadStat();
         LoadUI();
-        GetReward();
+        SetReward();
         SetLogos();
 
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
@@ -158,8 +158,7 @@ public partial class UpgradesElement : VisualElement
         }
         else
         {
-
-            Lbl_level.text = "lv " + level.ToString() + "/" + levelMax.ToString();
+            Lbl_level.text = $"lv {level.ToString()}/{levelMax.ToString()} <color=green>(+{getMulitplicator()})</color>";
             Lbl_levelUpCost.style.display = DisplayStyle.Flex;
         }
     }
@@ -193,7 +192,7 @@ public partial class UpgradesElement : VisualElement
             }
             else level += multiplicator;
 
-            GetReward();
+            SetReward();
 
             //set in load donc j'ai commenté
             //Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
@@ -223,6 +222,11 @@ public partial class UpgradesElement : VisualElement
         return calculedNumber;
     }
 
+    public int getMulitplicator()
+    {
+        return Mathf.Min(levelMax - level, UpMode.Instance.upModeMultiplicator);
+    }
+
     #endregion
 
     #region ----- virtuals Methods ----
@@ -232,11 +236,22 @@ public partial class UpgradesElement : VisualElement
 
     }
 
-    public virtual void GetReward()
+    protected virtual string getStat()
+    {
+        return "";
+    }
+
+    public virtual void SetReward()
     {
 
     }
-    
+
+    public virtual BigNumber GetReward(int lvl)
+    {
+        return new BigNumber(0);
+    }
+
+
     protected virtual bool CanPay()
     {
         return false;

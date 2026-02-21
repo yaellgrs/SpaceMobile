@@ -114,11 +114,11 @@ public class SpaceShipData
     public void LoadBonus()
     {
         foreach(var upgrade in upgradesIron)
-            upgrade.GetReward();
+            upgrade.SetReward();
         foreach (var upgrade in upgradesUranium)
-            upgrade.GetReward();
+            upgrade.SetReward();
         foreach (var upgrade in Stats.Instance.upgradesPrestige)
-            upgrade.GetReward();
+            upgrade.SetReward();
     }
 
 
@@ -149,6 +149,7 @@ public class ShipTempStat
 
     public BigNumber getTotal()
     {
+
         float leveBonus = 1f + (Ship.Current.level - 1) * 0.1f;
         BigNumber total = new BigNumber(initial);
         total *= prestige_multiplicator * leveBonus;

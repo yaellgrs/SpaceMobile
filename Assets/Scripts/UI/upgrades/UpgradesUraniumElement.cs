@@ -51,7 +51,7 @@ public class UpgradesUraniumElement : UpgradesElement
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
 
-    public override void GetReward()
+    public override void SetReward()
     {
         switch (type)
         {

@@ -66,6 +66,7 @@
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
     left: 25%;
     top: 7%;
+    -unity-font-style: bold;
 }
 
 .machineBlackBorderCadre {

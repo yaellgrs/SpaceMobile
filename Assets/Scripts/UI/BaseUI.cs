@@ -98,11 +98,7 @@ public class BaseUI : MonoBehaviour
         {
             upgradeUI.gameObject.SetActive(false);
             loadForgeUI();
-
-
         }
-
-
     }
         
     private void scrolling()

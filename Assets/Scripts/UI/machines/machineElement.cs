@@ -225,9 +225,9 @@ public partial class machineElement : Button
     {
         BigNumber RewardInc = new BigNumber(CalculReward(level + getMulitplicator()));
         RewardInc.Subtract(CalculReward());
-        Lbl_reward.text = "Reward : " + CalculReward().ToString() + "(+" + RewardInc.ToString() + ")";
+        Lbl_reward.text = $"Reward : {CalculReward().ToString()} <color=green>(+{RewardInc.ToString()})</color>";
         Lbl_employee.text = "Employee : " + (production_cps);
-        Lbl_level.text = (level == levelMax) ? "Lv : UP" : "Lv : " + level + "/" + levelMax + " (+ " + getMulitplicator() + ")";
+        Lbl_level.text = (level == levelMax) ? "Lv : UP" : $"Lv : {level}/{levelMax} <color=green>(+{getMulitplicator()})</color>";
     }
 
     protected virtual void StartProduction() // == machine1Clicked

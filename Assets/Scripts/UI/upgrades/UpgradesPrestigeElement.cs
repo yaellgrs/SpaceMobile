@@ -87,7 +87,7 @@ public class UpgradesPrestigeElement : UpgradesElement
         return true;
     }
 
-    public override void GetReward()
+    public override void SetReward()
     {
         int realLevel = level;
         if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))

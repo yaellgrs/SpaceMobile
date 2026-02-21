@@ -91,7 +91,7 @@ public class IronUi : BaseUI
         else
         {
             foreach (UpgradesElement upgrade in Ship.Current.upgradesIron)
-                upgrade.LoadUI();
+                upgrade.Load();
         }
     }
 
