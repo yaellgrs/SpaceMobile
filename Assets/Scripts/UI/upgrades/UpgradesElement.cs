@@ -158,7 +158,7 @@ public partial class UpgradesElement : VisualElement
         }
         else
         {
-            Lbl_level.text = $"lv {level.ToString()}/{levelMax.ToString()} <color=green>(+{getMulitplicator()})</color>";
+            Lbl_level.text = $"lv {level.ToString()}/{levelMax.ToString()} <color=cyan>(+{getMulitplicator()})</color>";
             Lbl_levelUpCost.style.display = DisplayStyle.Flex;
         }
     }

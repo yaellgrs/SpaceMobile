@@ -227,7 +227,7 @@ public partial class machineElement : Button
         RewardInc.Subtract(CalculReward());
         Lbl_reward.text = $"Reward : {CalculReward().ToString()} <color=green>(+{RewardInc.ToString()})</color>";
         Lbl_employee.text = "Employee : " + (production_cps);
-        Lbl_level.text = (level == levelMax) ? "Lv : UP" : $"Lv : {level}/{levelMax} <color=green>(+{getMulitplicator()})</color>";
+        Lbl_level.text = (level == levelMax) ? "Lv : UP" : $"Lv : {level}/{levelMax} <color=cyan>(+{getMulitplicator()})</color>";
     }
 
     protected virtual void StartProduction() // == machine1Clicked
@@ -388,18 +388,29 @@ public partial class machineElement : Button
 
     public void upMachineCostText()
     {
-        Lbl_lockedLevel.text = (getLimitLevel()).ToString();
-        VE_lockedLevelCover.style.visibility = havelevel()? Visibility.Hidden : Visibility.Visible;
+        Lbl_lockedLevel.text = (getLimitLevel(getMulitplicator())).ToString();
+        VE_lockedLevelCover.style.visibility = havelevel(level + getMulitplicator())? Visibility.Hidden : Visibility.Visible;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
     }
 
     private bool havelevel()
     {
-        return (level < getLimitLevel());
+        return havelevel(level);
+    }
+
+    private bool havelevel(int lv)
+    {
+        return (lv < getLimitLevel());
     }
     private int getLimitLevel()
     {
-        return (Ship.Current.level + 1) * 2;
+        return getLimitLevel(1);
+    }
+
+    private int getLimitLevel(int mult)
+    {
+        int limit = (Ship.Current.level + mult) * 2;
+        return Mathf.Min(100, limit);
     }
 
     #endregion
