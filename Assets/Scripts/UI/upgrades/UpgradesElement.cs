@@ -141,11 +141,10 @@ public partial class UpgradesElement : VisualElement
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
 
         //check if the player can upgrade
-        bool havelevel = haveLevel();   
-        VE_levelUpLockCover.style.visibility = havelevel ? Visibility.Hidden : Visibility.Visible;
+        VE_levelUpLockCover.style.visibility = haveLevel(level + getMulitplicator()) ? Visibility.Hidden : Visibility.Visible;
 
         LoadLevelUI();
-        Lbl_levelUpLockLevel.text = (Ship.Current.level + 2).ToString();
+        Lbl_levelUpLockLevel.text = (getRequireLevel(getMulitplicator())).ToString();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
     }
 
@@ -165,12 +164,31 @@ public partial class UpgradesElement : VisualElement
 
     public virtual bool haveLevel()
     {
-        return level < Ship.Current.level + 1;
+        return haveLevel(level);
+    }
+    public virtual bool haveLevel(int lv)
+    {
+        return (lv < getLimitLevel());
+    }
+
+    private int getLimitLevel()
+    {
+        int limit = (Ship.Current.level + 1) * 2;
+        return Mathf.Min(100, limit);
+    }//(limit  * 2 ) - 1= (level +1 )
+
+
+    private int getRequireLevel(int mult)
+    {
+        int targetLevel = level + mult;
+        int requiredShipLevel = Mathf.CeilToInt(targetLevel / 2f) - 1;
+
+        return Mathf.Max(0, requiredShipLevel);
     }
 
     protected virtual void SetLevelUpButton()
     {
-        Btn_levelUp.enabledSelf = CanPay() && level < Ship.Current.level + 1;
+        Btn_levelUp.enabledSelf = CanPay() || getRequireLevel(getMulitplicator()) > Ship.Current.level; ;
 
     }
     #endregion

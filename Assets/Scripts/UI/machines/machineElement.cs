@@ -383,12 +383,12 @@ public partial class machineElement : Button
 
     protected virtual void SetLevelUpButton()
     {
-        Btn_up.enabledSelf = canBuy(CalculLevelUpCost());
+        Btn_up.enabledSelf = canBuy(CalculLevelUpCost()) || getRequireLevel(getMulitplicator()) > Ship.Current.level;
     }
 
     public void upMachineCostText()
     {
-        Lbl_lockedLevel.text = (getLimitLevel(getMulitplicator())).ToString();
+        Lbl_lockedLevel.text = (getRequireLevel(getMulitplicator())).ToString();
         VE_lockedLevelCover.style.visibility = havelevel(level + getMulitplicator())? Visibility.Hidden : Visibility.Visible;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
     }
@@ -402,15 +402,18 @@ public partial class machineElement : Button
     {
         return (lv < getLimitLevel());
     }
+
     private int getLimitLevel()
     {
-        return getLimitLevel(1);
-    }
-
-    private int getLimitLevel(int mult)
-    {
-        int limit = (Ship.Current.level + mult) * 2;
+        int limit = (Ship.Current.level + 1) * 2;
         return Mathf.Min(100, limit);
+    }
+    private int getRequireLevel(int mult)
+    {
+        int targetLevel = level + mult;
+        int requiredShipLevel = Mathf.CeilToInt(targetLevel / 2f) - 1;
+
+        return Mathf.Max(0, requiredShipLevel);
     }
 
     #endregion
