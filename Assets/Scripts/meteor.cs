@@ -39,9 +39,9 @@ public class spaceObject : MonoBehaviour
     public bool isDestroyByRocket = false;
 
 
-    public virtual void Init()
+    public virtual void Init(bool spawn = true)
     {
-        if (type != meteorType.miniMeteor)
+        if (type != meteorType.miniMeteor && spawn)
             Spawn();
 
         int x = Ship.Current.stage - 1;
@@ -124,7 +124,7 @@ public class spaceObject : MonoBehaviour
         return mult;
     }
 
-    protected void setFontSize()
+    protected virtual void setFontSize()
     {
         if(new BigNumber(10).isBigger(lifeMax))
             lifeText.fontSize = 1250;

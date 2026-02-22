@@ -281,6 +281,15 @@ public class gameManager : MonoBehaviour
         meteors.Add(obj);
     }
 
+    public void SpawnMeteor(spaceObject meteorPredab, meteorType type, Vector3 position)
+    {
+        spaceObject obj = Instantiate(meteorPredab);
+        obj.type = type;
+        obj.transform.position = position;
+        obj.Init(false);
+        meteors.Add(obj);
+    }
+
     private void SpawnBossMeteor(meteorBoss bossPrefab, meteorBoss.BossType type)
     {
         meteorBoss obj = Instantiate(bossPrefab);

@@ -11,8 +11,17 @@ public class meteorBoss : spaceObject
     private float statutTimer = 0f;
     private float statutTimerLimit = 0f;
 
+    //attack
+    private int wave = 0;
+    private float attackTimer = 0f;
+    private const float ATTACK_TIMER_LIMITE = 1.5f;
 
-    public override void Init()
+    public spaceObject firstWavePrefab;
+    public spaceObject secondWavePrefab;
+    public spaceObject thirdWavePrefab;
+
+
+    public override void Init(bool spawn = true)
     {
         base.Init();
         //keep
@@ -23,6 +32,15 @@ public class meteorBoss : spaceObject
         }
         setTimerLimit();
         setAnimation();
+    }
+
+    protected override void setFontSize()
+    {
+        if (new BigNumber(10).isBigger(lifeMax))
+            lifeText.fontSize = 1250*3;
+        else if (new BigNumber(100).isBigger(lifeMax))
+            lifeText.fontSize = 1000*3;
+        lifeText.color = Color.white;   
     }
     protected override void setLife()
     {
@@ -39,12 +57,27 @@ public class meteorBoss : spaceObject
     {
         base.Update();
         statutTimer += Time.deltaTime;
+
+        if (statut == AttackStatut.Attack)
+            attackTimer += Time.deltaTime;
+
         if(statutTimer > statutTimerLimit)
         {
             setNextStatut();
             statutTimer = 0f;
         }
         Move();
+        if (attackTimer >= ATTACK_TIMER_LIMITE){
+            Attack();
+            attackTimer = 0f;
+        }
+    }
+
+    private void Attack()
+    {
+        spaceObject[] prefabToSpawn = { firstWavePrefab, secondWavePrefab, thirdWavePrefab };
+        meteorType[] types = { meteorType.Normal, meteorType.Scatter, meteorType.Big };
+        gameManager.instance.SpawnMeteor(prefabToSpawn[wave - 1], types[wave - 1], transform.position);
     }
 
     public override void Move()
@@ -96,6 +129,8 @@ public class meteorBoss : spaceObject
             statut = AttackStatut.Waiting;
         else
             statut++;
+        if (statut == AttackStatut.Attack)
+            wave = Mathf.Min(wave + 1, 3);
         setAnimation();
         setTimerLimit();
     }
