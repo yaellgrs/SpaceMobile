@@ -29,10 +29,10 @@ public class Lazer : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if (collision.gameObject.layer == LayerMask.NameToLayer("spaceObject"))
+
+        if (collision.TryGetComponent(out spaceObject meteor))
         {
-            spaceObject meteor = collision.gameObject.GetComponent<spaceObject>();
+            Debug.Log("Detected meteor: " + meteor.GetType());
 
             if (meteor != null && meteor.spawnTime > 0.1f)
             {
@@ -50,11 +50,11 @@ public class Lazer : MonoBehaviour
                     if (critic)
                         PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Critique);
                     else
-                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Damage);  
+                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Damage);
                 }
+                meteor.UpLife();
                 Destroy(gameObject);
             }
-
         }
     }
 }

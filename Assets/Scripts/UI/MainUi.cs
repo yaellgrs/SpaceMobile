@@ -257,7 +257,6 @@ public class MainUi : MonoBehaviour
 
         if (gameManager.instance.bossStage)
         {
-            Debug.Log("bossstage");
             if (gameManager.instance.meteors.Count > 0)
             {
                 Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + gameManager.instance.meteors[0].lifeMax.ToString();

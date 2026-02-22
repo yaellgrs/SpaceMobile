@@ -188,8 +188,7 @@ public partial class UpgradesElement : VisualElement
 
     protected virtual void SetLevelUpButton()
     {
-        Btn_levelUp.enabledSelf = CanPay() || getRequireLevel(getMulitplicator()) > Ship.Current.level; ;
-
+        Btn_levelUp.enabledSelf = CanPay() || getRequireLevel(getMulitplicator()) > Ship.Current.level;
     }
     #endregion
 

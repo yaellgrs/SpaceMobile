@@ -16,7 +16,8 @@ public class gameManager : MonoBehaviour
     public spaceObject miniMeteorPrefab;
     public spaceObject ironMeteorPrefab;
     public spaceObject uraniumMeteorPrefab;
-    public spaceObject bossMeteorPrefab;
+
+    public meteorBoss normalBossPrefab;
 
     float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
@@ -179,7 +180,7 @@ public class gameManager : MonoBehaviour
         if (!bossStage && Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
         {
             bossStage = true;
-            SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
+            SpawnBossMeteor(normalBossPrefab, meteorBoss.BossType.Normal);
             if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
             MainUi.Instance.ShowBossLife(true);
             meteorToKill = 1;
@@ -280,6 +281,14 @@ public class gameManager : MonoBehaviour
         meteors.Add(obj);
     }
 
+    private void SpawnBossMeteor(meteorBoss bossPrefab, meteorBoss.BossType type)
+    {
+        meteorBoss obj = Instantiate(bossPrefab);
+        obj.bossType = type;
+        obj.Init();
+        meteors.Add(obj);
+    }
+
     public void SetPause(bool isPause)
     {
         isPaused = isPause;
@@ -293,7 +302,7 @@ public class gameManager : MonoBehaviour
             timerSave = timer;
             timer = -1000f;
         }
-        else if(!isPause)
+        else if(!isPause && !bossStage)
         {
             if(timerSave > 0f)
             {

@@ -2355,75 +2355,6 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!1001 &1534806646
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1281047723487592964, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_Name
-      value: meteorBOSS Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.1163673
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.4119022
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535974506188606857, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2460227884661643138, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2460227884661643138, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2460227884661643138, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
 --- !u!1 &1551023418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,7 +2764,7 @@ MonoBehaviour:
   miniMeteorPrefab: {fileID: 2963011495043054338, guid: ae90cab106598914390aa66d5ea0a82a, type: 3}
   ironMeteorPrefab: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
   uraniumMeteorPrefab: {fileID: 5482572478085618534, guid: c0960c5c47888ea41808ac9f64cec58c, type: 3}
-  bossMeteorPrefab: {fileID: 8090539688173217151, guid: 4ad095fc02340f1419486a48004aeaa3, type: 3}
+  normalBossPrefab: {fileID: 378310423865696184, guid: e044d413110325242ae1e9c6d0351167, type: 3}
   timer: 0
   meteorToKill: 10
   meteorKilled: 0
@@ -2873,7 +2804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921110c6a83c49e478da60931cc819d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upMode: 0
   upModeMultiplicator: 1
 --- !u!114 &1752593086
 MonoBehaviour:
@@ -3743,67 +3673,6 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!1001 &347153588841976946
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.9905045
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.89675814
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284934456727501853, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_Name
-      value: meteor
-      objectReference: {fileID: 0}
-    - target: {fileID: 7414352434436722714, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3821,6 +3690,4 @@ SceneRoots:
   - {fileID: 997306584}
   - {fileID: 471261113}
   - {fileID: 1778446112}
-  - {fileID: 347153588841976946}
   - {fileID: 66367654}
-  - {fileID: 1534806646}

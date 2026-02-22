@@ -8,26 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2194695972966590875, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2194695972966590875, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2194695972966590875, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_Color.r
-      value: 0.2981131
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.75
-      objectReference: {fileID: 0}
     - target: {fileID: 2954850402007151504, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1163673
@@ -71,18 +51,6 @@ PrefabInstance:
     - target: {fileID: 3284934456727501853, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
       propertyPath: m_Name
       value: meteorBOSS Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: type
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: baseScale.x
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-      propertyPath: baseScale.y
-      value: 1.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

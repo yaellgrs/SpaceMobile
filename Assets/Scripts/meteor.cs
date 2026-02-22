@@ -24,16 +24,16 @@ public class spaceObject : MonoBehaviour
     public BigNumber lifeMax = new BigNumber(2, 0);
     public BigNumber life;
     Vector3 direction;
-    bool isStart = true;
-    bool isOmega = false;
-    bool isUp = true;
+    protected bool isStart = true;
+    protected bool isOmega = false;
+    protected bool isUp = true;
     public float spawnTime = 0f;
     public bool isPause = false;
 
 
     public Vector3 baseScale;
 
-    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium, Boss};
+    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium};
     public meteorType type;
 
     public bool isDestroyByRocket = false;
@@ -41,71 +41,17 @@ public class spaceObject : MonoBehaviour
 
     public virtual void Init()
     {
-
         if (type != meteorType.miniMeteor)
-        {
             Spawn();
-        }
 
         int x = Ship.Current.stage - 1;
         float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
         lifeMax = new BigNumber((int)hp);
-        //lifeMax = new BigNumber( 2 + (Mathf.Pow(1.2f, Ship.Current.stage)));
 
-
-        if(type == meteorType.Big)
-        {
-            lifeMax.Multiply(5);
-            if (!Stats.Instance.popupTutos[PopupTuto.BigMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.BigMeteor);
-        }
-        else if(type == meteorType.Diamand)
-        {
-            lifeMax.Multiply(2f);
-            if (!Stats.Instance.popupTutos[PopupTuto.diamandMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.diamandMeteor);
-        }
-        else if(type == meteorType.miniMeteor)
-        {
-            lifeMax.Multiply(0.5f);
-        }
-        else if(type == meteorType.Iron)
-        {
-            lifeMax.Multiply(2.5f);
-            if (!Stats.Instance.popupTutos[PopupTuto.ironMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
-        }
-        else if(type == meteorType.Uranium)
-        {
-            if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
-        }
-        else if(type == meteorType.Scatter)
-        {
-            if (!Stats.Instance.popupTutos[PopupTuto.splitterMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
-        }
-        else if(type == meteorType.Boss)
-        {
-           lifeMax *= 15;
-        }
-
-        List<(int stage, float mult)> paliers = new()
-        {
-            (10, 1.2f),
-            (25, 1.5f),
-            (50, 1.5f),
-            (100, 1.75f),
-        };
-
-        foreach(var palier in paliers)
-        {
-            if(Ship.Current.stage >= palier.stage)
-            {
-                lifeMax *= palier.mult;
-            }
-        }
+        setLife();
+        lifeMax *= getStageModifier();
 
         life = new BigNumber(lifeMax);
-        if (type == meteorType.Boss && Stats.Instance.ReduceLifeBoss) {
-            life *= 0.6f;
-            Stats.Instance.ReduceLifeBoss = false;  
-        }
 
         transform.localScale *= Stats.Instance.scale;
         lifeText.text = life.ToString();
@@ -126,19 +72,67 @@ public class spaceObject : MonoBehaviour
         setFontSize();
     }
 
-    private void setFontSize()
+    protected virtual void setLife()
     {
-        if(new BigNumber(10).isBigger(lifeMax))
+        if (type == meteorType.Big)
         {
-            lifeText.fontSize = 1250;
+            lifeMax.Multiply(5);
+            if (!Stats.Instance.popupTutos[PopupTuto.BigMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.BigMeteor);
         }
-        else if (new BigNumber(100).isBigger(lifeMax))
+        else if (type == meteorType.Diamand)
         {
-            lifeText.fontSize = 1000;
+            lifeMax.Multiply(2f);
+            if (!Stats.Instance.popupTutos[PopupTuto.diamandMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.diamandMeteor);
+        }
+        else if (type == meteorType.miniMeteor)
+        {
+            lifeMax.Multiply(0.5f);
+        }
+        else if (type == meteorType.Iron)
+        {
+            lifeMax.Multiply(2.5f);
+            if (!Stats.Instance.popupTutos[PopupTuto.ironMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
+        }
+        else if (type == meteorType.Uranium)
+        {
+            if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
+        }
+        else if (type == meteorType.Scatter)
+        {
+            if (!Stats.Instance.popupTutos[PopupTuto.splitterMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
         }
     }
 
-    public void loadSpeed()
+    protected float getStageModifier()
+    {
+        List<(int stage, float mult)> paliers = new()
+        {
+            (10, 1.2f),
+            (25, 1.5f),
+            (50, 1.5f),
+            (100, 1.75f),
+        };
+
+        float mult = 1f;
+
+        foreach (var palier in paliers)
+        {
+            if (Ship.Current.stage >= palier.stage)
+                mult *= palier.mult;
+        }
+
+        return mult;
+    }
+
+    protected void setFontSize()
+    {
+        if(new BigNumber(10).isBigger(lifeMax))
+            lifeText.fontSize = 1250;
+        else if (new BigNumber(100).isBigger(lifeMax))
+            lifeText.fontSize = 1000;
+    }
+
+    public virtual void loadSpeed()
     {
         spaceObjectSpeed = 0.75f;
         if (type == meteorType.Big)
@@ -153,41 +147,20 @@ public class spaceObject : MonoBehaviour
         {
             spaceObjectSpeed *= 0.35f;
         }
-        else if (type == meteorType.Boss)
-        {
-            spaceObjectSpeed *= 0.75f;
-        }
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator;
-        if(type != meteorType.Boss)
-        {
-            Move();
-        }
+        Move();
     }
 
-    private void Update()
+    protected virtual void Update() 
     {
         spawnTime += Time.deltaTime;
-        UpLife();
-        if (type == meteorType.Boss) MoveBoss();
+        //UpLife();
     }
 
-    public void MoveBoss()
-    {
-        if (isPause) return;
 
-        Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
-        Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
-        Vector3 dir = ( shipDir + perp * 5f ).normalized;
-        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
-    }
-
-    public void Move()
+    public virtual void Move()
     {
         isPause = gameManager.instance.isPaused;
-        if (type == meteorType.Boss || isPause) return;
         if (isStart)
         {
             direction = spaceShip.instance.transform.position - transform.position;
@@ -200,7 +173,7 @@ public class spaceObject : MonoBehaviour
         GetComponentInChildren<Canvas>().transform.rotation = Quaternion.Euler(0, 0,0);
     }
     
-    private void Spawn()
+    protected virtual void Spawn()
     {
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
         Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
@@ -229,11 +202,6 @@ public class spaceObject : MonoBehaviour
                 x = 0;
                 y = 0;
                 break;
-        }
-        if(type == meteorType.Boss)
-        {
-            x = bottomLeft.x - 0.5f;
-            y = topRight.y * 0.55f;
         }
 
         transform.position = new Vector3(x, y, 0);
@@ -373,7 +341,5 @@ public class spaceObject : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
-
-        if(type == meteorType.Boss) gameManager.instance.bossStage = false;
     }
 }

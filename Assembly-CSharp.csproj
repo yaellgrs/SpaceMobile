@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\UI\other\OfflineUI.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineElement.cs" />
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
+    <Compile Include="Assets\Scripts\meteorBoss.cs" />
     <Compile Include="Assets\Scripts\markers\MarkerPool.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesElement.cs" />
     <Compile Include="Assets\Scripts\ship\canon.cs" />
