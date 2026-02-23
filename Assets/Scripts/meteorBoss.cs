@@ -112,7 +112,7 @@ public class meteorBoss : spaceObject
 
     private void setTimerLimit()
     {
-        float[] limits = { 6f, 2f, ATTACK_TIMER_LIMITE*3 };
+        float[] limits = { 5f, 4f, ATTACK_TIMER_LIMITE*3 };
         statutTimerLimit = limits[(int)statut];  
     }
 
@@ -130,8 +130,13 @@ public class meteorBoss : spaceObject
             statut = AttackStatut.Waiting;
         else
             statut++;
-        if (statut == AttackStatut.Attack)
+
+        if (statut == AttackStatut.Launch)
+            gameManager.instance.activeWarning(true);
+        else if (statut == AttackStatut.Attack){
             wave = Mathf.Min(wave + 1, 3);
+            gameManager.instance.activeWarning(false);
+        }
         setAnimation();
         setTimerLimit();
     }

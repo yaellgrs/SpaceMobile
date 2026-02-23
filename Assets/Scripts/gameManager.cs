@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static spaceObject;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class gameManager : MonoBehaviour
 {
@@ -36,6 +38,11 @@ public class gameManager : MonoBehaviour
 
     public List<spaceObject> meteors = new List<spaceObject>();
 
+    public Volume V_warning;
+    float incWeight = 1f;
+
+
+
     float autoSaveTimer = 0f;
     private void Awake()
     {
@@ -60,6 +67,7 @@ public class gameManager : MonoBehaviour
     {
 
         Application.targetFrameRate = 60;
+        V_warning.gameObject.SetActive(false);
         InitGame();
         LoadStage();
 
@@ -125,6 +133,26 @@ public class gameManager : MonoBehaviour
         {
             Stats.Instance.save();
             autoSaveTimer = 0f;
+        }
+        updateWarning();
+    }
+
+    public void updateWarning()
+    {
+        if (V_warning.gameObject.activeSelf)
+        {
+            V_warning.weight += incWeight * Time.deltaTime;
+            if(V_warning.weight <= 0f)
+            {
+                V_warning.weight = 0f;
+                incWeight = Mathf.Abs(incWeight);
+            }
+            else if (V_warning.weight >= 1f)
+            {
+                V_warning.weight = 1f;
+                incWeight = -Mathf.Abs(incWeight);
+            }
+
         }
     }
 
@@ -380,6 +408,13 @@ public class gameManager : MonoBehaviour
         obj2.Init();
         obj3.Init();
 
+    }
+
+    public void activeWarning(bool active)
+    {
+        V_warning.gameObject.SetActive(active);
+        if(active)
+            V_warning.weight = 0f;
     }
 
     public void setMeteorScale()
