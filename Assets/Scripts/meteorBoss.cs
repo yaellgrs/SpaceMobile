@@ -32,6 +32,7 @@ public class meteorBoss : spaceObject
         }
         setTimerLimit();
         setAnimation();
+        attackTimer = ATTACK_TIMER_LIMITE;
     }
 
     protected override void setFontSize()
@@ -67,7 +68,7 @@ public class meteorBoss : spaceObject
             statutTimer = 0f;
         }
         Move();
-        if (attackTimer >= ATTACK_TIMER_LIMITE){
+        if (attackTimer > ATTACK_TIMER_LIMITE){
             Attack();
             attackTimer = 0f;
         }
@@ -111,7 +112,7 @@ public class meteorBoss : spaceObject
 
     private void setTimerLimit()
     {
-        float[] limits = { 6f, 2f, 4f };
+        float[] limits = { 6f, 2f, ATTACK_TIMER_LIMITE*3 };
         statutTimerLimit = limits[(int)statut];  
     }
 
