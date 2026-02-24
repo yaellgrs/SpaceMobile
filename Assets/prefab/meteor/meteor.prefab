@@ -86,7 +86,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3539246537435981856, guid: d8a9b9d872301e8429647445b47e0854, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5028,7 +5028,7 @@ ParticleSystemRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5121,7 +5121,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &6459591562002607166
 MonoBehaviour:
@@ -5435,6 +5435,10 @@ PrefabInstance:
     - target: {fileID: 7466835826589684864, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
       propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[2].outSlope
       value: -0.9953926
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268728107324099267, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8268728107324099267, guid: 4b22913094abbac44bfb9c5496e52a06, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

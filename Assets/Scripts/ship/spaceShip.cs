@@ -18,6 +18,8 @@ public class spaceShip : MonoBehaviour
     public float animSpeed = 0.0025f;
 
     private Animator animator;
+    public RepelerLink repelerLink;
+    private GameObject repelerTarget;
 
     private void Awake()
     {
@@ -83,6 +85,23 @@ public class spaceShip : MonoBehaviour
                 ResurectionUI.Instance.loadResurection();
             }
         }
+        UpdateRepeler();
+    }
+
+    private void UpdateRepeler()
+    {
+        //if (!Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.Magnectic)) return;
+
+        if (gameManager.instance.meteors.Count <= 0)
+        {
+            repelerLink.pointB = transform;
+        }
+        else if (repelerTarget == null || repelerLink.pointB == transform)
+        {
+            repelerTarget = gameManager.instance.meteors[0].gameObject;
+            repelerLink.pointB = repelerTarget.transform;
+        }
+        
     }
 
     private void Animation()

@@ -16,7 +16,7 @@ public class SpaceShipDico //pour pouvoir serialiser le dictionnaire
 [System.Serializable]
 public class SpaceShipData
 {
-    public enum SpaceShipElement { Wood, Iron, Magnetic, Fire, Poison };
+    public enum SpaceShipElement { Wood, Iron, Magnetic, Fire, Poison, Plasma };
     public SpaceShipElement type;
 
     public int level = 1;

@@ -47,7 +47,7 @@ public class RepelerLink : MonoBehaviour
 
     private void AnimateWidth()
     {
-        float pulse = 1.5f * Mathf.Sin(Time.time * 5f) * 0.02f + 0.5f;
+        float pulse = 1.5f * Mathf.Sin(Time.time * 5f) * 0.02f + 1f;
         lr.startWidth = pulse;
         lr.endWidth = pulse;
     }

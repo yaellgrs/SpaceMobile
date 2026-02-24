@@ -79,4 +79,29 @@ public static class Utility
        
     }
 
+    public static spaceObject FindMeteor(bool biggest = false)
+    {
+        if (gameManager.instance.meteors.Count == 0) return null;
+        List<spaceObject> meteors = gameManager.instance.meteors;
+
+        BigNumber maxPv = new BigNumber(0);
+        int n = -1;
+        for (int i = 0; i < meteors.Count; i++)
+        {
+            if (meteors[i].type != spaceObject.meteorType.Diamand)
+            {
+                if(!biggest)
+                    return meteors[i];
+                else if (meteors[i].lifeMax.isBigger(maxPv))
+                {
+                    n = i;
+                    maxPv = new BigNumber(meteors[i].lifeMax);
+                }
+            }
+        }
+        if (biggest && n >= 0)
+            return meteors[n];
+        else
+            return null;
+    }
 }
