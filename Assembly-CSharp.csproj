@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Data\SpaceShipData.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\PrestigeUI.cs" />
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />
+    <Compile Include="Assets\Scripts\RepelerLink.cs" />
     <Compile Include="Assets\Scripts\shop\Boost.cs" />
     <Compile Include="Assets\Scripts\UI\menu\SettingUI.cs" />
     <Compile Include="Assets\Scripts\upSpeed.cs" />

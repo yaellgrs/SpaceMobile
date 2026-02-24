@@ -126,8 +126,10 @@ public class meteorBoss : spaceObject
 
     private void setNextStatut()
     {
-        if(statut == AttackStatut.Attack)   
+        if(statut == AttackStatut.Attack) {
             statut = AttackStatut.Waiting;
+            gameManager.instance.activeWarning(false);
+        }
         else
             statut++;
 
@@ -135,7 +137,7 @@ public class meteorBoss : spaceObject
             gameManager.instance.activeWarning(true);
         else if (statut == AttackStatut.Attack){
             wave = Mathf.Min(wave + 1, 3);
-            gameManager.instance.activeWarning(false);
+
         }
         setAnimation();
         setTimerLimit();
