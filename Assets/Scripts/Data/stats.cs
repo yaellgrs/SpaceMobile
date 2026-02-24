@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
 
-
 [System.Serializable]
 public class Stats
 {

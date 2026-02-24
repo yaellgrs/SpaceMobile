@@ -101,7 +101,31 @@ public static class Utility
         }
         if (biggest && n >= 0)
             return meteors[n];
-        else
-            return null;
+
+        return null;
+    }
+
+    public static spaceObject FindNearestMeteor(Vector3 position)
+    {
+        float minDist = float.MaxValue;
+        List<spaceObject> meteors = gameManager.instance.meteors;
+
+        int n = -1;
+        for (int i = 0; i < meteors.Count; i++)
+        {
+            if (meteors[i].type != spaceObject.meteorType.Diamand)
+            {
+                float distance = Vector3.Distance(meteors[i].transform.position, position);
+                if (distance < minDist)
+                {
+                    minDist = distance;
+                    n = i;
+                }
+            }
+        }
+        if (n >= 0) 
+            return meteors[n];
+
+        return null;
     }
 }

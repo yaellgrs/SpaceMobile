@@ -47,10 +47,10 @@ public class meteorBoss : spaceObject
     {
         lifeMax *= 15;
     }
-    public override void loadSpeed()
+    public override void loadSpeed(float factor =1f)
     {
         spaceObjectSpeed = 0.75f;
-        spaceObjectSpeed *= 0.75f;
+        spaceObjectSpeed *= 0.75f * factor;
     }
 
     // Update is called once per frame

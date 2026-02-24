@@ -11,7 +11,6 @@ using Image = UnityEngine.UI.Image;
 
 public class spaceObject : MonoBehaviour
 {
-
     public TextMeshProUGUI lifeText;
     public GameObject ironCollectiblePrefab;
     public GameObject uraniumCollectiblePrefab;
@@ -132,7 +131,7 @@ public class spaceObject : MonoBehaviour
             lifeText.fontSize = 1000;
     }
 
-    public virtual void loadSpeed()
+    public virtual void loadSpeed(float factor = 1f)
     {
         spaceObjectSpeed = 0.75f;
         if (type == meteorType.Big)
@@ -147,7 +146,8 @@ public class spaceObject : MonoBehaviour
         {
             spaceObjectSpeed *= 0.35f;
         }
-        spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator;
+        spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator * factor;
+
         Move();
     }
 

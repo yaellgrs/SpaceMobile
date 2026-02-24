@@ -20,6 +20,10 @@ public class spaceShip : MonoBehaviour
     private Animator animator;
     public RepelerLink repelerLink;
     private GameObject repelerTarget;
+    private float targetTimer = 0f;
+    private const float RELOAD_TARGET_TIME = 1f;
+
+
 
     private void Awake()
     {
@@ -91,14 +95,20 @@ public class spaceShip : MonoBehaviour
     private void UpdateRepeler()
     {
         //if (!Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.Magnectic)) return;
+        targetTimer += Time.deltaTime;
 
         if (gameManager.instance.meteors.Count <= 0)
         {
             repelerLink.pointB = transform;
         }
-        else if (repelerTarget == null || repelerLink.pointB == transform)
+        else if (repelerTarget == null || repelerLink.pointB == transform || targetTimer < RELOAD_TARGET_TIME)
         {
-            repelerTarget = gameManager.instance.meteors[0].gameObject;
+            targetTimer = 0f;
+            spaceObject target = Utility.FindNearestMeteor(transform.position);
+            repelerTarget = target.gameObject;
+            target.loadSpeed(Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.Magnectic]);
+            Debug.Log("slow effect : " + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.Magnectic]);
+
             repelerLink.pointB = repelerTarget.transform;
         }
         
