@@ -94,7 +94,7 @@ public class spaceShip : MonoBehaviour
 
     private void UpdateRepeler()
     {
-        //if (!Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.Magnectic)) return;
+        if (!Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.Magnectic)) return;
         targetTimer += Time.deltaTime;
 
         if (gameManager.instance.meteors.Count <= 0)

@@ -119,6 +119,10 @@ public class SpaceShipData
             upgrade.SetReward();
         foreach (var upgrade in Stats.Instance.upgradesPrestige)
             upgrade.SetReward();
+        foreach (var up in Stats.Instance.upgradesShip)
+        {
+            up.SetReward();
+        }
     }
 
 

@@ -152,6 +152,8 @@ public class Stats
             upShip.Add(new UpgradesShipElement(type.ToString(), type));
         }
         Utility.AddMachineToData(upShip, upgradesShip);
+
+
         Debug.Log("init");
     }
     /*

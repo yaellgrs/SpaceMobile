@@ -139,6 +139,7 @@
     <None Include="Assets\UI\prestige\BuyNextShip.uxml" />
     <None Include="Assets\UI\shipUpgradeElementStyle.uss" />
     <None Include="Assets\UI\MainUI.uxml" />
+    <None Include="Assets\UI\BossTrucUI.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\UI\Tutos\IronForgeTuto.uxml" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
