@@ -76,7 +76,7 @@ public static class Utility
                 return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Poison;
         }
         return false;
-       
+
     }
 
     public static spaceObject FindMeteor(bool biggest = false)
@@ -90,7 +90,7 @@ public static class Utility
         {
             if (meteors[i].type != spaceObject.meteorType.Diamand)
             {
-                if(!biggest)
+                if (!biggest)
                     return meteors[i];
                 else if (meteors[i].lifeMax.isBigger(maxPv))
                 {
@@ -123,9 +123,16 @@ public static class Utility
                 }
             }
         }
-        if (n >= 0) 
+        if (n >= 0)
             return meteors[n];
 
         return null;
+    }
+
+    public static bool isInScreen(Vector3 position, float gap = 0f)
+    {
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(position);
+        return (viewportPos.x > gap && viewportPos.x < (1f - gap) 
+            && viewportPos.y > gap && viewportPos.y < (1f - gap));
     }
 }

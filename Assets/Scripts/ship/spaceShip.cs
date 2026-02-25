@@ -19,7 +19,7 @@ public class spaceShip : MonoBehaviour
 
     private Animator animator;
     public RepelerLink repelerLink;
-    private GameObject repelerTarget;
+    private spaceObject repelerTarget;
     private float targetTimer = 0f;
     private const float RELOAD_TARGET_TIME = 1f;
 
@@ -101,17 +101,26 @@ public class spaceShip : MonoBehaviour
         {
             repelerLink.pointB = transform;
         }
-        else if (repelerTarget == null || repelerLink.pointB == transform || targetTimer < RELOAD_TARGET_TIME)
+        else if (repelerTarget != null && !Utility.isInScreen(repelerTarget.transform.position, 0.1f))
+        {
+            repelerTarget.loadSpeed();
+            repelerLink.pointB = transform;
+        }
+        else if (targetTimer > RELOAD_TARGET_TIME)
         {
             targetTimer = 0f;
+            if (repelerTarget != null) repelerTarget.loadSpeed();
             spaceObject target = Utility.FindNearestMeteor(transform.position);
-            repelerTarget = target.gameObject;
-            target.loadSpeed(Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.Magnectic]);
-            Debug.Log("slow effect : " + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.Magnectic]);
+            Vector3 viewportPos = Camera.main.WorldToViewportPoint(target.transform.position);
+            float gap = 0.1f;
+            if(Utility.isInScreen(target.transform.position, 0.1f))
+            {
+                repelerTarget = target;
+                target.loadSpeed(Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.Magnectic]);
 
-            repelerLink.pointB = repelerTarget.transform;
+                repelerLink.pointB = repelerTarget.transform;
+            }
         }
-        
     }
 
     private void Animation()
