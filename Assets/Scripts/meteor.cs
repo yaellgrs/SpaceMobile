@@ -224,7 +224,7 @@ public class spaceObject : MonoBehaviour
             QuestManager.Instance.upQuest();
         }
 
-        if(type != meteorType.miniMeteor && type != meteorType.Diamand)
+        if(type != meteorType.miniMeteor && type != meteorType.Diamand && !gameManager.instance.bossStage)
         {
             gameManager.instance.meteorKilled++;
             MainUi.Instance.upMeteorUI();

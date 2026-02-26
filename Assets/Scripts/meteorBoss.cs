@@ -84,11 +84,7 @@ public class meteorBoss : spaceObject
     public override void Move()
     {
         isPause = gameManager.instance.isPaused;
-        if (isPause) {
-            Debug.LogError("boss is paused");
-            return; 
-        }
-        Debug.Log("Moving boss");
+        if (isPause) {return; }
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
@@ -148,5 +144,6 @@ public class meteorBoss : spaceObject
         gameManager.instance.meteors.Remove(this);
 
         gameManager.instance.bossStage = false;
+        if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
     }
 }

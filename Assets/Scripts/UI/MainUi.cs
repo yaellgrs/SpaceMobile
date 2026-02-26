@@ -54,6 +54,7 @@ public class MainUi : MonoBehaviour
     public VisualElement healthBar;
     private VisualElement shieldBar;
     public VisualElement xpBar;
+    private VisualElement VE_gameUI;
 
     public Button rocketButton;
     public Label rocketLabel;
@@ -118,6 +119,7 @@ public class MainUi : MonoBehaviour
         VE_AutoShoot = root.Q<VisualElement>("autoShoot");
         VE_AutoShootBar = root.Q<VisualElement>("autoShootBar");
         Btn_bossFragment = root.Q<Button>("bossFragment");
+        VE_gameUI = root.Q<VisualElement>("gameUI");
 
         ironLabel = root.Q<Label>("iron");
         uraniumLabel = root.Q<Label>("uranium");
@@ -190,6 +192,10 @@ public class MainUi : MonoBehaviour
         Stats.Instance.OnIronChanged += upIronUI;
     }
 
+    public void setGameUI(bool active)
+    {
+        VE_gameUI.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
+    }
 
     public void adaptBanner(bool adapt)
     {
@@ -230,7 +236,7 @@ public class MainUi : MonoBehaviour
 
     private void Fire()
     {
-
+        Debug.Log("fire");
         canon.instance.canFire = true;
         canon.instance.moveCanon();
     }

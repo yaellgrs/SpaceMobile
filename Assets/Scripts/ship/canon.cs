@@ -70,6 +70,7 @@ public class canon : MonoBehaviour
 
     private void shoot(float angle, Vector3 direction, int type)
     {
+        Debug.Log("shoot");
         Lazer projectil;
         float rocketSpeed = 1f;
         if (type == 0)

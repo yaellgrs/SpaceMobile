@@ -35,6 +35,7 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused = false;
     public bool bossStage = false;
+    public bool fragmentBoss = false;
 
     public List<spaceObject> meteors = new List<spaceObject>();
 
@@ -207,16 +208,23 @@ public class gameManager : MonoBehaviour
     public void CheckStageBoss() {
         if (!bossStage && Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
         {
-            bossStage = true;
-            SpawnBossMeteor(normalBossPrefab, meteorBoss.BossType.Normal);
-            if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
-            MainUi.Instance.ShowBossLife(true);
-            meteorToKill = 1;
+            SpawnBoss();
         }
         else if(Ship.Current.stage % Stats.BOSS_STAGE_GAP != 0)
         {
             MainUi.Instance.ShowBossLife(false);
         }
+    }
+
+    public void SpawnBoss(bool FragmentBoss = false)
+    {
+        fragmentBoss = FragmentBoss;
+        DestroyMeteors();
+        bossStage = true;
+        SpawnBossMeteor(normalBossPrefab, meteorBoss.BossType.Normal);
+        if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = "BOSS";
+        MainUi.Instance.ShowBossLife(true);
+        meteorToKill = 1;
     }
 
     public void getStageReward(float posY, float fontFactor = 1f)
@@ -329,13 +337,13 @@ public class gameManager : MonoBehaviour
     public void SetPause(bool isPause)
     {
         isPaused = isPause;
+        canon.instance.setPause(isPause);
         if (isPause && Settings.Instance.isPausable)
         { 
             foreach (spaceObject m in meteors)
             {
                 m.Pause();
             }
-            canon.instance.setPause(true);
             timerSave = timer;
             timer = -1000f;
         }
