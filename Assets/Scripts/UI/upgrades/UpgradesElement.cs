@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -141,7 +142,8 @@ public partial class UpgradesElement : VisualElement
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
 
         //check if the player can upgrade
-        VE_levelUpLockCover.style.visibility = haveLevel(level + getMulitplicator()) ? Visibility.Hidden : Visibility.Visible;
+        VE_levelUpLockCover.style.visibility = haveLevel(level + (getMulitplicator() - 1)) ? Visibility.Hidden : Visibility.Visible;
+
 
         LoadLevelUI();
         Lbl_levelUpLockLevel.text = (getRequireLevel(getMulitplicator())).ToString();
@@ -198,6 +200,7 @@ public partial class UpgradesElement : VisualElement
 
     protected virtual void LevelUp()
     {
+        if (!CanPay() || !haveLevel()) return;
         if (level < levelMax)
         {
             PayCost();

@@ -253,7 +253,6 @@ public partial class machineElement : Button
 
     protected virtual void LevelUp()
     {
-        Debug.Log("have level : " + havelevel() + "  can buy : " + canBuy(CalculLevelUpCost()) + " color : " + color);
         if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) || color == borderColor.black ) return;
         HandleMoney(-CalculLevelUpCost());
         level += multiplicator;
