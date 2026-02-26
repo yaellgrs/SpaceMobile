@@ -37,11 +37,8 @@ public class meteorBoss : spaceObject
 
     protected override void setFontSize()
     {
-        if (new BigNumber(10).isBigger(lifeMax))
-            lifeText.fontSize = 1250*3;
-        else if (new BigNumber(100).isBigger(lifeMax))
-            lifeText.fontSize = 1000*3;
-        lifeText.color = Color.white;   
+        //la barre du bas suffit
+        lifeText.gameObject.SetActive(false);   
     }
     protected override void setLife()
     {
@@ -56,6 +53,7 @@ public class meteorBoss : spaceObject
     // Update is called once per frame
     protected override void Update()
     {
+        if (gameManager.instance.isPaused) { return; }
         base.Update();
         statutTimer += Time.deltaTime;
 
@@ -83,8 +81,6 @@ public class meteorBoss : spaceObject
 
     public override void Move()
     {
-        isPause = gameManager.instance.isPaused;
-        if (isPause) {return; }
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
@@ -142,7 +138,7 @@ public class meteorBoss : spaceObject
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
-
+        gameManager.instance.activeWarning(false);
         gameManager.instance.bossStage = false;
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
     }

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using Image = UnityEngine.UI.Image;
+using UnityEngine.Rendering;
 
 public class spaceObject : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class spaceObject : MonoBehaviour
 
 
     public Vector3 baseScale;
+    public int level = 1;
 
     public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium};
     public meteorType type;
@@ -43,7 +45,7 @@ public class spaceObject : MonoBehaviour
         if (type != meteorType.miniMeteor && spawn)
             Spawn();
 
-        int x = Ship.Current.stage - 1;
+        int x = level - 1;
         float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
         lifeMax = new BigNumber((int)hp);
 

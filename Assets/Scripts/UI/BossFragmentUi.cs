@@ -53,6 +53,7 @@ public class BossFragmentUi : MonoBehaviour
     {
         MainUi.Instance.setGameUI(true);
         gameManager.instance.LoadStage();
+        gameManager.instance.SetPause(false);
     }
 
     private void Close()
