@@ -221,7 +221,7 @@ public class gameManager : MonoBehaviour
         fragmentBoss = FragmentBoss;
         DestroyMeteors();
         bossStage = true;
-        int level = FragmentBoss ? Ship.Current.stage : Ship.Current.fragmentlevel;
+        int level = FragmentBoss ? Ship.Current.fragmentlevel : Ship.Current.stage;
         SpawnBossMeteor(normalBossPrefab, meteorBoss.BossType.Normal, level);
         if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = "BOSS";
         MainUi.Instance.ShowBossLife(true);
@@ -334,6 +334,7 @@ public class gameManager : MonoBehaviour
         meteorBoss obj = Instantiate(bossPrefab);
         obj.bossType = type;
         obj.level = level;
+        Debug.LogError("level before init : " + level);
         obj.Init();
         meteors.Add(obj);
     }

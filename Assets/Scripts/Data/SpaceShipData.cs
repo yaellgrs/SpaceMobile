@@ -20,7 +20,7 @@ public class SpaceShipData
     public SpaceShipElement type;
 
     public int level = 1;
-    public int fragmentlevel = 1;
+    public int fragmentlevel = 2;
     public int stage = 1;
     public bool isDead = false; 
 

@@ -44,7 +44,7 @@ public class spaceObject : MonoBehaviour
     {
         if (type != meteorType.miniMeteor && spawn)
             Spawn();
-
+        Debug.LogWarning("level : " + level);
         int x = level - 1;
         float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
         lifeMax = new BigNumber((int)hp);
