@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public static class Utility
 {
-
+    public const long DAY_IN_SECOND = 86400;
     public static void setBorderColor(Button btn, Color color)
     {
         btn.style.borderLeftColor = color;

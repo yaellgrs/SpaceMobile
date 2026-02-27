@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,13 +11,17 @@ public class BossFragmentUi : MonoBehaviour
     #region variables
     [SerializeField] private UIDocument document;
 
+    private VisualElement VE_buttons;
+
     private Button Btn_close;
     private Button Btn_fight;
+    private Button Btn_skip;
     private Button Btn_nextLevel;
     private Button Btn_lastLevel;
 
     private Label Lbl_fragmentLevel;
     private Label Lbl_reward;
+    private Label Lbl_timer;
 
     private int currentLevel = 1;
 
@@ -48,15 +53,19 @@ public class BossFragmentUi : MonoBehaviour
         }).StartingIn(50);
         #endregion
 
+        VE_buttons = root.Q<VisualElement>("buttons");
         Btn_close = root.Q<Button>("exit");
+        Btn_skip = root.Q<Button>("skip");
         Btn_fight = root.Q<Button>("fight");
         Btn_nextLevel = root.Q<Button>("nextLevel");
         Btn_lastLevel = root.Q<Button>("lastLevel");
         Lbl_fragmentLevel = root.Q<Label>("fragmentLevel");
         Lbl_reward = root.Q<Label>("reward");
+        Lbl_timer = root.Q<Label>("timer");
 
         currentLevel = Ship.Current.fragmentlevel;
         LoadFragmentLevelUI();
+        LoadDailyReward();
 
         Btn_nextLevel.clicked += () => { upFragmentLevel(1); };
         Btn_lastLevel.clicked += () => { upFragmentLevel(-1); };
@@ -75,13 +84,37 @@ public class BossFragmentUi : MonoBehaviour
         Btn_lastLevel.enabledSelf = currentLevel != 1;
         Btn_nextLevel.enabledSelf = currentLevel < Mathf.Min(Ship.Current.fragmentlevel, MAX_FRAGMENT_LEVEL);
         Btn_fight.enabledSelf = currentLevel == Ship.Current.fragmentlevel;
-        Debug.Log("current : " + currentLevel + " level : " + Ship.Current.fragmentlevel);
 
         Lbl_fragmentLevel.text = "level " + currentLevel;
-        Lbl_reward.text = getReward().ToString();
+        Lbl_reward.text = calculReward().ToString();
     }
 
-    private int getReward()
+    private void LoadDailyReward()
+    {
+        bool canFight = CanFight();
+        VE_buttons.style.display = canFight ? DisplayStyle.Flex : DisplayStyle.None;
+        Lbl_timer.style.display = canFight ? DisplayStyle.None : DisplayStyle.Flex;
+    }
+
+    private void Update()
+    {
+        if (!CanFight())
+        {
+            Lbl_timer.text = "You can fight in " + Utility.TimeToString_hm(Utility.DAY_IN_SECOND - (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Ship.Current.lastFragmentFight));
+        }
+    }
+
+    private bool CanFight()
+    {
+        return DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Ship.Current.lastFragmentFight >= Utility.DAY_IN_SECOND;
+    }
+
+    private void getReward()
+    {
+
+    }
+
+    private int calculReward()
     {
         return currentLevel;
     }
@@ -95,6 +128,8 @@ public class BossFragmentUi : MonoBehaviour
 
     public static void EndFragmentBoss(bool win)
     {
+        Ship.Current.fragmentlevel = Mathf.Clamp(Ship.Current.fragmentlevel + 1, 0 , MAX_FRAGMENT_LEVEL);
+        Ship.Current.lastFragmentFight = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         MainUi.Instance.setGameUI(true);
         gameManager.instance.LoadStage();
         gameManager.instance.SetPause(false);

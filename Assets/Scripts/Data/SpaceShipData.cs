@@ -22,7 +22,8 @@ public class SpaceShipData
     public int level = 1;
     public int fragmentlevel = 2;
     public int stage = 1;
-    public bool isDead = false; 
+    public bool isDead = false;
+    public long lastFragmentFight = 0;
 
     public List<machineIronElement> machineIron = new List<machineIronElement>();
     public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
