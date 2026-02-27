@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Styles/markerStyle.uss?fileID=7433441132597879392&amp;guid=06913d4da0a8ae446900819ec6ab4fd9&amp;type=3#markerStyle"/>
+    <markerElement style="top: 375px; left: 139px;"/>
+    <markerElement style="top: 375px; left: 139px;"/>
+</ui:UXML>

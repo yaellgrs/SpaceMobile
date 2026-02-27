@@ -1,0 +1,21 @@
+:root {
+}
+
+.markerText {
+    position: absolute;
+    height: 2%;
+    -unity-text-align: middle-right;
+    width: 10%;
+    aspect-ratio: auto;
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    font-size: 37px;
+}
+
+.markerLogo {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    left: 100%;
+    top: 0;
+}

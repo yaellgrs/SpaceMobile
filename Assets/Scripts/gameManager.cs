@@ -334,7 +334,6 @@ public class gameManager : MonoBehaviour
         meteorBoss obj = Instantiate(bossPrefab);
         obj.bossType = type;
         obj.level = level;
-        Debug.LogError("level before init : " + level);
         obj.Init();
         meteors.Add(obj);
     }

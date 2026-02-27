@@ -71,6 +71,7 @@ public class BossFragmentUi : MonoBehaviour
         Btn_lastLevel.clicked += () => { upFragmentLevel(-1); };
         Btn_close.clicked += Close;
         Btn_fight.clicked += FightBoss;
+        Btn_skip.clicked += getReward;
     }
 
     private void upFragmentLevel(int amount)
@@ -111,7 +112,9 @@ public class BossFragmentUi : MonoBehaviour
 
     private void getReward()
     {
-
+        Vector2 panelPos = Lbl_reward.worldBound.position;
+        MarkersUI.Instance.ShowMarker(panelPos, "1", MarkerType.Damage);
+        //PoolManager.Instance.LaunchPrefab(pos, calculReward().ToString(), MarkerType.Damage);
     }
 
     private int calculReward()
@@ -133,6 +136,7 @@ public class BossFragmentUi : MonoBehaviour
         MainUi.Instance.setGameUI(true);
         gameManager.instance.LoadStage();
         gameManager.instance.SetPause(false);
+        MainUi.Instance.bossFragmentUi.Open();
     }
 
     private void Close()
@@ -156,7 +160,10 @@ public class BossFragmentUi : MonoBehaviour
 
     private void OnDisable()
     {
+        Btn_nextLevel.clicked -= () => { upFragmentLevel(1); };
+        Btn_lastLevel.clicked -= () => { upFragmentLevel(-1); };
         Btn_close.clicked -= Close;
         Btn_fight.clicked -= FightBoss;
+        Btn_skip.clicked -= getReward;
     }
 }

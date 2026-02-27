@@ -168,7 +168,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 1cc33a7523f37aa418e31c68305548e7, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 88d7ed774d4cc51448c7344374aefd22, type: 3}
   m_SortingOrder: 4
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 8819de827e783a8429cfd1b812fd8e04, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -489,7 +489,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: ee12533c464af3d4c8176626764f449b, type: 3}
   m_SortingOrder: 5
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -613,7 +613,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: b0a01aba9c579dd4884cfb18581abf45, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -944,7 +944,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: cb25aa1e486e2334db679f496c5d141d, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -1083,7 +1083,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: e6f4e1ad1a8e30049bc90212a89fe40c, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 470d40bb5bbcc4d4f8fae187373c7e8a, type: 3}
   m_SortingOrder: 4
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 992e3e1c34b8fcb40b79316bb93e537e, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2312,7 +2312,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 75ce71e5592d5ae479ad738b0a5b3a18, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2359,6 +2359,7 @@ Transform:
   - {fileID: 1057265239}
   - {fileID: 1304958164}
   - {fileID: 694628177}
+  - {fileID: 1961927209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1445170915
@@ -2410,7 +2411,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 8c4123dc4eb118d41b8ab4af97221d67, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2520,7 +2521,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: edd9a899b0368c74cbfad545a4d56917, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2575,7 +2576,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: fc2d7644b78e52b46afb24dfa6572b24, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2821,7 +2822,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: de76819e258601645894a5a637c0afa8, type: 3}
   m_SortingOrder: 1
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2877,7 +2878,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: eb10643811a4fb740871f0a517b0e25e, type: 3}
   m_SortingOrder: 5
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -2945,7 +2946,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 9ef5b246c23819141b2c95bd410ead0d, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -3000,7 +3001,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 3c2c60552fb159249a563455e172344c, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -3057,6 +3058,7 @@ MonoBehaviour:
     Exp: 0
   isPaused: 0
   bossStage: 0
+  fragmentBoss: 0
   meteors: []
   V_warning: {fileID: 743599318}
 --- !u!4 &1752593084
@@ -3474,7 +3476,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 8b71179ecd0303046890195bdf45904d, type: 3}
   m_SortingOrder: 6
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -3544,6 +3546,61 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: cf0cdd451b282dd4eaae20c6679b6767, type: 3}
   m_SortingOrder: 5
   m_Position: 0
+  m_WorldSpaceSizeMode: 0
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!1 &1961927208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961927209}
+  - component: {fileID: 1961927210}
+  m_Layer: 0
+  m_Name: markersUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1961927209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961927208}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1369320541}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1961927210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961927208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 420f1a79e0887ad469c3adf5e7d3f6b8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: d1662e438f2236b499924e4014b99988, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
@@ -3599,7 +3656,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 4ee88a18d56f92940a9034f104a841bd, type: 3}
   m_SortingOrder: 2
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0
@@ -3855,7 +3912,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: b7ca18d1edd7dca4480f5cfaa5881d4d, type: 3}
   m_SortingOrder: 0
   m_Position: 0
-  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceSizeMode: 0
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
   m_PivotReferenceSize: 0

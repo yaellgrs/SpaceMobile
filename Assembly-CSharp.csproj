@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Collectible.cs" />
     <Compile Include="Assets\Scripts\UI\other\ResurectionUI.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MarkersUI.cs" />
     <Compile Include="Assets\Scripts\markers\poolManager.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineIronElement.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\shipUpgradeElement.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />
     <Compile Include="Assets\Scripts\RepelerLink.cs" />
     <Compile Include="Assets\Scripts\shop\Boost.cs" />
+    <Compile Include="Assets\Scripts\UI\markerElement.cs" />
     <Compile Include="Assets\Scripts\UI\menu\SettingUI.cs" />
     <Compile Include="Assets\Scripts\upSpeed.cs" />
   </ItemGroup>
@@ -113,6 +115,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\UI\backups\uraniumForgeBackups.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Common.dll" />
+    <None Include="Assets\UI\markersUI.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.iOS.dll" />
     <None Include="Assets\UI\Quest\SuccessUI.uxml" />
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\TMP_Node.hlsl" />
@@ -132,6 +135,7 @@
     <None Include="Assets\UI\style.uss" />
     <None Include="Assets\UI\uraniumForge.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Resources\Styles\markerStyle.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Core.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\GoogleMobileAds\link.xml" />
