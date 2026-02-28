@@ -60,11 +60,10 @@
     <Compile Include="Assets\Scripts\Collectible.cs" />
     <Compile Include="Assets\Scripts\UI\other\ResurectionUI.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestUI.cs" />
-    <Compile Include="Assets\Scripts\UI\MarkersUI.cs" />
-    <Compile Include="Assets\Scripts\markers\poolManager.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineIronElement.cs" />
     <Compile Include="Assets\Scripts\UI\prestige\shipUpgradeElement.cs" />
     <Compile Include="Assets\Scripts\UI\MainUi.cs" />
+    <Compile Include="Assets\Scripts\UI\Markers\markerElement.cs" />
     <Compile Include="Assets\Scripts\gameManager.cs" />
     <Compile Include="Assets\Scripts\Ads\IAPManager.cs" />
     <Compile Include="Assets\Scripts\tutos\Tuto.cs" />
@@ -79,16 +78,15 @@
     <Compile Include="Assets\Scripts\UI\machines\machineElement.cs" />
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
     <Compile Include="Assets\Scripts\meteorBoss.cs" />
-    <Compile Include="Assets\Scripts\markers\MarkerPool.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesElement.cs" />
     <Compile Include="Assets\Scripts\ship\canon.cs" />
     <Compile Include="Assets\Scripts\Data\settings.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesShipElement.cs" />
+    <Compile Include="Assets\Scripts\UI\Markers\MarkersUI.cs" />
     <Compile Include="Assets\Scripts\ship\lazer.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineUraniumElement.cs" />
     <Compile Include="Assets\Scripts\UI\BossFragmentUi.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesIronElement.cs" />
-    <Compile Include="Assets\Scripts\markers\XpMarker.cs" />
     <Compile Include="Assets\Scripts\Song.cs" />
     <Compile Include="Assets\Scripts\UI\iron\IronUi.cs" />
     <Compile Include="Assets\Scripts\BigNumber.cs" />
@@ -104,7 +102,6 @@
     <Compile Include="Assets\Scripts\Ads\AdsUI.cs" />
     <Compile Include="Assets\Scripts\RepelerLink.cs" />
     <Compile Include="Assets\Scripts\shop\Boost.cs" />
-    <Compile Include="Assets\Scripts\UI\markerElement.cs" />
     <Compile Include="Assets\Scripts\UI\menu\SettingUI.cs" />
     <Compile Include="Assets\Scripts\upSpeed.cs" />
   </ItemGroup>

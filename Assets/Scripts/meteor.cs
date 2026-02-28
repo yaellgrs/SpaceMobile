@@ -1,14 +1,15 @@
+using GoogleMobileAds.Api;
 using NUnit.Compatibility;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using System.Collections.Generic;
 using Image = UnityEngine.UI.Image;
-using UnityEngine.Rendering;
 
 public class spaceObject : MonoBehaviour
 {
@@ -258,7 +259,7 @@ public class spaceObject : MonoBehaviour
             if (Settings.Instance.displayXpMarker)
             {
                 Ship.Current.AddXP(calculXp());
-                PoolManager.Instance.LaunchPrefab(transform.position, calculXp().ToString(), MarkerType.Xp);
+                MarkersUI.Instance.ShowMarker(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
             Data.Instance.basicMeteorKilled += 1;
         }
@@ -267,7 +268,7 @@ public class spaceObject : MonoBehaviour
         {
             
             Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);
-            PoolManager.Instance.LaunchPrefab(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
+            MarkersUI.Instance.ShowMarker(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
             Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)

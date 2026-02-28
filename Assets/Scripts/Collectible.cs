@@ -104,14 +104,16 @@ public class Collectible : MonoBehaviour
         switch (type)
         {
             case CollectibleType.iron:
-                PoolManager.Instance.LaunchPrefab(transform.position, reward.ToString(), MarkerType.Iron);
+                MarkersUI.Instance.ShowMarker(transform.position, "+" + reward.ToString(), MarkerType.Iron);
                 break;
             case CollectibleType.uranium:
-                PoolManager.Instance.LaunchPrefab(transform.position, reward.ToString(), MarkerType.Uranium);
+                MarkersUI.Instance.ShowMarker(transform.position, "+" + reward.ToString(), MarkerType.Uranium);
                 break;
             case CollectibleType.Diamand:
-                PoolManager.Instance.LaunchPrefab(transform.position, "", MarkerType.Diamand);
+                MarkersUI.Instance.ShowMarker(transform.position, "", MarkerType.Diamand);
                 break;
+
+
         }
 
         gameManager.instance.SmallVibrate();

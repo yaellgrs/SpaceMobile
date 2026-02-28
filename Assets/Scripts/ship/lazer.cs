@@ -1,3 +1,4 @@
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class Lazer : MonoBehaviour
@@ -47,10 +48,8 @@ public class Lazer : MonoBehaviour
                 }
                 if (Settings.Instance.displayDamageMarker)
                 {
-                    if (critic)
-                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Critique);
-                    else
-                        PoolManager.Instance.LaunchPrefab(transform.position, dmg.ToString(), MarkerType.Damage);
+                    MarkerType type = critic ? MarkerType.Critique : MarkerType.Damage;
+                    MarkersUI.Instance.ShowMarker(transform.position, "+" + dmg.ToString(), type);
                 }
                 meteor.UpLife();
                 Destroy(gameObject);

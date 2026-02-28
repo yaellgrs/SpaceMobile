@@ -22,17 +22,21 @@ public class MarkersUI : MonoBehaviour
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.T)) ShowMarker();
-
     }
 
-    public void ShowMarker(Vector3 pos, string txt, MarkerType type)
+    public void ShowMarker(Vector3 pos, string txt, MarkerType type, float speed = 1f, float alpha_decrease = 0.975f, float fontFactor = 1f)
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(pos);
-        Vector2 panelPos = RuntimePanelUtils.ScreenToPanel(document.rootVisualElement.panel, screenPos);
-        ShowMarker(panelPos, txt, type);
+/*        Vector3 screenPos = Camera.main.WorldToScreenPoint(pos);
+        Vector2 panelPos = RuntimePanelUtils.ScreenToPanel(document.rootVisualElement.panel, screenPos);*/
+        Vector2 panelPos = RuntimePanelUtils.CameraTransformWorldToPanel(
+            document.rootVisualElement.panel,
+            pos,
+            Camera.main
+        );
+        ShowMarker(panelPos, txt, type, speed, alpha_decrease, fontFactor);
     }
 
-    public void ShowMarker(Vector2 panelPos, string txt, MarkerType type)
+    public void ShowMarker(Vector2 panelPos, string txt, MarkerType type, float speed, float alpha_decrease, float fontFactor)
     {
         markerElement m;
         if(markers.Count > 0)

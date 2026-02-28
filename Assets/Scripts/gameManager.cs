@@ -257,7 +257,7 @@ public class gameManager : MonoBehaviour
                 Stats.Instance.AddIron(new BigNumber(reward));
             }
         }
-        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
+        MarkersUI.Instance.ShowMarker(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
     }
 
     public void SmallVibrate()
