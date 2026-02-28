@@ -1,12 +1,12 @@
 # ninja log v5
-50	307	7895121358877272	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	6effba9f786fe104
-309	480	7895121360455363	C:/Users/YAEL/Documents/programmation/Unity/2D/SpaceIdle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/c1k1t111/obj/arm64-v8a/libswappywrapper.so	dc62a9c998f5797c
-8	986	7895121365635717	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	88c69d279c95c9ae
-19	990	7895121365645682	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	12e907a549b4ed75
-31	993	7895121365686265	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	513284ff88781a8d
-43	997	7895121365752718	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	e21cbe99a5e457a4
-1	1023	7895121365957065	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	67ac2f10595275ba
-25	1109	7895121366873350	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	6f8438b8567ef672
-37	1128	7895121367086652	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	b237942a3ddf30ee
-13	1154	7895121367303717	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	bb7cb5886a9327a6
-1155	1235	7895121368118869	C:/Users/YAEL/Documents/programmation/Unity/2D/SpaceIdle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/c1k1t111/obj/arm64-v8a/libgame.so	2447e6d07385a291
+37	248	7932030970931361	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	6effba9f786fe104
+249	406	7932030972356887	C:/Users/YAEL/Documents/programmation/Unity/2D/SpaceIdle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/c1k1t111/obj/arm64-v8a/libswappywrapper.so	dc62a9c998f5797c
+14	1112	7932030979532237	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	513284ff88781a8d
+1	1116	7932030979542290	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	88c69d279c95c9ae
+23	1117	7932030979567480	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	12e907a549b4ed75
+27	1125	7932030979678375	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	e21cbe99a5e457a4
+6	1140	7932030979835789	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	67ac2f10595275ba
+18	1204	7932030980456400	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	6f8438b8567ef672
+10	1232	7932030980726345	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	bb7cb5886a9327a6
+32	1387	7932030982284554	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	b237942a3ddf30ee
+1387	1472	7932030983134803	C:/Users/YAEL/Documents/programmation/Unity/2D/SpaceIdle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/c1k1t111/obj/arm64-v8a/libgame.so	2447e6d07385a291

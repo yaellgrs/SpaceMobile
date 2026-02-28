@@ -51,13 +51,24 @@ public class UpgradesShipElement : UpgradesElement
         Lbl_description.text = "no defined";
     }
 
-    public override void GetReward()
+    public override void SetReward()
     {
         if (!isUnlocked()) return;
 
-        switch (type)
+        switch (type)// AdditionalLevel, Magnectic, DamageOverTime, ZoneDamage
         {
-
+            case UpgradeType.AdditionalLevel:
+                Stats.Instance.shipUpgradesReward[UpgradeType.AdditionalLevel] = level * 100;
+                break;
+            case UpgradeType.Magnectic:
+                Stats.Instance.shipUpgradesReward[UpgradeType.Magnectic] = 0.5f - level * 0.1f;
+                break;
+            case UpgradeType.DamageOverTime:
+                Stats.Instance.shipUpgradesReward[UpgradeType.DamageOverTime] = level * 10; //% de dégats total / s après touché
+                break;
+            case UpgradeType.ZoneDamage:
+                Stats.Instance.shipUpgradesReward[UpgradeType.ZoneDamage] = level * 10;//% de dégats total / s ds la zone
+                break;
         }
        LoadStat();
 

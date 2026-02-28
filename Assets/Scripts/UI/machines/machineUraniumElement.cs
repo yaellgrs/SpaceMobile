@@ -9,8 +9,8 @@ public class machineUraniumElement : machineElement
     {
     }
 
-    public machineUraniumElement(string machineName, BigNumber initPrice, float time)
-        : base(machineName, initPrice, time)
+    public machineUraniumElement(string machineName, BigNumber initPrice)
+        : base(machineName, initPrice)
     {
     }
     protected override string getLogoPath()
@@ -38,5 +38,11 @@ public class machineUraniumElement : machineElement
         Texture2D texture = Resources.Load<Texture2D>("logos/uranium/" + machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
 
+    }
+
+    protected override void LauncherMarker()
+    {
+        Vector2 panelPos = new Vector2(VE_logo.worldBound.position.x, VE_logo.worldBound.position.y * 0.95f);
+        MarkersUI.Instance.ShowMarker(panelPos, "+" + CalculReward(), MarkerType.Uranium, fontFactor: 0.7f);
     }
 }

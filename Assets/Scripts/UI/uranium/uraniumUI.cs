@@ -10,14 +10,16 @@ public class UraniumUI : BaseUI
     private Button unlockButton;
     private VisualElement uraniumUnlockedVE;
     private Label uraniumLabel;
+    private ScrollView SV_scroll;
 
     protected override void Update()
     {
         base.Update();
         upUraniumLabel();
 
-        foreach(machineUraniumElement machine in Ship.Current.machinesUranium)
-            machine.Update();
+        Rect scrollRect = SV_scroll?.worldBound != null ? SV_scroll.worldBound : new Rect(0f, 0f, 0f, 0f);
+        foreach (machineUraniumElement machine in Ship.Current.machinesUranium)
+            machine.Update(scrollRect);
     }
 
     public void upUraniumLabel()
@@ -40,6 +42,21 @@ public class UraniumUI : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
         MainUi.Instance.prestigeUI.loadForgeUI();
+    }
+
+    protected override void upModeButtonClicked()
+    {
+        base.upModeButtonClicked();
+        if (forgeUI.gameObject.activeInHierarchy)
+        {
+            foreach (machineElement machine in Ship.Current.machinesUranium)
+                machine.upMachineCostText();
+        }
+        else
+        {
+            foreach (UpgradesElement upgrade in Ship.Current.upgradesUranium)
+                upgrade.LoadUI();
+        }
     }
 
     public override void IronClicked()
@@ -80,10 +97,24 @@ public class UraniumUI : BaseUI
         prestigeButton = root.Q<Button>("prestige");
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("forgeUI");
+        SV_scroll = root.Q<ScrollView>("scroll");
 
-        ScrollView scroll = root.Q<ScrollView>("scroll");
+
+        SV_scroll.Clear();
+
+        bool show = true;
         foreach (machineElement machine in Ship.Current.machinesUranium)
-            scroll.Add(machine);
+        {
+            SV_scroll.Add(machine);
+            if (show)
+            {
+                machine.LoadMachine();
+                machine.style.display = DisplayStyle.Flex;
+            }
+            else machine.style.display = DisplayStyle.None;
+
+            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
+        }
 
         if (classActived)
         {
@@ -113,6 +144,8 @@ public class UraniumUI : BaseUI
 
         if (!Stats.Instance.uraniumTuto && XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
             Tuto.Instance.LoadForgeTuto(false);
+
+
     }
 
     public override void loadUpdateUI()

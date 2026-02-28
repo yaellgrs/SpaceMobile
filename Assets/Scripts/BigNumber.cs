@@ -6,17 +6,25 @@ using UnityEngine;
 [System.Serializable]
 public class BigNumber
 {
-    public float Mantisse;
+    //on ne calcule que sur 15 puissance de 10 qu'on connait, au dela le resultat est insignifiant
+    //exemple 1e100 + 1e75 = 1e100, inutile de calculer
+    //tableau statique pour ne le créer qu'une seule fois, readonly pour ne pas le modifier
+    const int MAX_EXP_DIFF = 15;
+    private static readonly double[] Pow10 = {1d, 10d, 100d, 1000d, 10000d, 100000d, 1000000d, 10000000d, 100000000d,
+    1000000000d, 10000000000d, 100000000000d, 1000000000000d, 10000000000000d, 100000000000000d, 1000000000000000d
+    };
+
+    public double Mantisse;
     public int Exp;
 
-    public BigNumber(float mantisse, int exp)
+    public BigNumber(double mantisse, int exp)
     {
         Mantisse = mantisse;
         Exp = exp;
         Normalize();
 
     }
-    public BigNumber(float mantisse)
+    public BigNumber(double mantisse)
     {
         Mantisse = mantisse;
         Exp = 0;
@@ -46,30 +54,33 @@ public class BigNumber
 
     public void Normalize()
     {
-        if (Mantisse < 1.0f)
+        if (Mantisse == 0)
         {
-           while(Mantisse < 1.0f && Exp >0)
-           {
-                Mantisse *= 10;
-                Exp--;
-           }
+            Exp = 0;
+            return;
         }
-        else if (Mantisse >= 10.0f) 
-        {
-            while (Mantisse >= 10.0f)
-            {
-                Mantisse /= 10;
-                Exp++;
-            }
+        double abs = Math.Abs(Mantisse);
+        int shift = (int)Math.Floor(Math.Log10(abs));
+
+        if (shift > 0)
+            Mantisse /= shift < MAX_EXP_DIFF ? Pow10[shift] : Math.Pow(10, shift);
+        else 
+            Mantisse *= shift > -MAX_EXP_DIFF ? Pow10[-shift] : Math.Pow(10, -shift);
+
+        Exp += shift;
+
+        if (Exp < 0) {
+            double realValue = Mantisse * Math.Pow(10, Exp);
+
+            realValue = Math.Round(realValue);
+
+            Mantisse = realValue;
+            Exp = 0;
         }
-        if(Exp == 0)
-        {
-            Mantisse = (float)Mathf.Round(Mantisse);
-        }
+        else if(Exp == 0)
+            Mantisse = Math.Round(Mantisse);
         else
-        {
-            Mantisse = Mathf.Round(Mantisse*1000f)/1000f;
-        }
+            Mantisse = Math.Round(Mantisse * 1000f) / 1000f;
 
     }
 
@@ -93,12 +104,18 @@ public class BigNumber
         return result;
     }
 
-    public void Add(BigNumber n)
+    public void Add(BigNumber n, bool normalize = false)
     {
         if (n.Exp > Exp)
         {
             int nexp = n.Exp - Exp;
-            float x = Mantisse / Mathf.Pow(10, nexp);
+            if(nexp > MAX_EXP_DIFF)
+            {
+                Exp = n.Exp;
+                Mantisse = n.Mantisse;
+                return;
+            }
+            double x = Mantisse / Pow10[nexp];
             Mantisse =n.Mantisse + x;
             Exp = n.Exp ;
             
@@ -106,7 +123,9 @@ public class BigNumber
         else if (n.Exp < Exp)
         {
             int nexp = Exp - n.Exp;
-            float x = n.Mantisse / Mathf.Pow(10, nexp);
+            if (nexp > MAX_EXP_DIFF) return;
+
+            double x = n.Mantisse / Pow10[nexp];
             Mantisse += x;
         }
         else
@@ -114,7 +133,7 @@ public class BigNumber
             Mantisse += n.Mantisse;
         }
         
-        Normalize();
+        if(normalize) Normalize();
     }
 
     public void Add(float n)
@@ -154,7 +173,8 @@ public class BigNumber
         else if (n.Exp < Exp)
         {
             int nexp = Exp - n.Exp; 
-            float x = n.Mantisse / Mathf.Pow(10, nexp); 
+            if(nexp > MAX_EXP_DIFF) return;
+            double x = n.Mantisse / Pow10[nexp]; 
 
             Mantisse -= x;
         }
@@ -168,6 +188,16 @@ public class BigNumber
     public static BigNumber operator *(BigNumber a, float b)
     {
         if (a is null)
+            throw new ArgumentNullException();
+
+        BigNumber result = new BigNumber(a); // ou new BigNumber(a)
+        result.Multiply(b);
+        return result;
+    }
+
+    public static BigNumber operator *(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
             throw new ArgumentNullException();
 
         BigNumber result = new BigNumber(a); // ou new BigNumber(a)
@@ -189,9 +219,25 @@ public class BigNumber
         }
     }
 
-    public void Multiply(BigNumber n)
+    public void Multiply(double n, bool normalize = true)
     {
+        if (n > 0)
+        {
+            Mantisse *= n;
+            if (normalize) Normalize();
+        }
+        if (n == 0)
+        {
+            Mantisse = 0;
+            Exp = 0;
+        }
+    }
 
+    public void Multiply(BigNumber n, bool normalize = true)
+    {
+        Mantisse *= n.Mantisse;
+        Exp += n.Exp;
+        Normalize();
     }
 
 
@@ -204,14 +250,25 @@ public class BigNumber
         }
     }
 
+    public void Divide(BigNumber n)
+    {
+        if (n.Mantisse > 0)
+        {
+            Mantisse /= n.Mantisse;
+            Exp -= n.Exp;
+            Normalize();
+        }
+    }
 
-    public float GetPercentByDivided(BigNumber n)
+
+    public double GetPercentByDivided(BigNumber n)
     {
         if (n.Exp > Exp)
         {
             BigNumber x = new BigNumber(Mantisse, Exp);
-            int exp = n.Exp - x.Exp;
-            x.Mantisse /= Mathf.Pow(10, exp);
+            int exp = n.Exp - x.Exp; ///10 / 10000
+            if (exp > MAX_EXP_DIFF) return 0f;
+            x.Mantisse /=  Pow10[exp];
             return (x.Mantisse / n.Mantisse) * 100f;
 
         }
@@ -223,7 +280,8 @@ public class BigNumber
         {
             BigNumber x = new BigNumber(Mantisse, Exp);
             int exp = x.Exp- n.Exp;
-            x.Mantisse *= Mathf.Pow(10, exp);
+            if (exp > MAX_EXP_DIFF) return 100f;
+            x.Mantisse *= Pow10[exp];
             return (x.Mantisse / n.Mantisse) * 100f;
         }
     }
@@ -237,31 +295,20 @@ public class BigNumber
 
     private string getNormalNotation()
     {
+        if(Mantisse == 0) return "0";
+
         string prefix;
-        switch (Exp)
-        {
-            case int n when (n >= 0 && n < 3):
-                prefix = "";
-                float nMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
-                return nMantisse.ToString("F0") + prefix;
-            case int n when (n >= 3 && n < 6):
-                prefix = "k";
-                break;
-            case int n when (n >= 6 && n < 9):
-                prefix = "m";
-                break;
-            case int n when (n >= 9 && n < 12):
-                prefix = "M";
-                break;
-            case int n when (n >= 12 && n < 15):
-                prefix = "B";
-                break;
-            default:
-                prefix = "x" + Exp;
-                break;
-        }
-        float nnMantisse = Mantisse * Mathf.Pow(10, Exp % 3);
-        switch (Exp % 3)
+
+        string[] Prefixes = { "", "k", "m", "M", "B" };
+        prefix = Exp / 3 < Prefixes.Length ? Prefixes[Exp / 3] : "x" + Exp;
+
+        int mod = Exp % 3;
+        double nnMantisse = Mantisse * Pow10[mod];
+
+        if(Exp <= 1)
+            return nnMantisse.ToString("F0");
+        
+        switch (mod)
         {
             case 1:
                 return nnMantisse.ToString("F1") + prefix;

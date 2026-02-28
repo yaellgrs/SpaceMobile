@@ -12,6 +12,7 @@ public class IronUi : BaseUI
     private Button uraniumButton;
     private Button prestigeButton;
     private Label ironLabel;
+    private ScrollView SV_scroll;
     protected override void Start()
     {
         base.Start();
@@ -24,8 +25,10 @@ public class IronUi : BaseUI
     protected override void Update()
     {
         base.Update();
+
+        Rect scrollRect = SV_scroll?.worldBound != null ? SV_scroll.worldBound : new Rect(0f, 0f, 0f, 0f);
         foreach (machineElement machine in Ship.Current.machineIron)
-            machine.Update();
+            machine.Update(scrollRect);
         upIronRaffinedUi();
     }
 
@@ -80,6 +83,21 @@ public class IronUi : BaseUI
             ironLabel.text = Ship.Current.iron.ToString();
     }
 
+    protected override void upModeButtonClicked()
+    {
+        base.upModeButtonClicked();
+        if (forgeUI.gameObject.activeInHierarchy)
+        {
+            foreach (machineElement machine in Ship.Current.machineIron)
+                machine.LoadMachine();
+        }
+        else
+        {
+            foreach (UpgradesElement upgrade in Ship.Current.upgradesIron)
+                upgrade.Load();
+        }
+    }
+
     public override void loadForgeUI()
     {
         base.loadForgeUI();
@@ -89,6 +107,7 @@ public class IronUi : BaseUI
         prestigeButton = root.Q<Button>("prestige");
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("forgeUI");
+        SV_scroll = root.Query<ScrollView>("scroll");
         if (!stopAnim)
         {
             if (classActived)
@@ -103,13 +122,14 @@ public class IronUi : BaseUI
             }).StartingIn(50);
         }
 
-        ScrollView scroll = root.Q<ScrollView>("scroll");
-        scroll.Clear();
+
+        SV_scroll.Clear();
 
         bool show = true;
+
         foreach (machineElement machine in Ship.Current.machineIron)
         {
-            scroll.Add(machine);
+            SV_scroll.Add(machine);
             if (show) { 
                 machine.LoadMachine();
                 machine.style.display = DisplayStyle.Flex;

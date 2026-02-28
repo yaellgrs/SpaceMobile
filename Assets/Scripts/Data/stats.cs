@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
 
-
 [System.Serializable]
 public class Stats
 {
@@ -112,6 +111,13 @@ public class Stats
 
     public float shield_Regen_Time = 4f;
 
+    public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
+    public BigNumber BN_shipUpgradesMoney = new BigNumber(0);
+
+    public int shipFragment = 0;
+
+
+
 
     public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
             UpgradeType.PrestigeMultiplicator,
@@ -150,6 +156,8 @@ public class Stats
             upShip.Add(new UpgradesShipElement(type.ToString(), type));
         }
         Utility.AddMachineToData(upShip, upgradesShip);
+
+
         Debug.Log("init");
     }
     /*
@@ -163,11 +171,16 @@ public class Stats
         MainUi.Instance.upDiamandUI();
     }
 
+    public void AddShipFragment(int amount)
+    {
+        shipFragment += amount;
+    }
+
     public void AddShipMoney(BigNumber amount, bool waiting)
     {
         if (waiting) BN_shipMoneyWaiting += amount;
         else BN_shipMoney += amount;
-        OnShipMoneyChanged.Invoke();
+        OnShipMoneyChanged?.Invoke();
     }
 
     public void AddIron(BigNumber amount)

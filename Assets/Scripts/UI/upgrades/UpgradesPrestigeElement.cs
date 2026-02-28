@@ -23,6 +23,7 @@ public class UpgradesPrestigeElement : UpgradesElement
     {
         this.name = name;
         this.type = type;
+        levelMax = int.MaxValue;
     }
     #endregion
 
@@ -49,7 +50,7 @@ public class UpgradesPrestigeElement : UpgradesElement
             UpgradeType.LessMeteor => Stats.Instance.enemyPerStage.ToString("F2"),
             UpgradeType.LessPriceUpgrades => Stats.Instance.upgradesPriceReducer.ToString("F2"),
             UpgradeType.XpBoost => Stats.Instance.XpMultiplicator.ToString("F2"),
-            UpgradeType.DamageMultiplicator => Stats.Instance.prest_damage_multiplicator.ToString("F2"),
+            UpgradeType.DamageMultiplicator => Ship.Current.damage.prestige_multiplicator.ToString("F2"),
             UpgradeType.StageSkip => Stats.Instance.stageSkipProb.ToString("F2"),
             UpgradeType.OmegaProb => Stats.Instance.probabilitéOfOmega.ToString("F2"),
             UpgradeType.MinimumLevel => Stats.Instance.MinimalLevel.ToString("F2"),
@@ -70,36 +71,58 @@ public class UpgradesPrestigeElement : UpgradesElement
         localizeUpgrades.RefreshString();
     }
 
-    public override void GetReward()
+    public override void LoadLevelUI()
     {
+        string levevelTxt = "lv " + level.ToString();
+        if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
+        {
+            levevelTxt += " (+" + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel] + " )"; 
+        }
+        Lbl_level.text = levevelTxt;
+        Lbl_levelUpCost.style.display = DisplayStyle.Flex;
+    }
+
+    public override bool haveLevel()
+    {
+        return true;
+    }
+
+    public override void SetReward()
+    {
+        int realLevel = level;
+        if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
+        {
+            realLevel += (int)Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel];
+        }
+
         switch (type)
         {
             case UpgradeType.PrestigeMultiplicator:
-                Stats.Instance.star_multiplicator_prestige = 1f + 0.15f * (level - 1);
+                Stats.Instance.star_multiplicator_prestige = 1f + 0.15f * (realLevel - 1);
                 break;
             case UpgradeType.LessMeteor:
-                Stats.Instance.enemyPerStage = 10f - 0.16f * (level);
+                Stats.Instance.enemyPerStage = 10f - 0.16f * (realLevel);
                 break;
             case UpgradeType.LessPriceUpgrades:
-                Stats.Instance.upgradesPriceReducer = 1f - 0.229f * Mathf.Log(level);
+                Stats.Instance.upgradesPriceReducer = 1f - 0.229f * Mathf.Log(realLevel);
                 break;
             case UpgradeType.XpBoost:
-                Stats.Instance.XpMultiplicator = 1f + 0.25f * (level);
+                Stats.Instance.XpMultiplicator = 1f + 0.25f * (realLevel);
                 break;
             case UpgradeType.DamageMultiplicator:
-                Ship.Current.damage.prestige_multiplicator = 1f + 0.2f * (level);
+                Ship.Current.damage.prestige_multiplicator = 1f + 0.2f * (realLevel);
                 break;
             case UpgradeType.StageSkip:
-                Stats.Instance.prest_damage_multiplicator = level;
+                Stats.Instance.prest_damage_multiplicator = realLevel;
                 break;
             case UpgradeType.OmegaProb:
-                Stats.Instance.probabilitéOfOmega = (level + 1) * 5;
+                Stats.Instance.probabilitéOfOmega = (realLevel + 1) * 5;
                 break;
             case UpgradeType.MinimumLevel:
-                Stats.Instance.MinimalLevel = level;
+                Stats.Instance.MinimalLevel = realLevel;
                 break;
             case UpgradeType.CriticalProbability:
-                Stats.Instance.critical_Prob = level * 5f;
+                Stats.Instance.critical_Prob = realLevel * 5f;
                 break;
         }
        LoadStat();
@@ -112,7 +135,14 @@ public class UpgradesPrestigeElement : UpgradesElement
 
     protected override bool CanPay()
     {
+        //if(!Stats.Instance.starPariticul.isBigger(CalculLevelUpCost())) Debug.LogError("You can't paye : " + name);
         return Stats.Instance.starPariticul.isBigger(CalculLevelUpCost());
+    }
+
+    protected override void SetLevelUpButton()
+    {
+        Btn_levelUp.enabledSelf = CanPay();
+
     }
 
     protected override void SetLogos()

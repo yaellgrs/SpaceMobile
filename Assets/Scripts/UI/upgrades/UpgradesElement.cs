@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -71,7 +72,7 @@ public partial class UpgradesElement : VisualElement
         Lbl_description = new Label();
 
         Lbl_name.text = name;
-        Lbl_level.text = "1/10";
+        Lbl_level.text = "lv : 50 (+1000)";
         Lbl_description.text = "Damage : 10";
 
         Lbl_name.AddToClassList("upgradeName");
@@ -83,7 +84,7 @@ public partial class UpgradesElement : VisualElement
         Add(Lbl_name);
         Add(Lbl_description);
         Add(VE_logo);
-        VE_logo.Add(Lbl_level);
+        Add(Lbl_level);
     }
 
     private void InitLevelUp()
@@ -125,7 +126,7 @@ public partial class UpgradesElement : VisualElement
 
         LoadStat();
         LoadUI();
-        GetReward();
+        SetReward();
         SetLogos();
 
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
@@ -141,27 +142,55 @@ public partial class UpgradesElement : VisualElement
         multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
 
         //check if the player can upgrade
-        bool havelevel = level < Ship.Current.level + 1;
-        VE_levelUpLockCover.style.visibility = havelevel ? Visibility.Hidden : Visibility.Visible;
+        VE_levelUpLockCover.style.visibility = haveLevel(level + (getMulitplicator() - 1)) ? Visibility.Hidden : Visibility.Visible;
 
-        if (level >= levelMax) //LEVEL MAX
-        {
-            Lbl_level.text = "MAX";
-            Lbl_levelUpCost.style.display = DisplayStyle.None;
-        }
-        else{
 
-            Lbl_level.text = level.ToString() + "/" + levelMax.ToString();
-            Lbl_levelUpCost.style.display = DisplayStyle.Flex;
-        }
-        Lbl_levelUpLockLevel.text = (Ship.Current.level + 2).ToString();
+        LoadLevelUI();
+        Lbl_levelUpLockLevel.text = (getRequireLevel(getMulitplicator())).ToString();
         Lbl_levelUpCost.text = CalculLevelUpCost().ToString();
     }
 
-    protected void SetLevelUpButton()
+    public virtual void LoadLevelUI()
     {
-        Btn_levelUp.enabledSelf = CanPay() && level < Ship.Current.level + 1;
+        if (level >= levelMax) //LEVEL MAX
+        {
+            Lbl_level.text = "lv : MAX";
+            Lbl_levelUpCost.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Lbl_level.text = $"lv {level.ToString()}/{levelMax.ToString()} <color=cyan>(+{getMulitplicator()})</color>";
+            Lbl_levelUpCost.style.display = DisplayStyle.Flex;
+        }
+    }
 
+    public virtual bool haveLevel()
+    {
+        return haveLevel(level);
+    }
+    public virtual bool haveLevel(int lv)
+    {
+        return (lv < getLimitLevel());
+    }
+
+    private int getLimitLevel()
+    {
+        int limit = (Ship.Current.level + 1) * 2;
+        return Mathf.Min(100, limit);
+    }//(limit  * 2 ) - 1= (level +1 )
+
+
+    private int getRequireLevel(int mult)
+    {
+        int targetLevel = level + mult;
+        int requiredShipLevel = Mathf.CeilToInt(targetLevel / 2f) - 1;
+
+        return Mathf.Max(0, requiredShipLevel);
+    }
+
+    protected virtual void SetLevelUpButton()
+    {
+        Btn_levelUp.enabledSelf = CanPay() || getRequireLevel(getMulitplicator()) > Ship.Current.level;
     }
     #endregion
 
@@ -171,6 +200,7 @@ public partial class UpgradesElement : VisualElement
 
     protected virtual void LevelUp()
     {
+        if (!CanPay() || !haveLevel()) return;
         if (level < levelMax)
         {
             PayCost();
@@ -182,9 +212,10 @@ public partial class UpgradesElement : VisualElement
             }
             else level += multiplicator;
 
-            GetReward();
+            SetReward();
 
-            Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
+            //set in load donc j'ai commenté
+            //Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
         }
         Load();
         gameManager.instance.SmallVibrate();
@@ -198,21 +229,22 @@ public partial class UpgradesElement : VisualElement
     {
         BigNumber calculedNumber = new BigNumber(1, 0);
 
-        float currentPow = Mathf.Pow(1.60f, level); // début de la suite
+        double r = 1.60;
+        double pow = System.Math.Pow(r, level); // début de la suite
         multiplicator = Mathf.Max(1, multiplicator);
-        BigNumber temp = new BigNumber(50);
-
-        for (int i = 0; i < multiplicator; i++)
-        {
-            temp.Set(50);
-            temp.Multiply(currentPow);
-            temp.Multiply(Stats.Instance.upgradesPriceReducer);
-            calculedNumber.Add(temp);
-            currentPow *= 1.6f;
-        }
+        calculedNumber.Set(50);
+        calculedNumber.Multiply(pow, false);   
+        calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer, false);   
+        double factor = (System.Math.Pow(r, multiplicator) - 1) / (r - 1);
+        calculedNumber.Multiply(factor, false);
 
         calculedNumber.Normalize();
         return calculedNumber;
+    }
+
+    public int getMulitplicator()
+    {
+        return Mathf.Min(levelMax - level, UpMode.Instance.upModeMultiplicator);
     }
 
     #endregion
@@ -224,11 +256,22 @@ public partial class UpgradesElement : VisualElement
 
     }
 
-    public virtual void GetReward()
+    protected virtual string getStat()
+    {
+        return "";
+    }
+
+    public virtual void SetReward()
     {
 
     }
-    
+
+    public virtual BigNumber GetReward(int lvl)
+    {
+        return new BigNumber(0);
+    }
+
+
     protected virtual bool CanPay()
     {
         return false;

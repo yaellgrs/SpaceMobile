@@ -191,12 +191,14 @@ public class ShopUI : MonoBehaviour
         back.clicked += Close;
         exit.clicked += Close;
 
+        upDiamand();
+
         foreach (Boost boost in boosts)
         {
             boost.load(shopUI);
         }
 
-        upDiamand();
+
         LoadBoost();
     }
 
@@ -308,6 +310,7 @@ public class ShopUI : MonoBehaviour
 
     public void upDiamand()
     {
+        Debug.Log("up diamand");
         string dmd = Stats.Instance.diamand.ToString();
         diamand.style.width = new Length(7.5f*dmd.Length, LengthUnit.Percent);
         diamand.text = dmd;

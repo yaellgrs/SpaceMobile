@@ -26,6 +26,7 @@ public class MainUi : MonoBehaviour
     public ShopUI shopUI;
     public OfflineUI offlineUI;
     public QuestUI questUI;
+    public BossFragmentUi bossFragmentUi;
 
 
     [Header("Others")]
@@ -53,6 +54,7 @@ public class MainUi : MonoBehaviour
     public VisualElement healthBar;
     private VisualElement shieldBar;
     public VisualElement xpBar;
+    private VisualElement VE_gameUI;
 
     public Button rocketButton;
     public Label rocketLabel;
@@ -61,6 +63,7 @@ public class MainUi : MonoBehaviour
     public VisualElement questCompleted;
     public VisualElement rocketCover;
     private float rocketTimer = -1f;
+    public Button Btn_bossFragment;
 
     private Label Label_AutoShoot;
     private VisualElement VE_AutoShoot;
@@ -115,6 +118,8 @@ public class MainUi : MonoBehaviour
         questCompleted = root.Q<VisualElement>("questCompleted");
         VE_AutoShoot = root.Q<VisualElement>("autoShoot");
         VE_AutoShootBar = root.Q<VisualElement>("autoShootBar");
+        Btn_bossFragment = root.Q<Button>("bossFragment");
+        VE_gameUI = root.Q<VisualElement>("gameUI");
 
         ironLabel = root.Q<Label>("iron");
         uraniumLabel = root.Q<Label>("uranium");
@@ -149,6 +154,7 @@ public class MainUi : MonoBehaviour
         pubButton.clicked += pubButtonClicked;
         shopButton.clicked += shopClicked;
         questButton.clicked += questUI.LoadQuestUI;
+        Btn_bossFragment.clicked += bossFragmentUi.Open;
         enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
@@ -184,6 +190,11 @@ public class MainUi : MonoBehaviour
         shieldRegenLabel.text = "+ " + Ship.Current.regenShield;
 
         Stats.Instance.OnIronChanged += upIronUI;
+    }
+
+    public void setGameUI(bool active)
+    {
+        VE_gameUI.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
     public void adaptBanner(bool adapt)
@@ -225,7 +236,7 @@ public class MainUi : MonoBehaviour
 
     private void Fire()
     {
-
+        Debug.Log("fire");
         canon.instance.canFire = true;
         canon.instance.moveCanon();
     }
@@ -257,11 +268,10 @@ public class MainUi : MonoBehaviour
 
         if (gameManager.instance.bossStage)
         {
-            Debug.Log("bossstage");
             if (gameManager.instance.meteors.Count > 0)
             {
                 Lbl_bossLife.text = gameManager.instance.meteors[0].life.ToString() + "/" + gameManager.instance.meteors[0].lifeMax.ToString();
-                float targetPercent = gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
+                float targetPercent = (float)gameManager.instance.meteors[0].life.GetPercentByDivided(gameManager.instance.meteors[0].lifeMax);
                 currentBossPercent = Mathf.Lerp(currentBossPercent, targetPercent, Time.deltaTime * 30f);
                 LerpBossPercent = Mathf.Lerp(LerpBossPercent, targetPercent, Time.deltaTime * 2.5f);
 
@@ -334,7 +344,7 @@ public class MainUi : MonoBehaviour
         xpLabel.text = Ship.Current.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         xpBar.style.height = Length.Percent(100f);
-        float targetPercent = Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+        float targetPercent = (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
 
         if (currentPercent < targetPercent - 0.25f)
         {
@@ -479,7 +489,7 @@ public class MainUi : MonoBehaviour
 
 
             float currentPercent = healthBar.style.width.value.value;
-            float targetPercent = Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
+            float targetPercent = (float)Ship.Current.life.GetPercentByDivided(spaceShip.instance.getMaxLife());
 
 
             if (currentPercent > targetPercent + 0.25f)
@@ -508,7 +518,7 @@ public class MainUi : MonoBehaviour
             shieldLabel.style.width = Length.Percent(20 + 5 * (shieldText.Length - 5));
 
             float currentPercent = shieldBar.style.width.value.value;
-            float targetPercent = Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
+            float targetPercent = (float)Ship.Current.shield.GetPercentByDivided(spaceShip.instance.getMaxShield());
 
 
             if (currentPercent > targetPercent + 0.25f)

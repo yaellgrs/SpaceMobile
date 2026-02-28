@@ -98,11 +98,7 @@ public class BaseUI : MonoBehaviour
         {
             upgradeUI.gameObject.SetActive(false);
             loadForgeUI();
-
-
         }
-
-
     }
         
     private void scrolling()
@@ -152,7 +148,7 @@ public class BaseUI : MonoBehaviour
         }
     }
 
-    void upModeButtonClicked()
+    protected virtual void upModeButtonClicked()
     {
         UpMode.Instance.UpButton(upModeButton);
     }

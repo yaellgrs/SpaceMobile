@@ -31,31 +31,53 @@ public class UpgradesIronElement : UpgradesElement
 
     protected override void LoadStat()
     {
-        switch (type)
-        {
-            case UpgradeType.Life:
-                Lbl_description.text = "Life : " + Ship.Current.lifeMax;
-                break;
-            case UpgradeType.Damage:
-                Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
-                break;
-            case UpgradeType.Shield:
-                Lbl_description.text = "Shield : " + Ship.Current.shieldMax;
-                break;
-            case UpgradeType.RegenShield:
-                Lbl_description.text = "Regen Shield : " + Ship.Current.regenShield;
-                break;
-        }
+        //pas propre mais bon
+        BigNumber bonus = GetReward(level + getMulitplicator());
+        bonus.Subtract(GetReward(level));
+
+        Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.ToString()})</color>";
+        /*        switch (type)
+                {   
+                    case UpgradeType.Life:
+                        Lbl_description.text = "Life : " + Ship.Current.lifeMax.initial;
+                        break;
+                    case UpgradeType.Damage:
+                        Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
+                        break;
+                    case UpgradeType.Shield:
+                        Lbl_description.text = "Shield : " + Ship.Current.shieldMax.initial;
+                        break;
+                    case UpgradeType.RegenShield:
+                        Lbl_description.text = "Regen Shield : " + Ship.Current.regenShield;
+                        break;
+                }*/
         string logo_path = "Upgrades/Iron/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
 
-    public override void GetReward()
+    protected override string getStat()
     {
         switch (type)
         {
             case UpgradeType.Life:
-                BigNumber diff = new BigNumber(spaceShip.instance.getMaxLife());
+                return Ship.Current.lifeMax.initial.ToString();
+            case UpgradeType.Damage:
+                return Ship.Current.damage.initial.ToString();
+            case UpgradeType.Shield:
+                return Ship.Current.shieldMax.initial.ToString();
+            case UpgradeType.RegenShield:
+                return Ship.Current.regenShield.ToString();
+        }
+        return "";
+    }
+
+    public override void SetReward()
+    {
+        switch (type)
+        {
+            case UpgradeType.Life:
+                BigNumber diff = new BigNumber(0);
+                diff.Set(spaceShip.instance.getMaxLife());
                 diff.Subtract(Ship.Current.life);
 
                 Ship.Current.lifeMax.initial.Set(10);
@@ -63,7 +85,7 @@ public class UpgradesIronElement : UpgradesElement
 
                 Ship.Current.life.Set(spaceShip.instance.getMaxLife());
                 Ship.Current.life.Subtract(diff);
-                MainUi.Instance.upHealthBar();
+                if(MainUi.Instance != null) MainUi.Instance.upHealthBar();
                 break;
             case UpgradeType.Damage:
                 Ship.Current.damage.initial.Set(1);
@@ -71,7 +93,8 @@ public class UpgradesIronElement : UpgradesElement
                 Ship.Current.damage.initial += (int)( 0.5f * (level - 1));
                 break;
             case UpgradeType.Shield:
-                diff = new BigNumber(spaceShip.instance.getMaxShield());
+                diff = new BigNumber(0);
+                diff.Set(spaceShip.instance.getMaxShield());
                 diff.Subtract(Ship.Current.shield);
                 Ship.Current.shieldMax.initial.Set(10);
                 Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(level + 1, 1.4f);
@@ -89,6 +112,33 @@ public class UpgradesIronElement : UpgradesElement
 
         LoadStat();
     }
+
+    public override BigNumber GetReward(int lvl)
+    {
+        BigNumber reward = new BigNumber(0);
+        switch (type)
+        {
+            case UpgradeType.Life:
+                reward.Set(10);
+                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.6f);
+                break;
+            case UpgradeType.Damage:
+                reward.Set(1);
+                reward *= Mathf.Pow(1.3f, lvl);
+                reward += (int)(0.5f * (lvl - 1));
+                break;
+            case UpgradeType.Shield:
+                reward.Set(10);
+                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.4f);
+                break;
+            case UpgradeType.RegenShield:
+                reward = new BigNumber(10);
+                reward.Multiply(0.20f * Mathf.Pow(lvl + 1, 1.30f));
+                break;
+        }
+        return reward;
+    }
+
     protected override void PayCost()
     {
         Stats.Instance.AddIron(-CalculLevelUpCost());

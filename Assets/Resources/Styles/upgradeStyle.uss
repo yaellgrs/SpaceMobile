@@ -18,12 +18,14 @@
 .upgradeName {
     position: absolute;
     top: 2%;
-    left: 44%;
+    left: 25%;
     color: rgb(255, 166, 77);
     -unity-font-style: bold;
     font-size: 25px;
     letter-spacing: 5px;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    -unity-text-align: upper-center;
+    width: 50%;
 }
 
 .upgradeLogo {
@@ -41,10 +43,10 @@
     font-size: 25px;
     color: rgb(255, 255, 255);
     position: absolute;
-    top: 65%;
-    left: 0%;
+    top: 60%;
+    left: 25%;
     -unity-font-style: bold;
-    width: 100%;
+    width: 50%;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
     -unity-text-align: upper-center;
 }
@@ -52,7 +54,7 @@
 .upgradeDescription {
     height: 25%;
     position: relative;
-    top: 45%;
+    top: 35%;
     left: 27%;
     width: 48%;
     font-size: 30px;

@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public static class Utility
 {
-
+    public const long DAY_IN_SECOND = 86400;
     public static void setBorderColor(Button btn, Color color)
     {
         btn.style.borderLeftColor = color;
@@ -62,4 +62,77 @@ public static class Utility
         }
     }
 
+    public static bool HaveTheShipUpgrade(UpgradesShipElement.UpgradeType type)
+    {
+        switch (type)
+        {
+            case UpgradesShipElement.UpgradeType.AdditionalLevel:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Iron;
+            case UpgradesShipElement.UpgradeType.Magnectic:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Magnetic;
+            case UpgradesShipElement.UpgradeType.DamageOverTime:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Fire;
+            case UpgradesShipElement.UpgradeType.ZoneDamage:
+                return (int)Ship.Current.type >= (int)SpaceShipData.SpaceShipElement.Poison;
+        }
+        return false;
+
+    }
+
+    public static spaceObject FindMeteor(bool biggest = false)
+    {
+        if (gameManager.instance.meteors.Count == 0) return null;
+        List<spaceObject> meteors = gameManager.instance.meteors;
+
+        BigNumber maxPv = new BigNumber(0);
+        int n = -1;
+        for (int i = 0; i < meteors.Count; i++)
+        {
+            if (meteors[i].type != spaceObject.meteorType.Diamand)
+            {
+                if (!biggest)
+                    return meteors[i];
+                else if (meteors[i].lifeMax.isBigger(maxPv))
+                {
+                    n = i;
+                    maxPv = new BigNumber(meteors[i].lifeMax);
+                }
+            }
+        }
+        if (biggest && n >= 0)
+            return meteors[n];
+
+        return null;
+    }
+
+    public static spaceObject FindNearestMeteor(Vector3 position)
+    {
+        float minDist = float.MaxValue;
+        List<spaceObject> meteors = gameManager.instance.meteors;
+
+        int n = -1;
+        for (int i = 0; i < meteors.Count; i++)
+        {
+            if (meteors[i].type != spaceObject.meteorType.Diamand)
+            {
+                float distance = Vector3.Distance(meteors[i].transform.position, position);
+                if (distance < minDist)
+                {
+                    minDist = distance;
+                    n = i;
+                }
+            }
+        }
+        if (n >= 0)
+            return meteors[n];
+
+        return null;
+    }
+
+    public static bool isInScreen(Vector3 position, float gap = 0f)
+    {
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(position);
+        return (viewportPos.x > gap && viewportPos.x < (1f - gap) 
+            && viewportPos.y > gap && viewportPos.y < (1f - gap));
+    }
 }

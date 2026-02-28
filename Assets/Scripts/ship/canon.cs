@@ -70,6 +70,7 @@ public class canon : MonoBehaviour
 
     private void shoot(float angle, Vector3 direction, int type)
     {
+        Debug.Log("shoot");
         Lazer projectil;
         float rocketSpeed = 1f;
         if (type == 0)
@@ -98,16 +99,15 @@ public class canon : MonoBehaviour
     public void autoShoot()
     {
         autoTimer += Time.deltaTime;
-        List<spaceObject> meteors = gameManager.instance.meteors;
-        if (meteors.Count > 0)
+        if (gameManager.instance.meteors.Count > 0)
         {
-            int i = FindMeteor(meteors);
-            if (i !=-1)
+            spaceObject meteor = Utility.FindMeteor();
+            if (meteor != null)
             {
                 if (autoTimer > Stats.Instance.speedAuto)
                 {
                     autoTimer = 0f;
-                    Vector3 position = meteors[i].gameObject.transform.position;
+                    Vector3 position = meteor.gameObject.transform.position;
                     Vector3 vect = position - transform.position;
                     float angle = Mathf.Atan2(vect.y, vect.x) * Mathf.Rad2Deg;
                     transform.rotation = Quaternion.Euler(0, 0, angle - 90);
@@ -117,32 +117,10 @@ public class canon : MonoBehaviour
         }
     }
 
-    private int FindMeteor(List<spaceObject> meteors)
-    {
-        for(int i = 0; i < meteors.Count; i++)
-        {
-            if(meteors[i].type != spaceObject.meteorType.Diamand)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void rocketShoot()
     {
-        List<spaceObject> meteors = gameManager.instance.meteors;
-        int n = 0;
-        BigNumber maxPv = new BigNumber(meteors[0].lifeMax);
-        for (int i = 1; i < meteors.Count; i++)
-        {
-            if (meteors[i].lifeMax.isBigger(maxPv))
-            {
-                n = i;
-                maxPv = new BigNumber(meteors[i].lifeMax);
-            }
-        }
-        Vector3 position = meteors[n].gameObject.transform.position;
+        spaceObject meteor = Utility.FindMeteor(true);
+        Vector3 position = meteor.gameObject.transform.position;
         Vector3 vect = position - transform.position;
         float angle = Mathf.Atan2(vect.y, vect.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle - 90);

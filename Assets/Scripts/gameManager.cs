@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static spaceObject;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class gameManager : MonoBehaviour
 {
@@ -16,7 +18,8 @@ public class gameManager : MonoBehaviour
     public spaceObject miniMeteorPrefab;
     public spaceObject ironMeteorPrefab;
     public spaceObject uraniumMeteorPrefab;
-    public spaceObject bossMeteorPrefab;
+
+    public meteorBoss normalBossPrefab;
 
     float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
@@ -32,8 +35,14 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused = false;
     public bool bossStage = false;
+    public bool fragmentBoss = false;
 
     public List<spaceObject> meteors = new List<spaceObject>();
+
+    public Volume V_warning;
+    float incWeight = 1f;
+
+
 
     float autoSaveTimer = 0f;
     private void Awake()
@@ -59,8 +68,10 @@ public class gameManager : MonoBehaviour
     {
 
         Application.targetFrameRate = 60;
+        V_warning.gameObject.SetActive(false);
         InitGame();
         LoadStage();
+
     }
 
     private void calculMeteorToKill()
@@ -124,6 +135,26 @@ public class gameManager : MonoBehaviour
             Stats.Instance.save();
             autoSaveTimer = 0f;
         }
+        updateWarning();
+    }
+
+    public void updateWarning()
+    {
+        if (V_warning.gameObject.activeSelf)
+        {
+            V_warning.weight += incWeight * Time.deltaTime;
+            if(V_warning.weight <= 0f)
+            {
+                V_warning.weight = 0f;
+                incWeight = Mathf.Abs(incWeight);
+            }
+            else if (V_warning.weight >= 1f)
+            {
+                V_warning.weight = 1f;
+                incWeight = -Mathf.Abs(incWeight);
+            }
+
+        }
     }
 
     public void updateStage()
@@ -177,16 +208,24 @@ public class gameManager : MonoBehaviour
     public void CheckStageBoss() {
         if (!bossStage && Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0 && !isPaused)
         {
-            bossStage = true;
-            SpawnMeteor(bossMeteorPrefab, meteorType.Boss);
-            if(MainUi.Instance.enemyLabel != null ) MainUi.Instance.enemyLabel.text = "BOSS";
-            MainUi.Instance.ShowBossLife(true);
-            meteorToKill = 1;
+            SpawnBoss();
         }
         else if(Ship.Current.stage % Stats.BOSS_STAGE_GAP != 0)
         {
             MainUi.Instance.ShowBossLife(false);
         }
+    }
+
+    public void SpawnBoss(bool FragmentBoss = false)
+    {
+        fragmentBoss = FragmentBoss;
+        DestroyMeteors();
+        bossStage = true;
+        int level = FragmentBoss ? Ship.Current.fragmentlevel : Ship.Current.stage;
+        SpawnBossMeteor(normalBossPrefab, meteorBoss.BossType.Normal, level);
+        if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = "BOSS";
+        MainUi.Instance.ShowBossLife(true);
+        meteorToKill = 1;
     }
 
     public void getStageReward(float posY, float fontFactor = 1f)
@@ -218,7 +257,7 @@ public class gameManager : MonoBehaviour
                 Stats.Instance.AddIron(new BigNumber(reward));
             }
         }
-        PoolManager.Instance.LaunchPrefab(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
+        MarkersUI.Instance.ShowMarker(worldPos, "stage reward : " + reward.ToString(), type, 0.1f, 0.985f, fontFactor);
     }
 
     public void SmallVibrate()
@@ -246,7 +285,7 @@ public class gameManager : MonoBehaviour
 
         int stage = Ship.Current.stage;
 
-        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 25%
+        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 20%
 
         ScatterProb = stage < 10 ? 0 :
                       stage < 25 ? 450 : 450;// diamondLimit + 7.5 - 45 = 30-35( environ ) 
@@ -275,6 +314,26 @@ public class gameManager : MonoBehaviour
     {
         spaceObject obj = Instantiate(meteorPredab);
         obj.type = type;
+        obj.level = Ship.Current.stage;
+        obj.Init();
+        meteors.Add(obj);
+    }
+
+    public void SpawnMeteor(spaceObject meteorPredab, meteorType type, Vector3 position)
+    {
+        spaceObject obj = Instantiate(meteorPredab);
+        obj.type = type;
+        obj.transform.position = position;
+        obj.level = Ship.Current.stage;
+        obj.Init(false);
+        meteors.Add(obj);
+    }
+
+    private void SpawnBossMeteor(meteorBoss bossPrefab, meteorBoss.BossType type, int level)
+    {
+        meteorBoss obj = Instantiate(bossPrefab);
+        obj.bossType = type;
+        obj.level = level;
         obj.Init();
         meteors.Add(obj);
     }
@@ -282,17 +341,17 @@ public class gameManager : MonoBehaviour
     public void SetPause(bool isPause)
     {
         isPaused = isPause;
+        canon.instance.setPause(isPause);
         if (isPause && Settings.Instance.isPausable)
         { 
             foreach (spaceObject m in meteors)
             {
                 m.Pause();
             }
-            canon.instance.setPause(true);
             timerSave = timer;
             timer = -1000f;
         }
-        else if(!isPause)
+        else if(!isPause && !bossStage)
         {
             if(timerSave > 0f)
             {
@@ -361,6 +420,13 @@ public class gameManager : MonoBehaviour
         obj2.Init();
         obj3.Init();
 
+    }
+
+    public void activeWarning(bool active)
+    {
+        V_warning.gameObject.SetActive(active);
+        if(active)
+            V_warning.weight = 0f;
     }
 
     public void setMeteorScale()
