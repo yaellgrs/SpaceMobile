@@ -17,8 +17,9 @@ public class UraniumUI : BaseUI
         base.Update();
         upUraniumLabel();
 
-        foreach(machineUraniumElement machine in Ship.Current.machinesUranium)
-            machine.Update();
+        Rect scrollRect = SV_scroll?.worldBound != null ? SV_scroll.worldBound : new Rect(0f, 0f, 0f, 0f);
+        foreach (machineUraniumElement machine in Ship.Current.machinesUranium)
+            machine.Update(scrollRect);
     }
 
     public void upUraniumLabel()
@@ -107,7 +108,7 @@ public class UraniumUI : BaseUI
             SV_scroll.Add(machine);
             if (show)
             {
-                machine.LoadMachine(SV_scroll);
+                machine.LoadMachine();
                 machine.style.display = DisplayStyle.Flex;
             }
             else machine.style.display = DisplayStyle.None;
@@ -136,7 +137,7 @@ public class UraniumUI : BaseUI
             upUraniumLabel();
 
             foreach (machineUraniumElement machine in Ship.Current.machinesUranium)
-                machine.LoadMachine(SV_scroll);
+                machine.LoadMachine();
         }
         else
             uraniumUnlockedVE.style.visibility = Visibility.Visible;

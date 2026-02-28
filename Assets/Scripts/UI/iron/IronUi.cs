@@ -25,8 +25,10 @@ public class IronUi : BaseUI
     protected override void Update()
     {
         base.Update();
+
+        Rect scrollRect = SV_scroll?.worldBound != null ? SV_scroll.worldBound : new Rect(0f, 0f, 0f, 0f);
         foreach (machineElement machine in Ship.Current.machineIron)
-            machine.Update();
+            machine.Update(scrollRect);
         upIronRaffinedUi();
     }
 
@@ -87,7 +89,7 @@ public class IronUi : BaseUI
         if (forgeUI.gameObject.activeInHierarchy)
         {
             foreach (machineElement machine in Ship.Current.machineIron)
-                machine.LoadMachine(SV_scroll);
+                machine.LoadMachine();
         }
         else
         {
@@ -124,11 +126,12 @@ public class IronUi : BaseUI
         SV_scroll.Clear();
 
         bool show = true;
+
         foreach (machineElement machine in Ship.Current.machineIron)
         {
             SV_scroll.Add(machine);
             if (show) { 
-                machine.LoadMachine(SV_scroll);
+                machine.LoadMachine();
                 machine.style.display = DisplayStyle.Flex;
             }
             else machine.style.display = DisplayStyle.None;

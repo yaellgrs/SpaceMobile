@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -24,6 +26,7 @@ public class BossFragmentUi : MonoBehaviour
     private Label Lbl_timer;
 
     private int currentLevel = 1;
+    public bool canExit = true;
 
     #endregion
 
@@ -74,7 +77,7 @@ public class BossFragmentUi : MonoBehaviour
         Btn_skip.clicked += getReward;
     }
 
-    private void upFragmentLevel(int amount)
+    private void upFragmentLevel(int amount = 1)
     {
         currentLevel = Mathf.Clamp(currentLevel + amount, 1, MAX_FRAGMENT_LEVEL);
         LoadFragmentLevelUI();
@@ -112,8 +115,13 @@ public class BossFragmentUi : MonoBehaviour
 
     private void getReward()
     {
+        Ship.Current.lastFragmentFight = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        LoadDailyReward();
+
         Vector2 panelPos = new Vector2(Lbl_reward.worldBound.position.x *1.25f, Lbl_reward.worldBound.position.y);
-        MarkersUI.Instance.ShowMarker(panelPos, "1", MarkerType.Damage);
+        MarkersUI.Instance.ShowMarker(panelPos, "+" + calculReward().ToString(), MarkerType.Diamand);
+
+        canExit = true;
         //PoolManager.Instance.LaunchPrefab(pos, calculReward().ToString(), MarkerType.Damage);
     }
 
@@ -131,16 +139,26 @@ public class BossFragmentUi : MonoBehaviour
 
     public static void EndFragmentBoss(bool win)
     {
-        Ship.Current.fragmentlevel = Mathf.Clamp(Ship.Current.fragmentlevel + 1, 0 , MAX_FRAGMENT_LEVEL);
-        Ship.Current.lastFragmentFight = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
         MainUi.Instance.setGameUI(true);
         gameManager.instance.LoadStage();
         gameManager.instance.SetPause(false);
+
+        MainUi.Instance.bossFragmentUi.canExit = false;
         MainUi.Instance.bossFragmentUi.Open();
+        MainUi.Instance.bossFragmentUi.StartCoroutine(MainUi.Instance.bossFragmentUi.EndFragmentBossDelay());
+    }
+
+    private IEnumerator EndFragmentBossDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        getReward();
+        upFragmentLevel();
     }
 
     private void Close()
     {
+        if (!canExit) return;
         var root = document.rootVisualElement;
         VisualElement main = root.Q<VisualElement>("main");
 

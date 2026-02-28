@@ -38,7 +38,6 @@ public partial class machineElement : Button
     [JsonIgnore] public VisualElement VE_logo;
 
     //parent
-    [JsonIgnore] public ScrollView SV_parent;
 
     #endregion
 
@@ -200,9 +199,8 @@ public partial class machineElement : Button
     #endregion
 
     #region ------ mainworkflow -------
-    public virtual void LoadMachine(ScrollView parent)// a revoir
+    public virtual void LoadMachine()// a revoir
     {
-        SV_parent = parent;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
 
@@ -250,16 +248,16 @@ public partial class machineElement : Button
         }
         else if (isBuyed) 
         {
-            getProduction();
+            getProduction(true);
             if (this is machineIronElement && !Stats.Instance.ironTuto)
                 Tuto.Instance.AddMachineClicked();
         }
     }
 
-    private void getProduction()
+    private void getProduction(bool launch)
     {
         HandleMoney(CalculReward());
-        if (IsVisibleInScrollView()) LauncherMarker();
+        if (launch) LauncherMarker();
     }
 
     protected virtual void LevelUp()
@@ -307,14 +305,14 @@ public partial class machineElement : Button
         }
     }
     
-    public virtual void Update()
+    public virtual void Update(Rect scrollRect)
     {
         if (!isBuyed) return;
 
         if (production_cps > 0) {
             time += Time.deltaTime;
             if (time >= (1.0f / (float)production_cps)){
-                getProduction();
+                getProduction(IsVisibleInScrollView(scrollRect));
                 time = 0f;
             }
         }
@@ -469,9 +467,9 @@ public partial class machineElement : Button
         nextColorlevel = levelColor[(int)color];
     }
 
-    public bool IsVisibleInScrollView()
+    public bool IsVisibleInScrollView(Rect scrollRect)
     {
-        if (panel == null || SV_parent == null) return false;
+        if (panel == null || scrollRect == null) return false;
 
         Rect rect = this.worldBound;
         Rect machineRect = new Rect(
@@ -480,11 +478,6 @@ public partial class machineElement : Button
             rect.width,
             rect.height * 0.25f
         );
-
-
-        // Rect visible du viewport
-        Rect scrollRect = SV_parent.contentViewport.worldBound;
-
         return machineRect.Overlaps(scrollRect);
     }
 

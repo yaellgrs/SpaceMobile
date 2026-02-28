@@ -171,7 +171,7 @@ public class Stats
     {
         if (waiting) BN_shipMoneyWaiting += amount;
         else BN_shipMoney += amount;
-        OnShipMoneyChanged.Invoke();
+        OnShipMoneyChanged?.Invoke();
     }
 
     public void AddIron(BigNumber amount)
