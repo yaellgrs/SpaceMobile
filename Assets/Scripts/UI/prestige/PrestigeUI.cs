@@ -49,8 +49,13 @@ public class PrestigeUI : BaseUI
 
     private int prestigeSelected = 1;
 
+
     //shipUI
     Label Lbl_shipMoney;
+
+    Button Btn_back;
+    Button Btn_buy;
+    Label Lbl_cost;
 
     protected override void Start()
     {
@@ -571,17 +576,26 @@ public class PrestigeUI : BaseUI
         }).StartingIn(50);
 
 
-        Button Btn_back = root.Q<Button>("back");
-        Button Btn_buy = root.Q<Button>("buy");
+        Btn_back = root.Q<Button>("back");
+        Btn_buy = root.Q<Button>("buy");
+        Lbl_cost = root.Q<Label>("cost");
 
         Btn_back.clicked -= () => { backClicked(upgradeShip); };
         Btn_back.clicked += () => { backClicked(upgradeShip); };
 
+        LoadBuyUI();
+
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;
-
-
     }
+
+    private void LoadBuyUI()
+    {
+        bool canBuy = Stats.Instance.shipFragment >= 100;
+        Lbl_cost.text = Stats.Instance.shipFragment + "/100";
+        Btn_buy.enabledSelf = canBuy;
+    }
+
 
     private void BuyNextShip()
     {

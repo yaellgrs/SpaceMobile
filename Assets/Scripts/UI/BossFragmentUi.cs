@@ -118,8 +118,10 @@ public class BossFragmentUi : MonoBehaviour
         Ship.Current.lastFragmentFight = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         LoadDailyReward();
 
+        int reward = calculReward();
+        Stats.Instance.AddShipFragment(reward);
         Vector2 panelPos = new Vector2(Lbl_reward.worldBound.position.x *1.25f, Lbl_reward.worldBound.position.y);
-        MarkersUI.Instance.ShowMarker(panelPos, "+" + calculReward().ToString(), MarkerType.Diamand);
+        MarkersUI.Instance.ShowMarker(panelPos, "+" + reward.ToString(), MarkerType.Diamand);
 
         canExit = true;
         //PoolManager.Instance.LaunchPrefab(pos, calculReward().ToString(), MarkerType.Damage);

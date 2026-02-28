@@ -74,7 +74,7 @@ public class DevTest : MonoBehaviour
             Stats.Instance.addPrestige(new BigNumber(1, 100)); // donne 1^100 prestige
             Stats.Instance.AddIron(new BigNumber(1, 10000));// donne 1^100 fer
             //Stats.Instance.AddUranium(new BigNumber(1, 100));// donne 1^100 uranium
-            Stats.Instance.AddShipMoney(new BigNumber(1, 100), false);
+            //Stats.Instance.AddShipMoney(new BigNumber(1, 100), false);
             Stats.Instance.AddDiamand(100);
         }
         if (Input.GetKeyUp(KeyCode.K))

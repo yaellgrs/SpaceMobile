@@ -114,6 +114,10 @@ public class Stats
     public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
     public BigNumber BN_shipUpgradesMoney = new BigNumber(0);
 
+    public int shipFragment = 0;
+
+
+
 
     public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
             UpgradeType.PrestigeMultiplicator,
@@ -165,6 +169,11 @@ public class Stats
     {
         diamand += amount;
         MainUi.Instance.upDiamandUI();
+    }
+
+    public void AddShipFragment(int amount)
+    {
+        shipFragment += amount;
     }
 
     public void AddShipMoney(BigNumber amount, bool waiting)
