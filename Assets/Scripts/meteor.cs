@@ -21,6 +21,21 @@ public class spaceObject : MonoBehaviour
     public ParticleSystem starParticle;
     public ParticleSystem meteorParticle;
 
+    private static List<(int stage, float mult)> lifePaliers = new()
+    {
+        (10, 1.2f),
+        (25, 1.5f),
+        (50, 1.5f),
+        (100, 1.75f),
+    };
+    private static List<(int stage, float mult)> speedPaliers = new()
+    {
+        (10, 1.05f),
+        (25, 1.1f),
+        (50, 1.1f),
+        (100, 1.15f),
+    };
+
     public float spaceObjectSpeed;
     public BigNumber lifeMax = new BigNumber(2, 0);
     public BigNumber life;
@@ -47,11 +62,12 @@ public class spaceObject : MonoBehaviour
             Spawn();
         Debug.LogWarning("level : " + level);
         int x = level - 1;
+
         float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
         lifeMax = new BigNumber((int)hp);
 
         setLife();
-        lifeMax *= getStageModifier();
+        lifeMax *= getStageModifier(lifePaliers);
 
         life = new BigNumber(lifeMax);
 
@@ -69,6 +85,7 @@ public class spaceObject : MonoBehaviour
         else starParticle.gameObject.SetActive(false);
 
         loadSpeed();
+        spaceObjectSpeed *= getStageModifier(speedPaliers);
         transform.localScale = baseScale;
         transform.localScale *= Stats.Instance.scale;
         setFontSize();
@@ -97,6 +114,7 @@ public class spaceObject : MonoBehaviour
         }
         else if (type == meteorType.Uranium)
         {
+            lifeMax.Multiply(2.5f); 
             if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
         }
         else if (type == meteorType.Scatter)
@@ -105,16 +123,8 @@ public class spaceObject : MonoBehaviour
         }
     }
 
-    protected float getStageModifier()
+    protected float getStageModifier(List<(int stage, float mult)> paliers)
     {
-        List<(int stage, float mult)> paliers = new()
-        {
-            (10, 1.2f),
-            (25, 1.5f),
-            (50, 1.5f),
-            (100, 1.75f),
-        };
-
         float mult = 1f;
 
         foreach (var palier in paliers)
@@ -125,6 +135,7 @@ public class spaceObject : MonoBehaviour
 
         return mult;
     }
+
 
     protected virtual void setFontSize()
     {
@@ -150,6 +161,14 @@ public class spaceObject : MonoBehaviour
             spaceObjectSpeed *= 0.35f;
         }
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator * factor;
+
+        List<(int stage, float mult)> paliers = new()
+        {
+            (10, 1.2f),
+            (25, 1.5f),
+            (50, 1.5f),
+            (100, 1.75f),
+        };
 
         Move();
     }

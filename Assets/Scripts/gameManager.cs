@@ -285,7 +285,7 @@ public class gameManager : MonoBehaviour
 
         int stage = Ship.Current.stage;
 
-        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 25%
+        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 20%
 
         ScatterProb = stage < 10 ? 0 :
                       stage < 25 ? 450 : 450;// diamondLimit + 7.5 - 45 = 30-35( environ ) 
