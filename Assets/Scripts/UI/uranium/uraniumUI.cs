@@ -50,12 +50,12 @@ public class UraniumUI : BaseUI
         if (forgeUI.gameObject.activeInHierarchy)
         {
             foreach (machineElement machine in Ship.Current.machinesUranium)
-                machine.upMachineCostText();
+                machine.LoadMachine();
         }
         else
         {
             foreach (UpgradesElement upgrade in Ship.Current.upgradesUranium)
-                upgrade.LoadUI();
+                upgrade.Load();
         }
     }
 

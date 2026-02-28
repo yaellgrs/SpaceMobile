@@ -36,21 +36,6 @@ public class UpgradesIronElement : UpgradesElement
         bonus.Subtract(GetReward(level));
 
         Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.ToString()})</color>";
-        /*        switch (type)
-                {   
-                    case UpgradeType.Life:
-                        Lbl_description.text = "Life : " + Ship.Current.lifeMax.initial;
-                        break;
-                    case UpgradeType.Damage:
-                        Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
-                        break;
-                    case UpgradeType.Shield:
-                        Lbl_description.text = "Shield : " + Ship.Current.shieldMax.initial;
-                        break;
-                    case UpgradeType.RegenShield:
-                        Lbl_description.text = "Regen Shield : " + Ship.Current.regenShield;
-                        break;
-                }*/
         string logo_path = "Upgrades/Iron/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
