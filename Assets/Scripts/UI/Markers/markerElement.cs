@@ -60,6 +60,8 @@ public partial class markerElement : Label
         AddToClassList("markerText");
         VE_logo.AddToClassList("markerLogo");
 
+        pickingMode = PickingMode.Ignore;
+
 
         this.schedule.Execute(Update).Every(16); // 16 ms ~ 60 fps
 

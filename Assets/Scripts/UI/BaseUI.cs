@@ -178,6 +178,10 @@ public class BaseUI : MonoBehaviour
             black.style.visibility = Visibility.Visible;
         }
 
+        backButton.clicked -= IronClicked;
+        backButton2.clicked -= IronClicked;
+        upgradeButton.clicked -= forgeUpgradeClicked;
+        upModeButton.clicked -= upModeButtonClicked;
 
         backButton.clicked += IronClicked;
         backButton2.clicked += IronClicked;

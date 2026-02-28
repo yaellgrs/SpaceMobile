@@ -42,7 +42,7 @@ public class UpgradesUraniumElement : UpgradesElement
                 Lbl_description.text = "Time to reload : " + Stats.Instance.rocketTimerMax.ToString("F2");
                 break;
             case UpgradeType.RocketMultiplier:
-                Lbl_description.text = "Damage : x" + Stats.Instance.rocketMultiplier.ToString("F2");
+                Lbl_description.text = "Damage : x" + Ship.Current.damage.rocket_multiplicator.ToString("F2");
                 break;
         }
         //Lbl_description

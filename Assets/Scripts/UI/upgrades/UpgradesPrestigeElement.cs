@@ -86,6 +86,10 @@ public class UpgradesPrestigeElement : UpgradesElement
     {
         return true;
     }
+    public override bool haveLevel(int lv)
+    {
+        return true;
+    }
 
     public override void SetReward()
     {
@@ -113,7 +117,7 @@ public class UpgradesPrestigeElement : UpgradesElement
                 Ship.Current.damage.prestige_multiplicator = 1f + 0.2f * (realLevel);
                 break;
             case UpgradeType.StageSkip:
-                Stats.Instance.prest_damage_multiplicator = realLevel;
+                Stats.Instance.stageSkipProb = realLevel;
                 break;
             case UpgradeType.OmegaProb:
                 Stats.Instance.probabilitéOfOmega = (realLevel + 1) * 5;
