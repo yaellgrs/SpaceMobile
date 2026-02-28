@@ -12,6 +12,7 @@ public class IronUi : BaseUI
     private Button uraniumButton;
     private Button prestigeButton;
     private Label ironLabel;
+    private ScrollView SV_scroll;
     protected override void Start()
     {
         base.Start();
@@ -86,7 +87,7 @@ public class IronUi : BaseUI
         if (forgeUI.gameObject.activeInHierarchy)
         {
             foreach (machineElement machine in Ship.Current.machineIron)
-                machine.LoadMachine();
+                machine.LoadMachine(SV_scroll);
         }
         else
         {
@@ -104,6 +105,7 @@ public class IronUi : BaseUI
         prestigeButton = root.Q<Button>("prestige");
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("forgeUI");
+        SV_scroll = root.Query<ScrollView>("scroll");
         if (!stopAnim)
         {
             if (classActived)
@@ -118,15 +120,15 @@ public class IronUi : BaseUI
             }).StartingIn(50);
         }
 
-        ScrollView scroll = root.Q<ScrollView>("scroll");
-        scroll.Clear();
+
+        SV_scroll.Clear();
 
         bool show = true;
         foreach (machineElement machine in Ship.Current.machineIron)
         {
-            scroll.Add(machine);
+            SV_scroll.Add(machine);
             if (show) { 
-                machine.LoadMachine();
+                machine.LoadMachine(SV_scroll);
                 machine.style.display = DisplayStyle.Flex;
             }
             else machine.style.display = DisplayStyle.None;

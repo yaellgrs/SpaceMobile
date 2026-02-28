@@ -10,6 +10,7 @@ public class UraniumUI : BaseUI
     private Button unlockButton;
     private VisualElement uraniumUnlockedVE;
     private Label uraniumLabel;
+    private ScrollView SV_scroll;
 
     protected override void Update()
     {
@@ -95,20 +96,18 @@ public class UraniumUI : BaseUI
         prestigeButton = root.Q<Button>("prestige");
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("forgeUI");
+        SV_scroll = root.Q<ScrollView>("scroll");
 
-/*        ScrollView scroll = root.Q<ScrollView>("scroll");
-        foreach (machineElement machine in Ship.Current.machinesUranium)
-            scroll.Add(machine);*/
-        ScrollView scroll = root.Q<ScrollView>("scroll");
-        scroll.Clear();
+
+        SV_scroll.Clear();
 
         bool show = true;
         foreach (machineElement machine in Ship.Current.machinesUranium)
         {
-            scroll.Add(machine);
+            SV_scroll.Add(machine);
             if (show)
             {
-                machine.LoadMachine();
+                machine.LoadMachine(SV_scroll);
                 machine.style.display = DisplayStyle.Flex;
             }
             else machine.style.display = DisplayStyle.None;
@@ -137,7 +136,7 @@ public class UraniumUI : BaseUI
             upUraniumLabel();
 
             foreach (machineUraniumElement machine in Ship.Current.machinesUranium)
-                machine.LoadMachine();
+                machine.LoadMachine(SV_scroll);
         }
         else
             uraniumUnlockedVE.style.visibility = Visibility.Visible;

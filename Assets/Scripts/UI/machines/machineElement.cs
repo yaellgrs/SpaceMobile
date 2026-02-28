@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
+using UnityEngine.Video;
 
 public enum borderColor { white, bronze, iron, gold, diamand, black };
 
@@ -35,6 +36,9 @@ public partial class machineElement : Button
     [JsonIgnore] public Label Lbl_reward;
     [JsonIgnore] public Label Lbl_name;
     [JsonIgnore] public VisualElement VE_logo;
+
+    //parent
+    [JsonIgnore] public ScrollView SV_parent;
 
     #endregion
 
@@ -196,8 +200,9 @@ public partial class machineElement : Button
     #endregion
 
     #region ------ mainworkflow -------
-    public virtual void LoadMachine()// a revoir
+    public virtual void LoadMachine(ScrollView parent)// a revoir
     {
+        SV_parent = parent;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
 
@@ -245,10 +250,16 @@ public partial class machineElement : Button
         }
         else if (isBuyed) 
         {
-            HandleMoney(CalculReward());
+            getProduction();
             if (this is machineIronElement && !Stats.Instance.ironTuto)
                 Tuto.Instance.AddMachineClicked();
         }
+    }
+
+    private void getProduction()
+    {
+        HandleMoney(CalculReward());
+        if (IsVisibleInScrollView()) LauncherMarker();
     }
 
     protected virtual void LevelUp()
@@ -303,7 +314,7 @@ public partial class machineElement : Button
         if (production_cps > 0) {
             time += Time.deltaTime;
             if (time >= (1.0f / (float)production_cps)){
-                HandleMoney(CalculReward());
+                getProduction();
                 time = 0f;
             }
         }
@@ -372,7 +383,6 @@ public partial class machineElement : Button
         reward.Add(lvl - 1);
 
         reward *= BN_price *0.055f;
-        Debug.Log("machine :  " + machineName + " reward: " + reward.ToString() + " price : " + BN_price.ToString() );
         return reward;
     }
 
@@ -459,6 +469,25 @@ public partial class machineElement : Button
         nextColorlevel = levelColor[(int)color];
     }
 
+    public bool IsVisibleInScrollView()
+    {
+        if (panel == null || SV_parent == null) return false;
+
+        Rect rect = this.worldBound;
+        Rect machineRect = new Rect(
+            rect.x, 
+            rect.y,
+            rect.width,
+            rect.height * 0.25f
+        );
+
+
+        // Rect visible du viewport
+        Rect scrollRect = SV_parent.contentViewport.worldBound;
+
+        return machineRect.Overlaps(scrollRect);
+    }
+
     #endregion
 
     #region ------ virtual methods ------
@@ -483,6 +512,11 @@ public partial class machineElement : Button
     }
 
     protected virtual void SetLogo()
+    {
+
+    }
+
+    protected virtual void LauncherMarker()
     {
 
     }

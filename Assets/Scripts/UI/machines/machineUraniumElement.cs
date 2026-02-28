@@ -39,4 +39,10 @@ public class machineUraniumElement : machineElement
         VE_logo.style.backgroundImage = new StyleBackground(texture);
 
     }
+
+    protected override void LauncherMarker()
+    {
+        Vector2 panelPos = new Vector2(VE_logo.worldBound.position.x, VE_logo.worldBound.position.y * 0.95f);
+        MarkersUI.Instance.ShowMarker(panelPos, "+" + CalculReward(), MarkerType.Uranium, fontFactor: 0.7f);
+    }
 }

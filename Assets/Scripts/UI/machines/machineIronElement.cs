@@ -48,4 +48,10 @@ public class machineIronElement : machineElement
         Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
     }
+
+    protected override void LauncherMarker()
+    {
+        Vector2 panelPos = new Vector2(VE_logo.worldBound.position.x, VE_logo.worldBound.position.y *0.95f);
+        MarkersUI.Instance.ShowMarker(panelPos, "+" + CalculReward(), MarkerType.Iron, fontFactor : 0.7f);
+    }
 }

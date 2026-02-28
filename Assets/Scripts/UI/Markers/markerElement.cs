@@ -12,9 +12,8 @@ public partial class markerElement : Label
     #endregion
 
 
-
-    #region variables
-    private static Color[] COLORS ={ 
+    #region constantes
+    private static Color[] COLORS ={
         Hex("#00F9FF"), //Xp
         Hex("#FF0000"), //Diamand
         Hex("#FF0E00"), //Damage
@@ -25,13 +24,18 @@ public partial class markerElement : Label
     };
 
     private const float DISPLAY_TIME = 2f;
-    private const float MOVE_Y = 4f;
+    private const float MOVE_Y = 2f;
+    private const float BASE_FONT_SIZE = 70f;
+    #endregion
+
+    #region variables
+
 
     public MarkerType type;
 
     private float timer = 0f;
 
-    public float alpha_decrease = 0.975f;
+    public float alpha_decrease = 0.95f;
     public float speed = 1f;
 
     private float move_x = 1f;
@@ -41,7 +45,7 @@ public partial class markerElement : Label
     public markerElement()
     {
         Init();
-        Load(Vector3.zero, "1", MarkerType.Damage);
+        //Load(Vector3.zero, "1", MarkerType.Damage);
     }
 
     private void Init()
@@ -56,20 +60,29 @@ public partial class markerElement : Label
         AddToClassList("markerText");
         VE_logo.AddToClassList("markerLogo");
 
+
         this.schedule.Execute(Update).Every(16); // 16 ms ~ 60 fps
 
         Add(VE_logo);
     }
 
-    public void Load(Vector2 pos, string text, MarkerType type)
+    public void Load(Vector2 pos, string text, MarkerType type, float speed, float alpha_decrease, float fontFactor)
     {
         timer = 0f;
         active = true;
         style.translate = new Translate(0, 0, 0);
         style.color = new Color(resolvedStyle.color.r, resolvedStyle.color.g, resolvedStyle.color.b, 1f);
         SetAlpha(1f);
+
         this.text = text;
         this.type = type;
+        this.speed = speed;
+        this.alpha_decrease = alpha_decrease;
+
+        //reset le inline style du font 
+        style.fontSize = BASE_FONT_SIZE * fontFactor;
+        style.height = Length.Percent(3f * fontFactor);
+        
 
         style.left = pos.x;
         style.top = pos.y;

@@ -24,7 +24,7 @@ public class MarkersUI : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.T)) ShowMarker();
     }
 
-    public void ShowMarker(Vector3 pos, string txt, MarkerType type, float speed = 1f, float alpha_decrease = 0.975f, float fontFactor = 1f)
+    public void ShowMarker(Vector3 pos, string txt, MarkerType type, float speed = 1f, float alpha_decrease = 0.95f, float fontFactor = 1f)
     {
 /*        Vector3 screenPos = Camera.main.WorldToScreenPoint(pos);
         Vector2 panelPos = RuntimePanelUtils.ScreenToPanel(document.rootVisualElement.panel, screenPos);*/
@@ -36,7 +36,7 @@ public class MarkersUI : MonoBehaviour
         ShowMarker(panelPos, txt, type, speed, alpha_decrease, fontFactor);
     }
 
-    public void ShowMarker(Vector2 panelPos, string txt, MarkerType type, float speed, float alpha_decrease, float fontFactor)
+    public void ShowMarker(Vector2 panelPos, string txt, MarkerType type, float speed = 1f, float alpha_decrease = 0.95f, float fontFactor = 1f)
     {
         markerElement m;
         if(markers.Count > 0)
@@ -47,7 +47,7 @@ public class MarkersUI : MonoBehaviour
         else
             m = new markerElement();
 
-        m.Load(panelPos, txt, type);
+        m.Load(panelPos, txt, type, speed, alpha_decrease, fontFactor);
         document.rootVisualElement.Add(m);
     }
 
