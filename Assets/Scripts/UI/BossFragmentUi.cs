@@ -41,7 +41,7 @@ public class BossFragmentUi : MonoBehaviour
     private void OnEnable()
     {
         var root = document.rootVisualElement;
-        gameManager.instance.SetPause(true);
+        if(gameManager.instance != null) gameManager.instance.SetPause(true);
 
         #region transition
         VisualElement main = root.Q<VisualElement>("main");
@@ -112,7 +112,7 @@ public class BossFragmentUi : MonoBehaviour
 
     private void getReward()
     {
-        Vector2 panelPos = Lbl_reward.worldBound.position;
+        Vector2 panelPos = new Vector2(Lbl_reward.worldBound.position.x *1.25f, Lbl_reward.worldBound.position.y);
         MarkersUI.Instance.ShowMarker(panelPos, "1", MarkerType.Damage);
         //PoolManager.Instance.LaunchPrefab(pos, calculReward().ToString(), MarkerType.Damage);
     }

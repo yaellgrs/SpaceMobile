@@ -85,7 +85,7 @@ public class UpgradesIronElement : UpgradesElement
 
                 Ship.Current.life.Set(spaceShip.instance.getMaxLife());
                 Ship.Current.life.Subtract(diff);
-                MainUi.Instance.upHealthBar();
+                if(MainUi.Instance != null) MainUi.Instance.upHealthBar();
                 break;
             case UpgradeType.Damage:
                 Ship.Current.damage.initial.Set(1);

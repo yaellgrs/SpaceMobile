@@ -11,9 +11,19 @@ public partial class markerElement : Label
     private VisualElement VE_logo;
     #endregion
 
+
+
     #region variables
-    private static Color[] COLORS = 
-    { Color.blue, Color.blue, Color.red, Color.orange, Color.green, Color.orange, Color.yellow };
+    private static Color[] COLORS ={ 
+        Hex("#00F9FF"), //Xp
+        Hex("#FF0000"), //Diamand
+        Hex("#FF0E00"), //Damage
+        Hex("#FFA300"), //Iron
+        Hex("#00FF05"),  //Uranium
+        Hex("#Damage"),  //Crtique
+        Hex("#FAFF00"),  //Prestige
+    };
+
     private const float DISPLAY_TIME = 2f;
     private const float MOVE_Y = 4f;
 
@@ -107,5 +117,12 @@ public partial class markerElement : Label
         style.color = new Color(resolvedStyle.color.r, resolvedStyle.color.g, resolvedStyle.color.b, alpha);
         VE_logo.style.unityBackgroundImageTintColor = new Color(VE_logo.resolvedStyle.unityBackgroundImageTintColor.r, VE_logo.resolvedStyle.unityBackgroundImageTintColor.g, VE_logo.resolvedStyle.unityBackgroundImageTintColor.b, alpha);
 
+    }
+
+    private static Color Hex(string hex)
+    {
+        //retourn une couleur a partir d'un hexa décimal
+        ColorUtility.TryParseHtmlString(hex, out Color color);
+        return color;
     }
 }
