@@ -1,3 +1,4 @@
+using GoogleMobileAds.Api;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,28 +29,28 @@ public class UpgradesUraniumElement : UpgradesElement
         BigNumber bonus = GetReward(level + getMulitplicator());
         bonus.Subtract(GetReward(level));
 
-        Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.ToString()})</color>";
-/*        switch (type)
-        {
-            case UpgradeType.SpeedAuto:
-                Lbl_description.text = "Shoot/s : " + ((1f / (Stats.Instance.speedAuto))).ToString("F2");
-                break;
-            case UpgradeType.AreaSlow:
-                Lbl_description.text = "meteors speed : x" + (1f / Stats.Instance.areaSpeed).ToString("F2");
-                break;
-            case UpgradeType.AreaWidth:
-                Lbl_description.text = "Area Width : " + Stats.Instance.areaSize.ToString("F2");
-                break;
-            case UpgradeType.WorldSize:
-                Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
-                break;
-            case UpgradeType.RocketReload:
-                Lbl_description.text = "Time to reload : " + Stats.Instance.rocketTimerMax.ToString("F2");
-                break;
-            case UpgradeType.RocketMultiplier:
-                Lbl_description.text = "Damage : x" + Ship.Current.damage.rocket_multiplicator.ToString("F2");
-                break;
-        }*/
+        Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.getNormalNotation(false)})</color>";
+        /*        switch (type)
+                {
+                    case UpgradeType.SpeedAuto:
+                        Lbl_description.text = "Shoot/s : " + ((1f / (Stats.Instance.speedAuto))).ToString("F2");
+                        break;
+                    case UpgradeType.AreaSlow:
+                        Lbl_description.text = "meteors speed : x" + (1f / Stats.Instance.areaSpeed).ToString("F2");
+                        break;
+                    case UpgradeType.AreaWidth:
+                        Lbl_description.text = "Area Width : " + Stats.Instance.areaSize.ToString("F2");
+                        break;
+                    case UpgradeType.WorldSize:
+                        Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
+                        break;
+                    case UpgradeType.RocketReload:
+                        Lbl_description.text = "Time to reload : " + Stats.Instance.rocketTimerMax.ToString("F2");
+                        break;
+                    case UpgradeType.RocketMultiplier:
+                        Lbl_description.text = "Damage : x" + Ship.Current.damage.rocket_multiplicator.ToString("F2");
+                        break;
+                }*/
         //Lbl_description
 
         string logo_path = "Upgrades/Uranium/" + type.ToString();
@@ -61,17 +62,17 @@ public class UpgradesUraniumElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.SpeedAuto:
-                return "Shoot/s : " + ((1f / (Stats.Instance.speedAuto))).ToString("F2");
+                return Stats.Instance.speedAuto.ToString("F2");
             case UpgradeType.AreaSlow:
-                return Lbl_description.text = "meteors speed : x" + (1f / Stats.Instance.areaSpeed).ToString("F2");
+                return Stats.Instance.areaSpeed.ToString("F2");
             case UpgradeType.AreaWidth:
-                return Lbl_description.text = "Area Width : " + Stats.Instance.areaSize.ToString("F2");
+                return Stats.Instance.areaSize.ToString("F2");
             case UpgradeType.WorldSize:
-                return Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
+                return Stats.Instance.scale.ToString("F1");
             case UpgradeType.RocketReload:
-                return Lbl_description.text = "Time to reload : " + Stats.Instance.rocketTimerMax.ToString("F2");
+                return Stats.Instance.rocketTimerMax.ToString("F2");
             case UpgradeType.RocketMultiplier:
-                return Lbl_description.text = "Damage : x" + Ship.Current.damage.rocket_multiplicator.ToString("F2");
+                return Ship.Current.damage.rocket_multiplicator.ToString("F2");
         }
         return "";
     }
@@ -82,7 +83,6 @@ public class UpgradesUraniumElement : UpgradesElement
         {
             case UpgradeType.SpeedAuto:
                 Stats.Instance.speedAuto = 1f / (0.09f * (level + 1));
-                Debug.Log("speed auto shoot : " + Stats.Instance.speedAuto);
                 break;
             case UpgradeType.AreaSlow:
                 Stats.Instance.areaSpeed = 1f + 0.5f * Mathf.Pow(level + 1, 0.6f);
@@ -107,37 +107,32 @@ public class UpgradesUraniumElement : UpgradesElement
         LoadStat();
     }
 
-/*    public override BigNumber GetReward(int lvl)
+    public override BigNumber GetReward(int lvl)
     {
         BigNumber reward = new BigNumber(0);
         switch (type)
         {
             case UpgradeType.SpeedAuto:
-                reward.Set((int)(1f / (0.09f * (level + 1)) * 100f));
+                reward.Set(1f / (0.09f * (lvl + 1)));
+                break;
             case UpgradeType.AreaSlow:
-                Stats.Instance.areaSpeed = 1f + 0.5f * Mathf.Pow(level + 1, 0.6f);
+                reward.Set(1f + 0.5f * Mathf.Pow(lvl + 1, 0.6f));
                 break;
             case UpgradeType.AreaWidth:
-                Stats.Instance.areaSize = 1f + 0.3f * Mathf.Pow(level, 0.4f);
-                spaceShip.instance.setAreaScale();
+                reward.Set(1f + 0.3f * Mathf.Pow(lvl, 0.4f));
                 break;
             case UpgradeType.WorldSize:
-                Stats.Instance.scale = 1f;
-                Stats.Instance.scale = Mathf.Pow(0.992f, level + 1);
-                gameManager.instance.SetWorldScale();
+                reward.Set(Mathf.Pow(0.992f, lvl + 1));
                 break;
             case UpgradeType.RocketReload:
-                Stats.Instance.rocketTimerMax = 25f - Mathf.Pow(level, 0.4f);
+                reward.Set(25f - Mathf.Pow(lvl, 0.4f));
                 break;
             case UpgradeType.RocketMultiplier:
-                Ship.Current.damage.rocket_multiplicator = 5f + 0.25f * Mathf.Pow(level - 1, 1.15f);
+                reward.Set(5f + 0.25f * Mathf.Pow(lvl - 1, 1.15f));
                 break;
         }
-        break;
-        }
         return reward;
-    }*/
-
+    }
 
     protected override void PayCost()
     {
