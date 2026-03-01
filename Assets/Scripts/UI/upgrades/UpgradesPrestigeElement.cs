@@ -69,15 +69,19 @@ public class UpgradesPrestigeElement : UpgradesElement
             Lbl_description.text = localizeValue.ToString();
         };
         localizeUpgrades.RefreshString();
+
     }
 
     public override void LoadLevelUI()
     {
         string levevelTxt = "lv " + level.ToString();
+
         if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
         {
-            levevelTxt += " (+" + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel] + " )"; 
+            levevelTxt += "<color=yellow>[+" + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel] + "]</color>"; 
         }
+        levevelTxt += $"<color=cyan> (+{getMulitplicator()})</color>";
+
         Lbl_level.text = levevelTxt;
         Lbl_levelUpCost.style.display = DisplayStyle.Flex;
     }

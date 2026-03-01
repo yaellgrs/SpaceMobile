@@ -66,6 +66,21 @@ public class PrestigeUI : BaseUI
         upgradeShip.gameObject.SetActive(false);
     }
 
+    protected override void upModeButtonClicked()
+    {
+        base.upModeButtonClicked();
+        if (forgeUI.gameObject.activeInHierarchy)
+        {
+            foreach (UpgradesElement up in Stats.Instance.upgradesPrestige)
+                up.Load();
+        }
+/*      else
+        {
+            foreach (UpgradesElement upgrade in Ship.Current.upgradesIron)
+                upgrade.Load();
+        }*/
+    }
+
 
     public void addNewUpgrades(int prestige)
     {

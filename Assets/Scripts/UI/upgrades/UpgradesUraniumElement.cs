@@ -30,27 +30,7 @@ public class UpgradesUraniumElement : UpgradesElement
         bonus.Subtract(GetReward(level));
 
         Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.getNormalNotation(false)})</color>";
-        /*        switch (type)
-                {
-                    case UpgradeType.SpeedAuto:
-                        Lbl_description.text = "Shoot/s : " + ((1f / (Stats.Instance.speedAuto))).ToString("F2");
-                        break;
-                    case UpgradeType.AreaSlow:
-                        Lbl_description.text = "meteors speed : x" + (1f / Stats.Instance.areaSpeed).ToString("F2");
-                        break;
-                    case UpgradeType.AreaWidth:
-                        Lbl_description.text = "Area Width : " + Stats.Instance.areaSize.ToString("F2");
-                        break;
-                    case UpgradeType.WorldSize:
-                        Lbl_description.text = "WorldSize : " + ((200f / Stats.Instance.scale) - 199f).ToString("F1");
-                        break;
-                    case UpgradeType.RocketReload:
-                        Lbl_description.text = "Time to reload : " + Stats.Instance.rocketTimerMax.ToString("F2");
-                        break;
-                    case UpgradeType.RocketMultiplier:
-                        Lbl_description.text = "Damage : x" + Ship.Current.damage.rocket_multiplicator.ToString("F2");
-                        break;
-                }*/
+
         //Lbl_description
 
         string logo_path = "Upgrades/Uranium/" + type.ToString();
