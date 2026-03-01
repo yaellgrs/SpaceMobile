@@ -59,6 +59,12 @@ public class BigNumber
         Normalize();
     }
 
+    public void round()
+    {
+        Mantisse = Math.Round(Mantisse * Math.Pow(10, Exp));
+        Exp = 0;
+    }
+
     public void Normalize()
     {
         if (Mantisse == 0)
@@ -301,10 +307,15 @@ public class BigNumber
     {
         if (Mantisse == 0) return "0";
 
-        if (Exp < 0)// 1.32e-2
+        if (Exp < 0 && !round)// 1.32e-2
         {
             double realValue = Mantisse * Math.Pow(10, Exp);//0.0132
             return realValue.ToString("F2");//0.01
+        }
+        else if(Exp < 0)
+        {
+            Mantisse = Math.Round(Mantisse * Math.Pow(10, Exp));
+            Exp = 0;
         }
 
         string prefix;

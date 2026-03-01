@@ -381,6 +381,8 @@ public partial class machineElement : Button
         reward.Add(lvl - 1);
 
         reward *= BN_price *0.055f;
+        reward.round();
+        Debug.Log("reward " + reward.getNormalNotation(false));
         return reward;
     }
 
