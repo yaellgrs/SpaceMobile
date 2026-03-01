@@ -27,7 +27,7 @@ public class IronUi : BaseUI
         base.Update();
 
         Rect scrollRect = SV_scroll?.worldBound != null ? SV_scroll.worldBound : new Rect(0f, 0f, 0f, 0f);
-        foreach (machineElement machine in Ship.Current.machineIron)
+        foreach (machineElement machine in Ship.Current.machinesIron)
             machine.Update(scrollRect);
         upIronRaffinedUi();
     }
@@ -88,7 +88,7 @@ public class IronUi : BaseUI
         base.upModeButtonClicked();
         if (forgeUI.gameObject.activeInHierarchy)
         {
-            foreach (machineElement machine in Ship.Current.machineIron)
+            foreach (machineElement machine in Ship.Current.machinesIron)
                 machine.LoadMachine();
         }
         else
@@ -127,7 +127,7 @@ public class IronUi : BaseUI
 
         bool show = true;
 
-        foreach (machineElement machine in Ship.Current.machineIron)
+        foreach (machineElement machine in Ship.Current.machinesIron)
         {
             SV_scroll.Add(machine);
             if (show) { 
@@ -136,7 +136,7 @@ public class IronUi : BaseUI
             }
             else machine.style.display = DisplayStyle.None;
 
-            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
+            if (!machine.data.isBuyed) show = false; //on affiche pas le reste des machines
         }
 
         uraniumButton.clicked += uraniumClicked;

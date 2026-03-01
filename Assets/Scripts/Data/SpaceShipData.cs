@@ -25,11 +25,13 @@ public class SpaceShipData
     public bool isDead = false;
     public long lastFragmentFight = 0;
 
-    public List<machineIronElement> machineIron = new List<machineIronElement>();
-    public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
+    public List<machineData> dataMachinesIron = new List<machineData>();
+    public List<machineData> dataMachinesUranium = new List<machineData>();
+    [JsonIgnore] public List<machineIronElement> machinesIron = new List<machineIronElement>();
+    [JsonIgnore] public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
 
-    public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
-    public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
+    [JsonIgnore] public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
+    [JsonIgnore] public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
 
     [JsonIgnore] public ShipTempStat damage;
     [JsonIgnore] public ShipTempStat lifeMax;
@@ -71,21 +73,34 @@ public class SpaceShipData
 
     private void LoadMachines()
     {
-        List<machineIronElement> machinesIron = new List<machineIronElement>();
-        machinesIron.Add(new machineIronElement("Anvil", new BigNumber(10)));
-        machinesIron.Add(new machineIronElement("ironMachine", new BigNumber(1, 3)));
-        machinesIron.Add(new machineIronElement("ironMachines", new BigNumber(1, 6)));
-        machinesIron.Add(new machineIronElement("usine", new BigNumber(1, 9)));
-        machinesIron.Add(new machineIronElement("usines", new BigNumber(1, 12)));
-        Utility.AddMachineToData(machinesIron, Ship.Current.machineIron);
+        Debug.LogError("data iron count : " + dataMachinesIron.Count);
+        if (dataMachinesIron.Count == 0)
+        {
+            dataMachinesIron = new List<machineData>
+        {
+            new machineData("Anvil", new BigNumber(10)),
+            new machineData("ironMachine", new BigNumber(1, 3)),
+            new machineData("ironMachines", new BigNumber(1, 6)),
+            new machineData("usine", new BigNumber(1, 9)),
+            new machineData("usines", new BigNumber(1, 12))
+        };
+        }
 
-        List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
-        machinesUranium.Add(new machineUraniumElement("Anvil", new BigNumber(10)));
-        machinesUranium.Add(new machineUraniumElement("ironMachine", new BigNumber(5, 3)));
-        machinesUranium.Add(new machineUraniumElement("ironMachines", new BigNumber(5, 6)));
-        machinesUranium.Add(new machineUraniumElement("usine", new BigNumber(5, 9)));
-        machinesUranium.Add(new machineUraniumElement("usines", new BigNumber(5, 12)));
-        Utility.AddMachineToData(machinesUranium, Ship.Current.machinesUranium);
+        machinesIron.Clear();
+        foreach (var data in dataMachinesIron)
+            machinesIron.Add(new machineIronElement(data));
+
+        List<machineData> dataUranium = new List<machineData>();
+        dataUranium.Add(new machineData("Anvil", new BigNumber(10)));
+        dataUranium.Add(new machineData("ironMachine", new BigNumber(5, 3)));
+        dataUranium.Add(new machineData("ironMachines", new BigNumber(5, 6)));
+        dataUranium.Add(new machineData("usine", new BigNumber(5, 9)));
+        dataUranium.Add(new machineData("usines", new BigNumber(5, 12)));
+
+        Ship.Current.machinesUranium.Clear();
+        Utility.AddMachineToData(dataUranium, Ship.Current.dataMachinesUranium);
+        foreach (machineData data in Ship.Current.dataMachinesUranium)
+            Ship.Current.machinesUranium.Add(new machineUraniumElement(data));
     }
 
     private void LoadUpgrades()

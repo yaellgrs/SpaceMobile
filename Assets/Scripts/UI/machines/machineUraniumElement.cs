@@ -9,8 +9,8 @@ public class machineUraniumElement : machineElement
     {
     }
 
-    public machineUraniumElement(string machineName, BigNumber initPrice)
-        : base(machineName, initPrice)
+    public machineUraniumElement(machineData data)
+        : base(data)
     {
     }
     protected override string getLogoPath()
@@ -35,7 +35,7 @@ public class machineUraniumElement : machineElement
 
     protected override void SetLogo()
     {
-        Texture2D texture = Resources.Load<Texture2D>("logos/uranium/" + machineName);
+        Texture2D texture = Resources.Load<Texture2D>("logos/uranium/" + data.machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
 
     }

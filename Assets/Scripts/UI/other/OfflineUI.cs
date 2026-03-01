@@ -115,14 +115,14 @@ public class OfflineUI : MonoBehaviour
     {
         BigNumber totaEarn = new BigNumber(0);
 
-        foreach (machineIronElement m in Ship.Current.machineIron)
+        foreach (machineIronElement m in Ship.Current.machinesIron)
         {
-            if (m.isBuyed)
+            if (m.data.isBuyed)
             {
-                if(m.isAutomatic || !offline) //!offline = booster acheté
+                if(m.data.production_cps > 0 || !offline) //!offline = booster acheté
                 {
                     BigNumber earn = m.CalculReward();
-                    earn *= time * m.production_cps;
+                    earn *= time * m.data.production_cps;
                     totaEarn.Add(earn);
                 }
             }
@@ -142,12 +142,12 @@ public class OfflineUI : MonoBehaviour
 
         foreach (machineUraniumElement m in Ship.Current.machinesUranium)
         {
-            if (m.isBuyed)
+            if (m.data.isBuyed)
             {
-                if (m.isAutomatic || !offline) //!offline = booster acheté
+                if (m.data.production_cps > 0 || !offline) //!offline = booster acheté
                 {
                     BigNumber earn = m.CalculReward();
-                    earn *= time * m.production_cps;
+                    earn *= time * m.data.production_cps;
                     totaEarn.Add(earn);
                 }
             }

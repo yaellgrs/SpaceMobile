@@ -315,8 +315,6 @@ public class XpUI : MonoBehaviour
 		Stats.Instance.life_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
 		Stats.Instance.shield_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.1f;
 
-        setBonusAutoFer();
-        setBonusAutoUranium();
         if (rewardUnlocked(BonusLevel.UnlockPrestige) ) Stats.Instance.prestigeUnlocked = true;
         if (rewardUnlocked(BonusLevel.UnlockUranium) )
         {
@@ -374,38 +372,6 @@ public class XpUI : MonoBehaviour
         return cpt;
     }
 
-    public void setBonusAutoFer()
-    {
-        int x = GetEnumRewardCount(BonusLevel.FerAuto);
-
-        for (int i = 0; i < Ship.Current.machineIron.Count; i++)
-        {
-            if (x > i)
-            {
-                Ship.Current.machineIron[i].isAutomatic = true;
-            }
-            else
-            {
-                Ship.Current.machineIron[i].isAutomatic = false;
-            }
-        }
-    }
-    public void setBonusAutoUranium()
-    {
-        int x = GetEnumRewardCount(BonusLevel.UraniumAuto);
-
-        for (int i = 0; i < Ship.Current.machinesUranium.Count; i++)
-        {
-            if (x > i)
-            {
-                Ship.Current.machinesUranium[i].isAutomatic = true;
-            }
-            else
-            {
-                Ship.Current.machinesUranium[i].isAutomatic = false;
-            }
-        }
-    }
 
     private void setRewardText(Label lab)
     {

@@ -113,7 +113,7 @@ public class UraniumUI : BaseUI
             }
             else machine.style.display = DisplayStyle.None;
 
-            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
+            if (!machine.data.isBuyed) show = false; //on affiche pas le reste des machines
         }
 
         if (classActived)

@@ -321,8 +321,8 @@ public class PrestigeUI : BaseUI
 
         Ship.Current.stage = 1;
 
-        Ship.Current.machineIron.Clear();
-        Ship.Current.upgradesIron.Clear();
+        Ship.Current.dataMachinesIron.Clear();
+        Ship.Current.dataMachinesIron.Clear();
 
         Ship.Current.machinesUranium.Clear();
         Ship.Current.upgradesUranium.Clear();
@@ -347,9 +347,6 @@ public class PrestigeUI : BaseUI
 
         backClicked(forgeUI);
         backClicked(buyUI);
-
-        MainUi.Instance.xpUI.setBonusAutoFer();
-        MainUi.Instance.xpUI.setBonusAutoUranium();
 
         if(QuestManager.Instance.type == QuestType.GetStarParticle)
         {
@@ -388,6 +385,7 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
         Data.Instance.PrestigeCount += 1;
+        Ship.Current.Load();
 
         gameManager.instance.InitGame();
     }

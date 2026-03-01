@@ -11,8 +11,8 @@ public class machineIronElement : machineElement
     {
     }
 
-    public machineIronElement(string machineName, BigNumber initPrice)
-        : base(machineName, initPrice)
+    public machineIronElement(machineData data)
+        : base(data)
     {
     }
 
@@ -45,7 +45,7 @@ public class machineIronElement : machineElement
 
     protected override void SetLogo()
     {
-        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + machineName);
+        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + data.machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
     }
 

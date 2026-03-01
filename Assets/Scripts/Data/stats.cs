@@ -68,8 +68,8 @@ public class Stats
     //Ship
 
     //machines upgrades
-    public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
-    public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
+    [JsonIgnore] public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
+    [JsonIgnore] public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
 
     public float scale = 1f; 
     public float speedAuto = 5f; 
@@ -111,7 +111,7 @@ public class Stats
 
     public float shield_Regen_Time = 4f;
 
-    public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
+    [JsonIgnore] public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
     public BigNumber BN_shipUpgradesMoney = new BigNumber(0);
 
     public int shipFragment = 0;
@@ -211,14 +211,20 @@ public class Stats
         string path = Application.persistentDataPath + "/stats.json";
 
         if (!System.IO.File.Exists(path))
-        {
             return;
-        }
-        else
+
+        var settings = new JsonSerializerSettings
         {
-            string data = System.IO.File.ReadAllText(path);
-            Instance = JsonUtility.FromJson<Stats>(data);
-        }   
+            TypeNameHandling = TypeNameHandling.Auto,
+        };
+
+        string data = System.IO.File.ReadAllText(path);
+
+        Instance = JsonConvert.DeserializeObject<Stats>(data, settings);
+        //Instance = JsonUtility.FromJson<Stats>(data);
+
+        Debug.LogError("Load data");
+
         if(Ship.Current.lifeMax != null )Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
         if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
@@ -226,9 +232,18 @@ public class Stats
     public void save() {
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
         string path = Application.persistentDataPath + "/stats.json";
-        string stat = JsonUtility.ToJson(this);
+
+        var settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto,
+            Formatting = Formatting.Indented
+        };
+        //string stat = JsonUtility.ToJson(this);
+        string stat = JsonConvert.SerializeObject(Instance, settings);
         System.IO.File.WriteAllText(path, stat);
+
         QuestStats.Instance.Save();
         Data.Instance.Save();
     }

@@ -17,6 +17,12 @@ public class BigNumber
     public double Mantisse;
     public int Exp;
 
+    public BigNumber()
+    {
+        Mantisse = 0;
+        Exp = 0;
+    }
+
     public BigNumber(double mantisse, int exp)
     {
         Mantisse = mantisse;
