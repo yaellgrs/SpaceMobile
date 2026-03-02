@@ -68,6 +68,7 @@ public class Stats
     //Ship
 
     //machines upgrades
+    public Dictionary<UpgradeType, UpgradeData> dataUpgradePrestige = new Dictionary<UpgradeType, UpgradeData>();
     [JsonIgnore] public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
 
     public float scale = 1f; 
@@ -110,7 +111,7 @@ public class Stats
 
     public float shield_Regen_Time = 4f;
 
-    [JsonIgnore] public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
+    public Dictionary<UpgradesShipElement.UpgradeType, float> shipUpgradesReward = new Dictionary<UpgradesShipElement.UpgradeType, float>();
     public BigNumber BN_shipUpgradesMoney = new BigNumber(0);
 
     public int shipFragment = 0;
@@ -132,12 +133,15 @@ public class Stats
 
     public Stats()
     {
-        Init();
     }
 
-    public void Init()
+    public static void Init()
     {
-        
+        foreach (var data in Instance.dataUpgradePrestige)
+            Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data.Value, data.Key.ToString(), data.Key));
+
+        if (Ship.Current.lifeMax != null) Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
 
     public void AddDiamand(int amount)
@@ -199,9 +203,7 @@ public class Stats
         //Instance = JsonUtility.FromJson<Stats>(data);
 
         Debug.LogError("Load data");
-
-        if(Ship.Current.lifeMax != null )Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
-        if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
+        Init();
     }
 
     public void save() {

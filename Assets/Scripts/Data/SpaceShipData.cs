@@ -76,7 +76,6 @@ public class SpaceShipData
 
     private void LoadMachines()
     {
-        Debug.LogError("data iron count : " + dataMachinesIron.Count);
         if (dataMachinesIron.Count == 0)
         {
             dataMachinesIron = new List<machineData>
