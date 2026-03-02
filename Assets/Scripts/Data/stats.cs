@@ -4,7 +4,18 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Newtonsoft.Json;
 
-public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
+public static class Ship
+{
+    public static SpaceShipData Current
+    {
+        get
+        {
+            if (Stats.Instance == null)
+                Stats.Initialize(); // assure l'instance avant d'y accéder
+            return Stats.Instance.CurrentSpaceShip;
+        }
+    }
+}
 
 [System.Serializable]
 public class Stats
@@ -140,8 +151,8 @@ public class Stats
         foreach (var data in Instance.dataUpgradePrestige)
             Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data.Value, data.Key.ToString(), data.Key));
 
-        if (Ship.Current.lifeMax != null) Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
-        if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
+        if (Ship.Current?.life != null) Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        if (Ship.Current?.shield != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
 
     public void AddDiamand(int amount)
@@ -200,15 +211,19 @@ public class Stats
         string data = System.IO.File.ReadAllText(path);
 
         Instance = JsonConvert.DeserializeObject<Stats>(data, settings);
-        //Instance = JsonUtility.FromJson<Stats>(data);
+        if(Instance == null)
+        {
+            Instance = new Stats();
+        }
 
-        Debug.LogError("Load data");
         Init();
     }
 
     public void save() {
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+        Debug.LogError("iron up coutn " + Ship.Current.dataUpgradesIron.Count);
 
         string path = Application.persistentDataPath + "/stats.json";
 
@@ -217,7 +232,6 @@ public class Stats
             TypeNameHandling = TypeNameHandling.Auto,
             Formatting = Formatting.Indented
         };
-        //string stat = JsonUtility.ToJson(this);
         string stat = JsonConvert.SerializeObject(Instance, settings);
         System.IO.File.WriteAllText(path, stat);
 

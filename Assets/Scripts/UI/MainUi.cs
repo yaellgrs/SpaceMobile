@@ -220,6 +220,7 @@ public class MainUi : MonoBehaviour
 
     public void loadRocketButton()
     {
+        //if (rocketCover == null) return;
         if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockRocket))
         {
             rocketCover.style.display = DisplayStyle.Flex;
@@ -236,7 +237,6 @@ public class MainUi : MonoBehaviour
 
     private void Fire()
     {
-        Debug.Log("fire");
         canon.instance.canFire = true;
         canon.instance.moveCanon();
     }

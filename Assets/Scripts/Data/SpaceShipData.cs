@@ -60,6 +60,7 @@ public class SpaceShipData
  
     public void Load()
     {
+
         LoadMachines();
         LoadUpgrades();
 
@@ -78,6 +79,7 @@ public class SpaceShipData
     {
         if (dataMachinesIron.Count == 0)
         {
+            Debug.LogError("LOAD data machine iron");
             dataMachinesIron = new List<machineData>
             {
                 new machineData("Anvil", new BigNumber(10)),
@@ -100,12 +102,18 @@ public class SpaceShipData
         }
 
         machinesIron.Clear();
-        foreach (var data in dataMachinesIron)
-            machinesIron.Add(new machineIronElement(data));
+        foreach (var data in dataMachinesIron){
+            machineIronElement m = new machineIronElement(data);
+            if (!machinesIron.Contains(m))
+                machinesIron.Add(m);
+        }
 
         machinesUranium.Clear();
-        foreach (var data in dataMachinesUranium)
-            machinesUranium.Add(new machineUraniumElement(data));
+        foreach (var data in dataMachinesUranium){
+            machineUraniumElement m = new machineUraniumElement(data);
+            if (!machinesUranium.Contains(m))
+                machinesUranium.Add(m);
+        }
     }
 
     private void LoadUpgrades()
@@ -141,15 +149,21 @@ public class SpaceShipData
         upgradesShip.Clear();
         foreach (var data in dataUpgradesIron)
         {
-            upgradesIron.Add(new UpgradesIronElement(data.Value, data.Key.ToString(), data.Key));
+            UpgradesIronElement up = new UpgradesIronElement(data.Value, data.Key.ToString(), data.Key);
+            if (!upgradesIron.Contains(up))
+                upgradesIron.Add(up);
         }
         foreach (var data in dataUpgradesUranium)
         {
-            upgradesUranium.Add(new UpgradesUraniumElement(data.Value, data.Key.ToString(), data.Key));
+            UpgradesUraniumElement up = new UpgradesUraniumElement(data.Value, data.Key.ToString(), data.Key);
+            if (!upgradesUranium.Contains(up))
+                upgradesUranium.Add(up);
         }
         foreach (var data in dataUpgradesShip)
         {
-            upgradesShip.Add(new UpgradesShipElement(data.Value, data.Key.ToString(), data.Key));
+            UpgradesShipElement up = new UpgradesShipElement(data.Value, data.Key.ToString(), data.Key);
+            if (!upgradesShip.Contains(up))
+                upgradesShip.Add(up);
         }
     }
 
