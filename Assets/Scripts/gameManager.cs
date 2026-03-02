@@ -88,11 +88,6 @@ public class gameManager : MonoBehaviour
     public void InitGame()
     {
         SetWorldScale();
-        List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
-
-        foreach(UpgradesShipElement.UpgradeType type in System.Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
-            upgradesShip.Add(new UpgradesShipElement(new UpgradeData(), type.ToString(), type));
-        Utility.AddMachineToData(upgradesShip, Stats.Instance.upgradesShip);
     }
 
     public void SetWorldScale()

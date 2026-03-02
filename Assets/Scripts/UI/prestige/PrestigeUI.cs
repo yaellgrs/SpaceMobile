@@ -550,7 +550,7 @@ public class PrestigeUI : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesShipElement upgrade in Stats.Instance.upgradesShip)
+        foreach (UpgradesShipElement upgrade in Ship.Current.upgradesShip)
         {
             if(upgrade.isUnlocked()){
             scroll.Add(upgrade);

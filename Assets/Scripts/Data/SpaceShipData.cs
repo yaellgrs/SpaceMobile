@@ -35,6 +35,9 @@ public class SpaceShipData
     [JsonIgnore] public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
     [JsonIgnore] public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
 
+    public Dictionary<UpgradesShipElement.UpgradeType, UpgradeData> dataUpgradesShip = new Dictionary<UpgradesShipElement.UpgradeType, UpgradeData>();
+    [JsonIgnore] public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
+
     [JsonIgnore] public ShipTempStat damage;
     [JsonIgnore] public ShipTempStat lifeMax;
     [JsonIgnore] public ShipTempStat shieldMax;
@@ -44,8 +47,6 @@ public class SpaceShipData
 
     public BigNumber iron = new BigNumber(0);
     public BigNumber uranium = new BigNumber(0);
-
-
 
     public BigNumber BN_xp { get; private set; } = new BigNumber(0);
     public BigNumber BN_xpMax = new BigNumber(100);
@@ -126,15 +127,30 @@ public class SpaceShipData
                 dataUpgradesUranium[type] = new UpgradeData();
             }
         }
+        if (dataUpgradesShip.Count == 0)
+        {
+            dataUpgradesShip.Clear();
+            foreach (UpgradesShipElement.UpgradeType type in Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
+            {
+                dataUpgradesShip[type] = new UpgradeData();
+            }
+        }
+
+
         upgradesIron.Clear();
+        upgradesUranium.Clear();
+        upgradesShip.Clear();
         foreach (var data in dataUpgradesIron)
         {
             upgradesIron.Add(new UpgradesIronElement(data.Value, data.Key.ToString(), data.Key));
         }
-        upgradesUranium.Clear();
         foreach (var data in dataUpgradesUranium)
         {
-            upgradesIron.Add(new UpgradesUraniumElement(data.Value, data.Key.ToString(), data.Key));
+            upgradesUranium.Add(new UpgradesUraniumElement(data.Value, data.Key.ToString(), data.Key));
+        }
+        foreach (var data in dataUpgradesShip)
+        {
+            upgradesShip.Add(new UpgradesShipElement(data.Value, data.Key.ToString(), data.Key));
         }
     }
 
@@ -155,10 +171,8 @@ public class SpaceShipData
             upgrade.SetReward();
         foreach (var upgrade in Stats.Instance.upgradesPrestige)
             upgrade.SetReward();
-        foreach (var up in Stats.Instance.upgradesShip)
-        {
+        foreach (var up in upgradesShip)
             up.SetReward();
-        }
     }
 
 
