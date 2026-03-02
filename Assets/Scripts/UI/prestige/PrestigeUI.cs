@@ -92,7 +92,7 @@ public class PrestigeUI : BaseUI
         else
             type = Stats.Instance.nextPrestigeToBuy2;
 
-        Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(type.ToString(), type));
+        Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(new UpgradeData(), type.ToString(), type));
 
         if (prestige == 1)
             Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy);

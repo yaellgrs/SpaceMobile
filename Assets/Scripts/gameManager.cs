@@ -91,7 +91,7 @@ public class gameManager : MonoBehaviour
         List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
 
         foreach(UpgradesShipElement.UpgradeType type in System.Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
-            upgradesShip.Add(new UpgradesShipElement(type.ToString(), type));
+            upgradesShip.Add(new UpgradesShipElement(new UpgradeData(), type.ToString(), type));
         Utility.AddMachineToData(upgradesShip, Stats.Instance.upgradesShip);
     }
 

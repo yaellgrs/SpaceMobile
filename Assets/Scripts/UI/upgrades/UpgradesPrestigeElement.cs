@@ -19,11 +19,11 @@ public class UpgradesPrestigeElement : UpgradesElement
 
     }
 
-    public UpgradesPrestigeElement(string name, UpgradeType type) : base()
+    public UpgradesPrestigeElement(UpgradeData data, string name, UpgradeType type) : base(data, name)
     {
         this.name = name;
         this.type = type;
-        levelMax = int.MaxValue;
+        data.levelMax = int.MaxValue;
     }
     #endregion
 
@@ -74,7 +74,7 @@ public class UpgradesPrestigeElement : UpgradesElement
 
     public override void LoadLevelUI()
     {
-        string levevelTxt = "lv " + level.ToString();
+        string levevelTxt = "lv " + data.level.ToString();
 
         if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
         {
@@ -97,7 +97,7 @@ public class UpgradesPrestigeElement : UpgradesElement
 
     public override void SetReward()
     {
-        int realLevel = level;
+        int realLevel = data.level;
         if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
         {
             realLevel += (int)Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel];

@@ -153,7 +153,7 @@ public class Stats
         List<UpgradesElement> upShip = new List<UpgradesElement>();
         foreach (UpgradesShipElement.UpgradeType type in Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
         {
-            upShip.Add(new UpgradesShipElement(type.ToString(), type));
+            upShip.Add(new UpgradesShipElement(new UpgradeData(), type.ToString(), type));
         }
         Utility.AddMachineToData(upShip, upgradesShip);
 

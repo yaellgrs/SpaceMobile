@@ -139,7 +139,7 @@ public partial class machineElement : Button
 
     public machineElement()
     {
-        data = new machineData("default", new BigNumber(0));
+        data = new machineData();
         Init();
     }
 

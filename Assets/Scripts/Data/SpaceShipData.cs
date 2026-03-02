@@ -30,6 +30,8 @@ public class SpaceShipData
     [JsonIgnore] public List<machineIronElement> machinesIron = new List<machineIronElement>();
     [JsonIgnore] public List<machineUraniumElement> machinesUranium = new List<machineUraniumElement>();
 
+    public Dictionary<UpgradesIronElement.UpgradeType, UpgradeData> dataUpgradesIron = new Dictionary<UpgradesIronElement.UpgradeType, UpgradeData>();
+    public Dictionary<UpgradesUraniumElement.UpgradeType, UpgradeData> dataUpgradesUranium = new Dictionary<UpgradesUraniumElement.UpgradeType, UpgradeData>();
     [JsonIgnore] public List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
     [JsonIgnore] public List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
 
@@ -77,46 +79,63 @@ public class SpaceShipData
         if (dataMachinesIron.Count == 0)
         {
             dataMachinesIron = new List<machineData>
+            {
+                new machineData("Anvil", new BigNumber(10)),
+                new machineData("ironMachine", new BigNumber(1, 3)),
+                new machineData("ironMachines", new BigNumber(1, 6)),
+                new machineData("usine", new BigNumber(1, 9)),
+                new machineData("usines", new BigNumber(1, 12))
+            };
+        }
+        if (dataMachinesUranium.Count == 0)
         {
-            new machineData("Anvil", new BigNumber(10)),
-            new machineData("ironMachine", new BigNumber(1, 3)),
-            new machineData("ironMachines", new BigNumber(1, 6)),
-            new machineData("usine", new BigNumber(1, 9)),
-            new machineData("usines", new BigNumber(1, 12))
-        };
+            dataMachinesUranium = new List<machineData>
+            {
+                new machineData("Anvil", new BigNumber(10)),
+                new machineData("ironMachine", new BigNumber(5, 3)),
+                new machineData("ironMachines", new BigNumber(5, 6)),
+                new machineData("usine", new BigNumber(5, 9)),
+                new machineData("usines", new BigNumber(5, 12))
+            };
         }
 
         machinesIron.Clear();
         foreach (var data in dataMachinesIron)
             machinesIron.Add(new machineIronElement(data));
 
-        List<machineData> dataUranium = new List<machineData>();
-        dataUranium.Add(new machineData("Anvil", new BigNumber(10)));
-        dataUranium.Add(new machineData("ironMachine", new BigNumber(5, 3)));
-        dataUranium.Add(new machineData("ironMachines", new BigNumber(5, 6)));
-        dataUranium.Add(new machineData("usine", new BigNumber(5, 9)));
-        dataUranium.Add(new machineData("usines", new BigNumber(5, 12)));
-
-        Ship.Current.machinesUranium.Clear();
-        Utility.AddMachineToData(dataUranium, Ship.Current.dataMachinesUranium);
-        foreach (machineData data in Ship.Current.dataMachinesUranium)
-            Ship.Current.machinesUranium.Add(new machineUraniumElement(data));
+        machinesUranium.Clear();
+        foreach (var data in dataMachinesUranium)
+            machinesUranium.Add(new machineUraniumElement(data));
     }
 
     private void LoadUpgrades()
     {
-        List<UpgradesElement> upgradesIron = new List<UpgradesElement>();
-        foreach(UpgradesIronElement.UpgradeType type in Enum.GetValues(typeof(UpgradesIronElement.UpgradeType))){
-            upgradesIron.Add(new UpgradesIronElement(type.ToString(), type));
-        }
-        Utility.AddMachineToData(upgradesIron, Ship.Current.upgradesIron);
-
-        List<UpgradesElement> upgradesUranium = new List<UpgradesElement>();
-        foreach (UpgradesUraniumElement.UpgradeType type in Enum.GetValues(typeof(UpgradesUraniumElement.UpgradeType)))
+        if (dataUpgradesIron.Count == 0)
         {
-            upgradesUranium.Add(new UpgradesUraniumElement(type.ToString(), type));
+            dataUpgradesIron.Clear();
+            foreach (UpgradesIronElement.UpgradeType type in Enum.GetValues(typeof(UpgradesIronElement.UpgradeType)))
+            {
+                dataUpgradesIron[type] = new UpgradeData();
+            }
         }
-        Utility.AddMachineToData(upgradesUranium, Ship.Current.upgradesUranium);
+        if (dataUpgradesUranium.Count == 0)
+        {
+            dataUpgradesUranium.Clear();
+            foreach (UpgradesUraniumElement.UpgradeType type in Enum.GetValues(typeof(UpgradesUraniumElement.UpgradeType)))
+            {
+                dataUpgradesUranium[type] = new UpgradeData();
+            }
+        }
+        upgradesIron.Clear();
+        foreach (var data in dataUpgradesIron)
+        {
+            upgradesIron.Add(new UpgradesIronElement(data.Value, data.Key.ToString(), data.Key));
+        }
+        upgradesUranium.Clear();
+        foreach (var data in dataUpgradesUranium)
+        {
+            upgradesIron.Add(new UpgradesUraniumElement(data.Value, data.Key.ToString(), data.Key));
+        }
     }
 
     public void InitTempData()

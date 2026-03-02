@@ -1,8 +1,20 @@
+using System;
 using System.Drawing;
 using System.Net.Sockets;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+
+[Serializable]
+public class UpgradeData
+{
+
+    public int level = 1;
+    public int levelMax = 100;
+
+    public int multiplicator = 1;
+}
+
 
 [UxmlElement]
 public partial class UpgradesElement : VisualElement
@@ -27,13 +39,7 @@ public partial class UpgradesElement : VisualElement
     #endregion
 
     #region ----- variables -----
-
-    protected int level = 1;
-    protected int levelMax = 100;
-
-    private int multiplicator = 1;
-    protected string upgradesname = "name";
-
+    public UpgradeData data;
 
     #endregion
 
@@ -44,9 +50,10 @@ public partial class UpgradesElement : VisualElement
         Init();
     }
 
-    public UpgradesElement(string name)
+    public UpgradesElement(UpgradeData data, string name)
     {
         this.name = name;
+        this.data = data;
         Init();
     }
 
@@ -122,7 +129,7 @@ public partial class UpgradesElement : VisualElement
     #region ----- Loads ----
     public void Load()
     {
-        if (level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement) level = Stats.Instance.MinimalLevel;
+        if (data.level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement) data.level = Stats.Instance.MinimalLevel;
 
         LoadStat();
         LoadUI();
@@ -139,10 +146,10 @@ public partial class UpgradesElement : VisualElement
 
     public void LoadUI()
     {
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, levelMax - level);
+        data.multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, data.levelMax - data.level);
 
         //check if the player can upgrade
-        VE_levelUpLockCover.style.visibility = haveLevel(level + (getMulitplicator() - 1)) ? Visibility.Hidden : Visibility.Visible;
+        VE_levelUpLockCover.style.visibility = haveLevel(data.level + (getMulitplicator() - 1)) ? Visibility.Hidden : Visibility.Visible;
 
 
         LoadLevelUI();
@@ -152,21 +159,21 @@ public partial class UpgradesElement : VisualElement
 
     public virtual void LoadLevelUI()
     {
-        if (level >= levelMax) //LEVEL MAX
+        if (data.level >= data.levelMax) //LEVEL MAX
         {
             Lbl_level.text = "lv : MAX";
             Lbl_levelUpCost.style.display = DisplayStyle.None;
         }
         else
         {
-            Lbl_level.text = $"lv {level.ToString()}/{levelMax.ToString()} <color=cyan>(+{getMulitplicator()})</color>";
+            Lbl_level.text = $"lv {data.level.ToString()}/{data.levelMax.ToString()} <color=cyan>(+{getMulitplicator()})</color>";
             Lbl_levelUpCost.style.display = DisplayStyle.Flex;
         }
     }
 
     public virtual bool haveLevel()
     {
-        return haveLevel(level);
+        return haveLevel(data.level);
     }
     public virtual bool haveLevel(int lv)
     {
@@ -182,7 +189,7 @@ public partial class UpgradesElement : VisualElement
 
     private int getRequireLevel(int mult)
     {
-        int targetLevel = level + mult;
+        int targetLevel = data.level + mult;
         int requiredShipLevel = Mathf.CeilToInt(targetLevel / 2f) - 1;
 
         return Mathf.Max(0, requiredShipLevel);
@@ -201,16 +208,16 @@ public partial class UpgradesElement : VisualElement
     protected virtual void LevelUp()
     {
         if (!CanPay() || !haveLevel()) return;
-        if (level < levelMax)
+        if (data.level < data.levelMax)
         {
             PayCost();
-            multiplicator = UpMode.Instance.upModeMultiplicator;
+            data.multiplicator = UpMode.Instance.upModeMultiplicator;
 
-            if (level + multiplicator >= levelMax)
+            if (data.level + data.multiplicator >= data.levelMax)
             {
-                level = levelMax;
+                data.level = data.levelMax;
             }
-            else level += multiplicator;
+            else data.level += data.multiplicator;
 
             SetReward();
 
@@ -230,12 +237,12 @@ public partial class UpgradesElement : VisualElement
         BigNumber calculedNumber = new BigNumber(1, 0);
 
         double r = 1.60;
-        double pow = System.Math.Pow(r, level); // début de la suite
-        multiplicator = Mathf.Max(1, multiplicator);
+        double pow = System.Math.Pow(r, data.level); // début de la suite
+        data.multiplicator = Mathf.Max(1, data.multiplicator);
         calculedNumber.Set(50);
         calculedNumber.Multiply(pow, false);   
         calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer, false);   
-        double factor = (System.Math.Pow(r, multiplicator) - 1) / (r - 1);
+        double factor = (System.Math.Pow(r, data.multiplicator) - 1) / (r - 1);
         calculedNumber.Multiply(factor, false);
 
         calculedNumber.Normalize();
@@ -244,7 +251,7 @@ public partial class UpgradesElement : VisualElement
 
     public int getMulitplicator()
     {
-        return Mathf.Min(levelMax - level, UpMode.Instance.upModeMultiplicator);
+        return Mathf.Min(data.levelMax - data.level, UpMode.Instance.upModeMultiplicator);
     }
 
     #endregion

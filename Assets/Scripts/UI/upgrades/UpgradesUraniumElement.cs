@@ -15,7 +15,7 @@ public class UpgradesUraniumElement : UpgradesElement
     {
     }
 
-    public UpgradesUraniumElement(string name, UpgradeType type) : base(name)
+    public UpgradesUraniumElement(UpgradeData data, string name, UpgradeType type) : base(data, name)
     {
         this.name = name;
         this.type = type;
@@ -26,8 +26,8 @@ public class UpgradesUraniumElement : UpgradesElement
 
     protected override void LoadStat()
     {
-        BigNumber bonus = GetReward(level + getMulitplicator());
-        bonus.Subtract(GetReward(level));
+        BigNumber bonus = GetReward(data.level + getMulitplicator());
+        bonus.Subtract(GetReward(data.level));
 
         Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.getNormalNotation(false)})</color>";
 
@@ -62,25 +62,25 @@ public class UpgradesUraniumElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.SpeedAuto:
-                Stats.Instance.speedAuto = 1f / (0.09f * (level + 1));
+                Stats.Instance.speedAuto = 1f / (0.09f * (data.level + 1));
                 break;
             case UpgradeType.AreaSlow:
-                Stats.Instance.areaSpeed = 1f + 0.5f * Mathf.Pow(level + 1, 0.6f);
+                Stats.Instance.areaSpeed = 1f + 0.5f * Mathf.Pow(data.level + 1, 0.6f);
                 break;
             case UpgradeType.AreaWidth:
-                Stats.Instance.areaSize = 1f + 0.3f * Mathf.Pow(level, 0.4f);
+                Stats.Instance.areaSize = 1f + 0.3f * Mathf.Pow(data.level, 0.4f);
                 spaceShip.instance.setAreaScale();
                 break;
             case UpgradeType.WorldSize:
                 Stats.Instance.scale = 1f;
-                Stats.Instance.scale = Mathf.Pow(0.992f, level + 1);
+                Stats.Instance.scale = Mathf.Pow(0.992f, data.level + 1);
                 gameManager.instance.SetWorldScale();
                 break;
             case UpgradeType.RocketReload:
-                Stats.Instance.rocketTimerMax = 25f - Mathf.Pow(level, 0.4f);
+                Stats.Instance.rocketTimerMax = 25f - Mathf.Pow(data.level, 0.4f);
                 break;
             case UpgradeType.RocketMultiplier:
-                Ship.Current.damage.rocket_multiplicator = 5f + 0.25f * Mathf.Pow(level - 1, 1.15f);
+                Ship.Current.damage.rocket_multiplicator = 5f + 0.25f * Mathf.Pow(data.level - 1, 1.15f);
                 break;
         }
 
