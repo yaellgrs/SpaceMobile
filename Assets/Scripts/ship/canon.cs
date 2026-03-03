@@ -14,7 +14,7 @@ public class canon : MonoBehaviour
     float speed = 100f;
     public float degats = 2f;
     float shootTimer = 0.1f;
-    float timer;
+    float timer = 0f;
 
     public bool canFire = true;
     public float autoTimer = 0;
@@ -38,6 +38,7 @@ public class canon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("is Pause ? " + isPause + "gameManager is pause ? "+ gameManager.instance.isPaused);
         if (!isPause)
         {
             timer += Time.deltaTime;
@@ -52,6 +53,7 @@ public class canon : MonoBehaviour
     {
         if (canFire)
         {
+            Debug.LogError("can fire true" + timer);
             canFire = false;
             Vector3 touchPosition = Input.mousePosition;
 
@@ -70,7 +72,7 @@ public class canon : MonoBehaviour
 
     private void shoot(float angle, Vector3 direction, int type)
     {
-        Debug.Log("shoot");
+        Debug.LogError("shoot");
         Lazer projectil;
         float rocketSpeed = 1f;
         if (type == 0)

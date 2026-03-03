@@ -55,7 +55,7 @@ public class gameManager : MonoBehaviour
             QuestStats.Init();
             Data.Init();
 
-            SetPause(true);
+            SetPause(false);
         }
         else
         {
