@@ -53,7 +53,7 @@ public class Stats
     //ships
     public SpaceShipType currentSpaceShipType = SpaceShipType.Main;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
-    public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
+    [JsonIgnore] public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
 
     //global
     public int diamand { get; private set; } = 100;
@@ -223,7 +223,9 @@ public class Stats
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-        Debug.LogError("iron up coutn " + Ship.Current.dataUpgradesIron.Count);
+        Debug.LogError("iron machine coutn " + Ship.Current.dataMachinesIron.Count);
+        Debug.LogError("spaceShip up coutn " + Instance.spaceShips.Count);
+
 
         string path = Application.persistentDataPath + "/stats.json";
 
