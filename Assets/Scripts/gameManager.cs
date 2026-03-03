@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using static spaceObject;
 using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 public class gameManager : MonoBehaviour
 {
@@ -274,41 +275,50 @@ public class gameManager : MonoBehaviour
 
     private void spawnSpaceObject()
     {
-        int x = UnityEngine.Random.Range(0, 1000);
-        int BigProb;
-        int ScatterProb;
-
         int stage = Ship.Current.stage;
 
-        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 20%
+        int BigProb = stage > 25 ? 200 : 0;
+        int ScatterProb = stage < 10 ? 0 : 200;
+        int uraniumProb = XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && stage > 20 ? 40 : 0;
+        int ironProb = stage > 10 ? 40 : 0;
+        int normalProb = Mathf.Max(0, 1000 - (ScatterProb + BigProb + ironProb + uraniumProb + Stats.Instance.diamandProb));
 
-        ScatterProb = stage < 10 ? 0 :
-                      stage < 25 ? 450 : 450;// diamondLimit + 7.5 - 45 = 30-35( environ ) 
+        Dictionary<spaceObject, int> probabilites = new Dictionary<spaceObject, int>
+            {
+                {meteorPredab, normalProb},
+                {ScatterMeteorPrefab, ScatterProb},
+                {BigMeteorPrefab, BigProb},
+                {ironMeteorPrefab, ironProb},
+                {uraniumMeteorPrefab, uraniumProb},
+                {DiamandMeteorPrefab, Stats.Instance.diamandProb },
+            };
+        SpawnWithProbability(probabilites);
+    }
+    
+    private void SpawnWithProbability(Dictionary<spaceObject, int> probabilites)
+    {
+        if (probabilites.Values.Sum() > 1000)
+            Debug.LogWarning("Probability sum above 1000");
+        Debug.Log("prob sum " + probabilites.Values.Sum());
 
-        int diamondLimit = Stats.Instance.diamandProb;
-        int rareLimit = Ship.Current.stage >= 10 ? diamondLimit + 75 : 0; //uranium ou fer
+        int x = UnityEngine.Random.Range(0, 1000);
+        int sumProb = 0;
 
-        if (x < diamondLimit)
-            SpawnMeteor(DiamandMeteorPrefab, meteorType.Diamand);
-        else if(x < rareLimit)
+        foreach (var elem in probabilites)
         {
-            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && UnityEngine.Random.Range(0, 2) == 0)
-                SpawnMeteor(uraniumMeteorPrefab, meteorType.Uranium);
-            else
-                SpawnMeteor(ironMeteorPrefab, meteorType.Iron);
+            sumProb += elem.Value;
+            Debug.Log(" prob : " +x + " prob " + sumProb);
+            if(x < sumProb)
+            {
+                SpawnMeteor(elem.Key);
+                return;
+            }
         }
-        else if (x < ScatterProb)
-            SpawnMeteor(ScatterMeteorPrefab, meteorType.Scatter);
-        else if (x < BigProb)
-            SpawnMeteor(BigMeteorPrefab, meteorType.Big);
-        else 
-            SpawnMeteor(meteorPredab, meteorType.Normal);
     }
 
-    private void SpawnMeteor(spaceObject meteorPredab, meteorType type)
+    private void SpawnMeteor(spaceObject meteorPredab)
     {
         spaceObject obj = Instantiate(meteorPredab);
-        obj.type = type;
         obj.level = Ship.Current.stage;
         obj.Init();
         meteors.Add(obj);

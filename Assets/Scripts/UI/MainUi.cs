@@ -220,7 +220,7 @@ public class MainUi : MonoBehaviour
 
     public void loadRocketButton()
     {
-        //if (rocketCover == null) return;
+        if (rocketCover == null) return;
         if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockRocket))
         {
             rocketCover.style.display = DisplayStyle.Flex;

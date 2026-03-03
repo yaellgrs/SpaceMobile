@@ -64,7 +64,9 @@ public class BaseUI : MonoBehaviour
         {
             if (SystemInfo.deviceType == DeviceType.Desktop)
             {
-                scrolling();
+#pragma warning disable CS0612 // Le type ou le membre est obsolète
+                Scrolling();
+#pragma warning restore CS0612 // Le type ou le membre est obsolète
             }
 
         }
@@ -100,8 +102,9 @@ public class BaseUI : MonoBehaviour
             loadForgeUI();
         }
     }
-        
-    private void scrolling()
+
+    [System.Obsolete]
+    private void Scrolling()
     {
         if(scrollView != null)
         {
