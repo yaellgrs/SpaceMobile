@@ -349,27 +349,17 @@ public class gameManager : MonoBehaviour
         else if(!isPause && !bossStage)
         {
             if(timerSave > 0f)
-            {
                 timer = timerSave;
-            }
             else
-            {
                 timer = 0f;
-            }
 
             foreach (spaceObject meteor in meteors)
             {
                 if (meteor.isPause)
-                {
                     meteor.Move();
-                }
-
-
             }
             canon.instance.setPause(false);
         }
-
-
     }
 
     public void DestroyMeteors()
@@ -396,6 +386,9 @@ public class gameManager : MonoBehaviour
         spaceObject obj = Instantiate(miniMeteorPrefab);
         spaceObject obj2 = Instantiate(miniMeteorPrefab);
         spaceObject obj3 = Instantiate(miniMeteorPrefab);
+        meteors.Add(obj);
+        meteors.Add(obj2);
+        meteors.Add(obj3);
         obj.transform.position = trans.position;
         Vector3 n= trans.position;
         if (Mathf.Abs(n.y - spaceShip.instance.transform.position.y) < 2)
