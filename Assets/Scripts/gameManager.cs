@@ -286,7 +286,7 @@ public class gameManager : MonoBehaviour
                       stage < 25 ? 450 : 450;// diamondLimit + 7.5 - 45 = 30-35( environ ) 
 
         int diamondLimit = Stats.Instance.diamandProb;
-        int rareLimit = diamondLimit + 75; //uranium ou fer
+        int rareLimit = Ship.Current.stage >= 10 ? diamondLimit + 75 : 0; //uranium ou fer
 
         if (x < diamondLimit)
             SpawnMeteor(DiamandMeteorPrefab, meteorType.Diamand);

@@ -337,7 +337,7 @@ public class XpUI : MonoBehaviour
 
     public static bool rewardUnlocked(BonusLevel bonus)
     {
-        return MainUi.Instance.xpUI.GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1;
+        return MainUi.Instance?.xpUI?.GetEnumRewardCount(BonusLevel.UnlockRocket) >= 1;
     }
 
     public BonusLevel GetEnumReward(int lvl)

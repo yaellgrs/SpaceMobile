@@ -151,8 +151,8 @@ public class Stats
         foreach (var data in Instance.dataUpgradePrestige)
             Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data.Value, data.Key.ToString(), data.Key));
 
-        if (Ship.Current?.life != null) Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
-        if (Ship.Current?.shield != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
+        if (Ship.Current?.lifeMax != null) Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        if (Ship.Current?.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
 
     public void AddDiamand(int amount)
@@ -176,14 +176,14 @@ public class Stats
     public void AddIron(BigNumber amount)
     {
         Ship.Current.iron += amount;
-        MainUi.Instance.upIronUI();
+        MainUi.Instance?.upIronUI();
         OnIronChanged.Invoke();
     }
 
     public void AddUranium(BigNumber amount)
     {
         Ship.Current.uranium += amount;
-        MainUi.Instance.upUraniumUI();
+        MainUi.Instance?.upUraniumUI();
     }
 
     public void addPrestige(BigNumber amount)
@@ -222,11 +222,6 @@ public class Stats
     public void save() {
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-        Debug.LogError("iron machine coutn " + Ship.Current.dataMachinesIron.Count);
-        Debug.LogError("spaceShip up coutn " + Instance.spaceShips.Count);
-
-
         string path = Application.persistentDataPath + "/stats.json";
 
         var settings = new JsonSerializerSettings

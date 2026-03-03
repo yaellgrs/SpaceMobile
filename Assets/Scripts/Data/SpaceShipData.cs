@@ -65,7 +65,7 @@ public class SpaceShipData
         LoadUpgrades();
 
         InitTempData();
-        MainUi.Instance.xpUI.loadBonus();
+        MainUi.Instance?.xpUI?.loadBonus();
         Stats.Instance.AddIron(new BigNumber(0));
         Stats.Instance.AddUranium(new BigNumber(0));
         
