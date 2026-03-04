@@ -16,10 +16,11 @@ public class IronUi : BaseUI
     protected override void Start()
     {
         base.Start();
-        loadForgeUI();
+        //loadForgeUI();
         var root = forgeUI.rootVisualElement;
         forgeUiVE.AddToClassList("forgeIronTrans");
         forgeUI.gameObject.SetActive(false);
+
     }
 
     protected override void Update()
@@ -48,6 +49,7 @@ public class IronUi : BaseUI
                 {
                     forgeUiVE.AddToClassList(className);
                     black.style.visibility = Visibility.Hidden;
+                    BottomUI.Instance.OpenMenu(SelectedMenu.None);
                 }).StartingIn(50);
                 forgeUiVE.schedule.Execute(() =>
                 {
@@ -56,12 +58,14 @@ public class IronUi : BaseUI
                     gameManager.instance.SetPause(false);
 
                 }).StartingIn(500);
+
             }
             else
             {
                 forgeUI.gameObject.SetActive(false);
                 upgradeUI.gameObject.SetActive(false);
                 gameManager.instance.SetPause(false);
+
             }
 
             classActived = true;
@@ -72,6 +76,7 @@ public class IronUi : BaseUI
             if (!Stats.Instance.ironTuto)
                 Tuto.Instance.LoadForgeTuto(true);
             loadForgeUI();
+
         }
 
     }
@@ -101,6 +106,7 @@ public class IronUi : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
 
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");

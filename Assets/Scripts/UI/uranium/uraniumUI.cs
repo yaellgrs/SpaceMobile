@@ -68,6 +68,7 @@ public class UraniumUI : BaseUI
             {
                 forgeUiVE.AddToClassList("prestigeUITrans");
                 black.style.visibility = Visibility.Hidden;
+                BottomUI.Instance.OpenMenu(SelectedMenu.None);
 
             }).StartingIn(50);
             forgeUiVE.schedule.Execute(() =>
@@ -90,6 +91,7 @@ public class UraniumUI : BaseUI
     {
         base.loadForgeUI();
         var root = forgeUI.rootVisualElement;
+        BottomUI.Instance.OpenMenu(SelectedMenu.SecondForge);
 
         uraniumLabel = root.Q<Label>("uranium");
         uraniumUnlockedVE = root.Q<VisualElement>("unlockLevel");

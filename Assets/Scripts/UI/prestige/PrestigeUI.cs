@@ -182,6 +182,7 @@ public class PrestigeUI : BaseUI
             {
                 forgeUiVE.AddToClassList("prestigeUITrans");
                 black.style.visibility = Visibility.Hidden;
+                BottomUI.Instance.OpenMenu(SelectedMenu.None);
 
             }).StartingIn(50);
             forgeUiVE.schedule.Execute(() =>
@@ -204,6 +205,8 @@ public class PrestigeUI : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+        BottomUI.Instance.OpenMenu(SelectedMenu.Prestige);
+
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
