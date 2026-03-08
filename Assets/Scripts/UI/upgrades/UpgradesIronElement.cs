@@ -135,10 +135,9 @@ public class UpgradesIronElement : UpgradesElement
 
     protected override void SetLogos()
     {
-        Texture2D logoTexture = Resources.Load<Texture2D>("logos/iron");
-        StyleBackground background = new StyleBackground(logoTexture);
+        StyleBackground background = Utility.GetMainRessourceLogo();
         VE_levelUpCostLogo.style.backgroundImage = background;
-        Lbl_levelUpCost.AddToClassList("ironColor");
+        Lbl_levelUpCost.style.color = Utility.GetMainRessourceColor();
     }
 
     #endregion

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -140,9 +141,14 @@ public static class Utility
             && viewportPos.y > gap && viewportPos.y < (1f - gap));
     }
 
+    public static string GetMainRessourceLogoPath()
+    {
+        return  "logos/mainRessource/" + Ship.Current.type.ToString() + "/mainRessource";
+    }
+
     public static Texture2D GetMainRessourceLogo()
     {
-        string path = "logos/mainRessource/" + Ship.Current.type.ToString() + "/mainRessource";
+        string path = GetMainRessourceLogoPath();
         Texture2D texture2D = Resources.Load<Texture2D>(path);
         if (texture2D == null) {
             Debug.LogWarning("Can't load Texture2D at : " + path);

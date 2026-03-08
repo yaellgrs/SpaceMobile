@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -25,7 +24,12 @@ public class machineIronElement : machineElement
 
     protected override string getLogoPath()
     {
-        return "iron";
+        return Utility.GetMainRessourceLogoPath();
+    }
+
+    protected override Color getColor()
+    {
+        return Utility.GetMainRessourceColor();
     }
 
     protected override void HandleMoney(BigNumber amount)

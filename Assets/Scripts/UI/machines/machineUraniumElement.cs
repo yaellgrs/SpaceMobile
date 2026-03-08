@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -15,7 +14,12 @@ public class machineUraniumElement : machineElement
     }
     protected override string getLogoPath()
     {
-        return "uranium";
+        return "logos/uranium";
+    }
+
+    protected override Color getColor()
+    {
+        return Utility.Hex("00FF0E");
     }
 
     protected override void HandleMoney(BigNumber amount)

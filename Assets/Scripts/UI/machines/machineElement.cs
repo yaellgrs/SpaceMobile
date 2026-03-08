@@ -84,7 +84,7 @@ public partial class machineElement : Button
     [JsonIgnore] public Label Lbl_lockedLevel;
 
     //buy
-    [JsonIgnore] private Label Lbl_buyPrice;
+    [JsonIgnore] protected Label Lbl_buyPrice;
     [JsonIgnore] private VisualElement VE_buyLogo;
     [JsonIgnore] private VisualElement VE_buyCover;
 
@@ -243,12 +243,14 @@ public partial class machineElement : Button
 
     public void SetLogos()
     {
-        Texture2D logoTexture = Resources.Load<Texture2D>("logos/" + getLogoPath());
+        Texture2D logoTexture = Resources.Load<Texture2D>( getLogoPath());
+        Debug.Log("setLogo " + getLogoPath());
+
         StyleBackground background = new StyleBackground(logoTexture);
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
 
-        Lbl_upCost.AddToClassList(getLogoPath() + "Color");
+        Lbl_upCost.style.color = getColor();
 
 
         SetLogo();
@@ -559,6 +561,11 @@ public partial class machineElement : Button
     protected virtual string getLogoPath()
     {
         return "";
+    }
+
+    protected virtual Color getColor()
+    {
+        return Color.white;
     }
 
     protected virtual void SetLogo()
