@@ -92,6 +92,8 @@ public class spaceShip : MonoBehaviour
         UpdateRepeler();
     }
 
+
+
     private void UpdateRepeler()
     {
         if (!Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.Magnectic)) return;

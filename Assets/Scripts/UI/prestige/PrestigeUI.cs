@@ -618,7 +618,7 @@ public class PrestigeUI : BaseUI
 
     private void BuyNextShip()
     {
-        Ship.Current.type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + 1 ,0,  System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
+        Ship.Current.SetNextType(); 
         loadUpdateUI();
         backClicked(upgradeShip);
     }

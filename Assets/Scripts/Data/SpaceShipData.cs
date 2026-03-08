@@ -19,6 +19,8 @@ public class SpaceShipData
     public enum SpaceShipElement { Wood, Iron, Magnetic, Fire, Poison, Plasma };
     public SpaceShipElement type;
 
+    public event Action OnTypeChanged;
+
     public int level = 1;
     public int fragmentlevel = 2;
     public int stage = 1;
@@ -200,6 +202,11 @@ public class SpaceShipData
             MainUi.Instance.xpUI.LevelUp();
         }
         MainUi.Instance.upLevelUI();
+    }
+    public void SetNextType()
+    {
+        type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + 1, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
+        OnTypeChanged?.Invoke();
     }
 
     #endregion

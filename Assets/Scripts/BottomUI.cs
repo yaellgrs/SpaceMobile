@@ -27,6 +27,19 @@ public class BottomUI : MonoBehaviour
         VE_SecondForge = root.Q<VisualElement>("secondForge");
         VE_MainForge = root.Q<VisualElement>("mainForge");
         VE_Prestige = root.Q<VisualElement>("prestige");
+
+        LoadUI();
+        Ship.Current.OnTypeChanged += LoadUI;
+    }
+
+    public void LoadUI()
+    {
+        string firstForgePath = "UI/Bottom/" + Ship.Current.type + "/FirstForge";
+        string secondForgePath = Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ?
+            "UI/Bottom/Wood/SecondForge" : "UI/Bottom/SecondForge";
+        VE_MainForge.style.backgroundImage = Resources.Load<Texture2D>(firstForgePath);
+        VE_SecondForge.style.backgroundImage = Resources.Load<Texture2D>(secondForgePath);
+
     }
 
     public void OpenMenu(SelectedMenu menuToOpen)
