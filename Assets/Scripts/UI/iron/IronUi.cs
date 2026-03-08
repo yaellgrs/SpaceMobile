@@ -13,6 +13,8 @@ public class IronUi : BaseUI
     private Button prestigeButton;
     private Label ironLabel;
     private ScrollView SV_scroll;
+
+    private VisualElement VE_ironLogo;
     protected override void Start()
     {
         base.Start();
@@ -113,6 +115,8 @@ public class IronUi : BaseUI
         prestigeButton = root.Q<Button>("prestige");
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("forgeUI");
+        VE_ironLogo = root.Query<VisualElement>("ironLogo");
+
         SV_scroll = root.Query<ScrollView>("scroll");
         if (!stopAnim)
         {
@@ -145,8 +149,20 @@ public class IronUi : BaseUI
             if (!machine.data.isBuyed) show = false; //on affiche pas le reste des machines
         }
 
+        loadIronLogo();
+
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
+
+        Ship.Current.OnTypeChanged -= loadIronLogo;
+        Ship.Current.OnTypeChanged += loadIronLogo;
+
+
+    }
+
+    private void loadIronLogo()
+    {
+        VE_ironLogo.style.backgroundImage = Utility.GetMainRessourceLogo();
     }
 
     public override void loadUpdateUI()

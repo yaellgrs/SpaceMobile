@@ -624,6 +624,7 @@ public class PrestigeUI : BaseUI
         backClicked(upgradeShip);
         backClicked(upgradeUI);
 
+        BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
 
     }

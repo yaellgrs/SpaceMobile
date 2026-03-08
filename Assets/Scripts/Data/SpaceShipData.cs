@@ -59,7 +59,6 @@ public class SpaceShipData
     }
 
     #region ------ load ----------
- 
     public void Load(bool reset = false)
     {
 
@@ -81,7 +80,6 @@ public class SpaceShipData
     {
         if (dataMachinesIron.Count == 0 || reset)
         {
-            Debug.LogError("LOAD data machine iron");
             dataMachinesIron = new List<machineData>
             {
                 new machineData("Anvil", new BigNumber(10)),
@@ -203,9 +201,9 @@ public class SpaceShipData
         }
         MainUi.Instance.upLevelUI();
     }
-    public void SetNextType()
+    public void SetNextType(int amount = 1)
     {
-        type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + 1, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
+        type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + amount, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
         
         level = 1;
         fragmentlevel = 2;

@@ -55,6 +55,7 @@ public class MainUi : MonoBehaviour
     private VisualElement shieldBar;
     public VisualElement xpBar;
     private VisualElement VE_gameUI;
+    private VisualElement VE_ironLogo;
 
     public Button rocketButton;
     public Label rocketLabel;
@@ -120,6 +121,7 @@ public class MainUi : MonoBehaviour
         VE_AutoShootBar = root.Q<VisualElement>("autoShootBar");
         Btn_bossFragment = root.Q<Button>("bossFragment");
         VE_gameUI = root.Q<VisualElement>("gameUI");
+        VE_ironLogo = root.Q<VisualElement>("ironLogo");
 
         ironLabel = root.Q<Label>("iron");
         uraniumLabel = root.Q<Label>("uranium");
@@ -166,6 +168,7 @@ public class MainUi : MonoBehaviour
         upLevelUI();
         upAutoShootUI();
         upAdsUI();
+        LoadIronLogo();
         Lbl_stageClear.style.visibility = Visibility.Hidden;
         Lbl_stageSkip.style.visibility = Visibility.Hidden;
         stageClearTimer = -1f;
@@ -189,9 +192,17 @@ public class MainUi : MonoBehaviour
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
         shieldRegenLabel.text = "+ " + Ship.Current.regenShield;
 
+
+
         Stats.Instance.OnIronChanged += upIronUI;
+        Ship.Current.OnTypeChanged += LoadIronLogo;
     }
 
+    public void LoadIronLogo()
+    {
+        Texture2D texture = Utility.GetMainRessourceLogo();
+        if (texture != null) VE_ironLogo.style.backgroundImage = texture;
+    }
     public void setGameUI(bool active)
     {
         VE_gameUI.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
