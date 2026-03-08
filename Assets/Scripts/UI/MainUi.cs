@@ -145,7 +145,7 @@ public class MainUi : MonoBehaviour
         diamandLabel.text = Stats.Instance.diamand.ToString();
 
         normalUpButton1.clicked += normalUpClicked;
-        uraniumButton.clicked += uraniumClicked;
+         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
         xpButton.clicked += xpClicked;
         rocketButton.clicked += rocketClicked;
@@ -415,6 +415,8 @@ public class MainUi : MonoBehaviour
     }
     private void uraniumClicked()
     {
+        if (!Ship.Current.HaveUranium()) return;
+
         ironUI.classActived = true;
         uraniumUI.IronClicked();
     }

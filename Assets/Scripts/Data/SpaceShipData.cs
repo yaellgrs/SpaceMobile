@@ -60,11 +60,11 @@ public class SpaceShipData
 
     #region ------ load ----------
  
-    public void Load()
+    public void Load(bool reset = false)
     {
 
-        LoadMachines();
-        LoadUpgrades();
+        LoadMachines(reset);
+        LoadUpgrades(reset);
 
         InitTempData();
         MainUi.Instance?.xpUI?.loadBonus();
@@ -77,9 +77,9 @@ public class SpaceShipData
             shield.Set(shieldMax.getTotal());
     }
 
-    private void LoadMachines()
+    private void LoadMachines(bool reset = false)
     {
-        if (dataMachinesIron.Count == 0)
+        if (dataMachinesIron.Count == 0 || reset)
         {
             Debug.LogError("LOAD data machine iron");
             dataMachinesIron = new List<machineData>
@@ -91,7 +91,7 @@ public class SpaceShipData
                 new machineData("usines", new BigNumber(1, 12))
             };
         }
-        if (dataMachinesUranium.Count == 0)
+        if (dataMachinesUranium.Count == 0 || reset)
         {
             dataMachinesUranium = new List<machineData>
             {
@@ -118,9 +118,9 @@ public class SpaceShipData
         }
     }
 
-    private void LoadUpgrades()
+    private void LoadUpgrades(bool reset = false)
     {
-        if (dataUpgradesIron.Count == 0)
+        if (dataUpgradesIron.Count == 0 || reset)
         {
             dataUpgradesIron.Clear();
             foreach (UpgradesIronElement.UpgradeType type in Enum.GetValues(typeof(UpgradesIronElement.UpgradeType)))
@@ -128,7 +128,7 @@ public class SpaceShipData
                 dataUpgradesIron[type] = new UpgradeData();
             }
         }
-        if (dataUpgradesUranium.Count == 0)
+        if (dataUpgradesUranium.Count == 0 || reset)
         {
             dataUpgradesUranium.Clear();
             foreach (UpgradesUraniumElement.UpgradeType type in Enum.GetValues(typeof(UpgradesUraniumElement.UpgradeType)))
@@ -136,7 +136,7 @@ public class SpaceShipData
                 dataUpgradesUranium[type] = new UpgradeData();
             }
         }
-        if (dataUpgradesShip.Count == 0)
+        if (dataUpgradesShip.Count == 0 || reset)
         {
             dataUpgradesShip.Clear();
             foreach (UpgradesShipElement.UpgradeType type in Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
@@ -206,10 +206,32 @@ public class SpaceShipData
     public void SetNextType()
     {
         type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + 1, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
+        
+        level = 1;
+        fragmentlevel = 2;
+        stage = 1;
+        isDead = false;
+
+        life = new BigNumber(0);
+        shield = new BigNumber(0);
+
+        iron = new BigNumber(0);
+        uranium = new BigNumber(0);
+
+        BN_xp = new BigNumber(0);
+
+        Load(true);
+
         OnTypeChanged?.Invoke();
+
     }
 
     #endregion
+
+    public bool HaveUranium()
+    {
+        return type != SpaceShipData.SpaceShipElement.Wood;
+    }
 
 }
 

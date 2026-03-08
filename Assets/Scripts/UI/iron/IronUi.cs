@@ -174,6 +174,7 @@ public class IronUi : BaseUI
 
     private void uraniumClicked()
     {
+        if (!Ship.Current.HaveUranium()) return;
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
@@ -182,6 +183,7 @@ public class IronUi : BaseUI
 
     private void prestigeClicked()
     {
+
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);

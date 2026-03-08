@@ -135,6 +135,7 @@ public class PrestigeUI : BaseUI
 
     private void uraniumClicked()
     {
+        if (!Ship.Current.HaveUranium()) return;
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
@@ -619,8 +620,12 @@ public class PrestigeUI : BaseUI
     private void BuyNextShip()
     {
         Ship.Current.SetNextType(); 
-        loadUpdateUI();
+
         backClicked(upgradeShip);
+        backClicked(upgradeUI);
+
+        gameManager.instance.SetPause(false);
+
     }
 
 }

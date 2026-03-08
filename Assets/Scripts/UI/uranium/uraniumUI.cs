@@ -90,6 +90,7 @@ public class UraniumUI : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+
         var root = forgeUI.rootVisualElement;
         BottomUI.Instance.OpenMenu(SelectedMenu.SecondForge);
 
