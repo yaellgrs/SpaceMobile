@@ -1135,6 +1135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossFragmentUi
   document: {fileID: 694628179}
+  canExit: 1
 --- !u!114 &694628179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3774,57 +3775,6 @@ MonoBehaviour:
   levelUpUI: {fileID: 648186075}
   ironUI: {fileID: 239167552}
   uraniumUI: {fileID: 1019317271}
---- !u!1 &2034185830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2034185832}
-  - component: {fileID: 2034185831}
-  m_Layer: 0
-  m_Name: PoolManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2034185831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034185830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d1bfc252dc4b2d4097f10b1427ffd72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  XpPrefab: {fileID: -8392401899483420481, guid: acb802f267bb02b40a73f619538d8bd5, type: 3}
-  DiamandPrefab: {fileID: 4209706015319799008, guid: 254e5136bc978d148a609d2fe9c67693, type: 3}
-  DamagePrefab: {fileID: 7940552755826374616, guid: 3659b9867b30ad241bd9cd2250780fd6, type: 3}
-  CritiquePrefab: {fileID: 7940552755826374616, guid: 53229bc2a8236e340a3d9ef16b517902, type: 3}
-  IronPrefab: {fileID: 7940552755826374616, guid: 9fc821e699807c7429d0cfcbfbdd4998, type: 3}
-  UraniumPrefab: {fileID: 7940552755826374616, guid: 963afa03d6604dd47bbedac4808763fe, type: 3}
-  PrestigePrefab: {fileID: 7940552755826374616, guid: a8bd8d475eecc414cafaa4758f204aba, type: 3}
---- !u!4 &2034185832
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034185830}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.58219886, y: 0.57983965, z: 0.07820637}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2050572217
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,7 +3987,6 @@ SceneRoots:
   - {fileID: 1253694412}
   - {fileID: 1369320541}
   - {fileID: 1551023421}
-  - {fileID: 2034185832}
   - {fileID: 534645787}
   - {fileID: 431887199}
   - {fileID: 1995263584}

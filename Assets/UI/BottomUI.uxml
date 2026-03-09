@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/bottomStyle.uss?fileID=7433441132597879392&amp;guid=5fc6d2ad569363c4499a7cc9fcf7eaee&amp;type=3#bottomStyle"/>
+    <ui:VisualElement name="secondForge" picking-mode="Ignore" class="secondForgeBase"/>
+    <ui:VisualElement name="mainForge" picking-mode="Ignore" class="mainForge"/>
+    <ui:VisualElement name="prestige" picking-mode="Ignore" class="prestigeBase"/>
+</ui:UXML>

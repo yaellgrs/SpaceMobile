@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -11,8 +10,8 @@ public class machineIronElement : machineElement
     {
     }
 
-    public machineIronElement(string machineName, BigNumber initPrice)
-        : base(machineName, initPrice)
+    public machineIronElement(machineData data)
+        : base(data)
     {
     }
 
@@ -25,7 +24,12 @@ public class machineIronElement : machineElement
 
     protected override string getLogoPath()
     {
-        return "iron";
+        return Utility.GetMainRessourceLogoPath();
+    }
+
+    protected override Color getColor()
+    {
+        return Utility.GetMainRessourceColor();
     }
 
     protected override void HandleMoney(BigNumber amount)
@@ -45,7 +49,7 @@ public class machineIronElement : machineElement
 
     protected override void SetLogo()
     {
-        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + machineName);
+        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + data.machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
     }
 

@@ -13,13 +13,16 @@ public class IronUi : BaseUI
     private Button prestigeButton;
     private Label ironLabel;
     private ScrollView SV_scroll;
+
+    private VisualElement VE_ironLogo;
     protected override void Start()
     {
         base.Start();
-        loadForgeUI();
+        //loadForgeUI();
         var root = forgeUI.rootVisualElement;
         forgeUiVE.AddToClassList("forgeIronTrans");
         forgeUI.gameObject.SetActive(false);
+
     }
 
     protected override void Update()
@@ -27,7 +30,7 @@ public class IronUi : BaseUI
         base.Update();
 
         Rect scrollRect = SV_scroll?.worldBound != null ? SV_scroll.worldBound : new Rect(0f, 0f, 0f, 0f);
-        foreach (machineElement machine in Ship.Current.machineIron)
+        foreach (machineElement machine in Ship.Current.machinesIron)
             machine.Update(scrollRect);
         upIronRaffinedUi();
     }
@@ -48,6 +51,7 @@ public class IronUi : BaseUI
                 {
                     forgeUiVE.AddToClassList(className);
                     black.style.visibility = Visibility.Hidden;
+                    BottomUI.Instance.OpenMenu(SelectedMenu.None);
                 }).StartingIn(50);
                 forgeUiVE.schedule.Execute(() =>
                 {
@@ -56,12 +60,14 @@ public class IronUi : BaseUI
                     gameManager.instance.SetPause(false);
 
                 }).StartingIn(500);
+
             }
             else
             {
                 forgeUI.gameObject.SetActive(false);
                 upgradeUI.gameObject.SetActive(false);
                 gameManager.instance.SetPause(false);
+
             }
 
             classActived = true;
@@ -72,6 +78,7 @@ public class IronUi : BaseUI
             if (!Stats.Instance.ironTuto)
                 Tuto.Instance.LoadForgeTuto(true);
             loadForgeUI();
+
         }
 
     }
@@ -88,7 +95,7 @@ public class IronUi : BaseUI
         base.upModeButtonClicked();
         if (forgeUI.gameObject.activeInHierarchy)
         {
-            foreach (machineElement machine in Ship.Current.machineIron)
+            foreach (machineElement machine in Ship.Current.machinesIron)
                 machine.LoadMachine();
         }
         else
@@ -101,12 +108,15 @@ public class IronUi : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
 
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("forgeUI");
+        VE_ironLogo = root.Query<VisualElement>("ironLogo");
+
         SV_scroll = root.Query<ScrollView>("scroll");
         if (!stopAnim)
         {
@@ -127,7 +137,7 @@ public class IronUi : BaseUI
 
         bool show = true;
 
-        foreach (machineElement machine in Ship.Current.machineIron)
+        foreach (machineElement machine in Ship.Current.machinesIron)
         {
             SV_scroll.Add(machine);
             if (show) { 
@@ -136,11 +146,23 @@ public class IronUi : BaseUI
             }
             else machine.style.display = DisplayStyle.None;
 
-            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
+            if (!machine.data.isBuyed) show = false; //on affiche pas le reste des machines
         }
+
+        loadIronLogo();
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
+
+        Ship.Current.OnTypeChanged -= loadIronLogo;
+        Ship.Current.OnTypeChanged += loadIronLogo;
+
+
+    }
+
+    private void loadIronLogo()
+    {
+        VE_ironLogo.style.backgroundImage = Utility.GetMainRessourceLogo();
     }
 
     public override void loadUpdateUI()
@@ -168,6 +190,7 @@ public class IronUi : BaseUI
 
     private void uraniumClicked()
     {
+        if (!Ship.Current.HaveUranium()) return;
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
@@ -176,6 +199,7 @@ public class IronUi : BaseUI
 
     private void prestigeClicked()
     {
+
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);

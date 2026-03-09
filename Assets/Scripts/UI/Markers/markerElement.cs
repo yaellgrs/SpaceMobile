@@ -14,13 +14,13 @@ public partial class markerElement : Label
 
     #region constantes
     private static Color[] COLORS ={
-        Hex("#00F9FF"), //Xp
-        Hex("#FF0000"), //Diamand
-        Hex("#FF0E00"), //Damage
-        Hex("#FFA300"), //Iron
-        Hex("#00FF05"),  //Uranium
-        Hex("#Damage"),  //Crtique
-        Hex("#FAFF00"),  //Prestige
+        Utility.Hex("#00F9FF"), //Xp
+        Utility.Hex("#FF0000"), //Diamand
+        Utility.Hex("#FF0E00"), //Damage
+        Utility.Hex("#FFA300"), //Iron
+        Utility.Hex("#00FF05"),  //Uranium
+        Utility.Hex("#Damage"),  //Crtique
+        Utility.Hex("#FAFF00"),  //Prestige
     };
 
     private const float DISPLAY_TIME = 2f;
@@ -60,6 +60,8 @@ public partial class markerElement : Label
         AddToClassList("markerText");
         VE_logo.AddToClassList("markerLogo");
 
+        pickingMode = PickingMode.Ignore;
+
 
         this.schedule.Execute(Update).Every(16); // 16 ms ~ 60 fps
 
@@ -95,13 +97,21 @@ public partial class markerElement : Label
 
     private void SetLabelColor()
     {
-        style.color = COLORS[(int)type];
+        if (type == MarkerType.Iron)
+            style.color = Utility.GetMainRessourceColor();
+        else
+            style.color = COLORS[(int)type];
     }
     
     private void SetLogo()
     {
-        string path = "markers/" + type.ToString();
-        VE_logo.style.backgroundImage = Resources.Load<Texture2D>(path);
+        if(type == MarkerType.Iron)
+            VE_logo.style.backgroundImage = Utility.GetMainRessourceLogo();
+        else
+        {
+            string path = "markers/" + type.ToString();
+            VE_logo.style.backgroundImage = Resources.Load<Texture2D>(path);
+        }
     }
 
     public void Update()
@@ -132,10 +142,5 @@ public partial class markerElement : Label
 
     }
 
-    private static Color Hex(string hex)
-    {
-        //retourn une couleur a partir d'un hexa décimal
-        ColorUtility.TryParseHtmlString(hex, out Color color);
-        return color;
-    }
+
 }

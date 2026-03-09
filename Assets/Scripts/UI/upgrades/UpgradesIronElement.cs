@@ -13,9 +13,8 @@ public class UpgradesIronElement : UpgradesElement
     {
     }
 
-    public UpgradesIronElement(string name, UpgradeType type) : base(name)
+    public UpgradesIronElement(UpgradeData data, string name, UpgradeType type) : base(data, name)
     {
-        this.name = name;
         this.type = type;
     }
     #endregion
@@ -32,25 +31,10 @@ public class UpgradesIronElement : UpgradesElement
     protected override void LoadStat()
     {
         //pas propre mais bon
-        BigNumber bonus = GetReward(level + getMulitplicator());
-        bonus.Subtract(GetReward(level));
+        BigNumber bonus = GetReward(data.level + getMulitplicator());
+        bonus.Subtract(GetReward(data.level));
 
         Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.ToString()})</color>";
-        /*        switch (type)
-                {   
-                    case UpgradeType.Life:
-                        Lbl_description.text = "Life : " + Ship.Current.lifeMax.initial;
-                        break;
-                    case UpgradeType.Damage:
-                        Lbl_description.text = "Damage : " + Ship.Current.damage.initial;
-                        break;
-                    case UpgradeType.Shield:
-                        Lbl_description.text = "Shield : " + Ship.Current.shieldMax.initial;
-                        break;
-                    case UpgradeType.RegenShield:
-                        Lbl_description.text = "Regen Shield : " + Ship.Current.regenShield;
-                        break;
-                }*/
         string logo_path = "Upgrades/Iron/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
@@ -81,7 +65,7 @@ public class UpgradesIronElement : UpgradesElement
                 diff.Subtract(Ship.Current.life);
 
                 Ship.Current.lifeMax.initial.Set(10);
-                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(level + 1, 1.6f);
+                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.6f);
 
                 Ship.Current.life.Set(spaceShip.instance.getMaxLife());
                 Ship.Current.life.Subtract(diff);
@@ -89,22 +73,22 @@ public class UpgradesIronElement : UpgradesElement
                 break;
             case UpgradeType.Damage:
                 Ship.Current.damage.initial.Set(1);
-                Ship.Current.damage.initial *= Mathf.Pow(1.3f, level);
-                Ship.Current.damage.initial += (int)( 0.5f * (level - 1));
+                Ship.Current.damage.initial *= Mathf.Pow(1.3f, data.level);
+                Ship.Current.damage.initial += (int)( 0.5f * (data.level - 1));
                 break;
             case UpgradeType.Shield:
                 diff = new BigNumber(0);
                 diff.Set(spaceShip.instance.getMaxShield());
                 diff.Subtract(Ship.Current.shield);
                 Ship.Current.shieldMax.initial.Set(10);
-                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(level + 1, 1.4f);
+                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.4f);
 
                 Ship.Current.shield.Set(spaceShip.instance.getMaxShield());
                 Ship.Current.shield.Subtract(diff);
                 break;
             case UpgradeType.RegenShield:
                 Ship.Current.regenShield = new BigNumber(10, 0);
-                Ship.Current.regenShield.Multiply(0.20f * Mathf.Pow(level + 1, 1.30f));
+                Ship.Current.regenShield.Multiply(0.20f * Mathf.Pow(data.level + 1, 1.30f));
                 break;
             default:
                 break;
@@ -151,10 +135,9 @@ public class UpgradesIronElement : UpgradesElement
 
     protected override void SetLogos()
     {
-        Texture2D logoTexture = Resources.Load<Texture2D>("logos/iron");
-        StyleBackground background = new StyleBackground(logoTexture);
+        StyleBackground background = Utility.GetMainRessourceLogo();
         VE_levelUpCostLogo.style.backgroundImage = background;
-        Lbl_levelUpCost.AddToClassList("ironColor");
+        Lbl_levelUpCost.style.color = Utility.GetMainRessourceColor();
     }
 
     #endregion

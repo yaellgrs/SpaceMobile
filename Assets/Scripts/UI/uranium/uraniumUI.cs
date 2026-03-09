@@ -50,12 +50,12 @@ public class UraniumUI : BaseUI
         if (forgeUI.gameObject.activeInHierarchy)
         {
             foreach (machineElement machine in Ship.Current.machinesUranium)
-                machine.upMachineCostText();
+                machine.LoadMachine();
         }
         else
         {
             foreach (UpgradesElement upgrade in Ship.Current.upgradesUranium)
-                upgrade.LoadUI();
+                upgrade.Load();
         }
     }
 
@@ -68,6 +68,7 @@ public class UraniumUI : BaseUI
             {
                 forgeUiVE.AddToClassList("prestigeUITrans");
                 black.style.visibility = Visibility.Hidden;
+                BottomUI.Instance.OpenMenu(SelectedMenu.None);
 
             }).StartingIn(50);
             forgeUiVE.schedule.Execute(() =>
@@ -89,7 +90,9 @@ public class UraniumUI : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+
         var root = forgeUI.rootVisualElement;
+        BottomUI.Instance.OpenMenu(SelectedMenu.SecondForge);
 
         uraniumLabel = root.Q<Label>("uranium");
         uraniumUnlockedVE = root.Q<VisualElement>("unlockLevel");
@@ -113,7 +116,7 @@ public class UraniumUI : BaseUI
             }
             else machine.style.display = DisplayStyle.None;
 
-            if (!machine.isBuyed) show = false; //on affiche pas le reste des machines
+            if (!machine.data.isBuyed) show = false; //on affiche pas le reste des machines
         }
 
         if (classActived)

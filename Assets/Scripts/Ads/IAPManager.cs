@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.Purchasing.Extension;
 
 public enum DiamandPack
 {
     SMALL,MEDIUM, BIG, GIANT
 };
 
-public class IAPManager : MonoBehaviour, IStoreListener
+public class IAPManager : MonoBehaviour, IDetailedStoreListener
 {
     public static IAPManager Instance;
 
@@ -154,4 +155,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
         Debug.LogError($"Achat échoué : {product.definition.id} ({reason})");
     }
 
+    public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
+    {
+        throw new System.NotImplementedException();
+    }
 }

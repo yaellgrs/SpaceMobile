@@ -19,11 +19,11 @@ public class UpgradesPrestigeElement : UpgradesElement
 
     }
 
-    public UpgradesPrestigeElement(string name, UpgradeType type) : base()
+    public UpgradesPrestigeElement(UpgradeData data, string name, UpgradeType type) : base(data, name)
     {
         this.name = name;
         this.type = type;
-        levelMax = int.MaxValue;
+        data.levelMax = int.MaxValue;
     }
     #endregion
 
@@ -69,15 +69,19 @@ public class UpgradesPrestigeElement : UpgradesElement
             Lbl_description.text = localizeValue.ToString();
         };
         localizeUpgrades.RefreshString();
+
     }
 
     public override void LoadLevelUI()
     {
-        string levevelTxt = "lv " + level.ToString();
+        string levevelTxt = "lv " + data.level.ToString();
+
         if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
         {
-            levevelTxt += " (+" + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel] + " )"; 
+            levevelTxt += "<color=yellow>[+" + Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel] + "]</color>"; 
         }
+        levevelTxt += $"<color=cyan> (+{getMulitplicator()})</color>";
+
         Lbl_level.text = levevelTxt;
         Lbl_levelUpCost.style.display = DisplayStyle.Flex;
     }
@@ -86,10 +90,14 @@ public class UpgradesPrestigeElement : UpgradesElement
     {
         return true;
     }
+    public override bool haveLevel(int lv)
+    {
+        return true;
+    }
 
     public override void SetReward()
     {
-        int realLevel = level;
+        int realLevel = data.level;
         if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
         {
             realLevel += (int)Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel];
@@ -113,7 +121,7 @@ public class UpgradesPrestigeElement : UpgradesElement
                 Ship.Current.damage.prestige_multiplicator = 1f + 0.2f * (realLevel);
                 break;
             case UpgradeType.StageSkip:
-                Stats.Instance.prest_damage_multiplicator = realLevel;
+                Stats.Instance.stageSkipProb = realLevel;
                 break;
             case UpgradeType.OmegaProb:
                 Stats.Instance.probabilitéOfOmega = (realLevel + 1) * 5;

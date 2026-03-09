@@ -1,0 +1,57 @@
+:root {
+}
+
+.transition {
+    translate: 0% -1.5%;
+}
+
+.secondForgeBase {
+    flex-grow: 0;
+    background-image: resource("UI/Bottom/iron/SecondForge");
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 1.5%;
+    left: 0;
+    flex-shrink: 0;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+    background-size: 100% 100%;
+    transition-duration: 0.5s;
+}
+
+.mainForge {
+    flex-grow: 0;
+    background-image: resource("UI/Bottom/iron/FirstForge");
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 1.5%;
+    left: 0;
+    flex-shrink: 0;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+    background-size: 100% 100%;
+    transition-duration: 0.5s;
+}
+
+.prestigeBase {
+    flex-grow: 0;
+    background-image: resource("UI/Bottom/prestige");
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 1.5%;
+    left: 0;
+    flex-shrink: 0;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+    background-size: 100% 100%;
+    transition-duration: 0.5s;
+}

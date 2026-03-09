@@ -14,7 +14,7 @@ public class canon : MonoBehaviour
     float speed = 100f;
     public float degats = 2f;
     float shootTimer = 0.1f;
-    float timer;
+    float timer = 0f;
 
     public bool canFire = true;
     public float autoTimer = 0;
@@ -70,7 +70,6 @@ public class canon : MonoBehaviour
 
     private void shoot(float angle, Vector3 direction, int type)
     {
-        Debug.Log("shoot");
         Lazer projectil;
         float rocketSpeed = 1f;
         if (type == 0)

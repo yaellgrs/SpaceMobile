@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using System;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,63 @@ using UnityEngine.UIElements;
 using UnityEngine.Video;
 
 public enum borderColor { white, bronze, iron, gold, diamand, black };
+
+[Serializable]
+public class machineData
+{
+    public machineData()
+    {
+        BN_price = new BigNumber(0);
+        this.machineName = "default";
+    }
+    public machineData(string machineName, BigNumber initPrice)
+    {
+        if (initPrice < new BigNumber(100))
+            isBuyed = true;
+
+        BN_price = initPrice;
+        this.machineName = machineName;
+    }
+    //constantes
+    public static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
+    public static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
+
+    public static readonly Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
+    public static readonly Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
+    public static readonly Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
+    public static readonly Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
+
+    //variables
+    public int levelMax = 100;
+    public int nextColorlevel = 5;
+    public int level = 1;
+
+    public float time = 0f;
+
+    public BigNumber BN_price = new BigNumber(15000);
+
+    public bool isBuyed = false;
+    public int multiplicator;
+
+    public string machineName = "";
+
+    public borderColor color = borderColor.white;
+
+    public int production_cps = 0;
+
+    public override bool Equals(object obj)
+    {
+        if (obj is machineData other)
+            return machineName == other.machineName;
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return machineName.GetHashCode();
+    }
+}
 
 [UxmlElement]
 public partial class machineElement : Button
@@ -26,7 +84,7 @@ public partial class machineElement : Button
     [JsonIgnore] public Label Lbl_lockedLevel;
 
     //buy
-    [JsonIgnore] private Label Lbl_buyPrice;
+    [JsonIgnore] protected Label Lbl_buyPrice;
     [JsonIgnore] private VisualElement VE_buyLogo;
     [JsonIgnore] private VisualElement VE_buyCover;
 
@@ -43,7 +101,9 @@ public partial class machineElement : Button
 
     #region ------ variables ------
 
-    //constantes
+    public machineData data;
+
+/*    //constantes
     private static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
     private static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
 
@@ -70,7 +130,7 @@ public partial class machineElement : Button
     borderColor color = borderColor.white;
 
     public int production_cps = 0;
-
+*/
     #endregion
 
     //methods
@@ -78,16 +138,13 @@ public partial class machineElement : Button
 
     public machineElement()
     {
+        data = new machineData();
         Init();
     }
 
-    public machineElement(string machineName, BigNumber initPrice)
+    public machineElement(machineData data)
     {
-        if(initPrice < new BigNumber(100))
-            isBuyed = true;
-
-        this.BN_price = initPrice;
-        this.machineName = machineName;
+        this.data = data;
         Init();
     }
 
@@ -186,12 +243,14 @@ public partial class machineElement : Button
 
     public void SetLogos()
     {
-        Texture2D logoTexture = Resources.Load<Texture2D>("logos/" + getLogoPath());
+        Texture2D logoTexture = Resources.Load<Texture2D>( getLogoPath());
+        Debug.Log("setLogo " + getLogoPath());
+
         StyleBackground background = new StyleBackground(logoTexture);
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
 
-        Lbl_upCost.AddToClassList(getLogoPath() + "Color");
+        Lbl_upCost.style.color = getColor();
 
 
         SetLogo();
@@ -204,13 +263,12 @@ public partial class machineElement : Button
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
 
-        VE_buyCover.style.display = isBuyed ? DisplayStyle.None : DisplayStyle.Flex;
+        VE_buyCover.style.display = data.isBuyed ? DisplayStyle.None : DisplayStyle.Flex;
 
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - level);
+        data.multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - data.level);
 
-        Lbl_buyPrice.text = BN_price.ToString();
-        Debug.Log("price : " + BN_price.ToString() );
-        Lbl_name.text = machineName;
+        Lbl_buyPrice.text = data.BN_price.ToString();
+        Lbl_name.text = data.machineName;
 
         SetBorderColor();
         upMachineCostText();
@@ -219,34 +277,34 @@ public partial class machineElement : Button
         clicked -= StartProduction;
         clicked += StartProduction;
         Btn_up.clicked -= LevelUp;
-        if(color != borderColor.black) Btn_up.clicked += LevelUp;
+        if(data.color != borderColor.black) Btn_up.clicked += LevelUp;
 
         SetLevelUpButton();
     }
 
     public void LoadMachineInfos()
     {
-        BigNumber RewardInc = new BigNumber(CalculReward(level + getMulitplicator()));
+        BigNumber RewardInc = new BigNumber(CalculReward(data.level + getMulitplicator()));
         RewardInc.Subtract(CalculReward());
         Lbl_reward.text = $"Reward : {CalculReward().ToString()} <color=green>(+{RewardInc.ToString()})</color>";
-        Lbl_employee.text = "Employee : " + (production_cps);
-        Lbl_level.text = (level == levelMax) ? "Lv : UP" : $"Lv : {level}/{levelMax} <color=cyan>(+{getMulitplicator()})</color>";
+        Lbl_employee.text = "Employee : " + (data.production_cps);
+        Lbl_level.text = (data.level == data.levelMax) ? "Lv : UP" : $"Lv : {data.level}/{data.levelMax} <color=cyan>(+{getMulitplicator()})</color>";
     }
 
     protected virtual void StartProduction() // == machine1Clicked
     {
-        if (!isBuyed && canBuy(BN_price)) //buy machine
+        if (!data.isBuyed && canBuy(data.BN_price)) //buy machine
         {
-            HandleMoney(-BN_price);
+            HandleMoney(-data.BN_price);
             VE_buyCover.style.display = DisplayStyle.None;
-            isBuyed = true;
+            data.isBuyed = true;
             if (QuestManager.Instance.type == QuestType.UnlockMachine)
             {
                 QuestManager.Instance.upQuest();
             }
             reloadUI();
         }
-        else if (isBuyed) 
+        else if (data.isBuyed) 
         {
             getProduction(true);
             if (this is machineIronElement && !Stats.Instance.ironTuto)
@@ -262,11 +320,11 @@ public partial class machineElement : Button
 
     protected virtual void LevelUp()
     {
-        if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) || color == borderColor.black ) return;
+        if ((!canBuy(CalculLevelUpCost()) || !havelevel() ) || data.color == borderColor.black ) return;
         HandleMoney(-CalculLevelUpCost());
-        level += multiplicator;
+        data.level += data.multiplicator;
 
-        multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - level);
+        data.multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - data.level);
 
 
         setMaxColor();
@@ -288,18 +346,18 @@ public partial class machineElement : Button
     public void setMaxColor()
     {
         int index = -1;
-        for(int i = 0; i < levelColor.Length; i++)
+        for(int i = 0; i < machineData.levelColor.Length; i++)
         {
-            if (levelColor[i] <= level)
+            if (machineData.levelColor[i] <= data.level)
                 index = i;
             else
                 break;
         }
 
-        if(index != -1 && index != (int)color - 1 )
+        if(index != -1 && index != (int)data.color - 1 )
         {
-            color = (borderColor)(index + 1);
-            if (color == borderColor.black)
+            data.color = (borderColor)(index + 1);
+            if (data.color == borderColor.black)
                 Lbl_upCost.style.display = DisplayStyle.None;
             SetBorderColor();
         }
@@ -307,13 +365,13 @@ public partial class machineElement : Button
     
     public virtual void Update(Rect scrollRect)
     {
-        if (!isBuyed) return;
+        if (!data.isBuyed) return;
 
-        if (production_cps > 0) {
-            time += Time.deltaTime;
-            if (time >= (1.0f / (float)production_cps)){
+        if (data.production_cps > 0) {
+            data.time += Time.deltaTime;
+            if (data.time >= (1.0f / (float)data.production_cps)){
                 getProduction(IsVisibleInScrollView(scrollRect));
-                time = 0f;
+                data.time = 0f;
             }
         }
     }
@@ -324,7 +382,7 @@ public partial class machineElement : Button
 
     public int getMulitplicator()
     {
-        return Mathf.Min(levelMax - level, UpMode.Instance.upModeMultiplicator);
+        return Mathf.Min(data.levelMax - data.level, UpMode.Instance.upModeMultiplicator);
     }
 
     protected BigNumber CalculLevelUpCost()
@@ -334,20 +392,20 @@ public partial class machineElement : Button
 
         int mult = getMulitplicator();
 
-        if (level == nextColorlevel)//changement de grade ( ex : fer -> or )
+        if (data.level == data.nextColorlevel)//changement de grade ( ex : fer -> or )
         {
-            calculedNumber.Set(BN_price);
-            double factor = 3.00 * System.Math.Pow(r, level) * Stats.Instance.upgradesPriceReducer;
+            calculedNumber.Set(data.BN_price);
+            double factor = 3.00 * System.Math.Pow(r, data.level) * Stats.Instance.upgradesPriceReducer;
             calculedNumber.Multiply(factor, false);
         }
         else
         {
-            double pow = System.Math.Pow(r, level);
-            calculedNumber.Set(BN_price * Stats.Instance.upgradesPriceReducer);
+            double pow = System.Math.Pow(r, data.level);
+            calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer);
             calculedNumber.Multiply(pow, false);
             double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);
             calculedNumber.Multiply(factor, false);
-            calculedNumber.Add(addColorCost(level, level + mult, r), false);
+            calculedNumber.Add(addColorCost(data.level, data.level + mult, r), false);
         }
 
         calculedNumber.Normalize();
@@ -357,11 +415,11 @@ public partial class machineElement : Button
     private BigNumber addColorCost(int baseLevel, int endLevel, double r)
     {
         BigNumber addCost = new BigNumber(0);
-        foreach(int lvColor in levelColor)
+        foreach(int lvColor in machineData.levelColor)
         {
             if (lvColor > baseLevel && lvColor <= endLevel)
             {
-                BigNumber colorCost = new BigNumber(BN_price);
+                BigNumber colorCost = new BigNumber(data.BN_price);
                 double factor = 2.00 * System.Math.Pow(r, lvColor) * Stats.Instance.upgradesPriceReducer;
                 colorCost.Multiply(factor, false);
                 addCost.Add(colorCost, false);
@@ -372,7 +430,7 @@ public partial class machineElement : Button
         return addCost;
     }
 
-    public BigNumber CalculReward() { return CalculReward(level); }
+    public BigNumber CalculReward() { return CalculReward(data.level); }
 
     public BigNumber CalculReward(int lvl)
     {
@@ -380,7 +438,9 @@ public partial class machineElement : Button
         reward.Multiply(Mathf.Pow(1.12f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
 
-        reward *= BN_price *0.055f;
+        reward *= data.BN_price *0.055f;
+        reward.round();
+        Debug.Log("reward " + reward.getNormalNotation(false));
         return reward;
     }
 
@@ -396,13 +456,13 @@ public partial class machineElement : Button
     public void upMachineCostText()
     {
         Lbl_lockedLevel.text = (getRequireLevel(getMulitplicator())).ToString();
-        VE_lockedLevelCover.style.visibility = havelevel(level + (getMulitplicator() - 1))? Visibility.Hidden : Visibility.Visible;
+        VE_lockedLevelCover.style.visibility = havelevel(data.level + (getMulitplicator() - 1))? Visibility.Hidden : Visibility.Visible;
         Lbl_upCost.text = CalculLevelUpCost().ToString();
     }
 
     private bool havelevel()
     {
-        return havelevel(level);
+        return havelevel(data.level);
     }
 
     private bool havelevel(int lv)
@@ -417,7 +477,7 @@ public partial class machineElement : Button
     }
     private int getRequireLevel(int mult)
     {
-        int targetLevel = level + mult;
+        int targetLevel = data.level + mult;
         int requiredShipLevel = Mathf.CeilToInt(targetLevel / 2f) - 1;
 
         return Mathf.Max(0, requiredShipLevel);
@@ -431,14 +491,14 @@ public partial class machineElement : Button
         StyleSheet blackBorderStyle = Resources.Load<StyleSheet>("styles/machineBlackBorderStyle");
         StyleSheet styleSheet = Resources.Load<StyleSheet>("styles/machineStyle");
 
-        if (color == borderColor.black)
+        if (data.color == borderColor.black)
         {
             styleSheets.Add(blackBorderStyle);
             styleSheets.Remove(styleSheet);
 
 
-            string pathCadre = "machines/" + color.ToString() + "/cadre";
-            string pathButton = "machines/" + color.ToString() + "/button";
+            string pathCadre = "machines/" + data.color.ToString() + "/cadre";
+            string pathButton = "machines/" + data.color.ToString() + "/button";
 
             Texture2D textureCadre = Resources.Load<Texture2D>(pathCadre);
             Texture2D textureButton = Resources.Load<Texture2D>(pathButton);
@@ -457,14 +517,13 @@ public partial class machineElement : Button
 
         
 
-        Color[] colors = { Color.white, bronze, silver, gold, diamand, Color.white };
-        Debug.Log("color : " + color + "  index : " + (int)color);
-        style.unityBackgroundImageTintColor = colors[(int)color];
-        Btn_up.style.unityBackgroundImageTintColor = colors[(int)color];
-        VE_logo.style.unityBackgroundImageTintColor = colors[(int)color];
+        Color[] colors = { Color.white, machineData.bronze, machineData.silver, machineData.gold, machineData.diamand, Color.white };
+        style.unityBackgroundImageTintColor = colors[(int)data.color];
+        Btn_up.style.unityBackgroundImageTintColor = colors[(int)data.color];
+        VE_logo.style.unityBackgroundImageTintColor = colors[(int)data.color];
 
-        production_cps = cps[(int)color];
-        nextColorlevel = levelColor[(int)color];
+        data.production_cps = machineData.cps[(int)data.color];
+        data.nextColorlevel = machineData.levelColor[(int)data.color];
     }
 
     public bool IsVisibleInScrollView(Rect scrollRect)
@@ -504,6 +563,11 @@ public partial class machineElement : Button
         return "";
     }
 
+    protected virtual Color getColor()
+    {
+        return Color.white;
+    }
+
     protected virtual void SetLogo()
     {
 
@@ -520,14 +584,14 @@ public partial class machineElement : Button
     public override bool Equals(object obj)
     {
         if (obj is machineElement other)
-            return machineName == other.machineName;
+            return data.machineName == other.data.machineName;
 
         return false;
     }
 
     public override int GetHashCode()
     {
-        return machineName.GetHashCode();
+        return data.machineName.GetHashCode();
     }
 #endregion
 }

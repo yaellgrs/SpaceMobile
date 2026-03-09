@@ -92,6 +92,8 @@ public class spaceShip : MonoBehaviour
         UpdateRepeler();
     }
 
+
+
     private void UpdateRepeler()
     {
         if (!Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.Magnectic)) return;
@@ -112,7 +114,6 @@ public class spaceShip : MonoBehaviour
             if (repelerTarget != null) repelerTarget.loadSpeed();
             spaceObject target = Utility.FindNearestMeteor(transform.position);
             Vector3 viewportPos = Camera.main.WorldToViewportPoint(target.transform.position);
-            float gap = 0.1f;
             if(Utility.isInScreen(target.transform.position, 0.1f))
             {
                 repelerTarget = target;

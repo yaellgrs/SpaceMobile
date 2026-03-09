@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public static class Utility
 {
     public const long DAY_IN_SECOND = 86400;
+    public static Color[] MAIN_RESSOUCE_COLOR ={
+        Utility.Hex("#734426"), //Wood
+        Utility.Hex("#FFA300"), //Iron
+    };
     public static void setBorderColor(Button btn, Color color)
     {
         btn.style.borderLeftColor = color;
@@ -134,5 +139,34 @@ public static class Utility
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(position);
         return (viewportPos.x > gap && viewportPos.x < (1f - gap) 
             && viewportPos.y > gap && viewportPos.y < (1f - gap));
+    }
+
+    public static string GetMainRessourceLogoPath()
+    {
+        return  "logos/mainRessource/" + Ship.Current.type.ToString() + "/mainRessource";
+    }
+
+    public static Texture2D GetMainRessourceLogo()
+    {
+        string path = GetMainRessourceLogoPath();
+        Texture2D texture2D = Resources.Load<Texture2D>(path);
+        if (texture2D == null) {
+            Debug.LogWarning("Can't load Texture2D at : " + path);
+            return null;
+        }
+        return texture2D;
+    }
+
+    public static Color GetMainRessourceColor()
+    {
+        int colorNumber = Mathf.Clamp((int)Ship.Current.type , 0, MAIN_RESSOUCE_COLOR.Length - 1);
+        return MAIN_RESSOUCE_COLOR[colorNumber];
+    }
+
+    public static Color Hex(string hex)
+    {
+        //retourn une couleur a partir d'un hexa décimal
+        ColorUtility.TryParseHtmlString(hex, out Color color);
+        return color;
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\upMode.cs" />
     <Compile Include="Assets\Scripts\DevTest.cs" />
     <Compile Include="Assets\Scripts\Data\Data.cs" />
+    <Compile Include="Assets\Scripts\BottomUI.cs" />
     <Compile Include="Assets\Scripts\UI\xp\XpUI.cs" />
     <Compile Include="Assets\Scripts\UI\BaseUI.cs" />
     <Compile Include="Assets\Scripts\ship\spaceShip.cs" />
@@ -152,6 +153,7 @@
     <None Include="Assets\art\test.txt" />
     <None Include="Assets\UI\prestige\BuyNextShip.uxml" />
     <None Include="Assets\UI\shipUpgradeElementStyle.uss" />
+    <None Include="Assets\UI\BottomUI.uxml" />
     <None Include="Assets\UI\MainUI.uxml" />
     <None Include="Assets\UI\BossTrucUI.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -202,6 +204,7 @@
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\Inter-LICENSE.txt" />
     <None Include="Assets\UI\prestige\prestigeStyle.uss" />
     <None Include="Assets\Resources\Styles\machineStyle.uss" />
+    <None Include="Assets\UI\bottomStyle.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.Android.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\UI\AdsUI.uxml" />

@@ -17,6 +17,12 @@ public class BigNumber
     public double Mantisse;
     public int Exp;
 
+    public BigNumber()
+    {
+        Mantisse = 0;
+        Exp = 0;
+    }
+
     public BigNumber(double mantisse, int exp)
     {
         Mantisse = mantisse;
@@ -45,11 +51,24 @@ public class BigNumber
         Normalize();
     }
 
+    public void Set(double n)
+    {
+        Mantisse = n;
+        Exp = 0;
+        Normalize();
+    }
+
     public void Set(BigNumber other)
     {
         Mantisse = other.Mantisse;
         Exp = other.Exp;
         Normalize();
+    }
+
+    public void round()
+    {
+        Mantisse = Math.Round(Mantisse * Math.Pow(10, Exp));
+        Exp = 0;
     }
 
     public void Normalize()
@@ -69,18 +88,15 @@ public class BigNumber
 
         Exp += shift;
 
-        if (Exp < 0) {
+/*        if (Exp < 0) {
             double realValue = Mantisse * Math.Pow(10, Exp);
 
             realValue = Math.Round(realValue);
 
             Mantisse = realValue;
             Exp = 0;
-        }
-        else if(Exp == 0)
-            Mantisse = Math.Round(Mantisse);
-        else
-            Mantisse = Math.Round(Mantisse * 1000f) / 1000f;
+        }*/
+        //Mantisse = Math.Round(Mantisse * 1000f) / 1000f;
 
     }
 
@@ -293,28 +309,39 @@ public class BigNumber
         return getNormalNotation();
     }
 
-    private string getNormalNotation()
+    public string getNormalNotation(bool round = true)
     {
-        if(Mantisse == 0) return "0";
+        if (Mantisse == 0) return "0";
+
+        if (Exp < 0 && !round)// 1.32e-2
+        {
+            double realValue = Mantisse * Math.Pow(10, Exp);//0.0132
+            return realValue.ToString("F2");//0.01
+        }
+        else if(Exp < 0)
+        {
+            Mantisse = Math.Round(Mantisse * Math.Pow(10, Exp));
+            Exp = 0;
+        }
 
         string prefix;
 
         string[] Prefixes = { "", "k", "m", "M", "B" };
         prefix = Exp / 3 < Prefixes.Length ? Prefixes[Exp / 3] : "x" + Exp;
 
-        int mod = Exp % 3;
+        int mod = ((Exp % 3) + 3) % 3;
         double nnMantisse = Mantisse * Pow10[mod];
 
-        if(Exp <= 1)
+        if (Exp <= 1 && round)
             return nnMantisse.ToString("F0");
-        
+
         switch (mod)
         {
-            case 1:
+            case 1://10.5
                 return nnMantisse.ToString("F1") + prefix;
-            case 2:
+            case 2://105
                 return nnMantisse.ToString("F0") + prefix;
-            default:
+            default://1.05
                 return nnMantisse.ToString("F2") + prefix;
         }
     }

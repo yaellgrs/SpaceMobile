@@ -20,7 +20,7 @@ public class UpgradesShipElement : UpgradesElement
 
     }
 
-    public UpgradesShipElement(string name, UpgradeType type) : base()
+    public UpgradesShipElement(UpgradeData data, string name, UpgradeType type) : base(data, name)
     {
         this.name = name;
         this.type = type;
@@ -58,16 +58,16 @@ public class UpgradesShipElement : UpgradesElement
         switch (type)// AdditionalLevel, Magnectic, DamageOverTime, ZoneDamage
         {
             case UpgradeType.AdditionalLevel:
-                Stats.Instance.shipUpgradesReward[UpgradeType.AdditionalLevel] = level * 100;
+                Stats.Instance.shipUpgradesReward[UpgradeType.AdditionalLevel] = data.level * 100;
                 break;
             case UpgradeType.Magnectic:
-                Stats.Instance.shipUpgradesReward[UpgradeType.Magnectic] = 0.5f - level * 0.1f;
+                Stats.Instance.shipUpgradesReward[UpgradeType.Magnectic] = 0.5f - data.level * 0.1f;
                 break;
             case UpgradeType.DamageOverTime:
-                Stats.Instance.shipUpgradesReward[UpgradeType.DamageOverTime] = level * 10; //% de dégats total / s après touché
+                Stats.Instance.shipUpgradesReward[UpgradeType.DamageOverTime] = data.level * 10; //% de dégats total / s après touché
                 break;
             case UpgradeType.ZoneDamage:
-                Stats.Instance.shipUpgradesReward[UpgradeType.ZoneDamage] = level * 10;//% de dégats total / s ds la zone
+                Stats.Instance.shipUpgradesReward[UpgradeType.ZoneDamage] = data.level * 10;//% de dégats total / s ds la zone
                 break;
         }
        LoadStat();

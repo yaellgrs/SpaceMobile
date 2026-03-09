@@ -66,6 +66,21 @@ public class PrestigeUI : BaseUI
         upgradeShip.gameObject.SetActive(false);
     }
 
+    protected override void upModeButtonClicked()
+    {
+        base.upModeButtonClicked();
+        if (forgeUI.gameObject.activeInHierarchy)
+        {
+            foreach (UpgradesElement up in Stats.Instance.upgradesPrestige)
+                up.Load();
+        }
+/*      else
+        {
+            foreach (UpgradesElement upgrade in Ship.Current.upgradesIron)
+                upgrade.Load();
+        }*/
+    }
+
 
     public void addNewUpgrades(int prestige)
     {
@@ -77,7 +92,10 @@ public class PrestigeUI : BaseUI
         else
             type = Stats.Instance.nextPrestigeToBuy2;
 
-        Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(type.ToString(), type));
+        UpgradeData data = new UpgradeData();
+        Stats.Instance.dataUpgradePrestige[type] = data;
+        Debug.LogError("data prestige count : " + Stats.Instance.dataUpgradePrestige.Count);
+        Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data, type.ToString(), type));
 
         if (prestige == 1)
             Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy);
@@ -117,6 +135,7 @@ public class PrestigeUI : BaseUI
 
     private void uraniumClicked()
     {
+        if (!Ship.Current.HaveUranium()) return;
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
@@ -164,6 +183,7 @@ public class PrestigeUI : BaseUI
             {
                 forgeUiVE.AddToClassList("prestigeUITrans");
                 black.style.visibility = Visibility.Hidden;
+                BottomUI.Instance.OpenMenu(SelectedMenu.None);
 
             }).StartingIn(50);
             forgeUiVE.schedule.Execute(() =>
@@ -186,6 +206,8 @@ public class PrestigeUI : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+        BottomUI.Instance.OpenMenu(SelectedMenu.Prestige);
+
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
@@ -306,8 +328,8 @@ public class PrestigeUI : BaseUI
 
         Ship.Current.stage = 1;
 
-        Ship.Current.machineIron.Clear();
-        Ship.Current.upgradesIron.Clear();
+        Ship.Current.dataMachinesIron.Clear();
+        Ship.Current.dataMachinesIron.Clear();
 
         Ship.Current.machinesUranium.Clear();
         Ship.Current.upgradesUranium.Clear();
@@ -332,9 +354,6 @@ public class PrestigeUI : BaseUI
 
         backClicked(forgeUI);
         backClicked(buyUI);
-
-        MainUi.Instance.xpUI.setBonusAutoFer();
-        MainUi.Instance.xpUI.setBonusAutoUranium();
 
         if(QuestManager.Instance.type == QuestType.GetStarParticle)
         {
@@ -373,6 +392,7 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
         Data.Instance.PrestigeCount += 1;
+        Ship.Current.Load();
 
         gameManager.instance.InitGame();
     }
@@ -537,7 +557,7 @@ public class PrestigeUI : BaseUI
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
-        foreach (UpgradesShipElement upgrade in Stats.Instance.upgradesShip)
+        foreach (UpgradesShipElement upgrade in Ship.Current.upgradesShip)
         {
             if(upgrade.isUnlocked()){
             scroll.Add(upgrade);
@@ -599,9 +619,14 @@ public class PrestigeUI : BaseUI
 
     private void BuyNextShip()
     {
-        Ship.Current.type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + 1 ,0,  System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
-        loadUpdateUI();
+        Ship.Current.SetNextType(); 
+
         backClicked(upgradeShip);
+        backClicked(upgradeUI);
+
+        BottomUI.Instance.OpenMenu(SelectedMenu.None);
+        gameManager.instance.SetPause(false);
+
     }
 
 }

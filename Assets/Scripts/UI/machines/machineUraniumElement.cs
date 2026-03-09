@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -9,13 +8,18 @@ public class machineUraniumElement : machineElement
     {
     }
 
-    public machineUraniumElement(string machineName, BigNumber initPrice)
-        : base(machineName, initPrice)
+    public machineUraniumElement(machineData data)
+        : base(data)
     {
     }
     protected override string getLogoPath()
     {
-        return "uranium";
+        return "logos/uranium";
+    }
+
+    protected override Color getColor()
+    {
+        return Utility.Hex("00FF0E");
     }
 
     protected override void HandleMoney(BigNumber amount)
@@ -35,7 +39,7 @@ public class machineUraniumElement : machineElement
 
     protected override void SetLogo()
     {
-        Texture2D texture = Resources.Load<Texture2D>("logos/uranium/" + machineName);
+        Texture2D texture = Resources.Load<Texture2D>("logos/uranium/" + data.machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
 
     }

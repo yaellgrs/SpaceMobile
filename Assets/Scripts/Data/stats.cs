@@ -4,7 +4,18 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Newtonsoft.Json;
 
-public static class Ship{ public static SpaceShipData Current => Stats.Instance.CurrentSpaceShip; }
+public static class Ship
+{
+    public static SpaceShipData Current
+    {
+        get
+        {
+            if (Stats.Instance == null)
+                Stats.Initialize(); // assure l'instance avant d'y accéder
+            return Stats.Instance.CurrentSpaceShip;
+        }
+    }
+}
 
 [System.Serializable]
 public class Stats
@@ -42,7 +53,7 @@ public class Stats
     //ships
     public SpaceShipType currentSpaceShipType = SpaceShipType.Main;
     public List<SpaceShipDico> spaceShips = new List<SpaceShipDico>();
-    public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
+    [JsonIgnore] public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
 
     //global
     public int diamand { get; private set; } = 100;
@@ -68,8 +79,8 @@ public class Stats
     //Ship
 
     //machines upgrades
-    public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
-    public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
+    public Dictionary<UpgradeType, UpgradeData> dataUpgradePrestige = new Dictionary<UpgradeType, UpgradeData>();
+    [JsonIgnore] public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
 
     public float scale = 1f; 
     public float speedAuto = 5f; 
@@ -116,9 +127,6 @@ public class Stats
 
     public int shipFragment = 0;
 
-
-
-
     public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
             UpgradeType.PrestigeMultiplicator,
             UpgradeType.LessMeteor,
@@ -131,39 +139,21 @@ public class Stats
             UpgradeType.CriticalProbability, 
     };
 
-
     public UpgradeType nextPrestigeToBuy = UpgradeType.DamageMultiplicator;
     public UpgradeType nextPrestigeToBuy2 = UpgradeType.PrestigeMultiplicator;
 
-
     public Stats()
     {
-        Init();
     }
 
-    public void Init()
+    public static void Init()
     {
-        //List<UpgradesElement> upPrestige = new List<UpgradesElement>();
-        //foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
-        //{
-        //    upPrestige.Add(new UpgradesPrestigeElement(type.ToString(), type));
-        //}
-        //Utility.AddMachineToData(upPrestige, upgradesPrestige);
+        foreach (var data in Instance.dataUpgradePrestige)
+            Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data.Value, data.Key.ToString(), data.Key));
 
-        List<UpgradesElement> upShip = new List<UpgradesElement>();
-        foreach (UpgradesShipElement.UpgradeType type in Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
-        {
-            upShip.Add(new UpgradesShipElement(type.ToString(), type));
-        }
-        Utility.AddMachineToData(upShip, upgradesShip);
-
-
-        Debug.Log("init");
+        if (Ship.Current?.lifeMax != null) Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
+        if (Ship.Current?.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
     }
-    /*
-         public List<UpgradesElement> upgradesPrestige = new List<UpgradesElement>();
-    public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
-     */
 
     public void AddDiamand(int amount)
     {
@@ -186,14 +176,14 @@ public class Stats
     public void AddIron(BigNumber amount)
     {
         Ship.Current.iron += amount;
-        MainUi.Instance.upIronUI();
+        MainUi.Instance?.upIronUI();
         OnIronChanged.Invoke();
     }
 
     public void AddUranium(BigNumber amount)
     {
         Ship.Current.uranium += amount;
-        MainUi.Instance.upUraniumUI();
+        MainUi.Instance?.upUraniumUI();
     }
 
     public void addPrestige(BigNumber amount)
@@ -211,24 +201,37 @@ public class Stats
         string path = Application.persistentDataPath + "/stats.json";
 
         if (!System.IO.File.Exists(path))
-        {
             return;
-        }
-        else
+
+        var settings = new JsonSerializerSettings
         {
-            string data = System.IO.File.ReadAllText(path);
-            Instance = JsonUtility.FromJson<Stats>(data);
-        }   
-        if(Ship.Current.lifeMax != null )Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
-        if (Ship.Current.shieldMax != null) Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
+            TypeNameHandling = TypeNameHandling.Auto,
+        };
+
+        string data = System.IO.File.ReadAllText(path);
+
+        Instance = JsonConvert.DeserializeObject<Stats>(data, settings);
+        if(Instance == null)
+        {
+            Instance = new Stats();
+        }
+
+        Init();
     }
 
     public void save() {
         if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         string path = Application.persistentDataPath + "/stats.json";
-        string stat = JsonUtility.ToJson(this);
+
+        var settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto,
+            Formatting = Formatting.Indented
+        };
+        string stat = JsonConvert.SerializeObject(Instance, settings);
         System.IO.File.WriteAllText(path, stat);
+
         QuestStats.Instance.Save();
         Data.Instance.Save();
     }

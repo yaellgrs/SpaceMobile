@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using static spaceObject;
 using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 public class gameManager : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class gameManager : MonoBehaviour
             QuestStats.Init();
             Data.Init();
 
-            SetPause(true);
+            SetPause(false);
         }
         else
         {
@@ -88,11 +89,6 @@ public class gameManager : MonoBehaviour
     public void InitGame()
     {
         SetWorldScale();
-        List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
-
-        foreach(UpgradesShipElement.UpgradeType type in System.Enum.GetValues(typeof(UpgradesShipElement.UpgradeType)))
-            upgradesShip.Add(new UpgradesShipElement(type.ToString(), type));
-        Utility.AddMachineToData(upgradesShip, Stats.Instance.upgradesShip);
     }
 
     public void SetWorldScale()
@@ -279,41 +275,50 @@ public class gameManager : MonoBehaviour
 
     private void spawnSpaceObject()
     {
-        int x = UnityEngine.Random.Range(0, 1000);
-        int BigProb;
-        int ScatterProb;
-
         int stage = Ship.Current.stage;
 
-        BigProb = stage < 25 ? 0 : 650; // 45 - 65 = 20%
+        int BigProb = stage > 25 ? 200 : 0;
+        int ScatterProb = stage < 10 ? 0 : 200;
+        int uraniumProb = XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && stage > 20 ? 40 : 0;
+        int ironProb = stage > 10 ? 40 : 0;
+        int normalProb = Mathf.Max(0, 1000 - (ScatterProb + BigProb + ironProb + uraniumProb + Stats.Instance.diamandProb));
 
-        ScatterProb = stage < 10 ? 0 :
-                      stage < 25 ? 450 : 450;// diamondLimit + 7.5 - 45 = 30-35( environ ) 
+        Dictionary<spaceObject, int> probabilites = new Dictionary<spaceObject, int>
+            {
+                {meteorPredab, normalProb},
+                {ScatterMeteorPrefab, ScatterProb},
+                {BigMeteorPrefab, BigProb},
+                {ironMeteorPrefab, ironProb},
+                {uraniumMeteorPrefab, uraniumProb},
+                {DiamandMeteorPrefab, Stats.Instance.diamandProb },
+            };
+        SpawnWithProbability(probabilites);
+    }
+    
+    private void SpawnWithProbability(Dictionary<spaceObject, int> probabilites)
+    {
+        if (probabilites.Values.Sum() > 1000)
+            Debug.LogWarning("Probability sum above 1000");
+        Debug.Log("prob sum " + probabilites.Values.Sum());
 
-        int diamondLimit = Stats.Instance.diamandProb;
-        int rareLimit = diamondLimit + 75; //uranium ou fer
+        int x = UnityEngine.Random.Range(0, 1000);
+        int sumProb = 0;
 
-        if (x < diamondLimit)
-            SpawnMeteor(DiamandMeteorPrefab, meteorType.Diamand);
-        else if(x < rareLimit)
+        foreach (var elem in probabilites)
         {
-            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && UnityEngine.Random.Range(0, 2) == 0)
-                SpawnMeteor(uraniumMeteorPrefab, meteorType.Uranium);
-            else
-                SpawnMeteor(ironMeteorPrefab, meteorType.Iron);
+            sumProb += elem.Value;
+            Debug.Log(" prob : " +x + " prob " + sumProb);
+            if(x < sumProb)
+            {
+                SpawnMeteor(elem.Key);
+                return;
+            }
         }
-        else if (x < ScatterProb)
-            SpawnMeteor(ScatterMeteorPrefab, meteorType.Scatter);
-        else if (x < BigProb)
-            SpawnMeteor(BigMeteorPrefab, meteorType.Big);
-        else 
-            SpawnMeteor(meteorPredab, meteorType.Normal);
     }
 
-    private void SpawnMeteor(spaceObject meteorPredab, meteorType type)
+    private void SpawnMeteor(spaceObject meteorPredab)
     {
         spaceObject obj = Instantiate(meteorPredab);
-        obj.type = type;
         obj.level = Ship.Current.stage;
         obj.Init();
         meteors.Add(obj);
@@ -354,27 +359,17 @@ public class gameManager : MonoBehaviour
         else if(!isPause && !bossStage)
         {
             if(timerSave > 0f)
-            {
                 timer = timerSave;
-            }
             else
-            {
                 timer = 0f;
-            }
 
             foreach (spaceObject meteor in meteors)
             {
                 if (meteor.isPause)
-                {
                     meteor.Move();
-                }
-
-
             }
             canon.instance.setPause(false);
         }
-
-
     }
 
     public void DestroyMeteors()
@@ -401,6 +396,9 @@ public class gameManager : MonoBehaviour
         spaceObject obj = Instantiate(miniMeteorPrefab);
         spaceObject obj2 = Instantiate(miniMeteorPrefab);
         spaceObject obj3 = Instantiate(miniMeteorPrefab);
+        meteors.Add(obj);
+        meteors.Add(obj2);
+        meteors.Add(obj3);
         obj.transform.position = trans.position;
         Vector3 n= trans.position;
         if (Mathf.Abs(n.y - spaceShip.instance.transform.position.y) < 2)
