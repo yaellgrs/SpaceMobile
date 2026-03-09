@@ -11,6 +11,7 @@
         </engine:Label>
         <engine:ScrollView enabled="true" focusable="false" mode="Vertical" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" horizontal-page-size="-1" mouse-wheel-scroll-size="18" usage-hints="None" nested-interaction-kind="ForwardScrolling" touch-scroll-type="Clamped" name="scroll" style="position: absolute; height: 25%; width: 98%; top: 62%; left: 1%; flex-grow: 1;">
             <UpgradesElement/>
+            <machineElement/>
         </engine:ScrollView>
     </engine:VisualElement>
     <engine:Button name="back2" style="position: absolute; width: 100.5%; height: 48%; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); top: -0.1%; left: -0.45%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
