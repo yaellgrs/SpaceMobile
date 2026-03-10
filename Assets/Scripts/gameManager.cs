@@ -239,7 +239,7 @@ public class gameManager : MonoBehaviour
         }
         else 
         {
-            if(XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && Random.Range(0, 2) == 1)
+            if(Ship.Current.HaveUranium() && Random.Range(0, 2) == 1)
             {//uranium 
                 reward = (int)(Ship.Current.stage * 0.5f);
                 type = MarkerType.Uranium;
@@ -279,7 +279,7 @@ public class gameManager : MonoBehaviour
 
         int BigProb = stage > 25 ? 200 : 0;
         int ScatterProb = stage < 10 ? 0 : 200;
-        int uraniumProb = XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium) && stage > 20 ? 40 : 0;
+        int uraniumProb = Ship.Current.HaveUranium() && stage > 20 ? 40 : 0;
         int ironProb = stage > 10 ? 40 : 0;
         int normalProb = Mathf.Max(0, 1000 - (ScatterProb + BigProb + ironProb + uraniumProb + Stats.Instance.diamandProb));
 
@@ -299,7 +299,6 @@ public class gameManager : MonoBehaviour
     {
         if (probabilites.Values.Sum() > 1000)
             Debug.LogWarning("Probability sum above 1000");
-        Debug.Log("prob sum " + probabilites.Values.Sum());
 
         int x = UnityEngine.Random.Range(0, 1000);
         int sumProb = 0;
@@ -307,7 +306,6 @@ public class gameManager : MonoBehaviour
         foreach (var elem in probabilites)
         {
             sumProb += elem.Value;
-            Debug.Log(" prob : " +x + " prob " + sumProb);
             if(x < sumProb)
             {
                 SpawnMeteor(elem.Key);

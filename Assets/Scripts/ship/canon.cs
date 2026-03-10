@@ -43,7 +43,7 @@ public class canon : MonoBehaviour
             timer += Time.deltaTime;
 
             moveCanon(); // appel shoot 
-            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+            if (Ship.Current.HaveUranium())
                 autoShoot();
         }  
     }

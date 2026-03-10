@@ -232,7 +232,7 @@ public class MainUi : MonoBehaviour
     public void loadRocketButton()
     {
         if (rocketCover == null) return;
-        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockRocket))
+        if (Ship.Current.HaveUranium())
         {
             rocketCover.style.display = DisplayStyle.Flex;
             rocketButton.style.display = DisplayStyle.Flex;
@@ -445,7 +445,7 @@ public class MainUi : MonoBehaviour
     {
         if (VE_AutoShoot != null)
         {
-            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+            if (Ship.Current.HaveUranium())
             {
                 VE_AutoShoot.style.visibility = Visibility.Visible;
                 float timer = (canon.instance.autoTimer / Stats.Instance.speedAuto) * 100;

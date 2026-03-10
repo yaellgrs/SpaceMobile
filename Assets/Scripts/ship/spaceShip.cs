@@ -173,7 +173,7 @@ public class spaceShip : MonoBehaviour
 
     public void setAreaScale()
     {
-        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+        if (Ship.Current.HaveUranium())
         {
             area.gameObject.SetActive(true);
             area.transform.localScale = new Vector3(0.5386925f, 0.4774579f, 1f);
