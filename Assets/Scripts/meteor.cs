@@ -62,7 +62,8 @@ public class spaceObject : MonoBehaviour
             Spawn();
         int x = level - 1;
 
-        float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
+        //float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
+        float hp = 10 + Mathf.Pow(x, 1.75f);
         lifeMax = new BigNumber((int)hp);
 
         setLife();
