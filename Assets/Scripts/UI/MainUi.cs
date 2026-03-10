@@ -454,12 +454,9 @@ public class MainUi : MonoBehaviour
                 timer = (Stats.Instance.speedAuto - canon.instance.autoTimer);
                 if (timer < 0f) timer = 0f;
                 Label_AutoShoot.text = timer.ToString("F1") + "s";
-
             }
             else
-            {
                 VE_AutoShoot.style.visibility = Visibility.Hidden;
-            }
         }
 
     }

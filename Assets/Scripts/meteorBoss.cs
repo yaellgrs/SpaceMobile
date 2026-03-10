@@ -34,6 +34,15 @@ public class meteorBoss : spaceObject
         setAnimation();
         attackTimer = ATTACK_TIMER_LIMITE;
     }
+    protected override bool CanBeStellar()
+    {
+        return true;
+    }
+
+    protected override int GetStellarProbability()
+    {
+        return Utility.GetStellarBossProbability();
+    }
 
     protected override void setFontSize()
     {
@@ -141,5 +150,6 @@ public class meteorBoss : spaceObject
         gameManager.instance.activeWarning(false);
         gameManager.instance.bossStage = false;
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
+        if (isStellar) Stats.Instance.prestigeUnlocked = true;
     }
 }

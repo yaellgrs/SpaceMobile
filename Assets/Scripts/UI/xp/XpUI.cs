@@ -113,7 +113,8 @@ public class XpUI : MonoBehaviour
 
     public void LevelUp()
     {
-        Ship.Current.level++;
+        Ship.Current.level = Math.Clamp(Ship.Current.level + 1, 0, 100);
+
 
         //if (Ship.Current.level % 2 == 0) loadLevelUpUI();
 
@@ -159,9 +160,10 @@ public class XpUI : MonoBehaviour
 
     public void loadBonus()
     {
-        Stats.Instance.damage_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.01f;
-		Stats.Instance.life_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.01f;
-		Stats.Instance.shield_Multiplicator_Lvl = 1f + (Ship.Current.level - 1) * 0.01f;
+        int lvl = Ship.Current.level;
+        Stats.Instance.damage_Multiplicator_Lvl = 1f + lvl * 0.01f;
+		Stats.Instance.life_Multiplicator_Lvl = 1f + lvl * 0.01f;
+		Stats.Instance.shield_Multiplicator_Lvl = 1f + lvl * 0.01f;
     }
 }
 

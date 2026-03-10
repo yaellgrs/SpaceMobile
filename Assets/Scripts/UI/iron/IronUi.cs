@@ -20,7 +20,7 @@ public class IronUi : BaseUI
         base.Start();
         //loadForgeUI();
         var root = forgeUI.rootVisualElement;
-        forgeUiVE.AddToClassList("forgeIronTrans");
+        forgeUiVE?.AddToClassList("forgeIronTrans");
         forgeUI.gameObject.SetActive(false);
 
     }

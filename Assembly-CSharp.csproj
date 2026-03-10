@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\UI\machines\machineUraniumElement.cs" />
     <Compile Include="Assets\Scripts\UI\BossFragmentUi.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesIronElement.cs" />
+    <Compile Include="Assets\Scripts\Consts.cs" />
     <Compile Include="Assets\Scripts\Song.cs" />
     <Compile Include="Assets\Scripts\UI\iron\IronUi.cs" />
     <Compile Include="Assets\Scripts\BigNumber.cs" />

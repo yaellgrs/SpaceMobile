@@ -169,4 +169,13 @@ public static class Utility
         ColorUtility.TryParseHtmlString(hex, out Color color);
         return color;
     }
+
+    public static int GetStellarMeteorProbability()
+    {
+        return (int)(Consts.BASE_STELLAR_METEOR_PROBABILITY * Stats.Instance.probabilitéOfOmega);
+    }
+    public static int GetStellarBossProbability()
+    {
+        return (int)(Consts.BASE_STELLAR_BOSS_PROBABILITY * Stats.Instance.probabilitéOfOmega);
+    }
 }

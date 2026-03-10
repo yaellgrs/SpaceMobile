@@ -12,14 +12,14 @@
                 <UnityEngine.Localization.LocalizedString property="text" entry="Id(14706684145664)" table="GUID:d1989b394c5e01c4d9d44725c372c176"/>
             </Bindings>
         </engine:Button>
-        <engine:VisualElement style="flex-grow: 1; position: absolute; height: 15%; width: 90%; top: 40%; left: 5%; flex-direction: row;">
-            <engine:Label text="100%" name="damage" style="position: absolute; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; -unity-text-align: middle-right; height: 50%; top: 25%; left: 7.5%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 15%;">
+        <engine:VisualElement style="flex-grow: 1; position: absolute; height: 20%; width: 90%; top: 40%; left: 5%; flex-direction: row;">
+            <engine:Label text="100%" name="damage" style="position: absolute; color: rgb(255, 255, 255); font-size: 50px; -unity-font-style: bold; -unity-text-align: middle-right; height: 50%; top: 25%; left: 7.5%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 15%;">
                 <engine:VisualElement style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/art/g%C3%A9n%C3%A9ral/damage.png?fileID=2800000&amp;guid=42fc03faceb4b0d49ac1a4d033c7af6f&amp;type=3#damage&quot;); height: 110%; width: 75%; top: 0%; left: 105%;"/>
             </engine:Label>
-            <engine:Label text="100%" name="life" style="position: absolute; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; -unity-text-align: middle-right; height: 50%; top: 25%; left: 38%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 15%;">
+            <engine:Label text="100%" name="life" style="position: absolute; color: rgb(255, 255, 255); font-size: 50px; -unity-font-style: bold; -unity-text-align: middle-right; height: 50%; top: 25%; left: 38%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 15%;">
                 <engine:VisualElement style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/art/UI/g%C3%A9n%C3%A9ral/life.png?fileID=2800000&amp;guid=8432baf4a1ff9884c9f2b2d4bb79d717&amp;type=3#life&quot;); height: 90%; width: 50%; top: 5%; left: 110%;"/>
             </engine:Label>
-            <engine:Label text="100%" name="shield" style="position: absolute; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; -unity-text-align: middle-right; height: 50%; top: 25%; left: 70%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 15%;">
+            <engine:Label text="100%" name="shield" style="position: absolute; color: rgb(255, 255, 255); font-size: 50px; -unity-font-style: bold; -unity-text-align: middle-right; height: 50%; top: 25%; left: 70%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; width: 15%;">
                 <engine:VisualElement style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/art/UI/g%C3%A9n%C3%A9ral/shield.png?fileID=2800000&amp;guid=5a8c03ba2b97ac04fb81f5d1b617e906&amp;type=3#shield&quot;); height: 90%; width: 50%; top: 5%; left: 105%; background-size: 90% 100%;"/>
             </engine:Label>
         </engine:VisualElement>
