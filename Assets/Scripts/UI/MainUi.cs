@@ -434,6 +434,7 @@ public class MainUi : MonoBehaviour
 
     public void prestigeClicked()
     {
+        if (!Stats.Instance.prestigeUnlocked) return;
         prestigeUI.IronClicked();
     }
     private void xpClicked()

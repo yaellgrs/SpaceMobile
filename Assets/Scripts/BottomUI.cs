@@ -37,8 +37,10 @@ public class BottomUI : MonoBehaviour
         string firstForgePath = "UI/Bottom/" + Ship.Current.type + "/FirstForge";
         string secondForgePath = Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ?
             "UI/Bottom/Wood/SecondForge" : "UI/Bottom/SecondForge";
+        string prestigePath = Stats.Instance.prestigeUnlocked ? "UI/Bottom/prestige" : "UI/Bottom/prestigeLocked";
         VE_MainForge.style.backgroundImage = Resources.Load<Texture2D>(firstForgePath);
         VE_SecondForge.style.backgroundImage = Resources.Load<Texture2D>(secondForgePath);
+        VE_Prestige.style.backgroundImage = Resources.Load<Texture2D>(prestigePath);
 
     }
 

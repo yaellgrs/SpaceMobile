@@ -41,7 +41,7 @@ public class meteorBoss : spaceObject
 
     protected override int GetStellarProbability()
     {
-        return Utility.GetStellarBossProbability();
+        return Stats.Instance.prestigeUnlocked ? Utility.GetStellarBossProbability() : 1000;
     }
 
     protected override void setFontSize()

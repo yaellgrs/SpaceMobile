@@ -199,7 +199,7 @@ public class IronUi : BaseUI
 
     private void prestigeClicked()
     {
-
+        if (!Stats.Instance.prestigeUnlocked) return;
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
