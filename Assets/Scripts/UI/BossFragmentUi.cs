@@ -145,9 +145,9 @@ public class BossFragmentUi : MonoBehaviour
         gameManager.instance.LoadStage();
         gameManager.instance.SetPause(false);
 
-        MainUi.Instance.bossFragmentUi.canExit = false;
-        MainUi.Instance.bossFragmentUi.Open();
-        MainUi.Instance.bossFragmentUi.StartCoroutine(MainUi.Instance.bossFragmentUi.EndFragmentBossDelay());
+        //MainUi.Instance.bossFragmentUi.canExit = false;
+        //MainUi.Instance.bossFragmentUi.Open();
+        //MainUi.Instance.bossFragmentUi.StartCoroutine(MainUi.Instance.bossFragmentUi.EndFragmentBossDelay());
     }
 
     private IEnumerator EndFragmentBossDelay()
