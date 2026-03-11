@@ -55,7 +55,7 @@ public class spaceShip : MonoBehaviour
     void Update()
     {
         Animation();
-        if (!Ship.Current.shield.isBigger(getMaxShield()))
+        if (!Ship.Current.shield.isBigger(getMaxShield())) //regen shield
         {
             if (!gameManager.instance.isPaused)
             {
@@ -77,9 +77,8 @@ public class spaceShip : MonoBehaviour
                 MainUi.Instance.upShieldBar();
                 shieldRegen = 0;
             }
-
         }
-        if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && new BigNumber(1, 0).isBigger(Ship.Current.life)) 
+        if ((MainUi.Instance.healthBar.resolvedStyle.width / MainUi.Instance.healthBar.resolvedStyle.maxWidth.value) * 100f < 1f && Ship.Current.life.Mantisse <= 0) 
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
@@ -91,8 +90,6 @@ public class spaceShip : MonoBehaviour
         }
         UpdateRepeler();
     }
-
-
 
     private void UpdateRepeler()
     {
@@ -165,7 +162,7 @@ public class spaceShip : MonoBehaviour
             }
 
             Ship.Current.life -= x;
-            if (new BigNumber(0).isBigger(Ship.Current.life)) Ship.Current.life.Set(0);
+            if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
         }
 
         MainUi.Instance.upShieldBar();
