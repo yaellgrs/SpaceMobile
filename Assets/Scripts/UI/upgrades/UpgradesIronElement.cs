@@ -72,9 +72,7 @@ public class UpgradesIronElement : UpgradesElement
                 if(MainUi.Instance != null) MainUi.Instance.upHealthBar();
                 break;
             case UpgradeType.Damage:
-                Ship.Current.damage.initial.Set(1);
-                Ship.Current.damage.initial *= Mathf.Pow(1.3f, data.level);
-                Ship.Current.damage.initial += (int)( 0.5f * (data.level - 1));
+                Ship.Current.damage.initial.Set(GetReward(data.level));
                 break;
             case UpgradeType.Shield:
                 diff = new BigNumber(0);
@@ -107,9 +105,7 @@ public class UpgradesIronElement : UpgradesElement
                 reward *= 0.5f * Mathf.Pow(lvl + 1, 1.6f);
                 break;
             case UpgradeType.Damage:
-                reward.Set(1);
-                reward *= Mathf.Pow(1.3f, lvl);
-                reward += (int)(0.5f * (lvl - 1));
+                reward.Set(Mathf.Pow(lvl, 1.25f));
                 break;
             case UpgradeType.Shield:
                 reward.Set(10);

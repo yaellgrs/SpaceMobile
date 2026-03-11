@@ -41,7 +41,7 @@ public class spaceObject : MonoBehaviour
     public BigNumber life;
     Vector3 direction;
     protected bool isStart = true;
-    protected bool isOmega = false;
+    protected bool isStellar = false;
     protected bool isUp = true;
     public float spawnTime = 0f;
     public bool isPause = false;
@@ -62,7 +62,8 @@ public class spaceObject : MonoBehaviour
             Spawn();
         int x = level - 1;
 
-        float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
+        //float hp = 3 + (x * 1.5f) + Mathf.Pow(x, 1.25f);
+        float hp = 10 + Mathf.Pow(x, 1.75f);
         lifeMax = new BigNumber((int)hp);
 
         setLife();
@@ -72,11 +73,12 @@ public class spaceObject : MonoBehaviour
 
         transform.localScale *= Stats.Instance.scale;
         lifeText.text = life.ToString();
-        if (Stats.Instance.prestigeUnlocked && Ship.Current.stage >= 10)
+
+        if (CanBeStellar())
         {
-            if (Random.Range(0, 1000) <= Stats.Instance.probabilitéOfOmega*10 || true)
+            if (Random.Range(0, 1000) <= GetStellarProbability())
             {
-                isOmega = true;
+                isStellar = true;
                 starParticle.gameObject.SetActive(true);
             }
             else starParticle.gameObject.SetActive(false);
@@ -88,6 +90,16 @@ public class spaceObject : MonoBehaviour
         transform.localScale = baseScale;
         transform.localScale *= Stats.Instance.scale;
         setFontSize();
+    }
+
+    protected virtual bool CanBeStellar()
+    {
+        return Stats.Instance.prestigeUnlocked && Ship.Current.stage >= Consts.MINIMUM_STAR_PARTICULE_STAGE;
+    }
+
+    protected virtual int GetStellarProbability()
+    {
+        return Utility.GetStellarMeteorProbability();
     }
 
     protected virtual void setLife()
@@ -281,7 +293,7 @@ public class spaceObject : MonoBehaviour
             Data.Instance.basicMeteorKilled += 1;
         }
         //Death
-        if (isOmega)
+        if (isStellar)
         {
             
             Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);

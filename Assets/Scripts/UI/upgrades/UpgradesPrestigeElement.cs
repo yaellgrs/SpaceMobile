@@ -124,7 +124,7 @@ public class UpgradesPrestigeElement : UpgradesElement
                 Stats.Instance.stageSkipProb = realLevel;
                 break;
             case UpgradeType.OmegaProb:
-                Stats.Instance.probabilitéOfOmega = (realLevel + 1) * 5;
+                Stats.Instance.probabilitéOfOmega = 1 + (realLevel) * 0.05f;
                 break;
             case UpgradeType.MinimumLevel:
                 Stats.Instance.MinimalLevel = realLevel;

@@ -244,7 +244,6 @@ public partial class machineElement : Button
     public void SetLogos()
     {
         Texture2D logoTexture = Resources.Load<Texture2D>( getLogoPath());
-        Debug.Log("setLogo " + getLogoPath());
 
         StyleBackground background = new StyleBackground(logoTexture);
         VE_upCostLogo.style.backgroundImage = background;
@@ -440,7 +439,6 @@ public partial class machineElement : Button
 
         reward *= data.BN_price *0.055f;
         reward.round();
-        Debug.Log("reward " + reward.getNormalNotation(false));
         return reward;
     }
 

@@ -26,7 +26,7 @@ public class MainUi : MonoBehaviour
     public ShopUI shopUI;
     public OfflineUI offlineUI;
     public QuestUI questUI;
-    public BossFragmentUi bossFragmentUi;
+    //public BossFragmentUi bossFragmentUi;
 
 
     [Header("Others")]
@@ -64,7 +64,6 @@ public class MainUi : MonoBehaviour
     public VisualElement questCompleted;
     public VisualElement rocketCover;
     private float rocketTimer = -1f;
-    public Button Btn_bossFragment;
 
     private Label Label_AutoShoot;
     private VisualElement VE_AutoShoot;
@@ -119,7 +118,6 @@ public class MainUi : MonoBehaviour
         questCompleted = root.Q<VisualElement>("questCompleted");
         VE_AutoShoot = root.Q<VisualElement>("autoShoot");
         VE_AutoShootBar = root.Q<VisualElement>("autoShootBar");
-        Btn_bossFragment = root.Q<Button>("bossFragment");
         VE_gameUI = root.Q<VisualElement>("gameUI");
         VE_ironLogo = root.Q<VisualElement>("ironLogo");
 
@@ -156,7 +154,6 @@ public class MainUi : MonoBehaviour
         pubButton.clicked += pubButtonClicked;
         shopButton.clicked += shopClicked;
         questButton.clicked += questUI.LoadQuestUI;
-        Btn_bossFragment.clicked += bossFragmentUi.Open;
         enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
@@ -232,7 +229,7 @@ public class MainUi : MonoBehaviour
     public void loadRocketButton()
     {
         if (rocketCover == null) return;
-        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockRocket))
+        if (Ship.Current.HaveUranium())
         {
             rocketCover.style.display = DisplayStyle.Flex;
             rocketButton.style.display = DisplayStyle.Flex;
@@ -434,6 +431,7 @@ public class MainUi : MonoBehaviour
 
     public void prestigeClicked()
     {
+        if (!Stats.Instance.prestigeUnlocked) return;
         prestigeUI.IronClicked();
     }
     private void xpClicked()
@@ -445,7 +443,7 @@ public class MainUi : MonoBehaviour
     {
         if (VE_AutoShoot != null)
         {
-            if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+            if (Ship.Current.HaveUranium())
             {
                 VE_AutoShoot.style.visibility = Visibility.Visible;
                 float timer = (canon.instance.autoTimer / Stats.Instance.speedAuto) * 100;
@@ -454,12 +452,9 @@ public class MainUi : MonoBehaviour
                 timer = (Stats.Instance.speedAuto - canon.instance.autoTimer);
                 if (timer < 0f) timer = 0f;
                 Label_AutoShoot.text = timer.ToString("F1") + "s";
-
             }
             else
-            {
                 VE_AutoShoot.style.visibility = Visibility.Hidden;
-            }
         }
 
     }

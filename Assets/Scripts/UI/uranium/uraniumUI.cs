@@ -38,6 +38,7 @@ public class UraniumUI : BaseUI
 
     private void prestigeClicked()
     {
+        if (!Stats.Instance.prestigeUnlocked) return;
         forgeUI.gameObject.SetActive(false);
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
@@ -132,10 +133,9 @@ public class UraniumUI : BaseUI
         prestigeButton.clicked += prestigeClicked;
         ironButton.clicked += ironClicked;
 
-        if (XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+        if (Ship.Current.HaveUranium())
         {
             uraniumUnlockedVE.style.visibility = Visibility.Hidden;
-            uraniumLabel = root.Q<Label>("uranium");
             uraniumLabel = root.Q<Label>("uranium");
             upUraniumLabel();
 
@@ -145,7 +145,7 @@ public class UraniumUI : BaseUI
         else
             uraniumUnlockedVE.style.visibility = Visibility.Visible;
 
-        if (!Stats.Instance.uraniumTuto && XpUI.rewardUnlocked(XpUI.BonusLevel.UnlockUranium))
+        if (!Stats.Instance.uraniumTuto && Ship.Current.HaveUranium())
             Tuto.Instance.LoadForgeTuto(false);
 
 
