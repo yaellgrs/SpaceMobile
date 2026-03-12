@@ -43,14 +43,10 @@ public class QuestManager
         quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
         if (quests.Count == 0)
             Debug.LogWarning("No Quest at : " + path);
-        else 
-            Debug.Log("Load quests at " + path);
 
-        QuestStats.Instance.questMaxLevel = quests.Count - 1;
+        QuestStats.Instance.questMaxLevel = quests.Count;
+        Debug.Log("quest count : " + quests.Count);
 
-
-
-        Debug.Log("bien de on type changed ????");
 
         Ship.Current.OnTypeChanged -= SetNextQuests;
         Ship.Current.OnTypeChanged += SetNextQuests;

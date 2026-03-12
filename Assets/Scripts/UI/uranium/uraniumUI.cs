@@ -34,6 +34,7 @@ public class UraniumUI : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.ironUI.gameObject.SetActive(true);
         MainUi.Instance.ironUI.loadForgeUI();
+        classActived = true;
     }
 
     private void prestigeClicked()
@@ -43,6 +44,7 @@ public class UraniumUI : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
         MainUi.Instance.prestigeUI.loadForgeUI();
+        classActived = true;
     }
 
     protected override void upModeButtonClicked()

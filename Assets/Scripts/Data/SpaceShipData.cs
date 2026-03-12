@@ -221,7 +221,6 @@ public class SpaceShipData
         Load(true);
 
 
-        Debug.Log("next type invoke");
         OnTypeChanged?.Invoke();
 
     }

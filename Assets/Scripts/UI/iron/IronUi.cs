@@ -195,6 +195,7 @@ public class IronUi : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
         MainUi.Instance.uraniumUI.loadForgeUI();
+        classActived = true;
     }
 
     private void prestigeClicked()
@@ -204,5 +205,6 @@ public class IronUi : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.prestigeUI.forgeUI.gameObject.SetActive(true);
         MainUi.Instance.prestigeUI.loadForgeUI();
+        classActived = true;
     }
 }

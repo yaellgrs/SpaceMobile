@@ -130,7 +130,6 @@ public class UpgradesUraniumElement : UpgradesElement
         StyleBackground background = new StyleBackground(logoTexture);
         VE_levelUpCostLogo.style.backgroundImage = background;
         Lbl_levelUpCost.AddToClassList("uraniumColor");
-        Debug.Log("set logos for uranium");
     }
     #endregion
 }
