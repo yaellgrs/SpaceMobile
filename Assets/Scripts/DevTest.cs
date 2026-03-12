@@ -85,7 +85,10 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.K))
         {
-            Stats.Instance.AddShipMoney(new BigNumber(50), true);
+            Stats.Instance.AddShipFragment(100);
+            Stats.Instance.prestigeUnlocked = true;
+            BottomUI.Instance.LoadUI();
+
         }
         if (Input.GetKeyUp(KeyCode.I))
         {

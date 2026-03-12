@@ -53,8 +53,11 @@ public class gameManager : MonoBehaviour
             instance = this;
             Stats.Initialize();
             Settings.Init();
-            QuestStats.Init();
+
             Data.Init();
+
+            QuestStats.Init();
+            QuestManager.Init();
 
             SetPause(false);
         }

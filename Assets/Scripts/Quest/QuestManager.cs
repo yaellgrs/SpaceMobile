@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
@@ -16,22 +17,7 @@ public enum QuestType { KillMeteor, KillIronMeteor, UpgradeIron, GetStarParticle
 
 public class QuestManager 
 {
-    private static QuestManager _Instance;
-
-    public static QuestManager Instance
-    {
-        get
-        {
-            if (_Instance == null){
-                _Instance = new QuestManager();
-                _Instance.LoadQuests();
-            }
-            return _Instance;
-        }
-    }
-
-
-
+    public static QuestManager Instance { get; private set; }
 
     public QuestType type;
     public BigNumber objectif = new BigNumber(100);
@@ -40,9 +26,44 @@ public class QuestManager
 
     public List<Quests> quests;
 
+    public static void Init()
+    {
+        if (Instance == null)
+        {
+            Instance = new QuestManager();
+            Instance.LoadQuests();
+        }
+    }
+
     private void LoadQuests()
     {
-        quests = Resources.LoadAll<Quests>("Data/Quests").OrderBy(q => q.level).ToList();
+
+
+        string path = "Data/Quests/" + Ship.Current.type.ToString();
+        quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
+        if (quests.Count == 0)
+            Debug.LogWarning("No Quest at : " + path);
+        else 
+            Debug.Log("Load quests at " + path);
+
+        QuestStats.Instance.questMaxLevel = quests.Count - 1;
+
+
+
+        Debug.Log("bien de on type changed ????");
+
+        Ship.Current.OnTypeChanged -= SetNextQuests;
+        Ship.Current.OnTypeChanged += SetNextQuests;
+    }
+
+    private void SetNextQuests()
+    {
+        QuestStats.Instance.reset();
+        LoadQuests();
+
+
+        //MainUi.Instance.questUI.loadQuest();
+
     }
 
     #region upQuests
@@ -81,7 +102,7 @@ public class QuestManager
     {
         QuestStats.Instance.questLevel++;
         Stats.Instance.AddDiamand(reward);
-        Ship.Current.AddXP(CalculXpReward());
+        Stats.Instance.AddShipFragment(QuestManager.Instance.CalculShipFragmentReward());
 
         MainUi.Instance.questUI.refreshQuestUI();
         QuestStats.Instance.progress = new BigNumber(0);
@@ -125,8 +146,8 @@ public class QuestManager
     }
 
 
-    public BigNumber CalculXpReward()
+    public int CalculShipFragmentReward()
     {
-        return new BigNumber(30 * Mathf.Pow(1.5f, QuestStats.Instance.questLevel));
+        return Mathf.CeilToInt(100.0f / quests.Count);
     }
 }

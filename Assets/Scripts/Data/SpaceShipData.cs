@@ -61,7 +61,7 @@ public class SpaceShipData
     #region ------ load ----------
     public void Load(bool reset = false)
     {
-
+        Debug.LogError("FIRST LOAD SPACESHIP");
         LoadMachines(reset);
         LoadUpgrades(reset);
 
@@ -220,6 +220,8 @@ public class SpaceShipData
 
         Load(true);
 
+
+        Debug.Log("next type invoke");
         OnTypeChanged?.Invoke();
 
     }

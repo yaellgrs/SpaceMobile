@@ -133,7 +133,7 @@ public class UpgradesIronElement : UpgradesElement
     {
         StyleBackground background = Utility.GetMainRessourceLogo();
         VE_levelUpCostLogo.style.backgroundImage = background;
-        Lbl_levelUpCost.style.color = Utility.GetMainRessourceColor();
+        Lbl_levelUpCost.style.color = Utility.GetShipColor();
     }
 
     #endregion

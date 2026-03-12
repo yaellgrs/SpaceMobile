@@ -6,4 +6,9 @@ public class Consts : MonoBehaviour
 
     public const int BASE_STELLAR_METEOR_PROBABILITY = 5; // 0.5%
     public const int BASE_STELLAR_BOSS_PROBABILITY = 200; // 20%
+
+    public static Color[] SHIP_COLOR ={
+        Utility.Hex("#734426"), //Wood
+        Utility.Hex("#FFA300"), //Iron
+    };
 }

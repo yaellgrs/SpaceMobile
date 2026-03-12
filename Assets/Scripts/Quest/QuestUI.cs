@@ -20,6 +20,7 @@ public class QuestUI : MonoBehaviour
 
     private VisualElement VE_main;
     private VisualElement questVE;
+    private VisualElement VE_shipFragment;
 
     private Button Btn_switch;
     private Button back;
@@ -31,7 +32,7 @@ public class QuestUI : MonoBehaviour
     private Label progress;
     private Label questCount;
     private Label diamandReward;
-    private Label xpReward;
+    private Label Lbl_shipFragment;
 
 
     private bool lauchTransition = true;
@@ -73,18 +74,7 @@ public class QuestUI : MonoBehaviour
 
         questVE = root.Q<VisualElement>("questVE");
 
-        back = root.Q<Button>("back");
-        exit = root.Q<Button>("exit");
-        claim = root.Q<Button>("claim");
-        Btn_switch = root.Q<Button>("switch");
-        exit.SetEnabled(true);
-
-        dialogue = root.Q<Label>("dialogue");
-        quest = root.Q<Label>("quest");
-        progress = root.Q<Label>("progress");
-        questCount = root.Q<Label>("questCount");
-        diamandReward = root.Q<Label>("diamand");
-        xpReward = root.Q<Label>("xp");
+        InitElements();
 
 
         refreshQuestUI();
@@ -101,13 +91,36 @@ public class QuestUI : MonoBehaviour
 
     }
 
+    public void InitElements()
+    {
+        var root = questUI.rootVisualElement;
+        back = root.Q<Button>("back");
+        exit = root.Q<Button>("exit");
+        claim = root.Q<Button>("claim");
+        Btn_switch = root.Q<Button>("switch");
+        exit.SetEnabled(true);
+
+        dialogue = root.Q<Label>("dialogue");
+        quest = root.Q<Label>("quest");
+        progress = root.Q<Label>("progress");
+        questCount = root.Q<Label>("questCount");
+        diamandReward = root.Q<Label>("diamand");
+        VE_shipFragment = root.Q<VisualElement>("ShipFragmentLogo");
+        Lbl_shipFragment = root.Q<Label>("ShipFragment");
+    }
+
     public void refreshQuestUI()//refaire le nom
     {
         QuestManager.Instance.initQuest();
         loadQuest();
 
         diamandReward.text = QuestManager.Instance.reward.ToString();
-        xpReward.text = QuestManager.Instance.CalculXpReward().ToString();
+        Lbl_shipFragment.text = QuestManager.Instance.CalculShipFragmentReward().ToString();
+        Lbl_shipFragment.style.color = Utility.GetShipColor();
+        Debug.LogWarning("total " + QuestManager.Instance.CalculShipFragmentReward() * 10);
+
+        VE_shipFragment.style.backgroundImage = Utility.GetShipFragmentLogo();
+
 
         if (QuestManager.Instance.isCompleted())
         {
@@ -185,7 +198,8 @@ public class QuestUI : MonoBehaviour
             //avancement
             if (QuestManager.Instance.type != QuestType.Speed)
             {
-                progress.text = QuestStats.Instance.progress.ToString() + "/" + QuestManager.Instance.objectif.ToString();
+                if (progress == null) InitElements();
+                progress.text = QuestStats.Instance?.progress?.ToString() + "/" + QuestManager.Instance?.objectif?.ToString();
             }
             else
             { //speed
@@ -199,6 +213,7 @@ public class QuestUI : MonoBehaviour
                 }
             }
             questCount.text = QuestStats.Instance.questLevel + "/" + QuestStats.Instance.questMaxLevel;
+            Debug.LogError(QuestStats.Instance.questLevel + "/" + QuestStats.Instance.questMaxLevel + "  : " + Ship.Current.type);
 
 
         }
@@ -211,7 +226,7 @@ public class QuestUI : MonoBehaviour
                 dialogue.text = localizedValue;
             };
             diamandReward.style.visibility = Visibility.Hidden;
-            xpReward.style.visibility = Visibility.Hidden;
+            Lbl_shipFragment.style.visibility = Visibility.Hidden;
             questVE.style.visibility = Visibility.Hidden;
             questCount.text = QuestStats.Instance.questMaxLevel + "/" + QuestStats.Instance.questMaxLevel;
         }
