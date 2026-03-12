@@ -113,7 +113,7 @@ public class meteorBoss : spaceObject
 
     private void setTimerLimit()
     {
-        float[] limits = { 5f, 4f, ATTACK_TIMER_LIMITE*3 };
+        float[] limits = { 2f, 2f, ATTACK_TIMER_LIMITE*3 };
         statutTimerLimit = limits[(int)statut];  
     }
 
