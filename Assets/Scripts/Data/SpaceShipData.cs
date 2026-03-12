@@ -195,7 +195,8 @@ public class SpaceShipData
     public void AddXP(BigNumber amount)
     {
         BN_xp += amount;
-        if (BN_xp > BN_xpMax)
+        BN_xp.Normalize();
+        if (BN_xp >= BN_xpMax)
         {
             MainUi.Instance.xpUI.LevelUp();
         }

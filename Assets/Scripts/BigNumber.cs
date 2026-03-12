@@ -387,16 +387,43 @@ public class BigNumber
     }
     public bool isBigger(BigNumber nBig)
     {
-        if (nBig.Exp > Exp)
-        {
+        if (Exp > nBig.Exp)
+            return true;
+
+        if (Exp < nBig.Exp)
             return false;
-        }
-        if (nBig.Exp == Exp && nBig.Mantisse > Mantisse)
-        {
-            return false;
-        }
-        return true;
+
+        return Mantisse > nBig.Mantisse;
     }
+
+    public static bool operator >=(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        return a.isBiggerOrEqual(b);
+    }
+
+    public static bool operator <=(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        return b.isBiggerOrEqual(a);
+    }
+
+
+    public bool isBiggerOrEqual(BigNumber nBig)
+    {
+        if (Exp > nBig.Exp)
+            return true;
+
+        if (Exp < nBig.Exp)
+            return false;
+
+        return Mantisse >= nBig.Mantisse;
+    }
+
 
     public bool EqualZero()
     {
