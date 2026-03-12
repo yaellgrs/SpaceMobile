@@ -196,12 +196,12 @@ public class SpaceShipData
     {
         BN_xp += amount;
         BN_xp.Normalize();
-        if (BN_xp >= BN_xpMax)
-        {
-            MainUi.Instance.xpUI.LevelUp();
-        }
-        MainUi.Instance.upLevelUI();
+        //MainUi.Instance.upLevelUI();
     }
+
+
+
+
     public void SetNextType(int amount = 1)
     {
         type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + amount, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
