@@ -2949,14 +2949,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e437f01fefd7c439b3720826371db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteorPredab: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
-  BigMeteorPrefab: {fileID: 3181224567051638243, guid: 1c8e55a9b4251be4db4eaee009067dfa, type: 3}
-  DiamandMeteorPrefab: {fileID: 6075712468763362653, guid: a40be1d1b5f0c7946b237538ba9732eb, type: 3}
-  ScatterMeteorPrefab: {fileID: 3591973004518183095, guid: 59b7ffa377b79cd41b8767cea5400619, type: 3}
-  miniMeteorPrefab: {fileID: 2963011495043054338, guid: ae90cab106598914390aa66d5ea0a82a, type: 3}
-  ironMeteorPrefab: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
-  uraniumMeteorPrefab: {fileID: 5482572478085618534, guid: c0960c5c47888ea41808ac9f64cec58c, type: 3}
-  normalBossPrefab: {fileID: 378310423865696184, guid: e044d413110325242ae1e9c6d0351167, type: 3}
+  meteorPrefabs:
+  - type: 0
+    prefab: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
+  - type: 1
+    prefab: {fileID: 3181224567051638243, guid: 1c8e55a9b4251be4db4eaee009067dfa, type: 3}
+  - type: 3
+    prefab: {fileID: 6075712468763362653, guid: a40be1d1b5f0c7946b237538ba9732eb, type: 3}
+  - type: 5
+    prefab: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
+  - type: 4
+    prefab: {fileID: 2963011495043054338, guid: ae90cab106598914390aa66d5ea0a82a, type: 3}
+  - type: 2
+    prefab: {fileID: 3591973004518183095, guid: 59b7ffa377b79cd41b8767cea5400619, type: 3}
+  - type: 6
+    prefab: {fileID: 5482572478085618534, guid: c0960c5c47888ea41808ac9f64cec58c, type: 3}
+  bossPrefabs:
+  - type: 0
+    prefab: {fileID: 378310423865696184, guid: e044d413110325242ae1e9c6d0351167, type: 3}
+  - type: 1
+    prefab: {fileID: 378310423865696184, guid: 41cdf18f3df9cd84380eae356d4dfd40, type: 3}
   timer: 0
   meteorToKill: 10
   meteorKilled: 0
@@ -3682,8 +3694,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xpUI: {fileID: 1517496116}
   levelUpUI: {fileID: 648186075}
-  ironUI: {fileID: 239167552}
-  uraniumUI: {fileID: 1019317271}
 --- !u!1 &2034185830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3873,7 +3883,6 @@ MonoBehaviour:
   shopUI: {fileID: 1057265240}
   offlineUI: {fileID: 257830204}
   questUI: {fileID: 1304958165}
-  bossFragmentUi: {fileID: 1547786311}
   backgroundAnim: {fileID: 2050572218}
 --- !u!1 &2134319344
 GameObject:

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BossType { Normal, RessourceBoss };
+
 public class meteorBoss : spaceObject
 {
-    public enum BossType { Normal, RessourceBoss };
+
     public enum AttackStatut { Waiting, Launch, Attack}
 
     public BossType bossType;
@@ -84,26 +86,25 @@ public class meteorBoss : spaceObject
     private void Attack()
     {
         if (wave > 3) return;
-        spaceObject prefab;
+        meteorType type;
         if (bossType == BossType.Normal)
         {
-            prefab = wave switch
+            type = wave switch
             {
-                1 => gameManager.instance.BigMeteorPrefab,
-                2 => gameManager.instance.ScatterMeteorPrefab,
-
-                _ => gameManager.instance.meteorPredab,
+                1 => meteorType.Big,
+                2 => meteorType.Scatter,
+                _ => meteorType.Normal,
             };
         }
         else if(bossType == BossType.RessourceBoss)
         {
-            prefab = !Ship.Current.HaveUranium() ? gameManager.instance.ironMeteorPrefab : Random.Range(0, 2) == 1 ? 
-                                gameManager.instance.ironMeteorPrefab : gameManager.instance.uraniumMeteorPrefab;
+            type = !Ship.Current.HaveUranium() ? meteorType.Iron : Random.Range(0, 2) == 1 ?
+                                meteorType.Iron : meteorType.Uranium;
         }
         else
-            prefab = gameManager.instance.meteorPredab;
+            type = meteorType.Normal;
 
-        if (prefab != null ) gameManager.instance.SpawnMeteor(prefab, prefab.type, transform.position);
+        gameManager.instance.SpawnMeteor(type, transform.position, false);
     }
 
     public override void Move()

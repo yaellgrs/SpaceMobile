@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -12,15 +13,17 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
-    public spaceObject meteorPredab;
-    public spaceObject BigMeteorPrefab;
-    public spaceObject DiamandMeteorPrefab;
-    public spaceObject ScatterMeteorPrefab;
-    public spaceObject miniMeteorPrefab;
-    public spaceObject ironMeteorPrefab;
-    public spaceObject uraniumMeteorPrefab;
+    //public spaceObject meteorPredab;
+    //public spaceObject BigMeteorPrefab;
+    //public spaceObject DiamandMeteorPrefab;
+    //public spaceObject ScatterMeteorPrefab;
+    //public spaceObject miniMeteorPrefab;
+    //public spaceObject ironMeteorPrefab;
+    //public spaceObject uraniumMeteorPrefab;
 
-    public meteorBoss normalBossPrefab;
+    public List<meteorPrefabEntry> meteorPrefabs;
+    public List<bossPrefabEntry> bossPrefabs;
+
 
     float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
@@ -223,7 +226,7 @@ public class gameManager : MonoBehaviour
         DestroyMeteors();
         bossStage = true;
         int level = FragmentBoss ? Ship.Current.fragmentlevel : Ship.Current.stage;
-        SpawnBossMeteor(normalBossPrefab, meteorBoss.BossType.Normal, level);
+        SpawnBossMeteor(BossType.Normal, level);
         if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = "BOSS";
         MainUi.Instance.ShowBossLife(true);
         meteorToKill = 1;
@@ -288,19 +291,19 @@ public class gameManager : MonoBehaviour
         int ironProb = stage > 10 ? 40 : 0;
         int normalProb = Mathf.Max(0, 1000 - (ScatterProb + BigProb + ironProb + uraniumProb + Stats.Instance.diamandProb));
 
-        Dictionary<spaceObject, int> probabilites = new Dictionary<spaceObject, int>
+        Dictionary<meteorType, int> probabilites = new Dictionary<meteorType, int>
             {
-                {meteorPredab, normalProb},
-                {ScatterMeteorPrefab, ScatterProb},
-                {BigMeteorPrefab, BigProb},
-                {ironMeteorPrefab, ironProb},
-                {uraniumMeteorPrefab, uraniumProb},
-                {DiamandMeteorPrefab, Stats.Instance.diamandProb },
+                {meteorType.Normal, normalProb},
+                {meteorType.Scatter, ScatterProb},
+                {meteorType.Big, BigProb},
+                {meteorType.Iron, ironProb},
+                {meteorType.Uranium, uraniumProb},
+                {meteorType.Diamand, Stats.Instance.diamandProb },
             };
         SpawnWithProbability(probabilites);
     }
     
-    private void SpawnWithProbability(Dictionary<spaceObject, int> probabilites)
+    private void SpawnWithProbability(Dictionary<meteorType, int> probabilites)
     {
         if (probabilites.Values.Sum() > 1000)
             Debug.LogWarning("Probability sum above 1000");
@@ -319,29 +322,22 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    private void SpawnMeteor(spaceObject meteorPredab)
+    public void SpawnMeteor(meteorType type, Vector3? position = null, bool spawn = true)
     {
-        spaceObject obj = Instantiate(meteorPredab);
+        spaceObject obj = Instantiate(meteorPrefabs.Find(x=> x.type == type).prefab);
         obj.level = Ship.Current.stage;
-        obj.Init();
+
+        if (position.HasValue)
+            obj.transform.position = position.Value;
+
+        obj.Init(spawn);
         meteors.Add(obj);
     }
 
-    public void SpawnMeteor(spaceObject meteorPredab, meteorType type, Vector3 position)
+    private void SpawnBossMeteor(BossType type,  int level)
     {
-        spaceObject obj = Instantiate(meteorPredab);
-        obj.type = type;
-        obj.transform.position = position;
-        obj.level = Ship.Current.stage;
-        obj.Init(false);
-        meteors.Add(obj);
-    }
-
-    private void SpawnBossMeteor(meteorBoss bossPrefab, meteorBoss.BossType type, int level)
-    {
-
-        meteorBoss obj = Instantiate(bossPrefab);
-        obj.bossType = type;
+        meteorBoss obj = Instantiate(bossPrefabs.Find(x=> x.type == type).prefab);
+        if (obj == null) return;
         obj.level = level;
         obj.Init();
         meteors.Add(obj);
@@ -397,9 +393,11 @@ public class gameManager : MonoBehaviour
     }
     public void launchMiniMeteor(Transform trans)
     {
-        spaceObject obj = Instantiate(miniMeteorPrefab);
-        spaceObject obj2 = Instantiate(miniMeteorPrefab);
-        spaceObject obj3 = Instantiate(miniMeteorPrefab);
+        meteorType type = meteorType.miniMeteor;
+        spaceObject prefab = meteorPrefabs.Find(x => x.type == type).prefab;
+        spaceObject obj = Instantiate(prefab);
+        spaceObject obj2 = Instantiate(prefab);
+        spaceObject obj3 = Instantiate(prefab);
         meteors.Add(obj);
         meteors.Add(obj2);
         meteors.Add(obj3);
@@ -439,5 +437,19 @@ public class gameManager : MonoBehaviour
             meteor.transform.localScale *= Stats.Instance.scale;
         }
     }
+}
+
+[System.Serializable]
+public class bossPrefabEntry
+{
+    public BossType type;
+    public meteorBoss prefab;
+}
+
+[System.Serializable]
+public class meteorPrefabEntry
+{
+    public meteorType type;
+    public spaceObject prefab;
 }
 
