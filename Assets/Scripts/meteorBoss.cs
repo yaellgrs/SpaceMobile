@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class meteorBoss : spaceObject
 {
-    public enum BossType { Normal };
+    public enum BossType { Normal, RessourceBoss };
     public enum AttackStatut { Waiting, Launch, Attack}
 
     public BossType bossType;
@@ -83,9 +83,27 @@ public class meteorBoss : spaceObject
 
     private void Attack()
     {
-        spaceObject[] prefabToSpawn = { firstWavePrefab, secondWavePrefab, thirdWavePrefab };
-        meteorType[] types = { meteorType.Normal, meteorType.Scatter, meteorType.Big };
-        gameManager.instance.SpawnMeteor(prefabToSpawn[wave - 1], types[wave - 1], transform.position);
+        if (wave > 3) return;
+        spaceObject prefab;
+        if (bossType == BossType.Normal)
+        {
+            prefab = wave switch
+            {
+                1 => gameManager.instance.BigMeteorPrefab,
+                2 => gameManager.instance.ScatterMeteorPrefab,
+                3 => gameManager.instance.normalBossPrefab,
+                _ => gameManager.instance.normalBossPrefab,
+            };
+        }
+        else if(bossType == BossType.RessourceBoss)
+        {
+            prefab = !Ship.Current.HaveUranium() ? gameManager.instance.ironMeteorPrefab : Random.Range(0, 2) == 1 ? 
+                                gameManager.instance.ironMeteorPrefab : gameManager.instance.uraniumMeteorPrefab;
+        }
+        else
+            prefab = gameManager.instance.normalBossPrefab;
+
+        if (prefab != null ) gameManager.instance.SpawnMeteor(prefab, prefab.type, transform.position);
     }
 
     public override void Move()
@@ -93,7 +111,7 @@ public class meteorBoss : spaceObject
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
-        Vector3 dir = (shipDir + perp * 5f).normalized;
+        Vector3 dir = (shipDir + perp * 6.5f).normalized;
         transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -113,7 +131,7 @@ public class meteorBoss : spaceObject
 
     private void setTimerLimit()
     {
-        float[] limits = { 2f, 2f, ATTACK_TIMER_LIMITE*3 };
+        float[] limits = { 2f, 3f, ATTACK_TIMER_LIMITE*3 };
         statutTimerLimit = limits[(int)statut];  
     }
 
@@ -129,7 +147,7 @@ public class meteorBoss : spaceObject
     {
         if(statut == AttackStatut.Attack) {
             statut = AttackStatut.Waiting;
-            gameManager.instance.activeWarning(false);
+
         }
         else
             statut++;
@@ -137,7 +155,8 @@ public class meteorBoss : spaceObject
         if (statut == AttackStatut.Launch)
             gameManager.instance.activeWarning(true);
         else if (statut == AttackStatut.Attack){
-            wave = Mathf.Min(wave + 1, 3);
+            gameManager.instance.activeWarning(false);
+            wave++;
 
         }
         setAnimation();
