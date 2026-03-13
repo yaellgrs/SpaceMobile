@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BossType { Normal, RessourceBoss };
+public enum BossType { Normal, Ressource, Speed };
 
 public class meteorBoss : spaceObject
 {
@@ -57,8 +57,17 @@ public class meteorBoss : spaceObject
     }
     public override void loadSpeed(float factor =1f)
     {
-        spaceObjectSpeed = 0.75f;
-        spaceObjectSpeed *= 0.75f * factor;
+        float baseSpeed = 0.75f;
+
+        spaceObjectSpeed = bossType switch
+        {
+            BossType.Normal or BossType.Ressource => baseSpeed * 0.75f * factor,
+            BossType.Speed => baseSpeed * 2f,
+            _ => baseSpeed,
+        };
+            
+
+
     }
 
     // Update is called once per frame
@@ -96,15 +105,15 @@ public class meteorBoss : spaceObject
                 _ => meteorType.Normal,
             };
         }
-        else if(bossType == BossType.RessourceBoss)
+        else if(bossType == BossType.Ressource)
         {
             type = !Ship.Current.HaveUranium() ? meteorType.Iron : Random.Range(0, 2) == 1 ?
                                 meteorType.Iron : meteorType.Uranium;
         }
         else
-            type = meteorType.Normal;
+            type = meteorType.None;
 
-        gameManager.instance.SpawnMeteor(type, transform.position, false);
+        if(type != meteorType.None) gameManager.instance.SpawnMeteor(type, transform.position, false);
     }
 
     public override void Move()
@@ -146,6 +155,9 @@ public class meteorBoss : spaceObject
 
     private void setNextStatut()
     {
+        if (!canAttack()) return;
+
+
         if(statut == AttackStatut.Attack) {
             statut = AttackStatut.Waiting;
 
@@ -161,10 +173,14 @@ public class meteorBoss : spaceObject
 
         }
 
-
-
         setAnimation();
         setTimerLimit();
+    }
+
+    private bool canAttack()
+    {
+        if (bossType == BossType.Speed) return false;
+        else return wave <= 3;
     }
 
     private void OnDestroy()

@@ -50,7 +50,7 @@ public class spaceObject : MonoBehaviour
     public Vector3 baseScale;
     public int level = 1;
 
-    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium};
+    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium, None};
     public meteorType type;
 
     public bool isDestroyByRocket = false;

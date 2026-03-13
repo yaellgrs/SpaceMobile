@@ -2969,6 +2969,8 @@ MonoBehaviour:
     prefab: {fileID: 378310423865696184, guid: e044d413110325242ae1e9c6d0351167, type: 3}
   - type: 1
     prefab: {fileID: 378310423865696184, guid: 41cdf18f3df9cd84380eae356d4dfd40, type: 3}
+  - type: 2
+    prefab: {fileID: 378310423865696184, guid: 704b58cf9c89da945839b0a514867cc9, type: 3}
   timer: 0
   meteorToKill: 10
   meteorKilled: 0

@@ -13,14 +13,6 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
-    //public spaceObject meteorPredab;
-    //public spaceObject BigMeteorPrefab;
-    //public spaceObject DiamandMeteorPrefab;
-    //public spaceObject ScatterMeteorPrefab;
-    //public spaceObject miniMeteorPrefab;
-    //public spaceObject ironMeteorPrefab;
-    //public spaceObject uraniumMeteorPrefab;
-
     public List<meteorPrefabEntry> meteorPrefabs;
     public List<bossPrefabEntry> bossPrefabs;
 
