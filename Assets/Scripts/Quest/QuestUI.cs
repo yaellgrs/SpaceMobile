@@ -88,7 +88,7 @@ public class QuestUI : MonoBehaviour
         claim.clicked += ClaimClicked;
         claim.clicked -= ClaimClicked;
 
-
+        Utility.InitClickButtonSound(root);
     }
 
     public void InitElements()

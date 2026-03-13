@@ -84,6 +84,8 @@ public class XpUI : MonoBehaviour
         damageBonus.text = Stats.Instance.damage_Multiplicator_Lvl*100 + "%";
         lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl *100 + "%";
         shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl *100 + "%";
+
+        Utility.InitClickButtonSound(root);
     }
 
     // Update is called once per frame

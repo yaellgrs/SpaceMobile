@@ -81,6 +81,8 @@ public class AdsUI : MonoBehaviour
         pub.clicked -= WatchPub;
         pub.clicked += WatchPub;
 
+        Utility.InitClickButtonSound(root);
+
     }
 
     private void setReward()

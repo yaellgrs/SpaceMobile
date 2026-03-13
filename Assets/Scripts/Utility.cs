@@ -187,4 +187,16 @@ public static class Utility
     {
         return (int)(Consts.BASE_STELLAR_BOSS_PROBABILITY * Stats.Instance.probabilitéOfOmega);
     }
+
+
+    public static void InitClickButtonSound(VisualElement root)
+    {
+        foreach (var btn in root.Query<Button>().ToList())
+        {
+            if (btn.ClassListContains("NoSoundClick")) return;
+            btn.clicked -= () => {SoundManager.Instance.PlaySound(SoundEffectType.Click); };
+            btn.clicked += () => {SoundManager.Instance.PlaySound(SoundEffectType.Click); };
+        }
+    }
+
 }

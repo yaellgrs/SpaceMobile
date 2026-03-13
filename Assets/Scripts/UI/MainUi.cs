@@ -193,6 +193,8 @@ public class MainUi : MonoBehaviour
 
         Stats.Instance.OnIronChanged += upIronUI;
         Ship.Current.OnTypeChanged += LoadIronLogo;
+
+        Utility.InitClickButtonSound(root);
     }
 
     public void LoadIronLogo()

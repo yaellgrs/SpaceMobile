@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -61,6 +62,7 @@ public class SettingUI : MonoBehaviour
 
     private void Start()
     {
+
         SetLanguage(Settings.Instance.currentLangage, false);
         menuUI.gameObject.SetActive(false);
         bonusUI.gameObject.SetActive(false);
@@ -68,6 +70,9 @@ public class SettingUI : MonoBehaviour
         statsUI.gameObject.SetActive(false);
         LangueUI.gameObject.SetActive(false);
         tutoUI.gameObject.SetActive(false);
+
+
+
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void load()
@@ -97,6 +102,9 @@ public class SettingUI : MonoBehaviour
         stats.clicked += laodStats;
         settings.clicked += loadSetting;
         langue.clicked += loadLangue;
+
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void backClicked()
@@ -155,6 +163,8 @@ public class SettingUI : MonoBehaviour
         exit.clicked += backClicked;
         back.clicked += backBonusClicked;
 
+        Utility.InitClickButtonSound(root);
+
     }
 
 
@@ -194,6 +204,8 @@ public class SettingUI : MonoBehaviour
 
         exit.clicked += backClicked;
         back.clicked += backTutoClicked;
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void backTutoClicked()
@@ -227,6 +239,8 @@ public class SettingUI : MonoBehaviour
 
         exit.clicked += backClicked;
         back.clicked += backStatClicked;
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void backStatClicked()
@@ -284,6 +298,8 @@ public class SettingUI : MonoBehaviour
         Btn_showBanner.clicked += showBannerClicked;
 
         SetSettingButton();
+
+        Utility.InitClickButtonSound(root);
     }
 
 
@@ -397,6 +413,8 @@ public class SettingUI : MonoBehaviour
 
         exit.clicked += backClicked;
         back.clicked += backLangueClicked;
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void SetLangFr() => SetLanguage("fr-FR", true);
