@@ -1,30 +1,42 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 
-public class Song : MonoBehaviour
-{
-    public static Song Instance;
+#region types declerations
+public enum SoundEffectType { Lazer, Click, MeteorExplosion, BossWarning, Rocket }
 
-    public AudioSource main_music;
-    public AudioSource dead_music;
-    public GameObject lazer_sound;
-    public GameObject meteor_sound;
-    public GameObject rocket_sound;
+[System.Serializable]
+public class SoundEffectEntry
+{
+    public SoundEffectType type;
+    public AudioSource audio;
+}
+#endregion
+
+
+public class SoundManager : MonoBehaviour
+{
+
+    #region INSTANCE
+    public static SoundManager Instance;
 
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(this);
-        }
     }
+    #endregion
+
+    [SerializeField] private List<SoundEffectEntry> SoundEffects = new List<SoundEffectEntry>();
+
+    public AudioSource main_music;
+    public AudioSource dead_music;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,26 +44,17 @@ public class Song : MonoBehaviour
         setMusicVolume();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySound(SoundEffectType type)
     {
-        
+        AudioSource audio = SoundEffects.Find(x => x.type == type).audio;
+        if (audio == null) return;
+
+        audio.PlayOneShot(audio.clip, GetVolume());
     }
 
-    public void playSound(GameObject src)
+    public float GetVolume()
     {
-        GameObject prefab = Instantiate(src);
-        AudioSource audio = prefab.GetComponent<AudioSource>();
-
-        if (Settings.Instance.activeSound)
-            audio.volume = (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100);
-        else
-            audio.volume = 0;
-        if (audio)
-        {
-            audio.Play();
-        }
-
+        return Settings.Instance.activeSound ? (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100) : 0;
     }
 
     public IEnumerator TransitionMusic(AudioSource from, AudioSource to)
@@ -91,3 +94,5 @@ public class Song : MonoBehaviour
         dead_music.volume = vol;
     }
 }
+
+

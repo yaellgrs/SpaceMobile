@@ -123,7 +123,7 @@ public class canon : MonoBehaviour
         Vector3 vect = position - transform.position;
         float angle = Mathf.Atan2(vect.y, vect.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle - 90);
-        Song.Instance.playSound(Song.Instance.rocket_sound);
+        SoundManager.Instance.PlaySound(SoundEffectType.Rocket);
         shoot(angle, vect, 1);
     }
 }

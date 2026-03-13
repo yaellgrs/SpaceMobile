@@ -260,12 +260,12 @@ public class SettingUI : MonoBehaviour
         slider_general.RegisterValueChangedCallback(evt =>
         {
             Settings.Instance.sound_general_value = slider_general.value;
-            Song.Instance.setMusicVolume();
+            SoundManager.Instance.setMusicVolume();
         });
         slider_music.RegisterValueChangedCallback(evt =>
         {
             Settings.Instance.sound_music_value = slider_music.value;
-            Song.Instance.setMusicVolume();
+            SoundManager.Instance.setMusicVolume();
         });
         slider_soundEffect.RegisterValueChangedCallback(evt =>
         {
@@ -292,7 +292,7 @@ public class SettingUI : MonoBehaviour
     {
         Settings.Instance.activeSound = !Settings.Instance.activeSound;
         SetSettingButtonColor(Btn_toggleSound, Settings.Instance.activeSound, false);
-        Song.Instance.setMusicVolume();
+        SoundManager.Instance.setMusicVolume();
     }
 
     private void VibrateClicked()

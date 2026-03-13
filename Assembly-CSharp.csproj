@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
     <Compile Include="Assets\Scripts\meteorBoss.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesElement.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\ship\canon.cs" />
     <Compile Include="Assets\Scripts\Data\settings.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesShipElement.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Assets\Scripts\UI\BossFragmentUi.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesIronElement.cs" />
     <Compile Include="Assets\Scripts\Consts.cs" />
-    <Compile Include="Assets\Scripts\Song.cs" />
     <Compile Include="Assets\Scripts\UI\iron\IronUi.cs" />
     <Compile Include="Assets\Scripts\BigNumber.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />

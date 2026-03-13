@@ -306,7 +306,7 @@ public class spaceObject : MonoBehaviour
             Data.Instance.splitterMeteorKilled += 1;
         }
 
-        Song.Instance.playSound(Song.Instance.meteor_sound);
+        SoundManager.Instance.PlaySound(SoundEffectType.MeteorExplosion);
         Data.Instance.meteorKilled += 1;
         gameManager.instance.SmallVibrate();
         meteorParticle.transform.SetParent(null);
@@ -331,7 +331,7 @@ public class spaceObject : MonoBehaviour
                 MainUi.Instance.upMeteorUI();
                 if (Ship.Current.life.EqualZero())
                 {
-                    Song.Instance.lauchTransitionMusic(Song.Instance.main_music, Song.Instance.dead_music);
+                    SoundManager.Instance.lauchTransitionMusic(SoundManager.Instance.main_music, SoundManager.Instance.dead_music);
                 }
             }
 

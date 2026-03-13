@@ -98,7 +98,7 @@ public class ResurectionUI : MonoBehaviour
 
     public void Close()
     {
-        Song.Instance.lauchTransitionMusic(Song.Instance.dead_music, Song.Instance.main_music);
+        SoundManager.Instance.lauchTransitionMusic(SoundManager.Instance.dead_music, SoundManager.Instance.main_music);
         main.RemoveFromClassList("trans");
         main.schedule.Execute(() =>
         {
