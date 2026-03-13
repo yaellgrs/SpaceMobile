@@ -217,6 +217,8 @@ public class gameManager : MonoBehaviour
 
     public void SpawnBoss(bool FragmentBoss = false)
     {
+        if (bossStage) return;
+
         fragmentBoss = FragmentBoss;
         DestroyMeteors();
         bossStage = true;
@@ -337,6 +339,7 @@ public class gameManager : MonoBehaviour
 
     private void SpawnBossMeteor(meteorBoss bossPrefab, meteorBoss.BossType type, int level)
     {
+
         meteorBoss obj = Instantiate(bossPrefab);
         obj.bossType = type;
         obj.level = level;

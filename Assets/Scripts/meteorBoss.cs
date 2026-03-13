@@ -91,8 +91,8 @@ public class meteorBoss : spaceObject
             {
                 1 => gameManager.instance.BigMeteorPrefab,
                 2 => gameManager.instance.ScatterMeteorPrefab,
-                3 => gameManager.instance.normalBossPrefab,
-                _ => gameManager.instance.normalBossPrefab,
+
+                _ => gameManager.instance.meteorPredab,
             };
         }
         else if(bossType == BossType.RessourceBoss)
@@ -101,7 +101,7 @@ public class meteorBoss : spaceObject
                                 gameManager.instance.ironMeteorPrefab : gameManager.instance.uraniumMeteorPrefab;
         }
         else
-            prefab = gameManager.instance.normalBossPrefab;
+            prefab = gameManager.instance.meteorPredab;
 
         if (prefab != null ) gameManager.instance.SpawnMeteor(prefab, prefab.type, transform.position);
     }
@@ -149,7 +149,7 @@ public class meteorBoss : spaceObject
             statut = AttackStatut.Waiting;
 
         }
-        else
+        else if(wave < 3)
             statut++;
 
         if (statut == AttackStatut.Launch)
@@ -159,6 +159,9 @@ public class meteorBoss : spaceObject
             wave++;
 
         }
+
+
+
         setAnimation();
         setTimerLimit();
     }

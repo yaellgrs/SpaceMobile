@@ -32,7 +32,6 @@ public class Lazer : MonoBehaviour
 
         if (collision.TryGetComponent(out spaceObject meteor))
         {
-            Debug.Log("Detected meteor: " + meteor.GetType());
 
             if (meteor != null && meteor.spawnTime > 0.1f)
             {
