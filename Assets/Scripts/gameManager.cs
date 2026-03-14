@@ -324,6 +324,7 @@ public class gameManager : MonoBehaviour
 
         obj.Init(spawn);
         meteors.Add(obj);
+        Debug.Log("meteor lenght : " + meteors.Count);
     }
 
     private void SpawnBossMeteor(BossType type,  int level)
@@ -348,7 +349,7 @@ public class gameManager : MonoBehaviour
             timerSave = timer;
             timer = -1000f;
         }
-        else if(!isPause && !bossStage)
+        else if(!isPause)
         {
             if(timerSave > 0f)
                 timer = timerSave;
@@ -357,8 +358,7 @@ public class gameManager : MonoBehaviour
 
             foreach (spaceObject meteor in meteors)
             {
-                if (meteor.isPause)
-                    meteor.Move();
+                meteor.Move();
             }
             canon.instance.setPause(false);
         }
