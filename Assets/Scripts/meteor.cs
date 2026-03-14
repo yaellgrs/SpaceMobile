@@ -331,7 +331,7 @@ public class spaceObject : MonoBehaviour
                 MainUi.Instance.upMeteorUI();
                 if (Ship.Current.life.EqualZero())
                 {
-                    SoundManager.Instance.lauchTransitionMusic(SoundManager.Instance.main_music, SoundManager.Instance.dead_music);
+                    SoundManager.Instance.lauchTransitionMusic(MusicType.Dead);
                 }
             }
 

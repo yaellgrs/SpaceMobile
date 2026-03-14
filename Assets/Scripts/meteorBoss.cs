@@ -165,10 +165,13 @@ public class meteorBoss : spaceObject
         else if(wave < 3)
             statut++;
 
-        if (statut == AttackStatut.Launch)
+        if (statut == AttackStatut.Launch){
             gameManager.instance.activeWarning(true);
+            StartCoroutine(SoundManager.Instance.PlaySoundWithTime(SoundEffectType.BossWarning,  3f));
+        }
         else if (statut == AttackStatut.Attack){
             gameManager.instance.activeWarning(false);
+
             wave++;
 
         }
