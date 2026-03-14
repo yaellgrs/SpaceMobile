@@ -193,7 +193,7 @@ public static class Utility
     {
         foreach (var btn in root.Query<Button>().ToList())
         {
-            if (btn.ClassListContains("NoSoundClick")) return;
+            if (btn.ClassListContains("NoSoundClick")) continue;
             btn.clicked -= () => {SoundManager.Instance.PlaySound(SoundEffectType.Click); };
             btn.clicked += () => {SoundManager.Instance.PlaySound(SoundEffectType.Click); };
         }
