@@ -305,6 +305,7 @@ public partial class machineElement : Button
         }
         else if (data.isBuyed) 
         {
+            SoundManager.Instance.PlaySound(SoundEffectType.Forge);
             getProduction(true);
             if (this is machineIronElement && !Stats.Instance.ironTuto)
                 Tuto.Instance.AddMachineClicked();
