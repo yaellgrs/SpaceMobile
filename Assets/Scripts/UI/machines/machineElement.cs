@@ -438,7 +438,7 @@ public partial class machineElement : Button
         reward.Multiply(Mathf.Pow(1.12f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
 
-        reward *= data.BN_price *0.055f;
+        reward *= data.BN_price *0.075f;
         reward.round();
         return reward;
     }
