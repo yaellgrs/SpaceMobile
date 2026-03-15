@@ -218,7 +218,15 @@ public class gameManager : MonoBehaviour
         DestroyMeteors();
         bossStage = true;
         int level = FragmentBoss ? Ship.Current.fragmentlevel : Ship.Current.stage;
-        SpawnBossMeteor(BossType.Normal, level);
+
+        Dictionary<BossType, int> probabilites = new Dictionary<BossType, int>
+            {
+                {BossType.Normal, 450},
+                {BossType.Ressource, 100},
+                {BossType.Speed, 450},
+            };
+        SpawnWithProbability(probabilites);
+
         if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = "BOSS";
         MainUi.Instance.ShowBossLife(true);
         meteorToKill = 1;
@@ -296,7 +304,7 @@ public class gameManager : MonoBehaviour
         SpawnWithProbability(probabilites);
     }
     
-    private void SpawnWithProbability(Dictionary<meteorType, int> probabilites)
+    private void SpawnWithProbability<T>(Dictionary<T, int> probabilites)
     {
         if (probabilites.Values.Sum() > 1000)
             Debug.LogWarning("Probability sum above 1000");
@@ -309,7 +317,15 @@ public class gameManager : MonoBehaviour
             sumProb += elem.Value;
             if(x < sumProb)
             {
-                SpawnMeteor(elem.Key);
+                if(elem.Key is meteorType type)
+                {
+                    SpawnMeteor(type);
+                }
+                else if (elem.Key is BossType bossType)
+                {
+                    SpawnBossMeteor(bossType, Ship.Current.stage);
+                }
+
                 return;
             }
         }
