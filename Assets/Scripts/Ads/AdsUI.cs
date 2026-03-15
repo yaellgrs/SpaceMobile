@@ -34,13 +34,13 @@ public class AdsUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("next pub in : " + (pubDelay - (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastPub)));
+        //Debug.Log("next pub in : " + (pubDelay - (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastPub)));
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("next pub in : " + (pubDelay - (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastPub)));
+        //Debug.Log("next pub in : " + (pubDelay - (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastPub)));
     }
 
 

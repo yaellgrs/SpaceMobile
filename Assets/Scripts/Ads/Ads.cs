@@ -126,14 +126,21 @@ public class Ads : MonoBehaviour
         {
             if (error != null || ad == null)
             {
+                Debug.LogError("Ad failed to load: " + error);
                 return;
             }
             _rewardedAd = ad;
+
+            Debug.Log("Rewarded ad loaded");
 
             // Abonnements aux événements utiles
             _rewardedAd.OnAdFullScreenContentClosed += () =>
             {
                 LoadRewardedAd(); // Recharge pour plus tard
+            };
+            _rewardedAd.OnAdFullScreenContentFailed += (AdError error) =>
+            {
+                LoadRewardedAd();
             };
         });
     }
@@ -142,13 +149,19 @@ public class Ads : MonoBehaviour
 
     public void ShowRewardedAd(RewardType type)
     {
+        Debug.Log("ShowRewardedAd");
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
+            Debug.Log("Showing ad");
             _rewardedAd.Show((Reward reward) =>
             {
                 // Ajoute ici la récompense pour le joueur
                 GetReward(type);
             });
+        }
+        else
+        {
+            Debug.Log("Ad not ready");
         }
     }
 
