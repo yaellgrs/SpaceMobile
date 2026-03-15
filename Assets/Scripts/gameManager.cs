@@ -222,6 +222,7 @@ public class gameManager : MonoBehaviour
         if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = "BOSS";
         MainUi.Instance.ShowBossLife(true);
         meteorToKill = 1;
+        SoundManager.Instance.lauchTransitionMusic(MusicType.Boss);
     }
 
     public void getStageReward(float posY, float fontFactor = 1f)

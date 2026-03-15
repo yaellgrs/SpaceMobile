@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
         else
-            Destroy(this);
+            Destroy(gameObject);
     }
     #endregion
 
@@ -92,6 +92,7 @@ public class SoundManager : MonoBehaviour
         MusicEntry targetMusic = Musics.Find(x => x.type == type);
         if (targetMusic == null) yield break;
 
+
         targetMusic.audio.volume = 0f;
         targetMusic.audio.Play();
 
@@ -99,7 +100,7 @@ public class SoundManager : MonoBehaviour
         {
 
             float t = time / 1.5f;
-            currentSound.audio.volume = Mathf.Lerp(currentSound.audio.volume, 0, t);
+            currentSound.audio.volume = Mathf.Lerp(GetVolume(), 0, t);
             targetMusic.audio.volume = Mathf.Lerp(0, GetVolume(), t);
             time += Time.deltaTime;
             yield return null;
