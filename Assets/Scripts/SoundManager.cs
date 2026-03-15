@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 
 #region types declerations
-public enum SoundEffectType { Lazer, Click, MeteorExplosion, BossWarning, Rocket }
+public enum SoundEffectType { Lazer, Click, MeteorExplosion, BossWarning, Rocket, MeteorSpawn }
 public enum MusicType { Main, Dead, Boss};
 
 [System.Serializable]

@@ -325,7 +325,7 @@ public class gameManager : MonoBehaviour
 
         obj.Init(spawn);
         meteors.Add(obj);
-        Debug.Log("meteor lenght : " + meteors.Count);
+        SoundManager.Instance.PlaySound(SoundEffectType.MeteorSpawn);
     }
 
     private void SpawnBossMeteor(BossType type,  int level)

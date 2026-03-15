@@ -327,7 +327,7 @@ public class spaceObject : MonoBehaviour
         {
             if(type != meteorType.Diamand && !(Ship.Current.life.EqualZero()))
             {
-                spaceShip.instance.getDamage(lifeMax);
+                spaceShip.instance.getDamage(lifeMax, this is meteorBoss);
                 MainUi.Instance.upMeteorUI();
                 if (Ship.Current.life.EqualZero())
                 {

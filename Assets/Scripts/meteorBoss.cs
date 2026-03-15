@@ -5,7 +5,6 @@ public enum BossType { Normal, Ressource, Speed };
 
 public class meteorBoss : spaceObject
 {
-
     public enum AttackStatut { Waiting, Launch, Attack}
 
     public BossType bossType;
@@ -190,7 +189,17 @@ public class meteorBoss : spaceObject
     {
         gameManager.instance.meteors.Remove(this);
         gameManager.instance.activeWarning(false);
-        gameManager.instance.bossStage = false;
+        if(!Ship.Current.life.EqualZero()){
+            gameManager.instance.upStage();
+            gameManager.instance.bossStage = false;
+            SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
+        }
+        else
+        {
+            //SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
+        }
+
+
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
         if (isStellar) Stats.Instance.prestigeUnlocked = true;
     }

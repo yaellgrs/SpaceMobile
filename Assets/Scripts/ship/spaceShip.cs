@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class spaceShip : MonoBehaviour
@@ -145,8 +146,15 @@ public class spaceShip : MonoBehaviour
         }
     }
 
-    public void getDamage(BigNumber amount)
+    public void getDamage(BigNumber amount, bool boss = false)
     {
+        if (boss)
+        {
+            Ship.Current.shield.Set(0);
+            Ship.Current.life.Set(0);
+            return;
+        }
+
         if (Ship.Current.shield.isBigger(amount))
         {
             Ship.Current.shield -= amount;

@@ -79,13 +79,20 @@ public class ResurectionUI : MonoBehaviour
     {
         Stats.Instance.AddDiamand(-5 * Stats.Instance.deadPubWatch);
         Stats.Instance.ReduceLifeBoss = true;
-        Close();
+
+        Resurection();
     }
 
     private void pubClicked()
     {
         if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(Ads.RewardType.Resurection);
         else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
+        Resurection();
+    }
+
+    private void Resurection()
+    {
+        gameManager.instance.bossStage = false;
         Close();
     }
 
