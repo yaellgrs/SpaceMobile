@@ -329,7 +329,7 @@ public class spaceObject : MonoBehaviour
             {
                 spaceShip.instance.getDamage(lifeMax, this is meteorBoss);
                 MainUi.Instance.upMeteorUI();
-                if (Ship.Current.life.EqualZero())
+                if (Ship.Current.life.EqualZero() && gameManager.instance.bossStage)
                 {
                     SoundManager.Instance.lauchTransitionMusic(MusicType.Dead);
                 }

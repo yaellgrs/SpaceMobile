@@ -99,6 +99,7 @@ public class ResurectionUI : MonoBehaviour
     private void backStage()
     {
         Ship.Current.stage -= 5;
+        gameManager.instance.bossStage = false;
         gameManager.instance.RestartStage();
         Close();
     }

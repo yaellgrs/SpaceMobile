@@ -64,9 +64,6 @@ public class meteorBoss : spaceObject
             BossType.Speed => baseSpeed * 2f,
             _ => baseSpeed,
         };
-            
-
-
     }
 
     // Update is called once per frame
