@@ -250,6 +250,7 @@ public partial class machineElement : Button
         VE_buyLogo.style.backgroundImage = background;
 
         Lbl_upCost.style.color = getColor();
+        Lbl_name.style.color = getColor();
 
 
         SetLogo();

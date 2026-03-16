@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Consts : MonoBehaviour
+public class Consts
 {
     public const int MINIMUM_STAR_PARTICULE_STAGE = 10;
 
@@ -11,4 +11,6 @@ public class Consts : MonoBehaviour
         Utility.Hex("#734426"), //Wood
         Utility.Hex("#FFA300"), //Iron
     };
+
+    public static Color COLOR_URANIUM = Utility.Hex("#00FF0E");
 }
