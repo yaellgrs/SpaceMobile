@@ -369,10 +369,6 @@ public class MainUi : MonoBehaviour
             {
                 MainUi.Instance.xpUI.LevelUp();
             }
-            else
-            {
-                Debug.LogWarning("can't level up : " + Ship.Current.BN_xp + "/" + Ship.Current.BN_xpMax);
-            }
         }
     }
 

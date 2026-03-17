@@ -602,10 +602,25 @@ public class PrestigeUI : BaseUI
         Btn_buy = root.Q<Button>("buy");
         Lbl_cost = root.Q<Label>("cost");
 
+
+
+
+        VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
+        VisualElement isLastShip = root.Q<VisualElement>("isLastShip");
+        bool last = Ship.Current.isLastShip();
+        haveNextLevel.style.display = last ? DisplayStyle.None : DisplayStyle.Flex;
+        isLastShip.style.display = last ? DisplayStyle.Flex : DisplayStyle.None;
+
+
+
         Btn_back.clicked -= () => { backClicked(upgradeShip); };
         Btn_back.clicked += () => { backClicked(upgradeShip); };
 
+
         LoadBuyUI();
+        if (last) Btn_buy.enabledSelf = false;
+
+        Debug.Log(Btn_buy == null ? "Btn_buy NULL" : "Btn_buy OK");
 
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;
@@ -613,22 +628,30 @@ public class PrestigeUI : BaseUI
 
     private void LoadBuyUI()
     {
-        bool canBuy = Stats.Instance.shipFragment >= 100;
-        Lbl_cost.text = Stats.Instance.shipFragment + "/100";
-        Btn_buy.enabledSelf = canBuy;
+        bool canBuy = Stats.Instance.shipFragment >= CalculShipUpgradeCost();
+        Lbl_cost.text = Stats.Instance.shipFragment + "/" + CalculShipUpgradeCost();
+        Btn_buy.SetEnabled(canBuy);
     }
 
 
     private void BuyNextShip()
     {
+        Debug.Log("clicked");
         Ship.Current.SetNextType(); 
 
         backClicked(upgradeShip);
         backClicked(upgradeUI);
 
+        Stats.Instance.AddShipFragment(-CalculShipUpgradeCost());
+
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
 
+    }
+
+    private int CalculShipUpgradeCost()
+    {
+        return 100;
     }
 
 }

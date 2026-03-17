@@ -61,7 +61,6 @@ public class SpaceShipData
     #region ------ load ----------
     public void Load(bool reset = false)
     {
-        Debug.LogError("FIRST LOAD SPACESHIP");
         LoadMachines(reset);
         LoadUpgrades(reset);
 
@@ -232,6 +231,11 @@ public class SpaceShipData
     {
         return type != SpaceShipData.SpaceShipElement.Wood;
     }
+
+    public bool isLastShip()
+    {
+        return type >= SpaceShipData.SpaceShipElement.Iron;
+    } 
 
 }
 
