@@ -8,7 +8,7 @@ public class Consts
     public const int BASE_STELLAR_BOSS_PROBABILITY = 200; // 20%
 
     public static Color[] SHIP_COLOR ={
-        Utility.Hex("#734426"), //Wood
+        Utility.Hex("#B07C61"), //Wood
         Utility.Hex("#FFA300"), //Iron
     };
 

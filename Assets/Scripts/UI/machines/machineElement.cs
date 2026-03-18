@@ -21,7 +21,7 @@ public class machineData
     }
     public machineData(string machineName, BigNumber initPrice)
     {
-        if (initPrice < new BigNumber(100))
+        if (initPrice < new BigNumber(1000))
             isBuyed = true;
 
         BN_price = initPrice;
@@ -249,11 +249,15 @@ public partial class machineElement : Button
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
 
+
+        SetLogo();
+
         Lbl_upCost.style.color = getColor();
         Lbl_name.style.color = getColor();
 
 
-        SetLogo();
+
+
     }
     #endregion
 
@@ -397,7 +401,7 @@ public partial class machineElement : Button
         {
             calculedNumber.Set(data.BN_price);
             double factor = 3.00 * System.Math.Pow(r, data.level) * Stats.Instance.upgradesPriceReducer;
-            calculedNumber.Multiply(factor, false);
+            calculedNumber.Multiply(factor, false);//price * r ** level
         }
         else
         {
@@ -439,7 +443,7 @@ public partial class machineElement : Button
         reward.Multiply(Mathf.Pow(1.12f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
 
-        reward *= data.BN_price *0.075f;
+        reward *= data.BN_price *0.0075f;
         reward.round();
         return reward;
     }

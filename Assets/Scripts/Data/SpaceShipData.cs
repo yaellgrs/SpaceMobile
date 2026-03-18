@@ -81,22 +81,22 @@ public class SpaceShipData
         {
             dataMachinesIron = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(10)),
-                new machineData("ironMachine", new BigNumber(1, 3)),
-                new machineData("ironMachines", new BigNumber(1, 6)),
-                new machineData("usine", new BigNumber(1, 9)),
-                new machineData("usines", new BigNumber(1, 12))
+                new machineData("Anvil", new BigNumber(100)),
+                new machineData("ironMachine", new BigNumber(1, 6)),
+                new machineData("ironMachines", new BigNumber(1, 12)),
+                new machineData("usine", new BigNumber(1, 18)),
+                new machineData("usines", new BigNumber(1, 24))
             };
         }
         if (dataMachinesUranium.Count == 0 || reset)
         {
             dataMachinesUranium = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(10)),
-                new machineData("ironMachine", new BigNumber(5, 3)),
-                new machineData("ironMachines", new BigNumber(5, 6)),
-                new machineData("usine", new BigNumber(5, 9)),
-                new machineData("usines", new BigNumber(5, 12))
+                new machineData("Anvil", new BigNumber(100)),
+                new machineData("ironMachine", new BigNumber(1, 8)),
+                new machineData("ironMachines", new BigNumber(1, 16)),
+                new machineData("usine", new BigNumber(1, 24)),
+                new machineData("usines", new BigNumber(1, 32))
             };
         }
 
