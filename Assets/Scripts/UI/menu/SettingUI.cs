@@ -61,6 +61,9 @@ public class SettingUI : MonoBehaviour
     private Button espagna;
     private Button german;
 
+    private int foldoutGap = 0;
+    private Dictionary<VisualElement, int> gaps = new Dictionary<VisualElement, int>();
+
     private void Start()
     {
 
@@ -78,8 +81,6 @@ public class SettingUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void load()
     {
-
-
         menuUI.gameObject.SetActive(true);
         var root = menuUI.rootVisualElement;
         exit = root.Q<Button>("back");
@@ -167,6 +168,7 @@ public class SettingUI : MonoBehaviour
 
         InitFoldout(Lbl_totalDamage, new List<VisualElement>{Lbl_totalLife, Lbl_totalShield});
         InitFoldout(Lbl_totalLife, new List<VisualElement>{ Lbl_totalShield});
+        InitFoldout(Lbl_totalShield, new List<VisualElement>{ });
 
 
         //exit.clicked += backClicked;
@@ -175,23 +177,34 @@ public class SettingUI : MonoBehaviour
         Utility.InitClickButtonSound(root);
     }
 
-    private void InitFoldout(VisualElement source, List<VisualElement> elementsToMoves)
+    private void InitFoldout(VisualElement source, List<VisualElement> elementsToMove)
     {
         Foldout foldout = source.Q<Foldout>("Foldout");
         foldout.value = false;
 
         foldout.RegisterValueChangedCallback(e =>
         {
+
             if (foldout.value)
             {
                 float size = foldout.resolvedStyle.height;
-                foreach(VisualElement element in elementsToMoves)
-                    element.style.translate = new Translate(0, size * 1.75f, 0);
+
+                foreach (VisualElement element in elementsToMove)
+                {
+                    gaps[element] = gaps.ContainsKey(element) ? gaps[element] + 1 : 1;
+                    float gap = size * 1.75f * gaps[element];
+                    element.style.translate = new Translate(0, gap, 0);
+                }
             }
             else
             {
-                foreach (VisualElement element in elementsToMoves)
-                    element.style.translate = new Translate(0, 0, 0);
+                float size = foldout.resolvedStyle.height;
+                foreach (VisualElement element in elementsToMove)
+                {
+                    gaps[element] = Math.Max(0, gaps.ContainsKey(element) ? gaps[element] - 1 : 0);
+                    float gap = size * 1.75f * gaps[element];
+                    element.style.translate = new Translate(0, gap, 0);
+                }
             }
         });
     }
