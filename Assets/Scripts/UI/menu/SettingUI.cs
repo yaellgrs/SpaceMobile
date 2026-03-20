@@ -166,9 +166,10 @@ public class SettingUI : MonoBehaviour
         VisualElement Lbl_totalLife = root.Q<VisualElement>("life");
         VisualElement Lbl_totalShield = root.Q<VisualElement>("shield");
 
-        InitFoldout(Lbl_totalDamage, new List<VisualElement>{Lbl_totalLife, Lbl_totalShield});
-        InitFoldout(Lbl_totalLife, new List<VisualElement>{ Lbl_totalShield});
-        InitFoldout(Lbl_totalShield, new List<VisualElement>{ });
+        InitFoldout(Lbl_totalDamage, new List<VisualElement>{Lbl_totalLife, Lbl_totalShield}, Ship.Current.damage);
+
+        InitFoldout(Lbl_totalLife, new List<VisualElement>{ Lbl_totalShield}, Ship.Current.lifeMax);
+        InitFoldout(Lbl_totalShield, new List<VisualElement>{ }, Ship.Current.shieldMax);
 
 
         //exit.clicked += backClicked;
@@ -177,10 +178,23 @@ public class SettingUI : MonoBehaviour
         Utility.InitClickButtonSound(root);
     }
 
-    private void InitFoldout(VisualElement source, List<VisualElement> elementsToMove)
+    private void InitFoldout(VisualElement source, List<VisualElement> elementsToMove, ShipTempStat stat)
     {
         Foldout foldout = source.Q<Foldout>("Foldout");
+        Label Lbl_total = source.Q<Label>("total");
+        Label Lbl_base = source.Q<Label>("base");
+        Label Lbl_totalMult = source.Q<Label>("totalMult");
+        Label Lbl_level = source.Q<Label>("level");
+        Label Lbl_prestige = source.Q<Label>("prestige");
+
         foldout.value = false;
+
+        Lbl_total.text = stat.getTotal().ToString();
+        Lbl_base.text = stat.initial.ToString();
+        Lbl_totalMult.text = "x" + stat.getMultiplier().ToString("F2");
+        Lbl_level.text = "x" + Utility.getLevelBonus().ToString("F2");
+        Lbl_prestige.text = "x" + stat.prestige_multiplicator.ToString("F2");
+
 
         foldout.RegisterValueChangedCallback(e =>
         {
@@ -192,7 +206,7 @@ public class SettingUI : MonoBehaviour
                 foreach (VisualElement element in elementsToMove)
                 {
                     gaps[element] = gaps.ContainsKey(element) ? gaps[element] + 1 : 1;
-                    float gap = size * 1.75f * gaps[element];
+                    float gap = size * 1.3f * gaps[element];
                     element.style.translate = new Translate(0, gap, 0);
                 }
             }
@@ -202,7 +216,7 @@ public class SettingUI : MonoBehaviour
                 foreach (VisualElement element in elementsToMove)
                 {
                     gaps[element] = Math.Max(0, gaps.ContainsKey(element) ? gaps[element] - 1 : 0);
-                    float gap = size * 1.75f * gaps[element];
+                    float gap = size * 1.3f * gaps[element];
                     element.style.translate = new Translate(0, gap, 0);
                 }
             }

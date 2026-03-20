@@ -199,4 +199,9 @@ public static class Utility
         }
     }
 
+    public static float getLevelBonus()
+    {
+        return 1f + (Ship.Current.level - 1) * 0.01f;
+    }
+
 }

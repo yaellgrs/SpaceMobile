@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 public enum SpaceShipType { Main };
@@ -247,12 +248,16 @@ public class ShipTempStat
     public float rocket_multiplicator = 1f;
     public int critical_multiplicator = 5;
 
+    public float getMultiplier()
+    {
+        float leveBonus = Utility.getLevelBonus();
+        return prestige_multiplicator * leveBonus;
+    }
+
     public BigNumber getTotal()
     {
-
-        float leveBonus = 1f + (Ship.Current.level - 1) * 0.1f;
         BigNumber total = new BigNumber(initial);
-        total *= prestige_multiplicator * leveBonus;
+        total *= getMultiplier();
 
         return total;
     }
