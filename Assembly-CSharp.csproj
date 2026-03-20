@@ -112,10 +112,12 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\UI\menu\setting.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\UI\stats.uss" />
     <None Include="Assets\UI\backups\uraniumForgeBackups.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Common.dll" />
     <None Include="Assets\UI\markersUI.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.iOS.dll" />
+    <None Include="Assets\UI\prestige\ShipUpgradeTest.uxml" />
     <None Include="Assets\UI\Quest\SuccessUI.uxml" />
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\TMP_Node.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -129,8 +131,10 @@
     <None Include="Assets\Resources\Styles\upgradeStyle.uss" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\UI\Quest\QuestUI.uxml" />
+    <None Include="Assets\bonus.uss" />
     <None Include="Assets\UI\Tutos\tutoPopUp.uxml" />
     <None Include="Assets\UI\machineBlackBorderStyle.uss" />
+    <None Include="Assets\UI\menu\bonusBackUp.uxml" />
     <None Include="Assets\UI\style.uss" />
     <None Include="Assets\UI\uraniumForge.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />

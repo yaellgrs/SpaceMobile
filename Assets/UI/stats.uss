@@ -1,0 +1,12 @@
+:root {
+}
+
+.row {
+    flex-grow: 0;
+    align-content: flex-start;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-left: 0%;
+    margin-left: 0%;
+    margin-bottom: 1%;
+}

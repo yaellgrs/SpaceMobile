@@ -5,6 +5,7 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UIElements;
 
+
 public class SettingUI : MonoBehaviour
 {
 
@@ -143,28 +144,56 @@ public class SettingUI : MonoBehaviour
         var root = bonusUI.rootVisualElement;
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
-        damageTotal = root.Q<Label>("damageTotal");
-        damageBoost = root.Q<Label>("damageBoost");
-        damagePrestige = root.Q<Label>("damagePrestige");
-        damageLevel = root.Q<Label>("damageLevel");
-        damageLevelPerm = root.Q<Label>("damageLevelPerm");
+        //damageTotal = root.Q<Label>("damageTotal");
+        //damageBoost = root.Q<Label>("damageBoost");
+        //damagePrestige = root.Q<Label>("damagePrestige");
+        //damageLevel = root.Q<Label>("damageLevel");
+        //damageLevelPerm = root.Q<Label>("damageLevelPerm");
 
-        float mult = Stats.Instance.prest_damage_multiplicator * Stats.Instance.damage_Multiplicator_Lvl * Stats.Instance.perm_Damage_Multiplicator_Lvl;
-        if (Stats.Instance.damageBoostTime > 0)
-        {
-            damageBoost.text = "x2.00";
-            mult *= 2;
-        }
-        damageTotal.text = "x" + mult.ToString("F2");
-        damagePrestige.text = "x" + Stats.Instance.prest_damage_multiplicator.ToString("F2");
-        damageLevel.text = "x" + Stats.Instance.damage_Multiplicator_Lvl.ToString("F2");
-        damageLevelPerm.text = "x" + Stats.Instance.perm_Damage_Multiplicator_Lvl.ToString("F2");
+        //float mult = Stats.Instance.prest_damage_multiplicator * Stats.Instance.damage_Multiplicator_Lvl * Stats.Instance.perm_Damage_Multiplicator_Lvl;
+        //if (Stats.Instance.damageBoostTime > 0)
+        //{
+        //    damageBoost.text = "x2.00";
+        //    mult *= 2;
+        //}
+        //damageTotal.text = "x" + mult.ToString("F2");
+        //damagePrestige.text = "x" + Stats.Instance.prest_damage_multiplicator.ToString("F2");
+        //damageLevel.text = "x" + Stats.Instance.damage_Multiplicator_Lvl.ToString("F2");
+        //damageLevelPerm.text = "x" + Stats.Instance.perm_Damage_Multiplicator_Lvl.ToString("F2");
 
-        exit.clicked += backClicked;
+        VisualElement Lbl_totalDamage = root.Q<VisualElement>("damage");
+        VisualElement Lbl_totalLife = root.Q<VisualElement>("life");
+        VisualElement Lbl_totalShield = root.Q<VisualElement>("shield");
+
+        InitFoldout(Lbl_totalDamage, new List<VisualElement>{Lbl_totalLife, Lbl_totalShield});
+        InitFoldout(Lbl_totalLife, new List<VisualElement>{ Lbl_totalShield});
+
+
+        //exit.clicked += backClicked;
         back.clicked += backBonusClicked;
 
         Utility.InitClickButtonSound(root);
+    }
 
+    private void InitFoldout(VisualElement source, List<VisualElement> elementsToMoves)
+    {
+        Foldout foldout = source.Q<Foldout>("Foldout");
+        foldout.value = false;
+
+        foldout.RegisterValueChangedCallback(e =>
+        {
+            if (foldout.value)
+            {
+                float size = foldout.resolvedStyle.height;
+                foreach(VisualElement element in elementsToMoves)
+                    element.style.translate = new Translate(0, size * 1.75f, 0);
+            }
+            else
+            {
+                foreach (VisualElement element in elementsToMoves)
+                    element.style.translate = new Translate(0, 0, 0);
+            }
+        });
     }
 
 
