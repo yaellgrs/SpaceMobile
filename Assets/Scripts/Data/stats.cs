@@ -177,18 +177,21 @@ public class Stats
     {
         Ship.Current.iron += amount;
         MainUi.Instance?.upIronUI();
+        Datas.Instance.current.iron += amount;
         OnIronChanged.Invoke();
     }
 
     public void AddUranium(BigNumber amount)
     {
         Ship.Current.uranium += amount;
+        Datas.Instance.current.uranium += amount;
         MainUi.Instance?.upUraniumUI();
     }
 
     public void addPrestige(BigNumber amount)
     {
         starPariticul += amount;
+        Datas.Instance.current.startParticle += amount;
         MainUi.Instance.prestigeUI.upPrestigeLabel();
     }
 

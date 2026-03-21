@@ -125,5 +125,6 @@ public class canon : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         SoundManager.Instance.PlaySound(SoundEffectType.Rocket);
         shoot(angle, vect, 1);
+        Datas.Instance.current.rocket++;
     }
 }

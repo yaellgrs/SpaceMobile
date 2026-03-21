@@ -393,7 +393,6 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upHealthBar();
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
-        Datas.Instance.current.prestige++;
         Ship.Current.Load();
 
         gameManager.instance.InitGame();
@@ -489,15 +488,17 @@ public class PrestigeUI : BaseUI
     }
     private void backClicked(UIDocument document)
     {
-        if (forgeUiVE == null) return;
-        forgeUiVE = document.rootVisualElement.Q<VisualElement>("main");    
+        forgeUiVE = document.rootVisualElement?.Q<VisualElement>("main");
+        if(forgeUiVE == null) return;
         forgeUiVE.RemoveFromClassList("trans");
         forgeUiVE.schedule.Execute(() =>
         {
-            forgeUiVE.AddToClassList("trans");
+            if (forgeUiVE == null) return;
+            forgeUiVE.AddToClassList("trans"); //ici
         }).StartingIn(50);
         forgeUiVE.schedule.Execute(() =>
         {
+            if (document == null) return;
             document.gameObject.SetActive(false);
 
             //loadForgeUI();

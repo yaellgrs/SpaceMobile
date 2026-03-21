@@ -49,7 +49,7 @@ public class gameManager : MonoBehaviour
             Stats.Initialize();
             Settings.Init();
 
-            Datas.Init();
+            Datas.Load();
 
             QuestStats.Init();
             QuestManager.Init();
@@ -165,9 +165,14 @@ public class gameManager : MonoBehaviour
         //end stage
 
         Ship.Current.stage++;
+
+        Datas.Instance.current.stagePassed += 1;
+        Datas.Instance.current.maxStage = Mathf.Max(Datas.Instance.current.maxStage, Ship.Current.stage);
+
         if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
         {
             Ship.Current.stage++;
+            Datas.Instance.current.stageSkipped++;
             getStageReward(1.70f, 0.75f);
             MainUi.Instance.ShowStageSkip();
         }

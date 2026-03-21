@@ -321,8 +321,8 @@ public class SettingUI : MonoBehaviour
                     rows.Add(createStatLine(
                         key.ToString(),
                         FormatValue(obj1),
-                        FormatValue(obj1, obj2),
-                        FormatValue(obj1, obj2, obj3),
+                        FormatValue(Datas.SumDataValue(obj1, obj2)),
+                        FormatValue(Datas.SumDataValue(obj1, obj2, obj3)),
                         true
                     ));
                     currentTotal += dicoCurrent.Contains(key) ?  (BigNumber)dicoCurrent[key] : new BigNumber(0); ;
@@ -333,8 +333,8 @@ public class SettingUI : MonoBehaviour
                 VisualElement title = createStatLine(
                     name,
                     FormatValue(currentTotal),
-                    FormatValue(currentTotal, shipTotal),
-                    FormatValue(currentTotal, shipTotal, Total)
+                    FormatValue(Datas.SumDataValue(currentTotal, shipTotal)),
+                    FormatValue(Datas.SumDataValue(currentTotal, shipTotal, Total, max: (name == "maxStage")))
                 );
                 title.AddToClassList("totalRow");
                 parent.Add(title);
@@ -344,9 +344,9 @@ public class SettingUI : MonoBehaviour
             else
             {
                 string current = FormatValue(field.GetValue(Datas.Instance.current));
-                string total = FormatValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip));
-                string ship = FormatValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), field.GetValue(Datas.Instance.total));
-
+                string total = FormatValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), max: (field.Name == "maxStage")));
+                string ship = FormatValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), field.GetValue(Datas.Instance.total), max: (field.Name == "maxStage")));
+                // verif name == "maxStage"
                 parent.Add(createStatLine(name, current, ship, total));
             }
 
@@ -366,8 +366,8 @@ public class SettingUI : MonoBehaviour
 
         Label Lbl_name = new Label(name);
         Label Lbl_current = new Label(current);
-        Label Lbl_total = new Label(ship);
-        Label Lbl_ship = new Label(FormatValue(total));
+        Label Lbl_total = new Label(total);
+        Label Lbl_ship = new Label(ship);
 
         Lbl_name.AddToClassList("stat");
         if (isDico) Lbl_name.AddToClassList("subStatName");
@@ -384,29 +384,17 @@ public class SettingUI : MonoBehaviour
         return line;
     }
 
-    private string FormatValue(object value, object? value2 = null, object? value3 = null)
+    private string FormatValue(object value)
     {
         //if (value2 != null && value.GetType() == value2.GetType()) return FormatValue(value);
 
         if (value == null) return "null"; 
 
         if(value is BigNumber bn){
-            if(value2 != null && value2 is BigNumber bn2)
-            {
-                bn += bn2;
-                if (value3 != null && value3 is BigNumber bn3)
-                    bn += bn3;
-            }
             return bn.ToString();
         }
 
         if (value is float f) {
-            if (value2 != null && value2 is float f2)
-            {
-                f += f2;
-                if (value3 != null && value3 is float f3)
-                    f += f3;
-            }
             return Utility.TimeToString_dhms((long)f);
         }
 

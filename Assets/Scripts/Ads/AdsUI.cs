@@ -113,6 +113,7 @@ public class AdsUI : MonoBehaviour
         Ads.Instance.ShowRewardedAd(reward);
         Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         pubDelay = pubDelayWatch;
+        Datas.Instance.current.pubWatch++;
         Close();
     }
 

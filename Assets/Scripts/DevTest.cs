@@ -96,6 +96,10 @@ public class DevTest : MonoBehaviour
         {
             Stats.Instance.AddShipMoney(new BigNumber(30), false);
         }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            Stats.Instance.AddPrestigeWainting(new BigNumber(10));
+        }
     }
 
 
