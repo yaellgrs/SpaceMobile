@@ -103,34 +103,6 @@ public partial class machineElement : Button
 
     public machineData data;
 
-/*    //constantes
-    private static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
-    private static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
-
-    private static readonly Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
-    private static readonly Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
-    private static readonly Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
-    private static readonly Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
-
-    //variables
-    private int levelMax = 100;
-    private int nextColorlevel = 5;
-    private int level = 1;
-
-    private float time = 0f;
-
-    BigNumber BN_price = new BigNumber(15000);
-
-    public bool isBuyed = false;
-    public bool isAutomatic = false;
-    protected int multiplicator;
-
-    public string machineName = "";
-
-    borderColor color = borderColor.white;
-
-    public int production_cps = 0;
-*/
     #endregion
 
     //methods
@@ -406,7 +378,7 @@ public partial class machineElement : Button
         else
         {
             double pow = System.Math.Pow(r, data.level);
-            calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer);
+            calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer); //price * 
             calculedNumber.Multiply(pow, false);
             double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);
             calculedNumber.Multiply(factor, false);
@@ -445,6 +417,8 @@ public partial class machineElement : Button
 
         reward *= data.BN_price *0.0075f;
         reward.round();
+
+        reward.Normalize();
         return reward;
     }
 

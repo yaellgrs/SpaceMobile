@@ -251,7 +251,8 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        Datas.Instance.current.meteorKilled[type] += 1;
+        if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
+        else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);
 
         if (QuestManager.Instance.type == QuestType.KillMeteor)
         {

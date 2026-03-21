@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 public enum SpaceShipType { Main };
 
 [Serializable]
@@ -82,11 +83,9 @@ public class SpaceShipData
         {
             dataMachinesIron = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(100)),
-                new machineData("ironMachine", new BigNumber(1, 6)),
-                new machineData("ironMachines", new BigNumber(1, 12)),
-                new machineData("usine", new BigNumber(1, 18)),
-                new machineData("usines", new BigNumber(1, 24))
+                new machineData("Anvil", new BigNumber(10)), //-> level 1->2 >150
+                new machineData("ironMachine", new BigNumber(1, 3)), //->
+                new machineData("ironMachines", new BigNumber(1, 9)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
             };
         }
         if (dataMachinesUranium.Count == 0 || reset)
@@ -121,10 +120,10 @@ public class SpaceShipData
         if (dataUpgradesIron.Count == 0 || reset)
         {
             dataUpgradesIron.Clear();
-            foreach (UpgradesIronElement.UpgradeType type in Enum.GetValues(typeof(UpgradesIronElement.UpgradeType)))
-            {
-                dataUpgradesIron[type] = new UpgradeData();
-            }
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Life] = new UpgradeData(1.6f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Damage] = new UpgradeData(2.05f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.8f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.95f);
         }
         if (dataUpgradesUranium.Count == 0 || reset)
         {

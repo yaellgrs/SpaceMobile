@@ -11,8 +11,14 @@ public class UpgradeData
 
     public int level = 1;
     public int levelMax = 100;
+    public double r;
 
     public int multiplicator = 1;
+
+    public UpgradeData(double r = 1.60f)
+    {
+        this.r = r;
+    }
 }
 
 
@@ -50,7 +56,7 @@ public partial class UpgradesElement : VisualElement
         Init();
     }
 
-    public UpgradesElement(UpgradeData data, string name)
+    public UpgradesElement(UpgradeData data, string name, float r = 1.6f)
     {
         this.name = name;
         this.data = data;
@@ -166,7 +172,7 @@ public partial class UpgradesElement : VisualElement
         }
         else
         {
-            Lbl_level.text = $"lv {data.level.ToString()}/{data.levelMax.ToString()} <color=cyan>(+{getMulitplicator()})</color>";
+            Lbl_level.text = $"lv {data.level.ToString()}/{data.levelMax.ToString()}<color=cyan>(+{getMulitplicator()})</color>";
             Lbl_levelUpCost.style.display = DisplayStyle.Flex;
         }
     }
@@ -236,13 +242,15 @@ public partial class UpgradesElement : VisualElement
     {
         BigNumber calculedNumber = new BigNumber(1, 0);
 
-        double r = 1.60;
-        double pow = System.Math.Pow(r, data.level); // début de la suite
+
+        
+
+        double pow = System.Math.Pow(data.r, data.level); // début de la suite
         data.multiplicator = Mathf.Max(1, data.multiplicator);
         calculedNumber.Set(50);
         calculedNumber.Multiply(pow, false);   
         calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer, false);   
-        double factor = (System.Math.Pow(r, data.multiplicator) - 1) / (r - 1);
+        double factor = (System.Math.Pow(data.r, data.multiplicator) - 1) / (data.r - 1);
         calculedNumber.Multiply(factor, false);
 
         calculedNumber.Normalize();
