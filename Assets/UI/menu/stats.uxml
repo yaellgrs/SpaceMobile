@@ -13,9 +13,9 @@
                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(14706684145664)"/>
             </Bindings>
         </engine:Button>
-        <engine:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="position: absolute; height: 60%; width: 100%; top: 16%; left: 0%; -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;); font-size: 50px;">
+        <engine:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="scroll" style="position: absolute; height: 60%; width: 100%; top: 16%; left: 0%; -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;); font-size: 50px;">
             <engine:VisualElement style="flex-grow: 1;">
-                <engine:VisualElement class="row">
+                <engine:VisualElement name="titles" class="row">
                     <engine:Label name="Label" style="font-size: 22px; color: rgb(255, 255, 255); -unity-font-style: bold; width: 25%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                     <engine:Label text="This game" name="Label" style="font-size: 22px; color: rgb(255, 255, 255); -unity-font-style: bold; width: 25%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: upper-center;">
                         <Bindings>
@@ -44,7 +44,7 @@
                     <engine:Label text="0h00" name="time_total" style="color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 22px; width: 25%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: upper-center;"/>
                 </engine:VisualElement>
                 <engine:VisualElement name="time" class="row" style="flex-grow: 0; align-content: flex-start; flex-direction: row; justify-content: flex-end;">
-                    <engine:Label text="Time game : " name="" style="font-size: 22px; color: rgb(255, 255, 255); -unity-font-style: bold; width: 25%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: upper-center;">
+                    <engine:Label text="Time game : " name="" class="stat">
                         <Bindings>
                             <UnityEngine.Localization.LocalizedString property="text" table="GUID:d1989b394c5e01c4d9d44725c372c176" entry="Id(2178296899907584)"/>
                         </Bindings>

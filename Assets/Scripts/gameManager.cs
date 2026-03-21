@@ -49,7 +49,7 @@ public class gameManager : MonoBehaviour
             Stats.Initialize();
             Settings.Init();
 
-            Data.Init();
+            Datas.Init();
 
             QuestStats.Init();
             QuestManager.Init();
@@ -113,7 +113,7 @@ public class gameManager : MonoBehaviour
     {
         if(!isPaused) timer += Time.deltaTime;
         autoSaveTimer += Time.deltaTime;
-        Data.Instance.time += Time.deltaTime;
+        Datas.Instance.current.time += Time.deltaTime;
 
         if(timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
@@ -180,7 +180,7 @@ public class gameManager : MonoBehaviour
         {
             if (new BigNumber(Ship.Current.stage).isBigger(QuestManager.Instance.objectif))
             {
-                QuestStats.Instance.timeCompleted = Data.Instance.time;
+                QuestStats.Instance.timeCompleted = Datas.Instance.current.time;
             }
         }
     }

@@ -267,21 +267,18 @@ public class spaceObject : MonoBehaviour
             GameObject obj = Instantiate(diamandCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
-            Data.Instance.diamandMeteorKilled += 1;
         }
         else if (type == meteorType.Iron)
         {
             GameObject obj = Instantiate(ironCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
-            Data.Instance.ironMeteorKilled += 1;
         }
         else if (type == meteorType.Uranium)
         {
             GameObject obj = Instantiate(uraniumCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
-            Data.Instance.uraniumMeteorKilled += 1;
         }
         else
         {
@@ -290,7 +287,6 @@ public class spaceObject : MonoBehaviour
                 Ship.Current.AddXP(calculXp());
                 MarkersUI.Instance.ShowMarker(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
-            Data.Instance.basicMeteorKilled += 1;
         }
         //Death
         if (isStellar)
@@ -298,16 +294,13 @@ public class spaceObject : MonoBehaviour
             
             Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);
             MarkersUI.Instance.ShowMarker(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
-            Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)
         {
             if(!isDestroyByRocket) gameManager.instance.launchMiniMeteor(transform);
-            Data.Instance.splitterMeteorKilled += 1;
         }
 
         SoundManager.Instance.PlaySound(SoundEffectType.MeteorExplosion);
-        Data.Instance.meteorKilled += 1;
         gameManager.instance.SmallVibrate();
         meteorParticle.transform.SetParent(null);
         meteorParticle.transform.position = transform.position; 

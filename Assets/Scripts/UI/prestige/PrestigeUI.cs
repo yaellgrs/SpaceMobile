@@ -352,7 +352,7 @@ public class PrestigeUI : BaseUI
         gameManager.instance.RestartStage();
 
 
-        Data.Instance.Prestige();
+        Datas.Instance.Prestige();
 
         backClicked(forgeUI);
         backClicked(buyUI);
@@ -393,7 +393,7 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upHealthBar();
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
-        Data.Instance.PrestigeCount += 1;
+        Datas.Instance.current.prestige++;
         Ship.Current.Load();
 
         gameManager.instance.InitGame();

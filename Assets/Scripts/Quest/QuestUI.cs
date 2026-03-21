@@ -205,7 +205,7 @@ public class QuestUI : MonoBehaviour
             { //speed
                 if (!QuestManager.Instance.isCompleted())
                 {
-                    progress.text = BigNumber.floatToTimeMinute(Data.Instance.time);
+                    progress.text = BigNumber.floatToTimeMinute(Datas.Instance.current.time);
                 }
                 else
                 {

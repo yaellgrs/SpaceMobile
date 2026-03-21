@@ -39,7 +39,7 @@ public class QuestManager
     {
 
 
-        string path = "Data/Quests/" + Ship.Current.type.ToString();
+        string path = "Datas/Quests/" + Ship.Current.type.ToString();
         quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
         if (quests.Count == 0)
             Debug.LogWarning("No Quest at : " + path);

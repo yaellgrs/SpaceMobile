@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.ConstrainedExecution;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UIElements;
+
 
 
 public class SettingUI : MonoBehaviour
@@ -278,19 +282,51 @@ public class SettingUI : MonoBehaviour
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
 
-        //total
-        time_total = root.Q<Label>("time_total");
-        meteorKilled_total = root.Q<Label>("meteorKilled_total");
+        //totalssssssssssssssssssssssssssssssssssssss
 
-        time_total.text = BigNumber.floatToTimeHour(Data.Instance.totalTime + Data.Instance.time);
-        meteorKilled_total.text = (Data.Instance.totalMeteorKilled + Data.Instance.meteorKilled).ToString();
+        ScrollView scrollView = root.Q<ScrollView>("scroll");
+        VisualElement titles = scrollView.Q<VisualElement>("titles");
+        scrollView.Clear();
+        VisualElement parent = new VisualElement();
+        scrollView.Add(parent);
+        parent.Add(titles);
 
-        //current
-        time_current = root.Q<Label>("time_current");
-        meteorKilled_current = root.Q<Label>("meteorKilled_current");
+        foreach (FieldInfo field in typeof(Data).GetFields())
+        {
+            object valueCurrent = field.GetValue(Datas.Instance.current);
+            object valueShip = field.GetValue(Datas.Instance.currentShip);
+            object valueTotal = field.GetValue(Datas.Instance.total);
 
-        time_current.text = BigNumber.floatToTimeHour(Data.Instance.time);
-        meteorKilled_current.text = Data.Instance.meteorKilled.ToString();
+            string name = field.Name;
+            if (valueCurrent is System.Collections.IDictionary dicoCurrent &&
+                valueShip is System.Collections.IDictionary dicoShip &&
+                valueTotal is System.Collections.IDictionary dicoTotal)
+            {
+                var keys = new HashSet<object>();
+                foreach (var k in dicoCurrent.Keys) keys.Add(k);
+                foreach (var k in dicoShip.Keys) keys.Add(k);
+                foreach (var k in dicoTotal.Keys) keys.Add(k);
+
+                foreach (var key in keys)
+                {
+                    parent.Add(createStatLine(
+                        key.ToString(),
+                        FormatValue(dicoCurrent.Contains(key) ? dicoCurrent[key] : null),
+                        FormatValue(dicoShip.Contains(key) ? dicoShip[key] : null),
+                        FormatValue(dicoTotal.Contains(key) ? dicoTotal[key] : null)
+                    ));
+                }
+            }
+            else
+            {
+                string current = FormatValue(field.GetValue(Datas.Instance.current));
+                string ship = FormatValue(field.GetValue(Datas.Instance.total));
+                string total = FormatValue(field.GetValue(Datas.Instance.currentShip));
+
+                parent.Add(createStatLine(name, current, ship, total));
+            }
+
+        }
 
 
         exit.clicked += backClicked;
@@ -298,6 +334,39 @@ public class SettingUI : MonoBehaviour
 
         Utility.InitClickButtonSound(root);
     }
+
+    private VisualElement createStatLine(string name, string current, string ship, string total)
+    {
+        VisualElement line = new VisualElement();
+        line.AddToClassList("row");
+
+        Label Lbl_name = new Label(name);
+        Label Lbl_current = new Label(current);
+        Label Lbl_total = new Label(ship);
+        Label Lbl_ship = new Label(FormatValue(total));
+        Lbl_name.AddToClassList("stat");
+        Lbl_current.AddToClassList("stat");
+        Lbl_total.AddToClassList("stat");
+        Lbl_ship.AddToClassList("stat");
+
+        line.Add(Lbl_name);
+        line.Add(Lbl_current);
+        line.Add(Lbl_total);
+        line.Add(Lbl_ship);
+
+        return line;
+    }
+
+    private string FormatValue(object value)
+    {
+        if (value == null) return "null"; 
+
+        if(value is BigNumber bn) return bn.ToString();
+
+        return value.ToString();
+    }
+
+
 
     private void backStatClicked()
     {

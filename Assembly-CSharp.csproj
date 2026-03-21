@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\upMode.cs" />
     <Compile Include="Assets\Scripts\DevTest.cs" />
-    <Compile Include="Assets\Scripts\Data\Data.cs" />
     <Compile Include="Assets\Scripts\BottomUI.cs" />
     <Compile Include="Assets\Scripts\UI\xp\XpUI.cs" />
     <Compile Include="Assets\Scripts\UI\BaseUI.cs" />
@@ -58,6 +57,7 @@
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesUraniumElement.cs" />
     <Compile Include="Assets\Scripts\Quest\SuccessElement.cs" />
     <Compile Include="Assets\Scripts\Data\stats.cs" />
+    <Compile Include="Assets\Scripts\Data\Datas.cs" />
     <Compile Include="Assets\Scripts\Collectible.cs" />
     <Compile Include="Assets\Scripts\UI\other\ResurectionUI.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestUI.cs" />

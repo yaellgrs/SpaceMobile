@@ -233,7 +233,7 @@ public class Stats
         System.IO.File.WriteAllText(path, stat);
 
         QuestStats.Instance.Save();
-        Data.Instance.Save();
+        Datas.Instance.Save();
     }
 
     public void reset()
@@ -243,7 +243,7 @@ public class Stats
         ShipManager.Instance.LoadShips();
         save();
         QuestStats.Instance.reset();
-        Data.Instance.reset();
+        Datas.Instance.reset();
         MainUi.Instance.upStage();
         Tuto.Instance.loadPopupTuto();
 
