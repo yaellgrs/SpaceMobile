@@ -251,7 +251,9 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if(QuestManager.Instance.type == QuestType.KillMeteor)
+        Datas.Instance.current.meteorKilled[type] += 1;
+
+        if (QuestManager.Instance.type == QuestType.KillMeteor)
         {
             QuestManager.Instance.upQuest();
         }
@@ -287,6 +289,7 @@ public class spaceObject : MonoBehaviour
                 Ship.Current.AddXP(calculXp());
                 MarkersUI.Instance.ShowMarker(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
+
         }
         //Death
         if (isStellar)

@@ -288,6 +288,7 @@ public class SettingUI : MonoBehaviour
         VisualElement titles = scrollView.Q<VisualElement>("titles");
         scrollView.Clear();
         VisualElement parent = new VisualElement();
+        parent.style.flexGrow = 1;
         scrollView.Add(parent);
         parent.Add(titles);
 
@@ -307,21 +308,44 @@ public class SettingUI : MonoBehaviour
                 foreach (var k in dicoShip.Keys) keys.Add(k);
                 foreach (var k in dicoTotal.Keys) keys.Add(k);
 
+                List<VisualElement> rows = new List<VisualElement>();
+                BigNumber currentTotal = new BigNumber(0);
+                BigNumber shipTotal = new BigNumber(0);
+                BigNumber Total = new BigNumber(0);
+
                 foreach (var key in keys)
                 {
-                    parent.Add(createStatLine(
+                    object obj1 = dicoCurrent.Contains(key) ? dicoCurrent[key] : null;
+                    object obj2 = dicoShip.Contains(key) ? dicoShip[key] : null;
+                    object obj3 = dicoTotal.Contains(key) ? dicoTotal[key] : null;
+                    rows.Add(createStatLine(
                         key.ToString(),
-                        FormatValue(dicoCurrent.Contains(key) ? dicoCurrent[key] : null),
-                        FormatValue(dicoShip.Contains(key) ? dicoShip[key] : null),
-                        FormatValue(dicoTotal.Contains(key) ? dicoTotal[key] : null)
+                        FormatValue(obj1),
+                        FormatValue(obj1, obj2),
+                        FormatValue(obj1, obj2, obj3),
+                        true
                     ));
+                    currentTotal += dicoCurrent.Contains(key) ?  (BigNumber)dicoCurrent[key] : new BigNumber(0); ;
+                    shipTotal += dicoCurrent.Contains(key) ? (BigNumber)dicoShip[key] : new BigNumber(0);
+                    Total += dicoCurrent.Contains(key) ? (BigNumber)dicoTotal[key] : new BigNumber(0);
+
                 }
+                VisualElement title = createStatLine(
+                    name,
+                    FormatValue(currentTotal),
+                    FormatValue(currentTotal, shipTotal),
+                    FormatValue(currentTotal, shipTotal, Total)
+                );
+                title.AddToClassList("totalRow");
+                parent.Add(title);
+                foreach (var row in rows)
+                    parent.Add(row);
             }
             else
             {
                 string current = FormatValue(field.GetValue(Datas.Instance.current));
-                string ship = FormatValue(field.GetValue(Datas.Instance.total));
-                string total = FormatValue(field.GetValue(Datas.Instance.currentShip));
+                string total = FormatValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip));
+                string ship = FormatValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), field.GetValue(Datas.Instance.total));
 
                 parent.Add(createStatLine(name, current, ship, total));
             }
@@ -335,7 +359,7 @@ public class SettingUI : MonoBehaviour
         Utility.InitClickButtonSound(root);
     }
 
-    private VisualElement createStatLine(string name, string current, string ship, string total)
+    private VisualElement createStatLine(string name, string current, string ship, string total, bool isDico = false)
     {
         VisualElement line = new VisualElement();
         line.AddToClassList("row");
@@ -344,7 +368,10 @@ public class SettingUI : MonoBehaviour
         Label Lbl_current = new Label(current);
         Label Lbl_total = new Label(ship);
         Label Lbl_ship = new Label(FormatValue(total));
+
         Lbl_name.AddToClassList("stat");
+        if (isDico) Lbl_name.AddToClassList("subStatName");
+        else Lbl_name.AddToClassList("statName");
         Lbl_current.AddToClassList("stat");
         Lbl_total.AddToClassList("stat");
         Lbl_ship.AddToClassList("stat");
@@ -357,11 +384,31 @@ public class SettingUI : MonoBehaviour
         return line;
     }
 
-    private string FormatValue(object value)
+    private string FormatValue(object value, object? value2 = null, object? value3 = null)
     {
+        //if (value2 != null && value.GetType() == value2.GetType()) return FormatValue(value);
+
         if (value == null) return "null"; 
 
-        if(value is BigNumber bn) return bn.ToString();
+        if(value is BigNumber bn){
+            if(value2 != null && value2 is BigNumber bn2)
+            {
+                bn += bn2;
+                if (value3 != null && value3 is BigNumber bn3)
+                    bn += bn3;
+            }
+            return bn.ToString();
+        }
+
+        if (value is float f) {
+            if (value2 != null && value2 is float f2)
+            {
+                f += f2;
+                if (value3 != null && value3 is float f3)
+                    f += f3;
+            }
+            return Utility.TimeToString_dhms((long)f);
+        }
 
         return value.ToString();
     }

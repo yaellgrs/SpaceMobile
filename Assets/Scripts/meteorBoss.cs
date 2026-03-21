@@ -196,6 +196,8 @@ public class meteorBoss : spaceObject
             //SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
         }
 
+        Datas.Instance.current.meteorBossKilled[bossType] += 1;
+
 
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
         if (isStellar) Stats.Instance.prestigeUnlocked = true;

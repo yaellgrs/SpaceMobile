@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[System.Serializable]
 public class Data
 {
     public float time = 0;
