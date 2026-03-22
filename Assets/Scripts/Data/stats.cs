@@ -237,6 +237,7 @@ public class Stats
 
         QuestStats.Instance.Save();
         Datas.Instance.Save();
+        Settings.Instance.Save();
     }
 
     public void reset()
