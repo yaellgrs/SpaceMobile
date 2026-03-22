@@ -311,10 +311,13 @@ public class spaceObject : MonoBehaviour
         meteorParticle.Play();
     }
 
-    public void Pause()
+    public void SetPause(bool pause)
     {
-        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        isPause = true;
+        if (pause) GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        else Move();
+        isPause = pause;
+        GetComponent<Animator>().speed = pause ? 0f : 1f;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -343,7 +346,6 @@ public class spaceObject : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("area"))
         {
             spaceObjectSpeed /= Stats.Instance.areaSpeed;
-            Pause();
             Move();
         }
     }

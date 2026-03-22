@@ -362,12 +362,16 @@ public class gameManager : MonoBehaviour
     {
         isPaused = isPause;
         canon.instance.setPause(isPause);
+        spaceShip.instance.SetPause(isPause);
+        MainUi.Instance?.SetPause(isPause);
+        foreach (spaceObject m in meteors)
+        {
+            m.SetPause(isPause);
+        }
+
         if (isPause && Settings.Instance.isPausable)
         { 
-            foreach (spaceObject m in meteors)
-            {
-                m.Pause();
-            }
+
             timerSave = timer;
             timer = -1000f;
         }
@@ -377,12 +381,6 @@ public class gameManager : MonoBehaviour
                 timer = timerSave;
             else
                 timer = 0f;
-
-            foreach (spaceObject meteor in meteors)
-            {
-                meteor.Move();
-            }
-            canon.instance.setPause(false);
         }
     }
 

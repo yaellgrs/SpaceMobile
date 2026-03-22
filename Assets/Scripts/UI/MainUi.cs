@@ -32,7 +32,6 @@ public class MainUi : MonoBehaviour
     [Header("Others")]
     public VideoPlayer backgroundAnim;
 
-
     //mainUI
     private VisualElement VE_main;
 
@@ -254,7 +253,14 @@ public class MainUi : MonoBehaviour
     private void speedButtonClicked()
     {
         UpSpeed.Instance.UpButton(speedButton);
+        if (backgroundAnim == null) return;
         backgroundAnim.playbackSpeed = 0.5f * UpSpeed.Instance.upModeMultiplicator;
+    }
+
+    public void SetPause(bool pause)
+    {
+        if (backgroundAnim == null) return;
+        backgroundAnim.playbackSpeed = pause ? 0f : 0.5f * UpSpeed.Instance.upModeMultiplicator;
     }
 
     private void pubButtonClicked()
