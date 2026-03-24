@@ -364,26 +364,21 @@ public partial class machineElement : Button
 
     protected BigNumber CalculLevelUpCost()
     {
-        double r = 1.75;
         BigNumber calculedNumber = new BigNumber(0);
 
         int mult = getMulitplicator();
+        double r = 1.25;
+        double pow = System.Math.Pow(r, data.level);
 
-        if (data.level == data.nextColorlevel)//changement de grade ( ex : fer -> or )
-        {
-            calculedNumber.Set(data.BN_price);
-            double factor = 3.00 * System.Math.Pow(r, data.level) * Stats.Instance.upgradesPriceReducer;
-            calculedNumber.Multiply(factor, false);//price * r ** level
-        }
-        else
-        {
-            double pow = System.Math.Pow(r, data.level);
-            calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer); //price * 
-            calculedNumber.Multiply(pow, false);
-            double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);
-            calculedNumber.Multiply(factor, false);
-            calculedNumber.Add(addColorCost(data.level, data.level + mult, r), false);
-        }
+        calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer * 15f); //price * 
+        calculedNumber.Multiply(pow, false); //1.75 ** level
+
+        if (data.level == data.nextColorlevel)
+            calculedNumber.Multiply(3, false);
+
+        double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);//calcule de la suite géométrique
+        calculedNumber.Multiply(factor, false);
+        calculedNumber.Add(addColorCost(data.level, data.level + mult, r), false);
 
         calculedNumber.Normalize();
         return calculedNumber;
@@ -412,10 +407,12 @@ public partial class machineElement : Button
     public BigNumber CalculReward(int lvl)
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.12f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Multiply(Mathf.Pow(1.175f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
 
-        reward *= data.BN_price *0.0075f;
+        BigNumber machinePriceModifier = data.BN_price * 0.085f;
+        if (machinePriceModifier > new BigNumber(1)) reward *= machinePriceModifier;
+
         reward.round();
 
         reward.Normalize();
