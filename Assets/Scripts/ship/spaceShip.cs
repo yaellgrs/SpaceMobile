@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using static SpaceShipData;
 
 public class spaceShip : MonoBehaviour
 {
@@ -50,7 +51,7 @@ public class spaceShip : MonoBehaviour
 
     public void LoadAnimation()
     {
-        //animator.SetBool("isFire", Stats.Instance.currentSpaceShipType == SpaceShipType.Fire);
+        animator.SetBool("isWood", Ship.Current.type == SpaceShipElement.Wood);
     }
 
     public void SetPause(bool pause)

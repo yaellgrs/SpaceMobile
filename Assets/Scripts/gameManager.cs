@@ -155,6 +155,7 @@ public class gameManager : MonoBehaviour
     {
         if (meteorKilled >= meteorToKill)
         {
+            Debug.Log("up stage");
             upStage();
 
         }
@@ -163,12 +164,15 @@ public class gameManager : MonoBehaviour
     public void upStage()
     {
         //end stage
-
         Ship.Current.stage++;
+
 
         Datas.Instance.current.stagePassed += 1;
         Datas.Instance.current.maxStage = Mathf.Max(Datas.Instance.current.maxStage, Ship.Current.stage);
+        meteorKilled = 0;
 
+        Debug.Log("UPSTAGE");
+        //STAGE SKIP
         if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
         {
             Ship.Current.stage++;
@@ -176,6 +180,7 @@ public class gameManager : MonoBehaviour
             getStageReward(1.70f, 0.75f);
             MainUi.Instance.ShowStageSkip();
         }
+
         getStageReward(1.95f);
         MainUi.Instance.upStage();
         LoadStage();
