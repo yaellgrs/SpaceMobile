@@ -176,8 +176,11 @@ public class Stats
     public void AddIron(BigNumber amount)
     {
         Ship.Current.iron += amount;
-        MainUi.Instance?.upIronUI();
+
         Datas.Instance.current.iron += amount;
+        Ship.Current.iron.Normalize();
+
+        MainUi.Instance?.upIronUI();
         OnIronChanged.Invoke();
     }
 
