@@ -83,9 +83,9 @@ public class SpaceShipData
         {
             dataMachinesIron = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(10)), //-> level 1->2 >150
-                new machineData("ironMachine", new BigNumber(1, 3)), //->
-                new machineData("ironMachines", new BigNumber(1, 9)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
+                new machineData("Anvil", new BigNumber(1, 2)), //-> level 1->2 >150
+                new machineData("ironMachine", new BigNumber(1, 5)), //->
+                new machineData("ironMachines", new BigNumber(1, 7)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
             };
         }
         if (dataMachinesUranium.Count == 0 || reset)

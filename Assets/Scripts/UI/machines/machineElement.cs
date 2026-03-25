@@ -1,3 +1,4 @@
+using GoogleMobileAds.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;
@@ -370,7 +371,10 @@ public partial class machineElement : Button
         double r = 1.25;
         double pow = System.Math.Pow(r, data.level);
 
-        calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer * 15f); //price * 
+        BigNumber priceModifier = data.BN_price * 0.01f;
+        if (priceModifier < new BigNumber(1)) priceModifier.Set(1);
+
+        calculedNumber.Set(priceModifier * Stats.Instance.upgradesPriceReducer * 15f); //price * 
         calculedNumber.Multiply(pow, false); //1.75 ** level
 
         if (data.level == data.nextColorlevel)
@@ -410,7 +414,7 @@ public partial class machineElement : Button
         reward.Multiply(Mathf.Pow(1.175f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
 
-        BigNumber machinePriceModifier = data.BN_price * 0.085f;
+        BigNumber machinePriceModifier = data.BN_price * 0.00085f;
         if (machinePriceModifier > new BigNumber(1)) reward *= machinePriceModifier;
 
         reward.round();
