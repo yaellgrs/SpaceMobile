@@ -326,7 +326,11 @@ public class BigNumber
 
         string prefix;
 
-        string[] Prefixes = { "", "k", "m", "M", "B" };
+        //   850M / s :  51b / min
+        string[] Prefixes = { "", "k", "m", "M", "b", "B", "t", "T", "qua", "Qua", "qui", "Qui", "se", "Se", "sep", "Sep" };
+
+
+
         prefix = Exp / 3 < Prefixes.Length ? Prefixes[Exp / 3] : "x" + Exp;
 
         int mod = ((Exp % 3) + 3) % 3;

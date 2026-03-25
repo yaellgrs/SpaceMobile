@@ -83,7 +83,7 @@ public class SpaceShipData
         {
             dataMachinesIron = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(1, 2)), //-> level 1->2 >150
+                new machineData("Anvil", new BigNumber(1, 3)), //-> level 1->2 >150
                 new machineData("ironMachine", new BigNumber(1, 5)), //->
                 new machineData("ironMachines", new BigNumber(1, 7)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
             };
@@ -119,11 +119,12 @@ public class SpaceShipData
     {
         if (dataUpgradesIron.Count == 0 || reset)
         {
-            dataUpgradesIron.Clear();
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.Life] = new UpgradeData(1.6f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.Damage] = new UpgradeData(2.05f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.8f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.95f);
+            dataUpgradesIron.Clear();   
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Damage] = new UpgradeData(1.425f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.4f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.375f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Life] = new UpgradeData(1.35f);
+
         }
         if (dataUpgradesUranium.Count == 0 || reset)
         {

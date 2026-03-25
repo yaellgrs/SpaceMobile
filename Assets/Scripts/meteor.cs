@@ -80,6 +80,7 @@ public class spaceObject : MonoBehaviour
             {
                 isStellar = true;
                 starParticle.gameObject.SetActive(true);
+                Debug.Log("is stellar");
             }
             else starParticle.gameObject.SetActive(false);
         }
@@ -296,7 +297,7 @@ public class spaceObject : MonoBehaviour
         if (isStellar)
         {
             
-            Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);
+            Stats.Instance.AddPrestigeWainting(GetStarParticle());
             MarkersUI.Instance.ShowMarker(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
         }
         if (type == meteorType.Scatter)
@@ -309,6 +310,13 @@ public class spaceObject : MonoBehaviour
         meteorParticle.transform.SetParent(null);
         meteorParticle.transform.position = transform.position; 
         meteorParticle.Play();
+    }
+
+    public virtual BigNumber GetStarParticle()
+    {
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
+        Debug.Log("Reward : " + reward);
+        return reward;
     }
 
     public void SetPause(bool pause)

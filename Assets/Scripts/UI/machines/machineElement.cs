@@ -22,7 +22,7 @@ public class machineData
     }
     public machineData(string machineName, BigNumber initPrice)
     {
-        if (initPrice < new BigNumber(1000))
+        if (initPrice < new BigNumber(100000))
             isBuyed = true;
 
         BN_price = initPrice;
