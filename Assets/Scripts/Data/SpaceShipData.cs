@@ -2,8 +2,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 public enum SpaceShipType { Main };
 
 [Serializable]
@@ -61,7 +63,6 @@ public class SpaceShipData
     #region ------ load ----------
     public void Load(bool reset = false)
     {
-
         LoadMachines(reset);
         LoadUpgrades(reset);
 
@@ -82,22 +83,20 @@ public class SpaceShipData
         {
             dataMachinesIron = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(10)),
-                new machineData("ironMachine", new BigNumber(1, 3)),
-                new machineData("ironMachines", new BigNumber(1, 6)),
-                new machineData("usine", new BigNumber(1, 9)),
-                new machineData("usines", new BigNumber(1, 12))
+                new machineData("Anvil", new BigNumber(1, 3)), //-> level 1->2 >150
+                new machineData("ironMachine", new BigNumber(1, 5)), //->
+                new machineData("ironMachines", new BigNumber(1, 7)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
             };
         }
         if (dataMachinesUranium.Count == 0 || reset)
         {
             dataMachinesUranium = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(10)),
-                new machineData("ironMachine", new BigNumber(5, 3)),
-                new machineData("ironMachines", new BigNumber(5, 6)),
-                new machineData("usine", new BigNumber(5, 9)),
-                new machineData("usines", new BigNumber(5, 12))
+                new machineData("Anvil", new BigNumber(100)),
+                new machineData("ironMachine", new BigNumber(1, 8)),
+                new machineData("ironMachines", new BigNumber(1, 16)),
+                new machineData("usine", new BigNumber(1, 24)),
+                new machineData("usines", new BigNumber(1, 32))
             };
         }
 
@@ -120,11 +119,12 @@ public class SpaceShipData
     {
         if (dataUpgradesIron.Count == 0 || reset)
         {
-            dataUpgradesIron.Clear();
-            foreach (UpgradesIronElement.UpgradeType type in Enum.GetValues(typeof(UpgradesIronElement.UpgradeType)))
-            {
-                dataUpgradesIron[type] = new UpgradeData();
-            }
+            dataUpgradesIron.Clear();   
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Damage] = new UpgradeData(1.425f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.4f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.375f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.Life] = new UpgradeData(1.35f);
+
         }
         if (dataUpgradesUranium.Count == 0 || reset)
         {
@@ -195,12 +195,13 @@ public class SpaceShipData
     public void AddXP(BigNumber amount)
     {
         BN_xp += amount;
-        if (BN_xp > BN_xpMax)
-        {
-            MainUi.Instance.xpUI.LevelUp();
-        }
-        MainUi.Instance.upLevelUI();
+        BN_xp.Normalize();
+        //MainUi.Instance.upLevelUI();
     }
+
+
+
+
     public void SetNextType(int amount = 1)
     {
         type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + amount, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
@@ -220,6 +221,7 @@ public class SpaceShipData
 
         Load(true);
 
+
         OnTypeChanged?.Invoke();
 
     }
@@ -231,6 +233,11 @@ public class SpaceShipData
         return type != SpaceShipData.SpaceShipElement.Wood;
     }
 
+    public bool isLastShip()
+    {
+        return type >= SpaceShipData.SpaceShipElement.Iron;
+    } 
+
 }
 
 public class ShipTempStat
@@ -241,12 +248,16 @@ public class ShipTempStat
     public float rocket_multiplicator = 1f;
     public int critical_multiplicator = 5;
 
+    public float getMultiplier()
+    {
+        float leveBonus = Utility.getLevelBonus();
+        return prestige_multiplicator * leveBonus;
+    }
+
     public BigNumber getTotal()
     {
-
-        float leveBonus = 1f + (Ship.Current.level - 1) * 0.1f;
         BigNumber total = new BigNumber(initial);
-        total *= prestige_multiplicator * leveBonus;
+        total *= getMultiplier();
 
         return total;
     }

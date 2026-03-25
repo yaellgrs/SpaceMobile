@@ -140,6 +140,7 @@ public class PrestigeUI : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.uraniumUI.gameObject.SetActive(true);
         MainUi.Instance.uraniumUI.loadForgeUI();
+        classActived = true;
     }
 
     private void ironClicked()
@@ -149,6 +150,7 @@ public class PrestigeUI : BaseUI
         upgradeUI.gameObject.SetActive(false);
         MainUi.Instance.ironUI.forgeUI.gameObject.SetActive(true);
         MainUi.Instance.ironUI.loadForgeUI();
+        classActived = true;
     }
 
     public void upPrestigeUI()
@@ -350,7 +352,7 @@ public class PrestigeUI : BaseUI
         gameManager.instance.RestartStage();
 
 
-        Data.Instance.Prestige();
+        Datas.Instance.Prestige();
 
         backClicked(forgeUI);
         backClicked(buyUI);
@@ -391,7 +393,6 @@ public class PrestigeUI : BaseUI
         MainUi.Instance.upHealthBar();
         MainUi.Instance.upUraniumUI();
         upPrestigeLabel();
-        Data.Instance.PrestigeCount += 1;
         Ship.Current.Load();
 
         gameManager.instance.InitGame();
@@ -487,15 +488,17 @@ public class PrestigeUI : BaseUI
     }
     private void backClicked(UIDocument document)
     {
-        if (forgeUiVE == null) return;
-        forgeUiVE = document.rootVisualElement.Q<VisualElement>("main");    
+        forgeUiVE = document.rootVisualElement?.Q<VisualElement>("main");
+        if(forgeUiVE == null) return;
         forgeUiVE.RemoveFromClassList("trans");
         forgeUiVE.schedule.Execute(() =>
         {
-            forgeUiVE.AddToClassList("trans");
+            if (forgeUiVE == null) return;
+            forgeUiVE.AddToClassList("trans"); //ici
         }).StartingIn(50);
         forgeUiVE.schedule.Execute(() =>
         {
+            if (document == null) return;
             document.gameObject.SetActive(false);
 
             //loadForgeUI();
@@ -600,10 +603,25 @@ public class PrestigeUI : BaseUI
         Btn_buy = root.Q<Button>("buy");
         Lbl_cost = root.Q<Label>("cost");
 
+
+
+
+        VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
+        VisualElement isLastShip = root.Q<VisualElement>("isLastShip");
+        bool last = Ship.Current.isLastShip();
+        haveNextLevel.style.display = last ? DisplayStyle.None : DisplayStyle.Flex;
+        isLastShip.style.display = last ? DisplayStyle.Flex : DisplayStyle.None;
+
+
+
         Btn_back.clicked -= () => { backClicked(upgradeShip); };
         Btn_back.clicked += () => { backClicked(upgradeShip); };
 
+
         LoadBuyUI();
+        if (last) Btn_buy.enabledSelf = false;
+
+        Debug.Log(Btn_buy == null ? "Btn_buy NULL" : "Btn_buy OK");
 
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;
@@ -611,22 +629,30 @@ public class PrestigeUI : BaseUI
 
     private void LoadBuyUI()
     {
-        bool canBuy = Stats.Instance.shipFragment >= 100;
-        Lbl_cost.text = Stats.Instance.shipFragment + "/100";
-        Btn_buy.enabledSelf = canBuy;
+        bool canBuy = Stats.Instance.shipFragment >= CalculShipUpgradeCost();
+        Lbl_cost.text = Stats.Instance.shipFragment + "/" + CalculShipUpgradeCost();
+        Btn_buy.SetEnabled(canBuy);
     }
 
 
     private void BuyNextShip()
     {
+        Debug.Log("clicked");
         Ship.Current.SetNextType(); 
 
         backClicked(upgradeShip);
         backClicked(upgradeUI);
 
+        Stats.Instance.AddShipFragment(-CalculShipUpgradeCost());
+
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
 
+    }
+
+    private int CalculShipUpgradeCost()
+    {
+        return 100;
     }
 
 }

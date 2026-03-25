@@ -326,7 +326,11 @@ public class BigNumber
 
         string prefix;
 
-        string[] Prefixes = { "", "k", "m", "M", "B" };
+        //   850M / s :  51b / min
+        string[] Prefixes = { "", "k", "m", "M", "b", "B", "t", "T", "qua", "Qua", "qui", "Qui", "se", "Se", "sep", "Sep" };
+
+
+
         prefix = Exp / 3 < Prefixes.Length ? Prefixes[Exp / 3] : "x" + Exp;
 
         int mod = ((Exp % 3) + 3) % 3;
@@ -387,16 +391,43 @@ public class BigNumber
     }
     public bool isBigger(BigNumber nBig)
     {
-        if (nBig.Exp > Exp)
-        {
+        if (Exp > nBig.Exp)
+            return true;
+
+        if (Exp < nBig.Exp)
             return false;
-        }
-        if (nBig.Exp == Exp && nBig.Mantisse > Mantisse)
-        {
-            return false;
-        }
-        return true;
+
+        return Mantisse > nBig.Mantisse;
     }
+
+    public static bool operator >=(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        return a.isBiggerOrEqual(b);
+    }
+
+    public static bool operator <=(BigNumber a, BigNumber b)
+    {
+        if (a is null || b is null)
+            throw new ArgumentNullException();
+
+        return b.isBiggerOrEqual(a);
+    }
+
+
+    public bool isBiggerOrEqual(BigNumber nBig)
+    {
+        if (Exp > nBig.Exp)
+            return true;
+
+        if (Exp < nBig.Exp)
+            return false;
+
+        return Mantisse >= nBig.Mantisse;
+    }
+
 
     public bool EqualZero()
     {

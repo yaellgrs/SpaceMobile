@@ -86,7 +86,7 @@ public class ShopUI : MonoBehaviour
         {
             time = 1,
             price = 50,
-            name = "BN_xp",
+            name = "xp",
             type = Boost.Type.xp,
             shopUI = this
         };

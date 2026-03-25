@@ -56,7 +56,7 @@ public class Stats
     [JsonIgnore] public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
 
     //global
-    public int diamand { get; private set; } = 100;
+    public int diamand { get; private set; } = 0;
 
     public long lastConnection;
     public bool firstConnection = true;
@@ -177,18 +177,21 @@ public class Stats
     {
         Ship.Current.iron += amount;
         MainUi.Instance?.upIronUI();
+        Datas.Instance.current.iron += amount;
         OnIronChanged.Invoke();
     }
 
     public void AddUranium(BigNumber amount)
     {
         Ship.Current.uranium += amount;
+        Datas.Instance.current.uranium += amount;
         MainUi.Instance?.upUraniumUI();
     }
 
     public void addPrestige(BigNumber amount)
     {
         starPariticul += amount;
+        Datas.Instance.current.startParticle += amount;
         MainUi.Instance.prestigeUI.upPrestigeLabel();
     }
 
@@ -233,7 +236,8 @@ public class Stats
         System.IO.File.WriteAllText(path, stat);
 
         QuestStats.Instance.Save();
-        Data.Instance.Save();
+        Datas.Instance.Save();
+        Settings.Instance.Save();
     }
 
     public void reset()
@@ -243,7 +247,7 @@ public class Stats
         ShipManager.Instance.LoadShips();
         save();
         QuestStats.Instance.reset();
-        Data.Instance.reset();
+        Datas.Instance.reset();
         MainUi.Instance.upStage();
         Tuto.Instance.loadPopupTuto();
 

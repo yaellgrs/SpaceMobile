@@ -5,18 +5,11 @@ public class Lazer : MonoBehaviour
     float timer;
     float lifeTime = 3f;
 
-    private AudioSource lazerSound;
-
     public bool isRocket = false;
 
     private void Start()
     {
-        lazerSound = GetComponent<AudioSource>();
-        lazerSound.time = 0.025f;
-        if (Settings.Instance.activeSound)
-            GetComponent<AudioSource>().volume = (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100);
-        else
-            GetComponent<AudioSource>().volume = 0;
+        SoundManager.Instance.PlaySound(SoundEffectType.Lazer);
     }
 
     private void Update()
@@ -32,7 +25,6 @@ public class Lazer : MonoBehaviour
 
         if (collision.TryGetComponent(out spaceObject meteor))
         {
-            Debug.Log("Detected meteor: " + meteor.GetType());
 
             if (meteor != null && meteor.spawnTime > 0.1f)
             {

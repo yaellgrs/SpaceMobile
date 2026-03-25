@@ -129,8 +129,9 @@ public class UpgradesUraniumElement : UpgradesElement
         Texture2D logoTexture = Resources.Load<Texture2D>("logos/uranium");
         StyleBackground background = new StyleBackground(logoTexture);
         VE_levelUpCostLogo.style.backgroundImage = background;
-        Lbl_levelUpCost.AddToClassList("uraniumColor");
-        Debug.Log("set logos for uranium");
+        Lbl_levelUpCost.style.color = Consts.COLOR_URANIUM;
+        Lbl_name.style.color = Consts.COLOR_URANIUM; 
+
     }
     #endregion
 }

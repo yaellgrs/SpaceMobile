@@ -50,7 +50,7 @@ public class spaceObject : MonoBehaviour
     public Vector3 baseScale;
     public int level = 1;
 
-    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium};
+    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium, None};
     public meteorType type;
 
     public bool isDestroyByRocket = false;
@@ -80,6 +80,7 @@ public class spaceObject : MonoBehaviour
             {
                 isStellar = true;
                 starParticle.gameObject.SetActive(true);
+                Debug.Log("is stellar");
             }
             else starParticle.gameObject.SetActive(false);
         }
@@ -251,7 +252,10 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if(QuestManager.Instance.type == QuestType.KillMeteor)
+        if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
+        else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);
+
+        if (QuestManager.Instance.type == QuestType.KillMeteor)
         {
             QuestManager.Instance.upQuest();
         }
@@ -267,21 +271,18 @@ public class spaceObject : MonoBehaviour
             GameObject obj = Instantiate(diamandCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
-            Data.Instance.diamandMeteorKilled += 1;
         }
         else if (type == meteorType.Iron)
         {
             GameObject obj = Instantiate(ironCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
-            Data.Instance.ironMeteorKilled += 1;
         }
         else if (type == meteorType.Uranium)
         {
             GameObject obj = Instantiate(uraniumCollectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
-            Data.Instance.uraniumMeteorKilled += 1;
         }
         else
         {
@@ -290,34 +291,41 @@ public class spaceObject : MonoBehaviour
                 Ship.Current.AddXP(calculXp());
                 MarkersUI.Instance.ShowMarker(transform.position, calculXp().ToString(), MarkerType.Xp);
             }
-            Data.Instance.basicMeteorKilled += 1;
+
         }
         //Death
         if (isStellar)
         {
             
-            Stats.Instance.AddPrestigeWainting(new BigNumber(Ship.Current.stage) * 0.5f);
+            Stats.Instance.AddPrestigeWainting(GetStarParticle());
             MarkersUI.Instance.ShowMarker(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
-            Data.Instance.OmegaMeteorKilled += 1;
         }
         if (type == meteorType.Scatter)
         {
             if(!isDestroyByRocket) gameManager.instance.launchMiniMeteor(transform);
-            Data.Instance.splitterMeteorKilled += 1;
         }
 
-        Song.Instance.playSound(Song.Instance.meteor_sound);
-        Data.Instance.meteorKilled += 1;
+        SoundManager.Instance.PlaySound(SoundEffectType.MeteorExplosion);
         gameManager.instance.SmallVibrate();
         meteorParticle.transform.SetParent(null);
         meteorParticle.transform.position = transform.position; 
         meteorParticle.Play();
     }
 
-    public void Pause()
+    public virtual BigNumber GetStarParticle()
     {
-        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        isPause = true;
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
+        Debug.Log("Reward : " + reward);
+        return reward;
+    }
+
+    public void SetPause(bool pause)
+    {
+        if (pause) GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        else Move();
+        isPause = pause;
+        GetComponent<Animator>().speed = pause ? 0f : 1f;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -327,11 +335,13 @@ public class spaceObject : MonoBehaviour
         {
             if(type != meteorType.Diamand && !(Ship.Current.life.EqualZero()))
             {
-                spaceShip.instance.getDamage(lifeMax);
+                Datas.Instance.current.missMeteor++;
+                spaceShip.instance.getDamage(lifeMax, this is meteorBoss);
                 MainUi.Instance.upMeteorUI();
-                if (Ship.Current.life.EqualZero())
+                if (Ship.Current.life.EqualZero() && gameManager.instance.bossStage)
                 {
-                    Song.Instance.lauchTransitionMusic(Song.Instance.main_music, Song.Instance.dead_music);
+                    SoundManager.Instance.lauchTransitionMusic(MusicType.Dead);
+                    Datas.Instance.current.dead++;
                 }
             }
 
@@ -344,7 +354,6 @@ public class spaceObject : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("area"))
         {
             spaceObjectSpeed /= Stats.Instance.areaSpeed;
-            Pause();
             Move();
         }
     }

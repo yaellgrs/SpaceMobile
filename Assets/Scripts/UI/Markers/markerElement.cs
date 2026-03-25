@@ -98,7 +98,7 @@ public partial class markerElement : Label
     private void SetLabelColor()
     {
         if (type == MarkerType.Iron)
-            style.color = Utility.GetMainRessourceColor();
+            style.color = Utility.GetShipColor();
         else
             style.color = COLORS[(int)type];
     }

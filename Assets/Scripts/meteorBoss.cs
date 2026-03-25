@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BossType { Normal, Ressource, Speed };
+
 public class meteorBoss : spaceObject
 {
-    public enum BossType { Normal };
     public enum AttackStatut { Waiting, Launch, Attack}
 
     public BossType bossType;
@@ -55,8 +56,14 @@ public class meteorBoss : spaceObject
     }
     public override void loadSpeed(float factor =1f)
     {
-        spaceObjectSpeed = 0.75f;
-        spaceObjectSpeed *= 0.75f * factor;
+        float baseSpeed = 0.75f;
+
+        spaceObjectSpeed = bossType switch
+        {
+            BossType.Normal or BossType.Ressource => baseSpeed * 0.75f * factor,
+            BossType.Speed => baseSpeed * 2f,
+            _ => baseSpeed,
+        };
     }
 
     // Update is called once per frame
@@ -83,9 +90,26 @@ public class meteorBoss : spaceObject
 
     private void Attack()
     {
-        spaceObject[] prefabToSpawn = { firstWavePrefab, secondWavePrefab, thirdWavePrefab };
-        meteorType[] types = { meteorType.Normal, meteorType.Scatter, meteorType.Big };
-        gameManager.instance.SpawnMeteor(prefabToSpawn[wave - 1], types[wave - 1], transform.position);
+        if (wave > 3) return;
+        meteorType type;
+        if (bossType == BossType.Normal)
+        {
+            type = wave switch
+            {
+                1 => meteorType.Big,
+                2 => meteorType.Scatter,
+                _ => meteorType.Normal,
+            };
+        }
+        else if(bossType == BossType.Ressource)
+        {
+            type = !Ship.Current.HaveUranium() ? meteorType.Iron : Random.Range(0, 2) == 1 ?
+                                meteorType.Iron : meteorType.Uranium;
+        }
+        else
+            type = meteorType.None;
+
+        if(type != meteorType.None) gameManager.instance.SpawnMeteor(type, transform.position, false);
     }
 
     public override void Move()
@@ -93,7 +117,7 @@ public class meteorBoss : spaceObject
 
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
-        Vector3 dir = (shipDir + perp * 5f).normalized;
+        Vector3 dir = (shipDir + perp * 6.5f).normalized;
         transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -113,7 +137,7 @@ public class meteorBoss : spaceObject
 
     private void setTimerLimit()
     {
-        float[] limits = { 5f, 4f, ATTACK_TIMER_LIMITE*3 };
+        float[] limits = { 2f, 3f, ATTACK_TIMER_LIMITE*3 };
         statutTimerLimit = limits[(int)statut];  
     }
 
@@ -127,28 +151,54 @@ public class meteorBoss : spaceObject
 
     private void setNextStatut()
     {
+        if (!canAttack()) return;
+
+
         if(statut == AttackStatut.Attack) {
             statut = AttackStatut.Waiting;
-            gameManager.instance.activeWarning(false);
+
         }
-        else
+        else if(wave < 3)
             statut++;
 
-        if (statut == AttackStatut.Launch)
+        if (statut == AttackStatut.Launch){
             gameManager.instance.activeWarning(true);
+            StartCoroutine(SoundManager.Instance.PlaySoundWithTime(SoundEffectType.BossWarning,  3f));
+        }
         else if (statut == AttackStatut.Attack){
-            wave = Mathf.Min(wave + 1, 3);
+            gameManager.instance.activeWarning(false);
+
+            wave++;
 
         }
+
         setAnimation();
         setTimerLimit();
+    }
+
+    private bool canAttack()
+    {
+        if (bossType == BossType.Speed) return false;
+        else return wave <= 3;
     }
 
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
         gameManager.instance.activeWarning(false);
-        gameManager.instance.bossStage = false;
+        if(!Ship.Current.life.EqualZero()){
+            gameManager.instance.upStage();
+            gameManager.instance.bossStage = false;
+            SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
+        }
+        else
+        {
+            //SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
+        }
+
+        Datas.Instance.current.meteorBossKilled[bossType] += 1;
+
+
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
         if (isStellar) Stats.Instance.prestigeUnlocked = true;
     }

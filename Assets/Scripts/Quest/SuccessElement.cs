@@ -133,11 +133,11 @@ public partial class SuccessElement : VisualElement
 
     private BigNumber getProgress()
     {
-        if (Data.Instance == null) return new BigNumber(0);
+        if (Datas.Instance == null) return new BigNumber(0);
 
-        var field = typeof(Data).GetField(type.ToString());
+        var field = typeof(Datas).GetField(type.ToString());
 
-        return field == null ? new BigNumber(0) : (BigNumber)field.GetValue(Data.Instance);
+        return field == null ? new BigNumber(0) : (BigNumber)field.GetValue(Datas.Instance);
     }
 
     private BigNumber getObjectif()

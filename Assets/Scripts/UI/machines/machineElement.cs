@@ -1,3 +1,4 @@
+using GoogleMobileAds.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;
@@ -21,7 +22,7 @@ public class machineData
     }
     public machineData(string machineName, BigNumber initPrice)
     {
-        if (initPrice < new BigNumber(100))
+        if (initPrice < new BigNumber(100000))
             isBuyed = true;
 
         BN_price = initPrice;
@@ -103,34 +104,6 @@ public partial class machineElement : Button
 
     public machineData data;
 
-/*    //constantes
-    private static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
-    private static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
-
-    private static readonly Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
-    private static readonly Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
-    private static readonly Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
-    private static readonly Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
-
-    //variables
-    private int levelMax = 100;
-    private int nextColorlevel = 5;
-    private int level = 1;
-
-    private float time = 0f;
-
-    BigNumber BN_price = new BigNumber(15000);
-
-    public bool isBuyed = false;
-    public bool isAutomatic = false;
-    protected int multiplicator;
-
-    public string machineName = "";
-
-    borderColor color = borderColor.white;
-
-    public int production_cps = 0;
-*/
     #endregion
 
     //methods
@@ -249,10 +222,15 @@ public partial class machineElement : Button
         VE_upCostLogo.style.backgroundImage = background;
         VE_buyLogo.style.backgroundImage = background;
 
-        Lbl_upCost.style.color = getColor();
-
 
         SetLogo();
+
+        Lbl_upCost.style.color = getColor();
+        Lbl_name.style.color = getColor();
+
+
+
+
     }
     #endregion
 
@@ -305,6 +283,7 @@ public partial class machineElement : Button
         }
         else if (data.isBuyed) 
         {
+            SoundManager.Instance.PlaySound(SoundEffectType.Forge);
             getProduction(true);
             if (this is machineIronElement && !Stats.Instance.ironTuto)
                 Tuto.Instance.AddMachineClicked();
@@ -386,26 +365,24 @@ public partial class machineElement : Button
 
     protected BigNumber CalculLevelUpCost()
     {
-        double r = 1.75;
         BigNumber calculedNumber = new BigNumber(0);
 
         int mult = getMulitplicator();
+        double r = 1.25;
+        double pow = System.Math.Pow(r, data.level);
 
-        if (data.level == data.nextColorlevel)//changement de grade ( ex : fer -> or )
-        {
-            calculedNumber.Set(data.BN_price);
-            double factor = 3.00 * System.Math.Pow(r, data.level) * Stats.Instance.upgradesPriceReducer;
-            calculedNumber.Multiply(factor, false);
-        }
-        else
-        {
-            double pow = System.Math.Pow(r, data.level);
-            calculedNumber.Set(data.BN_price * Stats.Instance.upgradesPriceReducer);
-            calculedNumber.Multiply(pow, false);
-            double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);
-            calculedNumber.Multiply(factor, false);
-            calculedNumber.Add(addColorCost(data.level, data.level + mult, r), false);
-        }
+        BigNumber priceModifier = data.BN_price * 0.01f;
+        if (priceModifier < new BigNumber(1)) priceModifier.Set(1);
+
+        calculedNumber.Set(priceModifier * Stats.Instance.upgradesPriceReducer * 15f); //price * 
+        calculedNumber.Multiply(pow, false); //1.75 ** level
+
+        if (data.level == data.nextColorlevel)
+            calculedNumber.Multiply(3, false);
+
+        double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);//calcule de la suite géométrique
+        calculedNumber.Multiply(factor, false);
+        calculedNumber.Add(addColorCost(data.level, data.level + mult, r), false);
 
         calculedNumber.Normalize();
         return calculedNumber;
@@ -434,11 +411,15 @@ public partial class machineElement : Button
     public BigNumber CalculReward(int lvl)
     {
         BigNumber reward = new BigNumber(1);
-        reward.Multiply(Mathf.Pow(1.12f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
+        reward.Multiply(Mathf.Pow(1.175f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
 
-        reward *= data.BN_price *0.055f;
+        BigNumber machinePriceModifier = data.BN_price * 0.00085f;
+        if (machinePriceModifier > new BigNumber(1)) reward *= machinePriceModifier;
+
         reward.round();
+
+        reward.Normalize();
         return reward;
     }
 

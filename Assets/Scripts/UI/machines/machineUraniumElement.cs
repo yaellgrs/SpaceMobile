@@ -19,7 +19,7 @@ public class machineUraniumElement : machineElement
 
     protected override Color getColor()
     {
-        return Utility.Hex("00FF0E");
+        return Consts.COLOR_URANIUM;
     }
 
     protected override void HandleMoney(BigNumber amount)

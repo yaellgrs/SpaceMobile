@@ -40,7 +40,6 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
 
         InitializePurchasing();
 
-        CheckAds();
     }
 
     public bool CheckAds()
@@ -112,6 +111,9 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     {
         storeController = controller;
         storeExtensionProvider = extensionProvider;
+
+
+        CheckAds();
     }
 
     public void OnInitializeFailed(InitializationFailureReason error)

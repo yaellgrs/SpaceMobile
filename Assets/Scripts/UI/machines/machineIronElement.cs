@@ -29,7 +29,7 @@ public class machineIronElement : machineElement
 
     protected override Color getColor()
     {
-        return Utility.GetMainRessourceColor();
+        return Utility.GetShipColor();
     }
 
     protected override void HandleMoney(BigNumber amount)

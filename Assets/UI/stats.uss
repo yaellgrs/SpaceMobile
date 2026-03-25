@@ -1,0 +1,57 @@
+:root {
+}
+
+.row {
+    flex-grow: 0;
+    align-content: flex-start;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-left: 0%;
+    margin-left: 0%;
+    margin-bottom: 3.5%;
+}
+
+.stat {
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    width: 25%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: upper-center;
+}
+
+.subStatName {
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    width: 25%;
+    margin-left: 5%;
+    padding-left: 10%;
+    -unity-text-align: upper-left;
+}
+
+.statName {
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    width: 25%;
+    -unity-text-align: upper-left;
+    padding-left: 3%;
+}
+
+.totalRow {
+    flex-grow: 0;
+    align-content: flex-start;
+    flex-direction: row;
+    justify-content: flex-end;
+    display: flex;
+    margin-top: 5%;
+    font-size: 30px;
+}

@@ -34,7 +34,8 @@ public class UpgradesIronElement : UpgradesElement
         BigNumber bonus = GetReward(data.level + getMulitplicator());
         bonus.Subtract(GetReward(data.level));
 
-        Lbl_description.text = $"{type.ToString()}: {getStat()} <color=green>(+{bonus.ToString()})</color>";
+        Lbl_description.text = $"{type.ToString()}: {getStat()}";
+        if(data.level < data.levelMax) Lbl_description.text += $" <color=green>(+{bonus.ToString()})</color>";
         string logo_path = "Upgrades/Iron/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
@@ -65,7 +66,7 @@ public class UpgradesIronElement : UpgradesElement
                 diff.Subtract(Ship.Current.life);
 
                 Ship.Current.lifeMax.initial.Set(10);
-                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.6f);
+                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1,  1.64697f); // 5 * 100^1.65
 
                 Ship.Current.life.Set(spaceShip.instance.getMaxLife());
                 Ship.Current.life.Subtract(diff);
@@ -79,14 +80,14 @@ public class UpgradesIronElement : UpgradesElement
                 diff.Set(spaceShip.instance.getMaxShield());
                 diff.Subtract(Ship.Current.shield);
                 Ship.Current.shieldMax.initial.Set(10);
-                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.4f);
+                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.14825f);
 
                 Ship.Current.shield.Set(spaceShip.instance.getMaxShield());
                 Ship.Current.shield.Subtract(diff);
                 break;
             case UpgradeType.RegenShield:
                 Ship.Current.regenShield = new BigNumber(10, 0);
-                Ship.Current.regenShield.Multiply(0.20f * Mathf.Pow(data.level + 1, 1.30f));
+                Ship.Current.regenShield.Multiply(0.20f * data.level);
                 break;
             default:
                 break;
@@ -102,18 +103,18 @@ public class UpgradesIronElement : UpgradesElement
         {
             case UpgradeType.Life:
                 reward.Set(10);
-                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.6f);
+                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.64697f);
                 break;
             case UpgradeType.Damage:
-                reward.Set(Mathf.Pow(lvl, 1.25f));
+                reward.Set(Mathf.Pow(lvl, 1.272f));
                 break;
             case UpgradeType.Shield:
                 reward.Set(10);
-                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.4f);
+                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.14825f);
                 break;
             case UpgradeType.RegenShield:
                 reward = new BigNumber(10);
-                reward.Multiply(0.20f * Mathf.Pow(lvl + 1, 1.30f));
+                reward.Multiply(0.20f *lvl);
                 break;
         }
         return reward;
@@ -133,7 +134,8 @@ public class UpgradesIronElement : UpgradesElement
     {
         StyleBackground background = Utility.GetMainRessourceLogo();
         VE_levelUpCostLogo.style.backgroundImage = background;
-        Lbl_levelUpCost.style.color = Utility.GetMainRessourceColor();
+        Lbl_levelUpCost.style.color = Utility.GetShipColor();
+        Lbl_name.style.color = Utility.GetShipColor();
     }
 
     #endregion

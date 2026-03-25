@@ -79,26 +79,34 @@ public class ResurectionUI : MonoBehaviour
     {
         Stats.Instance.AddDiamand(-5 * Stats.Instance.deadPubWatch);
         Stats.Instance.ReduceLifeBoss = true;
-        Close();
+
+        Resurection();
     }
 
     private void pubClicked()
     {
         if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(Ads.RewardType.Resurection);
         else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
+        Resurection();
+    }
+
+    private void Resurection()
+    {
+        gameManager.instance.bossStage = false;
         Close();
     }
 
     private void backStage()
     {
         Ship.Current.stage -= 5;
+        gameManager.instance.bossStage = false;
         gameManager.instance.RestartStage();
         Close();
     }
 
     public void Close()
     {
-        Song.Instance.lauchTransitionMusic(Song.Instance.dead_music, Song.Instance.main_music);
+        SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
         main.RemoveFromClassList("trans");
         main.schedule.Execute(() =>
         {

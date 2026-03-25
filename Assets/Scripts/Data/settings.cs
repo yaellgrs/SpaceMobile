@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Settings
 {
     static public Settings Instance;
@@ -46,7 +47,7 @@ public class Settings
             return;
         }
         string data = System.IO.File.ReadAllText(path);
-        Instance = JsonUtility.FromJson<Settings>(data);
+        JsonUtility.FromJsonOverwrite(data, this);
     }
     public void reset()
     {

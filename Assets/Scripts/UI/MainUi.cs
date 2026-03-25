@@ -32,7 +32,6 @@ public class MainUi : MonoBehaviour
     [Header("Others")]
     public VideoPlayer backgroundAnim;
 
-
     //mainUI
     private VisualElement VE_main;
 
@@ -193,6 +192,8 @@ public class MainUi : MonoBehaviour
 
         Stats.Instance.OnIronChanged += upIronUI;
         Ship.Current.OnTypeChanged += LoadIronLogo;
+
+        Utility.InitClickButtonSound(root);
     }
 
     public void LoadIronLogo()
@@ -252,7 +253,14 @@ public class MainUi : MonoBehaviour
     private void speedButtonClicked()
     {
         UpSpeed.Instance.UpButton(speedButton);
+        if (backgroundAnim == null) return;
         backgroundAnim.playbackSpeed = 0.5f * UpSpeed.Instance.upModeMultiplicator;
+    }
+
+    public void SetPause(bool pause)
+    {
+        if (backgroundAnim == null) return;
+        backgroundAnim.playbackSpeed = pause ? 0f : 0.5f * UpSpeed.Instance.upModeMultiplicator;
     }
 
     private void pubButtonClicked()
@@ -352,16 +360,21 @@ public class MainUi : MonoBehaviour
         xpLabel.text = Ship.Current.level.ToString();
         float currentPercent = xpBar.style.width.value.value;
         xpBar.style.height = Length.Percent(100f);
-        float targetPercent = (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+        float targetPercent = Mathf.Min(100, (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax));
 
         if (currentPercent < targetPercent - 0.25f)
         {
             float diff = targetPercent - currentPercent;
-            xpBar.style.width = Length.Percent(xpBar.style.width.value.value + diff / 25f);
+            currentPercent = Mathf.Lerp(currentPercent, targetPercent, Time.deltaTime * 5f);
+            xpBar.style.width = Length.Percent(currentPercent);
         }
         else
         {
             xpBar.style.width = Length.Percent(targetPercent);
+            if (Ship.Current.BN_xp >= Ship.Current.BN_xpMax)
+            {
+                MainUi.Instance.xpUI.LevelUp();
+            }
         }
     }
 

@@ -6,10 +6,7 @@ using UnityEngine.UIElements;
 public static class Utility
 {
     public const long DAY_IN_SECOND = 86400;
-    public static Color[] MAIN_RESSOUCE_COLOR ={
-        Utility.Hex("#734426"), //Wood
-        Utility.Hex("#FFA300"), //Iron
-    };
+
     public static void setBorderColor(Button btn, Color color)
     {
         btn.style.borderLeftColor = color;
@@ -157,10 +154,22 @@ public static class Utility
         return texture2D;
     }
 
-    public static Color GetMainRessourceColor()
+    public static Color GetShipColor()
     {
-        int colorNumber = Mathf.Clamp((int)Ship.Current.type , 0, MAIN_RESSOUCE_COLOR.Length - 1);
-        return MAIN_RESSOUCE_COLOR[colorNumber];
+        int colorNumber = Mathf.Clamp((int)Ship.Current.type , 0, Consts.SHIP_COLOR.Length - 1);
+        return Consts.SHIP_COLOR[colorNumber];
+    }
+
+    public static Texture2D GetShipFragmentLogo()
+    {
+        string path = "logos/ShipFragments/" + Ship.Current.type.ToString();
+        Texture2D texture2D = Resources.Load<Texture2D>(path);
+        if (texture2D == null)
+        {
+            Debug.LogWarning("Can't load Texture2D at : " + path);
+            return null;
+        }
+        return texture2D;
     }
 
     public static Color Hex(string hex)
@@ -178,4 +187,21 @@ public static class Utility
     {
         return (int)(Consts.BASE_STELLAR_BOSS_PROBABILITY * Stats.Instance.probabilitéOfOmega);
     }
+
+
+    public static void InitClickButtonSound(VisualElement root)
+    {
+        foreach (var btn in root.Query<Button>().ToList())
+        {
+            if (btn.ClassListContains("NoSoundClick")) continue;
+            btn.clicked -= () => {SoundManager.Instance.PlaySound(SoundEffectType.Click); };
+            btn.clicked += () => {SoundManager.Instance.PlaySound(SoundEffectType.Click); };
+        }
+    }
+
+    public static float getLevelBonus()
+    {
+        return 1f + (Ship.Current.level - 1) * 0.01f;
+    }
+
 }

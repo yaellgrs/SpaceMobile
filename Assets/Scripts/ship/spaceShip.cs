@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using static SpaceShipData;
 
 public class spaceShip : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class spaceShip : MonoBehaviour
     private spaceObject repelerTarget;
     private float targetTimer = 0f;
     private const float RELOAD_TARGET_TIME = 1f;
+
+    private bool isPause = false;
 
 
 
@@ -48,7 +51,16 @@ public class spaceShip : MonoBehaviour
 
     public void LoadAnimation()
     {
-        //animator.SetBool("isFire", Stats.Instance.currentSpaceShipType == SpaceShipType.Fire);
+        animator.SetBool("isWood", Ship.Current.type == SpaceShipElement.Wood);
+    }
+
+    public void SetPause(bool pause)
+    {
+        if (animator == null)return;
+        animator.speed = pause ? 0f : 1f;
+
+        Debug.Log("set pause : " + pause);
+        isPause = pause;
     }
 
     // Update is called once per frame
@@ -123,6 +135,7 @@ public class spaceShip : MonoBehaviour
 
     private void Animation()
     {
+        if (isPause) return;
         float speed = animSpeed * UpSpeed.Instance.upModeMultiplicator * 100 * Time.deltaTime;
         if (animUp)
         {
@@ -145,8 +158,15 @@ public class spaceShip : MonoBehaviour
         }
     }
 
-    public void getDamage(BigNumber amount)
+    public void getDamage(BigNumber amount, bool boss = false)
     {
+        if (boss)
+        {
+            Ship.Current.shield.Set(0);
+            Ship.Current.life.Set(0);
+            return;
+        }
+
         if (Ship.Current.shield.isBigger(amount))
         {
             Ship.Current.shield -= amount;

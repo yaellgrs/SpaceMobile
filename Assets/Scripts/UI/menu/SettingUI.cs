@@ -1,8 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.ConstrainedExecution;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UIElements;
+
+
 
 public class SettingUI : MonoBehaviour
 {
@@ -59,8 +65,12 @@ public class SettingUI : MonoBehaviour
     private Button espagna;
     private Button german;
 
+    private int foldoutGap = 0;
+    private Dictionary<VisualElement, int> gaps = new Dictionary<VisualElement, int>();
+
     private void Start()
     {
+
         SetLanguage(Settings.Instance.currentLangage, false);
         menuUI.gameObject.SetActive(false);
         bonusUI.gameObject.SetActive(false);
@@ -68,12 +78,13 @@ public class SettingUI : MonoBehaviour
         statsUI.gameObject.SetActive(false);
         LangueUI.gameObject.SetActive(false);
         tutoUI.gameObject.SetActive(false);
+
+
+
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void load()
     {
-
-
         menuUI.gameObject.SetActive(true);
         var root = menuUI.rootVisualElement;
         exit = root.Q<Button>("back");
@@ -97,6 +108,9 @@ public class SettingUI : MonoBehaviour
         stats.clicked += laodStats;
         settings.clicked += loadSetting;
         langue.clicked += loadLangue;
+
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void backClicked()
@@ -135,26 +149,82 @@ public class SettingUI : MonoBehaviour
         var root = bonusUI.rootVisualElement;
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
-        damageTotal = root.Q<Label>("damageTotal");
-        damageBoost = root.Q<Label>("damageBoost");
-        damagePrestige = root.Q<Label>("damagePrestige");
-        damageLevel = root.Q<Label>("damageLevel");
-        damageLevelPerm = root.Q<Label>("damageLevelPerm");
+        //damageTotal = root.Q<Label>("damageTotal");
+        //damageBoost = root.Q<Label>("damageBoost");
+        //damagePrestige = root.Q<Label>("damagePrestige");
+        //damageLevel = root.Q<Label>("damageLevel");
+        //damageLevelPerm = root.Q<Label>("damageLevelPerm");
 
-        float mult = Stats.Instance.prest_damage_multiplicator * Stats.Instance.damage_Multiplicator_Lvl * Stats.Instance.perm_Damage_Multiplicator_Lvl;
-        if (Stats.Instance.damageBoostTime > 0)
-        {
-            damageBoost.text = "x2.00";
-            mult *= 2;
-        }
-        damageTotal.text = "x" + mult.ToString("F2");
-        damagePrestige.text = "x" + Stats.Instance.prest_damage_multiplicator.ToString("F2");
-        damageLevel.text = "x" + Stats.Instance.damage_Multiplicator_Lvl.ToString("F2");
-        damageLevelPerm.text = "x" + Stats.Instance.perm_Damage_Multiplicator_Lvl.ToString("F2");
+        //float mult = Stats.Instance.prest_damage_multiplicator * Stats.Instance.damage_Multiplicator_Lvl * Stats.Instance.perm_Damage_Multiplicator_Lvl;
+        //if (Stats.Instance.damageBoostTime > 0)
+        //{
+        //    damageBoost.text = "x2.00";
+        //    mult *= 2;
+        //}
+        //damageTotal.text = "x" + mult.ToString("F2");
+        //damagePrestige.text = "x" + Stats.Instance.prest_damage_multiplicator.ToString("F2");
+        //damageLevel.text = "x" + Stats.Instance.damage_Multiplicator_Lvl.ToString("F2");
+        //damageLevelPerm.text = "x" + Stats.Instance.perm_Damage_Multiplicator_Lvl.ToString("F2");
 
-        exit.clicked += backClicked;
+        VisualElement Lbl_totalDamage = root.Q<VisualElement>("damage");
+        VisualElement Lbl_totalLife = root.Q<VisualElement>("life");
+        VisualElement Lbl_totalShield = root.Q<VisualElement>("shield");
+
+        InitFoldout(Lbl_totalDamage, new List<VisualElement>{Lbl_totalLife, Lbl_totalShield}, Ship.Current.damage);
+
+        InitFoldout(Lbl_totalLife, new List<VisualElement>{ Lbl_totalShield}, Ship.Current.lifeMax);
+        InitFoldout(Lbl_totalShield, new List<VisualElement>{ }, Ship.Current.shieldMax);
+
+
+        //exit.clicked += backClicked;
         back.clicked += backBonusClicked;
 
+        Utility.InitClickButtonSound(root);
+    }
+
+    private void InitFoldout(VisualElement source, List<VisualElement> elementsToMove, ShipTempStat stat)
+    {
+        Foldout foldout = source.Q<Foldout>("Foldout");
+        Label Lbl_total = source.Q<Label>("total");
+        Label Lbl_base = source.Q<Label>("base");
+        Label Lbl_totalMult = source.Q<Label>("totalMult");
+        Label Lbl_level = source.Q<Label>("level");
+        Label Lbl_prestige = source.Q<Label>("prestige");
+
+        foldout.value = false;
+
+        Lbl_total.text = stat.getTotal().ToString();
+        Lbl_base.text = stat.initial.ToString();
+        Lbl_totalMult.text = "x" + stat.getMultiplier().ToString("F2");
+        Lbl_level.text = "x" + Utility.getLevelBonus().ToString("F2");
+        Lbl_prestige.text = "x" + stat.prestige_multiplicator.ToString("F2");
+
+
+        foldout.RegisterValueChangedCallback(e =>
+        {
+
+            if (foldout.value)
+            {
+                float size = foldout.resolvedStyle.height;
+
+                foreach (VisualElement element in elementsToMove)
+                {
+                    gaps[element] = gaps.ContainsKey(element) ? gaps[element] + 1 : 1;
+                    float gap = size * 1.3f * gaps[element];
+                    element.style.translate = new Translate(0, gap, 0);
+                }
+            }
+            else
+            {
+                float size = foldout.resolvedStyle.height;
+                foreach (VisualElement element in elementsToMove)
+                {
+                    gaps[element] = Math.Max(0, gaps.ContainsKey(element) ? gaps[element] - 1 : 0);
+                    float gap = size * 1.3f * gaps[element];
+                    element.style.translate = new Translate(0, gap, 0);
+                }
+            }
+        });
     }
 
 
@@ -194,6 +264,8 @@ public class SettingUI : MonoBehaviour
 
         exit.clicked += backClicked;
         back.clicked += backTutoClicked;
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void backTutoClicked()
@@ -210,24 +282,126 @@ public class SettingUI : MonoBehaviour
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
 
-        //total
-        time_total = root.Q<Label>("time_total");
-        meteorKilled_total = root.Q<Label>("meteorKilled_total");
+        //totalssssssssssssssssssssssssssssssssssssss
 
-        time_total.text = BigNumber.floatToTimeHour(Data.Instance.totalTime + Data.Instance.time);
-        meteorKilled_total.text = (Data.Instance.totalMeteorKilled + Data.Instance.meteorKilled).ToString();
+        ScrollView scrollView = root.Q<ScrollView>("scroll");
+        VisualElement titles = scrollView.Q<VisualElement>("titles");
+        scrollView.Clear();
+        VisualElement parent = new VisualElement();
+        parent.style.flexGrow = 1;
+        scrollView.Add(parent);
+        parent.Add(titles);
 
-        //current
-        time_current = root.Q<Label>("time_current");
-        meteorKilled_current = root.Q<Label>("meteorKilled_current");
+        foreach (FieldInfo field in typeof(Data).GetFields())
+        {
+            object valueCurrent = field.GetValue(Datas.Instance.current);
+            object valueShip = field.GetValue(Datas.Instance.currentShip);
+            object valueTotal = field.GetValue(Datas.Instance.total);
 
-        time_current.text = BigNumber.floatToTimeHour(Data.Instance.time);
-        meteorKilled_current.text = Data.Instance.meteorKilled.ToString();
+            string name = field.Name;
+            if (valueCurrent is System.Collections.IDictionary dicoCurrent &&
+                valueShip is System.Collections.IDictionary dicoShip &&
+                valueTotal is System.Collections.IDictionary dicoTotal)
+            {
+                var keys = new HashSet<object>();
+                foreach (var k in dicoCurrent.Keys) keys.Add(k);
+                foreach (var k in dicoShip.Keys) keys.Add(k);
+                foreach (var k in dicoTotal.Keys) keys.Add(k);
+
+                List<VisualElement> rows = new List<VisualElement>();
+                BigNumber currentTotal = new BigNumber(0);
+                BigNumber shipTotal = new BigNumber(0);
+                BigNumber Total = new BigNumber(0);
+
+                foreach (var key in keys)
+                {
+                    object obj1 = dicoCurrent.Contains(key) ? dicoCurrent[key] : null;
+                    object obj2 = dicoShip.Contains(key) ? dicoShip[key] : null;
+                    object obj3 = dicoTotal.Contains(key) ? dicoTotal[key] : null;
+                    rows.Add(createStatLine(
+                        key.ToString(),
+                        FormatValue(obj1),
+                        FormatValue(Datas.SumDataValue(obj1, obj2)),
+                        FormatValue(Datas.SumDataValue(obj1, obj2, obj3)),
+                        true
+                    ));
+                    currentTotal += dicoCurrent.Contains(key) ?  (BigNumber)dicoCurrent[key] : new BigNumber(0); ;
+                    shipTotal += dicoCurrent.Contains(key) ? (BigNumber)dicoShip[key] : new BigNumber(0);
+                    Total += dicoCurrent.Contains(key) ? (BigNumber)dicoTotal[key] : new BigNumber(0);
+
+                }
+                VisualElement title = createStatLine(
+                    name,
+                    FormatValue(currentTotal),
+                    FormatValue(Datas.SumDataValue(currentTotal, shipTotal)),
+                    FormatValue(Datas.SumDataValue(currentTotal, shipTotal, Total, max: (name == "maxStage")))
+                );
+                title.AddToClassList("totalRow");
+                parent.Add(title);
+                foreach (var row in rows)
+                    parent.Add(row);
+            }
+            else
+            {
+                string current = FormatValue(field.GetValue(Datas.Instance.current));
+                string total = FormatValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), max: (field.Name == "maxStage")));
+                string ship = FormatValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), field.GetValue(Datas.Instance.total), max: (field.Name == "maxStage")));
+                // verif name == "maxStage"
+                parent.Add(createStatLine(name, current, ship, total));
+            }
+
+        }
 
 
         exit.clicked += backClicked;
         back.clicked += backStatClicked;
+
+        Utility.InitClickButtonSound(root);
     }
+
+    private VisualElement createStatLine(string name, string current, string ship, string total, bool isDico = false)
+    {
+        VisualElement line = new VisualElement();
+        line.AddToClassList("row");
+
+        Label Lbl_name = new Label(name);
+        Label Lbl_current = new Label(current);
+        Label Lbl_total = new Label(total);
+        Label Lbl_ship = new Label(ship);
+
+        Lbl_name.AddToClassList("stat");
+        if (isDico) Lbl_name.AddToClassList("subStatName");
+        else Lbl_name.AddToClassList("statName");
+        Lbl_current.AddToClassList("stat");
+        Lbl_total.AddToClassList("stat");
+        Lbl_ship.AddToClassList("stat");
+
+        line.Add(Lbl_name);
+        line.Add(Lbl_current);
+        line.Add(Lbl_total);
+        line.Add(Lbl_ship);
+
+        return line;
+    }
+
+    private string FormatValue(object value)
+    {
+        //if (value2 != null && value.GetType() == value2.GetType()) return FormatValue(value);
+
+        if (value == null) return "null"; 
+
+        if(value is BigNumber bn){
+            return bn.ToString();
+        }
+
+        if (value is float f) {
+            return Utility.TimeToString_dhms((long)f);
+        }
+
+        return value.ToString();
+    }
+
+
 
     private void backStatClicked()
     {
@@ -251,7 +425,7 @@ public class SettingUI : MonoBehaviour
         Btn_scientific = root.Q<Button>("scientific");
         pause = root.Q<Button>("pause");
         damage = root.Q<Button>("damage");
-        xp = root.Q<Button>("BN_xp");
+        xp = root.Q<Button>("xp");
 
         slider_general.value = Settings.Instance.sound_general_value;
         slider_music.value = Settings.Instance.sound_music_value;
@@ -260,12 +434,12 @@ public class SettingUI : MonoBehaviour
         slider_general.RegisterValueChangedCallback(evt =>
         {
             Settings.Instance.sound_general_value = slider_general.value;
-            Song.Instance.setMusicVolume();
+            SoundManager.Instance.setMusicVolume();
         });
         slider_music.RegisterValueChangedCallback(evt =>
         {
             Settings.Instance.sound_music_value = slider_music.value;
-            Song.Instance.setMusicVolume();
+            SoundManager.Instance.setMusicVolume();
         });
         slider_soundEffect.RegisterValueChangedCallback(evt =>
         {
@@ -284,6 +458,8 @@ public class SettingUI : MonoBehaviour
         Btn_showBanner.clicked += showBannerClicked;
 
         SetSettingButton();
+
+        Utility.InitClickButtonSound(root);
     }
 
 
@@ -292,7 +468,7 @@ public class SettingUI : MonoBehaviour
     {
         Settings.Instance.activeSound = !Settings.Instance.activeSound;
         SetSettingButtonColor(Btn_toggleSound, Settings.Instance.activeSound, false);
-        Song.Instance.setMusicVolume();
+        SoundManager.Instance.setMusicVolume();
     }
 
     private void VibrateClicked()
@@ -397,6 +573,8 @@ public class SettingUI : MonoBehaviour
 
         exit.clicked += backClicked;
         back.clicked += backLangueClicked;
+
+        Utility.InitClickButtonSound(root);
     }
 
     private void SetLangFr() => SetLanguage("fr-FR", true);

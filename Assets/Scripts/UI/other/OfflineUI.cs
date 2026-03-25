@@ -121,8 +121,9 @@ public class OfflineUI : MonoBehaviour
             {
                 if(m.data.production_cps > 0 || !offline) //!offline = booster acheté
                 {
+                    float mult = Mathf.Min(1, m.data.production_cps + 1);
                     BigNumber earn = m.CalculReward();
-                    earn *= time * m.data.production_cps;
+                    earn *= time * mult;
                     totaEarn.Add(earn);
                 }
             }
@@ -146,8 +147,9 @@ public class OfflineUI : MonoBehaviour
             {
                 if (m.data.production_cps > 0 || !offline) //!offline = booster acheté
                 {
+                    float mult = Mathf.Min(1, m.data.production_cps + 1);
                     BigNumber earn = m.CalculReward();
-                    earn *= time * m.data.production_cps;
+                    earn *= time * mult;
                     totaEarn.Add(earn);
                 }
             }

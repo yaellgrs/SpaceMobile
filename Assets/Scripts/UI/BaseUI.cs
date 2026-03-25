@@ -87,6 +87,7 @@ public class BaseUI : MonoBehaviour
 
             loadForgeUI();
         }
+
     }
 
     public virtual void forgeUpgradeClicked()
@@ -192,6 +193,7 @@ public class BaseUI : MonoBehaviour
         upModeButton.clicked += upModeButtonClicked;
 
         isDragging = false;
+        Utility.InitClickButtonSound(root);
     }
 
     #endregion
@@ -235,6 +237,7 @@ public class BaseUI : MonoBehaviour
 
 
         isDragging = false;
+        Utility.InitClickButtonSound(root);
 
     }
     #endregion
