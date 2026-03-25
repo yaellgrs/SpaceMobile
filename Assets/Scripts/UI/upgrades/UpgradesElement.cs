@@ -47,6 +47,8 @@ public partial class UpgradesElement : VisualElement
     #region ----- variables -----
     public UpgradeData data;
 
+    protected virtual int baseCost => 74;
+
     #endregion
 
     //methods
@@ -247,7 +249,7 @@ public partial class UpgradesElement : VisualElement
 
         double pow = System.Math.Pow(data.r, data.level); // début de la suite
         data.multiplicator = Mathf.Max(1, data.multiplicator);
-        calculedNumber.Set(74);
+        calculedNumber.Set(baseCost);
         calculedNumber.Multiply(pow, false);   
         calculedNumber.Multiply(Stats.Instance.upgradesPriceReducer, false);   
         double factor = (System.Math.Pow(data.r, data.multiplicator) - 1) / (data.r - 1);

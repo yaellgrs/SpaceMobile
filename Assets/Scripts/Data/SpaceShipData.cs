@@ -42,6 +42,8 @@ public class SpaceShipData
     public Dictionary<UpgradesShipElement.UpgradeType, UpgradeData> dataUpgradesShip = new Dictionary<UpgradesShipElement.UpgradeType, UpgradeData>();
     [JsonIgnore] public List<UpgradesElement> upgradesShip = new List<UpgradesElement>();
 
+
+
     [JsonIgnore] public ShipTempStat damage;
     [JsonIgnore] public ShipTempStat lifeMax;
     [JsonIgnore] public ShipTempStat shieldMax;

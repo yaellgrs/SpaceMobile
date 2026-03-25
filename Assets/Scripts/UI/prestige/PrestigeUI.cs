@@ -10,6 +10,18 @@ using UnityEngine.Localization.SmartFormat.Utilities;
 
 public class PrestigeUI : BaseUI
 {
+    private static Dictionary<UpgradeType, float> UpgradesPriceFactor = new Dictionary<UpgradeType, float>()
+    {
+        { UpgradeType.PrestigeMultiplicator, 1.4f},
+        { UpgradeType.LessMeteor, 1.4f},
+        { UpgradeType.LessPriceUpgrades, 1.4f},
+        { UpgradeType.XpBoost, 1.4f},
+        { UpgradeType.DamageMultiplicator, 1.4f},
+        { UpgradeType.StageSkip, 1.4f},
+        { UpgradeType.OmegaProb, 1.4f},
+        { UpgradeType.MinimumLevel, 1.4f},
+        { UpgradeType.CriticalProbability, 1.4f},
+    };
 
     public UIDocument prestigeUI;
     public UIDocument buyUI;
@@ -92,9 +104,8 @@ public class PrestigeUI : BaseUI
         else
             type = Stats.Instance.nextPrestigeToBuy2;
 
-        UpgradeData data = new UpgradeData();
+        UpgradeData data = new UpgradeData(UpgradesPriceFactor[type]);
         Stats.Instance.dataUpgradePrestige[type] = data;
-        Debug.LogError("data prestige count : " + Stats.Instance.dataUpgradePrestige.Count);
         Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data, type.ToString(), type));
 
         if (prestige == 1)

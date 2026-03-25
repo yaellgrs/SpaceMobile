@@ -298,7 +298,9 @@ public class spaceObject : MonoBehaviour
         {
             
             Stats.Instance.AddPrestigeWainting(GetStarParticle());
-            MarkersUI.Instance.ShowMarker(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
+
+            ShowStartParticleReward();
+            //MarkersUI.Instance.ShowMarker(transform.position, Ship.Current.stage.ToString(), MarkerType.Prestige);
         }
         if (type == meteorType.Scatter)
         {
@@ -317,6 +319,13 @@ public class spaceObject : MonoBehaviour
         BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
         Debug.Log("Reward : " + reward);
         return reward;
+    }
+
+    private void ShowStartParticleReward()
+    {
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.15f * (Screen.width / 2f), 1f * (Screen.height / 3f), 10));
+        MarkerType type = MarkerType.Prestige;
+        MarkersUI.Instance.ShowMarker(worldPos, "Star Particle : " + GetStarParticle().ToString(), type, 0.1f, 0.985f, 1f);
     }
 
     public void SetPause(bool pause)

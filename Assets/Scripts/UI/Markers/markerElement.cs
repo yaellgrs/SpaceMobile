@@ -89,7 +89,8 @@ public partial class markerElement : Label
         style.left = pos.x;
         style.top = pos.y;
 
-        if (speed > 0.5f) move_x = Random.Range(-0.0025f, 0.0025f);
+        if (speed > 0.5f) move_x = Random.Range(-0.025f, 0.025f);
+        else move_x = 0.025f;
 
         SetLabelColor();
         SetLogo();

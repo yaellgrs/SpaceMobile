@@ -11,6 +11,7 @@ public class UpgradesPrestigeElement : UpgradesElement
 {
     #region ----- variables -----
     public UpgradeType type;
+    protected override int baseCost => 1;
     #endregion
 
     #region ----- Constructors -----
