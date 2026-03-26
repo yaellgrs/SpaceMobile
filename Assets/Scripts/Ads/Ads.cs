@@ -178,7 +178,9 @@ public class Ads : MonoBehaviour
                 break;
             case RewardType.Resurection:
                 Stats.Instance.ReduceLifeBoss = true;
+                Debug.Log("Resurection given");
                 Stats.Instance.deadPubWatch++;
+                ResurectionUI.Instance.Resurection();
                 break;
         }
     }

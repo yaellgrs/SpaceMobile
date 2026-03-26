@@ -87,10 +87,9 @@ public class ResurectionUI : MonoBehaviour
     {
         if (IAPManager.Instance.CheckAds()) Ads.Instance.GetReward(Ads.RewardType.Resurection);
         else Ads.Instance.ShowRewardedAd(Ads.RewardType.Resurection);
-        Resurection();
     }
 
-    private void Resurection()
+    public void Resurection()
     {
         gameManager.instance.bossStage = false;
         Close();

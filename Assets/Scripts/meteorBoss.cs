@@ -118,7 +118,7 @@ public class meteorBoss : spaceObject
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
         Vector3 dir = (shipDir + perp * 6.5f).normalized;
-        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
+        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale * UpSpeed.Instance.upModeMultiplicator;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
@@ -196,10 +196,17 @@ public class meteorBoss : spaceObject
             //SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
         }
 
+        if (!Datas.Instance.current.meteorBossKilled.ContainsKey(bossType)) Datas.Instance.current.meteorBossKilled[bossType] = new BigNumber(1);
         Datas.Instance.current.meteorBossKilled[bossType] += 1;
 
 
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
-        if (isStellar) Stats.Instance.prestigeUnlocked = true;
+        if (isStellar){
+            Debug.LogError("STELLAR BOSS KILLED");
+            bool reload = !Stats.Instance.prestigeUnlocked;
+
+            Stats.Instance.prestigeUnlocked = true;
+            if (reload) BottomUI.Instance.LoadUI();
+        }
     }
 }

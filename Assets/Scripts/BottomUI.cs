@@ -34,6 +34,7 @@ public class BottomUI : MonoBehaviour
 
     public void LoadUI()
     {
+        Debug.LogError("LOAD BOTTOM UI");
         string firstForgePath = "UI/Bottom/" + Ship.Current.type + "/FirstForge";
         string secondForgePath = Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ?
             "UI/Bottom/Wood/SecondForge" : "UI/Bottom/SecondForge";
