@@ -1,0 +1,11 @@
+{
+    "name": "Astriddecourseulles.Test.Tests",
+    "references": [
+        "Astriddecourseulles.Test"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
