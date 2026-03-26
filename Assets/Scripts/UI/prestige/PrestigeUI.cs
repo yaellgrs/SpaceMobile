@@ -13,14 +13,15 @@ public class PrestigeUI : BaseUI
     private static Dictionary<UpgradeType, float> UpgradesPriceFactor = new Dictionary<UpgradeType, float>()
     {
         { UpgradeType.PrestigeMultiplicator, 1.4f},
-        { UpgradeType.LessMeteor, 1.4f},
-        { UpgradeType.LessPriceUpgrades, 1.4f},
-        { UpgradeType.XpBoost, 1.4f},
-        { UpgradeType.DamageMultiplicator, 1.4f},
-        { UpgradeType.StageSkip, 1.4f},
-        { UpgradeType.OmegaProb, 1.4f},
-        { UpgradeType.MinimumLevel, 1.4f},
+        { UpgradeType.LessPriceUpgrades, 1.13f},
+        { UpgradeType.DamageMultiplicator, 1.125f},
+        { UpgradeType.StageSkip, 1.135f},
+        { UpgradeType.OmegaProb, 1.15f},
+        { UpgradeType.MinimumLevel, 1.165f},
+
         { UpgradeType.CriticalProbability, 1.4f},
+        { UpgradeType.LessMeteor, 1.4f},
+        { UpgradeType.XpBoost, 1.4f},
     };
 
     public UIDocument prestigeUI;

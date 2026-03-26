@@ -4,4 +4,8 @@
   <Project Path="GoogleMobileAds.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Core.Samples.Runtime.csproj" />
+  <Project Path="Astriddecourseulles.Test.csproj" />
+  <Project Path="Astriddecourseulles.Test.Editor.Tests.csproj" />
+  <Project Path="Astriddecourseulles.Test.Editor.csproj" />
+  <Project Path="Astriddecourseulles.Test.Tests.csproj" />
 </Solution>

@@ -1,3 +1,4 @@
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
@@ -24,7 +25,7 @@ public class UpgradesPrestigeElement : UpgradesElement
     {
         this.name = name;
         this.type = type;
-        data.levelMax = int.MaxValue;
+        data.levelMax = type == UpgradeType.PrestigeMultiplicator ? 100 : 200;
     }
     #endregion
 
@@ -107,28 +108,29 @@ public class UpgradesPrestigeElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.PrestigeMultiplicator:
-                Stats.Instance.star_multiplicator_prestige = 1f + 0.15f * (realLevel - 1);
+                Stats.Instance.star_multiplicator_prestige = 1f + 0.1f * realLevel;
                 break;
             case UpgradeType.LessMeteor:
                 Stats.Instance.enemyPerStage = 10f - 0.16f * (realLevel);
                 break;
             case UpgradeType.LessPriceUpgrades:
-                Stats.Instance.upgradesPriceReducer = 1f - 0.229f * Mathf.Log(realLevel);
+                Stats.Instance.upgradesPriceReducer = 0.99f * Mathf.Pow(0.966f, realLevel - 1);
                 break;
             case UpgradeType.XpBoost:
                 Stats.Instance.XpMultiplicator = 1f + 0.25f * (realLevel);
                 break;
             case UpgradeType.DamageMultiplicator:
-                Ship.Current.damage.prestige_multiplicator = 1f + 0.2f * (realLevel);
+                Ship.Current.damage.prestige_multiplicator = 1.1f + 0.1f * (realLevel-1);
                 break;
             case UpgradeType.StageSkip:
-                Stats.Instance.stageSkipProb = realLevel;
+                Stats.Instance.stageSkipProb = 5f * realLevel;
                 break;
             case UpgradeType.OmegaProb:
-                Stats.Instance.probabilitéOfOmega = 1 + (realLevel) * 0.05f;
+                Stats.Instance.probabilitéOfOmega = 1f + (0.2f * realLevel);
                 break;
             case UpgradeType.MinimumLevel:
-                Stats.Instance.MinimalLevel = realLevel;
+                Stats.Instance.MinimalLevel = 1f + (0.495f * realLevel);
+                //level 200 => 99
                 break;
             case UpgradeType.CriticalProbability:
                 Stats.Instance.critical_Prob = realLevel * 5f;

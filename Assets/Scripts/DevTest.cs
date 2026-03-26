@@ -82,6 +82,7 @@ public class DevTest : MonoBehaviour
 
             Stats.Instance.AddShipMoney(new BigNumber(1, 100), false);
             Stats.Instance.AddShipFragment(100);
+            Stats.Instance.addPrestige(new BigNumber(1, 100));
 
             Stats.Instance.AddDiamand(100);
         }

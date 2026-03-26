@@ -106,7 +106,7 @@ public class Stats
     public float prest_damage_multiplicator = 1f;
     public float probabilitéOfOmega = 5f;
     public float stageSkipProb = 0f;
-    public int MinimalLevel = 1;
+    public float MinimalLevel = 1;
     public float critical_Prob = 5;
 
     //levels
