@@ -133,6 +133,10 @@ public class spaceObject : MonoBehaviour
         {
             if (!Stats.Instance.popupTutos[PopupTuto.splitterMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
         }
+
+
+        float factor = Random.Range(0.75f, 1.25f);
+        lifeMax *= factor;
     }
 
     protected float getStageModifier(List<(int stage, float mult)> paliers)
