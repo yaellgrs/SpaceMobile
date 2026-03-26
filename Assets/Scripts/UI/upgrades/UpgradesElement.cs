@@ -137,7 +137,11 @@ public partial class UpgradesElement : VisualElement
     #region ----- Loads ----
     public void Load()
     {
-        if (data.level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement) data.level = Stats.Instance.MinimalLevel;
+        if (data.level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement){
+            data.level = (int)Stats.Instance.MinimalLevel;
+            if (UnityEngine.Random.Range(0f, 1f) < Stats.Instance.MinimalLevel - (int)Stats.Instance.MinimalLevel) data.level++;
+        
+        }
 
         LoadStat();
         LoadUI();
