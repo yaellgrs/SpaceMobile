@@ -164,6 +164,17 @@ public class gameManager : MonoBehaviour
     public void upStage()
     {
         //end stage
+        int stageSkipped = (int)(Stats.Instance.stageSkipProb / 100) + (Stats.Instance.stageSkipProb % 100 > Random.Range(0, 100) ? 1 : 0);
+
+        for (int i = 0; i < stageSkipped; i++)
+        {
+            Ship.Current.stage++;
+            Datas.Instance.current.stageSkipped++;
+            getStageReward(1.70f, Ship.Current.stage, 0.75f);
+            MainUi.Instance.ShowStageSkip();
+        }
+
+
         Ship.Current.stage++;
 
 
@@ -173,15 +184,10 @@ public class gameManager : MonoBehaviour
 
         Debug.Log("UPSTAGE");
         //STAGE SKIP
-        if (Stats.Instance.stageSkipProb > Random.Range(0, 100))
-        {
-            Ship.Current.stage++;
-            Datas.Instance.current.stageSkipped++;
-            getStageReward(1.70f, 0.75f);
-            MainUi.Instance.ShowStageSkip();
-        }
 
-        getStageReward(1.95f);
+
+
+        getStageReward(1.95f, stage:Ship.Current.stage);
         MainUi.Instance.upStage();
         LoadStage();
 
@@ -243,14 +249,14 @@ public class gameManager : MonoBehaviour
         SoundManager.Instance.lauchTransitionMusic(MusicType.Boss);
     }
 
-    public void getStageReward(float posY, float fontFactor = 1f)
+    public void getStageReward(float posY, int stage, float fontFactor = 1f)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), posY * (Screen.height / 3f), 10));
         float reward;
         MarkerType type;
         if (Random.Range(0, 2) == 1)
         {//BN_xp
-            reward = Ship.Current.stage * 1.25f * 5;
+            reward = stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
             Ship.Current.AddXP(new BigNumber(reward));
@@ -260,14 +266,14 @@ public class gameManager : MonoBehaviour
         {
             if(Ship.Current.HaveUranium() && Random.Range(0, 2) == 1)
             {//uranium 
-                reward = (int)(Ship.Current.stage * 0.5f);
+                reward = (int)(stage * 0.5f);
                 type = MarkerType.Uranium;
                 Stats.Instance.AddUranium(new BigNumber(reward));
 
             }
             else
             {//iron
-                reward  = (int)(Ship.Current.stage * 2.5f);
+                reward  = (int)(stage * 2.5f);
                 type = MarkerType.Iron;
                 Stats.Instance.AddIron(new BigNumber(reward));
             }
