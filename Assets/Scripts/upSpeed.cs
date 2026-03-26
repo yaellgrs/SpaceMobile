@@ -4,9 +4,11 @@ using UnityEngine.UIElements;
 public class UpSpeed: MonoBehaviour
 {
     public static UpSpeed Instance;
-    public enum upSpeeds { one, two, three, four, max };
+    public enum upSpeeds { one, two, three, four, five, max };
+    private static float[] speeds = { 1, 1.25f, 1.5f, 2f, 4f, 0f };
+
     public upSpeeds upSpeed = upSpeeds.one;
-    public int upModeMultiplicator = 1;
+    public float upModeMultiplicator = 1;
     private void Awake()
     {
         if(Instance == null)
@@ -21,33 +23,14 @@ public class UpSpeed: MonoBehaviour
 
     public void load(Button upModeButton)
     {
-        if (upSpeed == upSpeeds.one)
-        {
-            upSpeed = upSpeeds.one;
-            upModeButton.text = "x1";
-            upModeMultiplicator = 1;
-        }
-        else if (upSpeed == upSpeeds.two)
-        {
-            upModeButton.text = "x2";
-            upModeMultiplicator = 2;
-        }
-        else if (upSpeed == upSpeeds.three)
-        {
-            upModeButton.text = "x3";
-            upModeMultiplicator = 3;
-        }
-        else if (upSpeed == upSpeeds.four)
-        {
-            upModeButton.text = "x4";
-            upModeMultiplicator = 4;
-        }
+        upModeMultiplicator = speeds[(int)upSpeed];
+        upModeButton.text = "x" + upModeMultiplicator.ToString("F2");
     }
     public void UpButton(Button upModeButton)
     {
         upSpeed++;
 
-        if ((int)upSpeed == Stats.Instance.SpeedLevel) upSpeed = upSpeeds.one;
+        if (upSpeed == upSpeeds.max) upSpeed = upSpeeds.one;
         load(upModeButton);
 
         spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
