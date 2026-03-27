@@ -556,37 +556,30 @@ public class PrestigeUI : BaseUI
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("main");
-        Button Btn_ship = root.Q<Button>("ship");
         black = root.Q<VisualElement>("black");
         Lbl_shipMoney = root.Q<Label>("shipMoney");
 
-        loadShipMoney();
 
-        ScrollView scroll = root.Q<ScrollView>("scroll");
-        scroll.Clear();
-        foreach (UpgradesShipElement upgrade in Ship.Current.upgradesShip)
-        {
-            if(upgrade.isUnlocked()){
-            scroll.Add(upgrade);
-                upgrade.Load();
-            }
-        }
-        //scroll.Add(buyButtonUI);
+        Btn_buy = root.Q<Button>("buy");
+        Lbl_cost = root.Q<Label>("cost");
+
+        VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
+        VisualElement isLastShip = root.Q<VisualElement>("isLastShip");
+        bool last = Ship.Current != null ? Ship.Current.isLastShip() : false;
+        haveNextLevel.style.display = last ? DisplayStyle.None : DisplayStyle.Flex;
+        isLastShip.style.display = last ? DisplayStyle.Flex : DisplayStyle.None;
+
+        LoadBuyUI();
+        if (last) Btn_buy.style.display = DisplayStyle.None;
+
 
         uraniumButton.clicked += uraniumClicked;
         ironButton.clicked += ironClicked;
 
-        Btn_ship.clicked -= loadUpgradeShip;
-        Btn_ship.clicked += loadUpgradeShip;
-
-        Stats.Instance.OnShipMoneyChanged -= loadShipMoney;
-        Stats.Instance.OnShipMoneyChanged += loadShipMoney;
+        Btn_buy.clicked -= loadUpgradeShip;
+        Btn_buy.clicked += loadUpgradeShip;
     }
 
-    private void loadShipMoney()
-    {
-        if(Lbl_shipMoney != null) Lbl_shipMoney.text = Stats.Instance.BN_shipMoney.ToString() + " (+" + Stats.Instance.BN_shipMoneyWaiting.ToString() +")";  
-    }
 
     private void loadUpgradeShip()
     {
@@ -604,28 +597,14 @@ public class PrestigeUI : BaseUI
 
 
         Btn_back = root.Q<Button>("back");
-        Btn_buy = root.Q<Button>("buy");
-        Lbl_cost = root.Q<Label>("cost");
-
-
-
-
-        VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
-        VisualElement isLastShip = root.Q<VisualElement>("isLastShip");
-        bool last = Ship.Current.isLastShip();
-        haveNextLevel.style.display = last ? DisplayStyle.None : DisplayStyle.Flex;
-        isLastShip.style.display = last ? DisplayStyle.Flex : DisplayStyle.None;
-
+        Button Btn_close = root.Q<Button>("close");
+        Btn_buy = root.Q<Button>("upgrade");
 
 
         Btn_back.clicked -= () => { backClicked(upgradeShip); };
         Btn_back.clicked += () => { backClicked(upgradeShip); };
-
-
-        LoadBuyUI();
-        if (last) Btn_buy.enabledSelf = false;
-
-        Debug.Log(Btn_buy == null ? "Btn_buy NULL" : "Btn_buy OK");
+        Btn_close.clicked -= () => { backClicked(upgradeShip); };
+        Btn_close.clicked += () => { backClicked(upgradeShip); };
 
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;

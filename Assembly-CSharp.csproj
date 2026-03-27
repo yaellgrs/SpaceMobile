@@ -117,7 +117,6 @@
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Common.dll" />
     <None Include="Assets\UI\markersUI.uxml" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.iOS.dll" />
-    <None Include="Assets\UI\prestige\ShipUpgradeTest.uxml" />
     <None Include="Assets\UI\Quest\SuccessUI.uxml" />
     <None Include="Assets\Samples\Core RP Library\Common\TextMesh Pro\Resources\Fonts &amp; Materials\TMP_Node.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
