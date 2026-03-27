@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
@@ -265,6 +266,7 @@ public partial class machineElement : Button
         RewardInc.Subtract(CalculReward());
         Lbl_reward.text = $"Reward : {CalculReward().ToString()} <color=green>(+{RewardInc.ToString()})</color>";
         Lbl_employee.text = "Employee : " + (data.production_cps);
+        Lbl_employee.text += (GetColorAmount() > 0 )? $"<color=green>(+{GetColorAmount().ToString()})</color>" : "";
         Lbl_level.text = (data.level == data.levelMax) ? "Lv : UP" : $"Lv : {data.level}/{data.levelMax} <color=cyan>(+{getMulitplicator()})</color>";
     }
 
@@ -377,8 +379,8 @@ public partial class machineElement : Button
         calculedNumber.Set(priceModifier * Stats.Instance.upgradesPriceReducer * 15f); //price * 
         calculedNumber.Multiply(pow, false); //1.75 ** level
 
-        if (data.level == data.nextColorlevel)
-            calculedNumber.Multiply(3, false);
+        //if (data.level == data.nextColorlevel)
+        //    calculedNumber.Multiply(3, false);
 
         double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);//calcule de la suite géométrique
         calculedNumber.Multiply(factor, false);
@@ -390,22 +392,36 @@ public partial class machineElement : Button
 
     private BigNumber addColorCost(int baseLevel, int endLevel, double r)
     {
-        BigNumber addCost = new BigNumber(0);
+        BigNumber priceModifier = new BigNumber(0);
         foreach(int lvColor in machineData.levelColor)
         {
             if (lvColor > baseLevel && lvColor <= endLevel)
             {
-                BigNumber colorCost = new BigNumber(data.BN_price);
-                double factor = 2.00 * System.Math.Pow(r, lvColor) * Stats.Instance.upgradesPriceReducer;
-                colorCost.Multiply(factor, false);
-                addCost.Add(colorCost, false);
+                priceModifier = data.BN_price * 0.01f;
+                if (priceModifier < new BigNumber(1)) priceModifier.Set(1);
+                double factor = 15.00 * System.Math.Pow(r, lvColor) * Stats.Instance.upgradesPriceReducer;
+
+                priceModifier.Multiply(factor, false);
+                priceModifier.Add(priceModifier, false);
             }
         }
 
-        addCost.Normalize();
-        return addCost;
+        priceModifier.Normalize();
+        return priceModifier;
     }
 
+    private int GetColorAmount()
+    {
+        int i = 0;
+        foreach (int lvColor in machineData.levelColor)
+        {
+            if (lvColor > data.level  && lvColor <= data.level + getMulitplicator())
+            {
+                i++;
+            }
+        }
+        return i;
+    }
     public BigNumber CalculReward() { return CalculReward(data.level); }
 
     public BigNumber CalculReward(int lvl)

@@ -52,7 +52,7 @@ public class meteorBoss : spaceObject
     }
     protected override void setLife()
     {
-        lifeMax *= 15;
+        lifeMax *= 8f;
     }
     public override void loadSpeed(float factor =1f)
     {
