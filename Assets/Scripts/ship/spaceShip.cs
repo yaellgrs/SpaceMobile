@@ -94,6 +94,7 @@ public class spaceShip : MonoBehaviour
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
+            gameManager.instance.ActiveDeadVolume();
             if (Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0)
             {
                 Ship.Current.isDead = true;
@@ -176,7 +177,7 @@ public class spaceShip : MonoBehaviour
         {
             BigNumber x = new BigNumber(amount);
             x -= Ship.Current.shield;
-            if (Ship.Current.shield.Mantisse != 0)
+            if (Ship.Current.shield.Mantisse < 0)
             {
                 Ship.Current.shield.Set(0);
             }

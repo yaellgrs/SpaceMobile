@@ -36,6 +36,7 @@ public class gameManager : MonoBehaviour
     public List<spaceObject> meteors = new List<spaceObject>();
 
     public Volume V_warning;
+    public Volume V_dead;
     float incWeight = 1f;
 
 
@@ -130,6 +131,7 @@ public class gameManager : MonoBehaviour
             autoSaveTimer = 0f;
         }
         updateWarning();
+        updateDeadVolume();
     }
 
     public void updateWarning()
@@ -149,6 +151,19 @@ public class gameManager : MonoBehaviour
             }
 
         }
+    }
+
+    public void updateDeadVolume()
+    {
+        if(V_dead.weight > 0f)
+        {
+            V_dead.weight = Mathf.Lerp(V_dead.weight, 0f, Time.deltaTime * 0.75f);
+        }
+    }
+
+    public void ActiveDeadVolume()
+    {
+        V_dead.weight = 1;
     }
 
     public void updateStage()

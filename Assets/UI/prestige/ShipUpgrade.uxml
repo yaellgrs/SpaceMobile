@@ -19,7 +19,7 @@
                 </engine:Label>
             </engine:VisualElement>
             <engine:Button text="buy" name="buy" class="button" style="position: absolute; height: 17.5%; width: 40%; top: 76%; left: auto; background-color: rgba(0, 0, 0, 0.2); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;); -unity-font-style: bold;"/>
-            <engine:VisualElement name="isLastShip" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%; display: flex; top: -10%;">
+            <engine:VisualElement name="isLastShip" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%; display: none; top: -10%;">
                 <engine:Label text="There are no more ship for instance, wait for an update." style="position: absolute; height: 40%; width: 60%; top: 25%; left: 20%; font-size: 50px; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;); color: rgb(255, 255, 255); white-space: normal; -unity-text-align: middle-center;"/>
             </engine:VisualElement>
         </engine:VisualElement>
