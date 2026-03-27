@@ -338,18 +338,10 @@ public class PrestigeUI : BaseUI
     private void PrestigeResetClicked()
     {
         Stats.Instance.AddUranium(bonus);
+        Stats.Instance.addPrestige(Stats.Instance.prestigeWaiting);
         Stats.Instance.prestigeWaiting.Set(0);
 
         Ship.Current.stage = 1;
-
-        Ship.Current.dataMachinesIron.Clear();
-        Ship.Current.dataMachinesIron.Clear();
-
-        Ship.Current.machinesUranium.Clear();
-        Ship.Current.upgradesUranium.Clear();
-
-        MainUi.Instance.ironUI.initializeUpgrade();
-        MainUi.Instance.uraniumUI.initializeUpgrade();
 
         Ship.Current.iron.Set(0);
         Ship.Current.uranium.Set(0);
@@ -360,25 +352,25 @@ public class PrestigeUI : BaseUI
 
         Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
         Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
+        Ship.Current.Load(true);
 
         gameManager.instance.RestartStage();
 
 
         Datas.Instance.Prestige();
 
-        backClicked(forgeUI);
         backClicked(buyUI);
+        backClicked(forgeUI);
+        backClicked(prestigeUI);
+
 
         if(QuestManager.Instance.type == QuestType.GetStarParticle)
-        {
             QuestStats.Instance.progress = new BigNumber(bonus);
-        }
         else
-        {
             QuestStats.Instance.progress = new BigNumber(0);
-        }
 
-            gameManager.instance.SetPause(true);
+
+        gameManager.instance.SetPause(true);
 
         if (ResurectionUI.Instance.resurectionUI.gameObject.activeInHierarchy)
         {
