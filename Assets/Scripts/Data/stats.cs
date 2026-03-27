@@ -110,7 +110,7 @@ public class Stats
     public float critical_Prob = 5;
 
     //levels
-    public int diamandProb =5; // / 1000
+    public int diamandProb =1; // / 1000
     public float machineBoost_Lvl = 1f;
     public float star_mutliplicator_level = 1f;
     public float perm_Damage_Multiplicator_Lvl = 1f;

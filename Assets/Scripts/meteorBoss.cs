@@ -209,4 +209,10 @@ public class meteorBoss : spaceObject
             if (reload) BottomUI.Instance.LoadUI();
         }
     }
+
+    public override BigNumber GetStarParticle()
+    {
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
+        return reward;
+    }
 }

@@ -121,12 +121,12 @@ public class spaceObject : MonoBehaviour
         }
         else if (type == meteorType.Iron)
         {
-            lifeMax.Multiply(2.5f);
+            lifeMax.Multiply(1.5f);
             if (!Stats.Instance.popupTutos[PopupTuto.ironMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
         }
         else if (type == meteorType.Uranium)
         {
-            lifeMax.Multiply(2.5f); 
+            lifeMax.Multiply(1.5f); 
             if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
         }
         else if (type == meteorType.Scatter)
@@ -165,17 +165,15 @@ public class spaceObject : MonoBehaviour
     {
         spaceObjectSpeed = 0.75f;
         if (type == meteorType.Big)
-        {
             spaceObjectSpeed *= 0.5f;
-        }
         else if(type == meteorType.Diamand)
-        {
             spaceObjectSpeed *= 1.5f;
-        }
         else if(type== meteorType.miniMeteor)
-        {
-            spaceObjectSpeed *= 0.35f;
-        }
+            spaceObjectSpeed *= 0.5f;
+        else if(type == meteorType.Uranium || type == meteorType.Iron)
+            spaceObjectSpeed *= 1.25f;
+
+
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator * factor;
 
         List<(int stage, float mult)> paliers = new()
@@ -320,8 +318,7 @@ public class spaceObject : MonoBehaviour
 
     public virtual BigNumber GetStarParticle()
     {
-        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
-        Debug.Log("Reward : " + reward);
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.25f, 0.5f);
         return reward;
     }
 

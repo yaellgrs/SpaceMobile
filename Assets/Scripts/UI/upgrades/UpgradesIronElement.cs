@@ -65,8 +65,8 @@ public class UpgradesIronElement : UpgradesElement
                 diff.Set(spaceShip.instance.getMaxLife());
                 diff.Subtract(Ship.Current.life);
 
-                Ship.Current.lifeMax.initial.Set(10);
-                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1,  1.64697f); // 5 * 100^1.65
+                Ship.Current.lifeMax.initial.Set(GetReward(data.level));
+                //Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1,  1.64697f); // 5 * 100^1.65
 
                 Ship.Current.life.Set(spaceShip.instance.getMaxLife());
                 Ship.Current.life.Subtract(diff);
@@ -79,8 +79,8 @@ public class UpgradesIronElement : UpgradesElement
                 diff = new BigNumber(0);
                 diff.Set(spaceShip.instance.getMaxShield());
                 diff.Subtract(Ship.Current.shield);
-                Ship.Current.shieldMax.initial.Set(10);
-                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.14825f);
+
+                Ship.Current.shieldMax.initial.Set(GetReward(data.level));
 
                 Ship.Current.shield.Set(spaceShip.instance.getMaxShield());
                 Ship.Current.shield.Subtract(diff);
@@ -102,14 +102,14 @@ public class UpgradesIronElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.Life:
-                reward.Set(10);
+                reward.Set(2);
                 reward *= 0.5f * Mathf.Pow(lvl + 1, 1.64697f);
                 break;
             case UpgradeType.Damage:
                 reward.Set(Mathf.Pow(lvl, 1.272f));
                 break;
             case UpgradeType.Shield:
-                reward.Set(10);
+                reward.Set(1);
                 reward *= 0.5f * Mathf.Pow(lvl + 1, 1.14825f);
                 break;
             case UpgradeType.RegenShield:
