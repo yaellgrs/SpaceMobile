@@ -52,7 +52,8 @@ public class meteorBoss : spaceObject
     }
     protected override void setLife()
     {
-        lifeMax *= 8f;
+        if(bossType == BossType.Normal) lifeMax *= 5f;
+        else lifeMax *= 8f;
     }
     public override void loadSpeed(float factor =1f)
     {
@@ -61,7 +62,7 @@ public class meteorBoss : spaceObject
         spaceObjectSpeed = bossType switch
         {
             BossType.Normal or BossType.Ressource => baseSpeed * 0.75f * factor,
-            BossType.Speed => baseSpeed * 2f,
+            BossType.Speed => baseSpeed * 2.5f,
             _ => baseSpeed,
         };
     }

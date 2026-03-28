@@ -18,10 +18,10 @@ public class Collectible : MonoBehaviour
         switch (type)
         {
             case CollectibleType.iron:
-                reward = new BigNumber(OfflineUI.calculOfflineIronEarn(30, false));
+                reward = new BigNumber(OfflineUI.calculOfflineIronEarn(60, false));
                 break;
             case CollectibleType.uranium:
-                reward = new BigNumber(OfflineUI.calculOfflineUraniumEarn(30, false));
+                reward = new BigNumber(OfflineUI.calculOfflineUraniumEarn(60, false));
                 break;
         }
     }

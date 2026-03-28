@@ -107,12 +107,12 @@ public class spaceObject : MonoBehaviour
     {
         if (type == meteorType.Big)
         {
-            lifeMax.Multiply(5);
+            lifeMax.Multiply(2.5f);
             if (!Stats.Instance.popupTutos[PopupTuto.BigMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.BigMeteor);
         }
         else if (type == meteorType.Diamand)
         {
-            lifeMax.Multiply(2f);
+            lifeMax.Multiply(1.5f);
             if (!Stats.Instance.popupTutos[PopupTuto.diamandMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.diamandMeteor);
         }
         else if (type == meteorType.miniMeteor)
@@ -167,11 +167,11 @@ public class spaceObject : MonoBehaviour
         if (type == meteorType.Big)
             spaceObjectSpeed *= 0.5f;
         else if(type == meteorType.Diamand)
-            spaceObjectSpeed *= 1.5f;
+            spaceObjectSpeed *= 1.25f;
         else if(type== meteorType.miniMeteor)
             spaceObjectSpeed *= 0.5f;
         else if(type == meteorType.Uranium || type == meteorType.Iron)
-            spaceObjectSpeed *= 1.25f;
+            spaceObjectSpeed *= 1.15f;
 
 
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator * factor;

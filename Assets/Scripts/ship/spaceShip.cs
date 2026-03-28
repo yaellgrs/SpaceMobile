@@ -72,6 +72,7 @@ public class spaceShip : MonoBehaviour
             if (!gameManager.instance.isPaused)
             {
                 shieldRegen += Time.deltaTime;
+                if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
             }
             MainUi.Instance.upShieldRegenUI();
             if (shieldRegen > Stats.Instance.shield_Regen_Time && Ship.Current.life.isBigger(new BigNumber(0)))

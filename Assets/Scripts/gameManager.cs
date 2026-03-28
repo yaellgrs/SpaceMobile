@@ -320,7 +320,7 @@ public class gameManager : MonoBehaviour
         int BigProb = stage > 25 ? 200 : 0;
         int ScatterProb = stage < 10 ? 0 : 200;
         int uraniumProb = Ship.Current.HaveUranium() && stage > 20 ? 40 : 0;
-        int ironProb = stage > 10 ? 40 : 0;
+        int ironProb = stage > 10 ? 40 : 500;
         int normalProb = Mathf.Max(0, 1000 - (ScatterProb + BigProb + ironProb + uraniumProb + Stats.Instance.diamandProb));
 
         Dictionary<meteorType, int> probabilites = new Dictionary<meteorType, int>

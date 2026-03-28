@@ -627,6 +627,7 @@ public class PrestigeUI : BaseUI
         backClicked(upgradeUI);
 
         Stats.Instance.AddShipFragment(-CalculShipUpgradeCost());
+        spaceShip.instance.LoadAnimation();
 
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
