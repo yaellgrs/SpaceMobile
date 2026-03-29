@@ -110,7 +110,7 @@ public class meteorBoss : spaceObject
         else
             type = meteorType.None;
 
-        if(type != meteorType.None) gameManager.instance.SpawnMeteor(type, transform.position, false);
+        if(type != meteorType.None) gameManager.instance.SpawnMeteor(type, transform.position, false, Ship.Current.stage - 5 );
     }
 
     public override void Move()

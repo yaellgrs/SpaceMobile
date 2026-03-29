@@ -362,10 +362,10 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void SpawnMeteor(meteorType type, Vector3? position = null, bool spawn = true)
+    public void SpawnMeteor(meteorType type, Vector3? position = null, bool spawn = true, int? level = null)
     {
         spaceObject obj = Instantiate(meteorPrefabs.Find(x=> x.type == type).prefab);
-        obj.level = Ship.Current.stage;
+        obj.level = level == null ? Ship.Current.stage : (int)level;
 
         if (position.HasValue)
             obj.transform.position = position.Value;
