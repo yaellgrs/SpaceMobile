@@ -196,6 +196,14 @@ public class MainUi : MonoBehaviour
         Utility.InitClickButtonSound(root);
     }
 
+    public void ShowMenu(bool show)
+    {
+        if (VE_main == null)
+            VE_main = mainUI.rootVisualElement.Q<VisualElement>("main");
+
+        VE_main.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
     public void LoadIronLogo()
     {
         Texture2D texture = Utility.GetMainRessourceLogo();

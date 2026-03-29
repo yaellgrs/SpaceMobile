@@ -59,7 +59,6 @@ public class spaceShip : MonoBehaviour
         if (animator == null)return;
         animator.speed = pause ? 0f : 1f;
 
-        Debug.Log("set pause : " + pause);
         isPause = pause;
     }
 

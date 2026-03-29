@@ -33,6 +33,8 @@ public class gameManager : MonoBehaviour
     public bool bossStage = false;
     public bool fragmentBoss = false;
 
+    public bool spawnMeteor = false;
+
     public List<spaceObject> meteors = new List<spaceObject>();
 
     public Volume V_warning;
@@ -71,6 +73,9 @@ public class gameManager : MonoBehaviour
         V_warning.gameObject.SetActive(false);
         InitGame();
         LoadStage();
+
+        //SetPause(true);
+        MainUi.Instance.ShowMenu(false);
 
     }
 
@@ -116,7 +121,7 @@ public class gameManager : MonoBehaviour
         autoSaveTimer += Time.deltaTime;
         Datas.Instance.current.time += Time.deltaTime;
 
-        if(timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
+        if(spawnMeteor && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
             CheckStageBoss();
             if(!bossStage){
@@ -315,6 +320,7 @@ public class gameManager : MonoBehaviour
 
     private void spawnSpaceObject()
     {
+        Debug.Log("spawn space object");
         int stage = Ship.Current.stage;
 
         int BigProb = stage > 25 ? 200 : 0;
@@ -386,6 +392,7 @@ public class gameManager : MonoBehaviour
 
     public void SetPause(bool isPause)
     {
+        Debug.Log("set pause : " + isPause );
         isPaused = isPause;
         canon.instance.setPause(isPause);
         spaceShip.instance.SetPause(isPause);
