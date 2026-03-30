@@ -11,6 +11,7 @@ public class DevTest : MonoBehaviour
     private void Init()
     {
         ShowTuto(false); // desactive les tutos
+        gameManager.instance.InitGame();
     }
 
     private void ShowTuto(bool show)

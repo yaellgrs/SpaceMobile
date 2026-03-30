@@ -28,14 +28,14 @@ public class BottomUI : MonoBehaviour
         VE_MainForge = root.Q<VisualElement>("mainForge");
         VE_Prestige = root.Q<VisualElement>("prestige");
 
-        LoadUI();
         Ship.Current.OnTypeChanged += LoadUI;
     }
 
     public void LoadUI()
     {
-        Debug.LogError("LOAD BOTTOM UI");
-        string firstForgePath = "UI/Bottom/" + Ship.Current.type + "/FirstForge";
+        string firstForgePath = Stats.Instance.ironUnlocked ? "UI/Bottom/" + Ship.Current.type + "/FirstForge" 
+                                                            : "UI/Bottom/Wood/firstForgeLocked";
+
         string secondForgePath = Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ?
             "UI/Bottom/Wood/SecondForge" : "UI/Bottom/SecondForge";
         string prestigePath = Stats.Instance.prestigeUnlocked ? "UI/Bottom/prestige" : "UI/Bottom/prestigeLocked";
@@ -56,6 +56,11 @@ public class BottomUI : MonoBehaviour
         else if (menuToOpen == SelectedMenu.Prestige) VE_Prestige.AddToClassList("transition");
 
         menu = menuToOpen;
+    }
+
+    public void Show(bool show)
+    {
+        document.rootVisualElement.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
 

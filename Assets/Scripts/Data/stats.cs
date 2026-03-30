@@ -74,6 +74,7 @@ public class Stats
     //tutos
     public bool ironTuto = false;
     public bool uraniumTuto = false;
+    public bool ironUnlocked = false;
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
     //Ship
@@ -225,8 +226,8 @@ public class Stats
         Init();
     }
 
-    public void save() {
-        if(firstConnection) firstConnection = false;
+    public void save(bool setFirstConnection = true) {
+        if(setFirstConnection && firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         string path = Application.persistentDataPath + "/stats.json";
 
@@ -248,7 +249,7 @@ public class Stats
         Instance = new Stats();
         Init();
         ShipManager.Instance.LoadShips();
-        save();
+        save(false);
         QuestStats.Instance.reset();
         Datas.Instance.reset();
         MainUi.Instance.upStage();

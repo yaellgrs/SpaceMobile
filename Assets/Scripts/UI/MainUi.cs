@@ -438,6 +438,8 @@ public class MainUi : MonoBehaviour
 
     private void normalUpClicked()
     {
+        if (!Stats.Instance.ironUnlocked) return;
+
         ironUI.classActived = true;
         ironUI.IronClicked();
 
