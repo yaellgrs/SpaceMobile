@@ -2320,14 +2320,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: Player
-  nameColor: {r: 0.02641511, g: 0.02606623, b: 0.026401429, a: 1}
+  nameText: YOU
+  nameColor: {r: 0, g: 0.7997749, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  portraits:
-  - {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  portraits: []
   portraitsFace: 0
   setSayDialog: {fileID: 0}
-  description: Le plus gros bg
+  description: 
 --- !u!4 &849192707
 Transform:
   m_ObjectHideFlags: 0
@@ -4791,11 +4790,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 109.50593, y: 316.92587}
+  scrollPos: {x: 95.910065, y: 306.23105}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 517.60004
-  zoom: 0.97
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -4805,7 +4804,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1710157021}
   selectedCommands:
-  - {fileID: 1710157023}
+  - {fileID: 1710157015}
   variables: []
   description: 
   stepPause: 0
@@ -5164,7 +5163,7 @@ MonoBehaviour:
   storyText: mais ou suis-je ?
   description: 
   character: {fileID: 849192706}
-  portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -5191,7 +5190,7 @@ MonoBehaviour:
   storyText: "A\xCFE\u2026\u2026"
   description: 
   character: {fileID: 849192706}
-  portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -5218,7 +5217,7 @@ MonoBehaviour:
   storyText: "mhhhh\u2026\u2026 mhhhhhh"
   description: 
   character: {fileID: 849192706}
-  portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -5299,7 +5298,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 0.5971756
-    y: -29.709366
+    y: -27.235115
     width: 140.008
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}

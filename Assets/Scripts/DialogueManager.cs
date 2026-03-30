@@ -16,6 +16,12 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        if (inputSystem != null)
+            inputSystem.SetActive(false);
+    }
+
     public void ExecuteBlock(string blockName)
     {
         flowChart.ExecuteBlock(blockName);

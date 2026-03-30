@@ -33,7 +33,7 @@ public class gameManager : MonoBehaviour
     public bool bossStage = false;
     public bool fragmentBoss = false;
 
-    public bool spawnMeteor = false;
+    public bool spawnMeteor = true;
 
     public List<spaceObject> meteors = new List<spaceObject>();
 
@@ -124,9 +124,10 @@ public class gameManager : MonoBehaviour
 
         if(spawnMeteor && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
+            if (Stats.Instance.firstConnection) KillFirstMeteor();
             CheckStageBoss();
             if(!bossStage){
-                spawnSpaceObject();
+                if(!(Stats.Instance.firstConnection && meteors.Count == 1)) spawnSpaceObject();
                 timer = 0f;
             }
         }
@@ -138,6 +139,20 @@ public class gameManager : MonoBehaviour
         }
         updateWarning();
         updateDeadVolume();
+
+
+    }
+
+    public void KillFirstMeteor()
+    {
+        if (meteors.Count <= 0) return;
+
+        spaceObject meteor = meteors[0];
+
+        if(Vector3.Distance(meteor.transform.position, spaceShip.instance.transform.position) < 4f)
+        {
+            meteor.SetPause(true);
+        }
     }
 
     public void updateWarning()

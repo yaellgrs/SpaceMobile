@@ -226,8 +226,7 @@ public class Stats
         Init();
     }
 
-    public void save(bool setFirstConnection = true) {
-        if(setFirstConnection && firstConnection) firstConnection = false;
+    public void save() {
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         string path = Application.persistentDataPath + "/stats.json";
 
@@ -249,7 +248,6 @@ public class Stats
         Instance = new Stats();
         Init();
         ShipManager.Instance.LoadShips();
-        save(false);
         QuestStats.Instance.reset();
         Datas.Instance.reset();
         MainUi.Instance.upStage();
