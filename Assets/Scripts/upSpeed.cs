@@ -12,13 +12,9 @@ public class UpSpeed: MonoBehaviour
     private void Awake()
     {
         if(Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     public void load(Button upModeButton)
@@ -33,10 +29,14 @@ public class UpSpeed: MonoBehaviour
         if (upSpeed == upSpeeds.max) upSpeed = upSpeeds.one;
         load(upModeButton);
 
-        spaceObject[] meteors = FindObjectsByType<spaceObject>(FindObjectsSortMode.None);
-        foreach(spaceObject meteor in meteors)
+        foreach(spaceObject meteor in gameManager.instance.meteors)
         {
             meteor.loadSpeed();
         }
+    }
+
+    public void setSpeed(float speed)
+    {
+        upModeMultiplicator = speed;
     }
 }

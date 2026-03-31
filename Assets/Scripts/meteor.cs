@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using static Fungus.AssertCommand;
 using Image = UnityEngine.UI.Image;
 
 public class spaceObject : MonoBehaviour
@@ -254,8 +255,12 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
-        if (Stats.Instance.firstConnection)
-            MainUi.Instance.questUI.LoadQuestUI();
+        if (Stats.Instance.firstConnection){
+            UpSpeed.Instance.setSpeed(1f);
+            gameManager.instance.ActiveSlowMotionVolume(false);
+
+            Invoke(nameof(MainUi.Instance.questUI.LoadQuestUI), 0.5f);
+        }
 
         if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
         else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);

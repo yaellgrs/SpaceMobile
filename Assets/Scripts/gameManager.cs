@@ -39,6 +39,9 @@ public class gameManager : MonoBehaviour
 
     public Volume V_warning;
     public Volume V_dead;
+    public Volume V_slowMotion;
+
+    private bool slowMotionActive = false;
     float incWeight = 1f;
 
 
@@ -121,7 +124,7 @@ public class gameManager : MonoBehaviour
 
         if(spawnMeteor && timer >= ( timeSpawnSpaceObjet / UpSpeed.Instance.upModeMultiplicator))
         {
-            if (Stats.Instance.firstConnection) KillFirstMeteor();
+
             CheckStageBoss();
             if(!bossStage){
                 if(!(Stats.Instance.firstConnection && meteors.Count == 1)) spawnSpaceObject();
@@ -134,9 +137,12 @@ public class gameManager : MonoBehaviour
             Stats.Instance.save();
             autoSaveTimer = 0f;
         }
+
+        if (Stats.Instance.firstConnection) KillFirstMeteor();
+
         updateWarning();
         updateDeadVolume();
-
+        updateSlowMotionVolume();
 
     }
 
@@ -146,10 +152,15 @@ public class gameManager : MonoBehaviour
 
         spaceObject meteor = meteors[0];
 
-        if(Vector3.Distance(meteor.transform.position, spaceShip.instance.transform.position) < 4f)
+        if(Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position ) < 2f)
         {
-            meteor.SetPause(true);
+            Debug.Log("SLOWINGG");
+            UpSpeed.Instance.setSpeed(0.1f);
+            meteor.Move();
+            meteor.loadSpeed();
+            ActiveSlowMotionVolume(true);
         }
+        Debug.Log("meteor distance :  " + Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position));
     }
 
     public void updateWarning()
@@ -178,10 +189,26 @@ public class gameManager : MonoBehaviour
             V_dead.weight = Mathf.Lerp(V_dead.weight, 0f, Time.deltaTime * 0.75f);
         }
     }
+    public void updateSlowMotionVolume()
+    {
+        if (slowMotionActive)
+        {
+            V_slowMotion.weight = Mathf.Lerp(V_slowMotion.weight, 1f, Time.deltaTime *5f);
+        }
+        else
+        {
+            V_slowMotion.weight = Mathf.Lerp(V_slowMotion.weight, 0f, Time.deltaTime * 5f);
+        }
+    }
 
     public void ActiveDeadVolume()
     {
         V_dead.weight = 1;
+    }
+
+    public void ActiveSlowMotionVolume(bool active)
+    {
+        slowMotionActive = active;
     }
 
     public void updateStage()
