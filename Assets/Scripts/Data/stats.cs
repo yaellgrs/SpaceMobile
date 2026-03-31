@@ -247,11 +247,11 @@ public class Stats
     {
         Instance = new Stats();
         Init();
-        ShipManager.Instance.LoadShips();
-        QuestStats.Instance.reset();
-        Datas.Instance.reset();
-        MainUi.Instance.upStage();
-        Tuto.Instance.loadPopupTuto();
+        ShipManager.Instance?.LoadShips();
+        QuestStats.Instance?.reset();
+        Datas.Instance?.reset();
+        MainUi.Instance?.upStage();
+        Tuto.Instance?.loadPopupTuto();
 
         if (Instance.spaceShips.Count == 0)
         {

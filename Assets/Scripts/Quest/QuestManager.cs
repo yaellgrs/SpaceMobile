@@ -38,7 +38,10 @@ public class QuestManager
     private void LoadQuests()
     {
 
-
+        if(Ship.Current == null){
+            Debug.LogError("Ship Current is null");    
+            return; 
+        }
         string path = "Datas/Quests/" + Ship.Current.type.ToString();
         quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
         if (quests.Count == 0)
@@ -112,6 +115,11 @@ public class QuestManager
 
     public void initQuest()
     {
+        if(QuestStats.Instance == null)
+        {
+            Debug.LogError("Quests instance is null");
+            return;
+        }
         var quest = quests.FirstOrDefault(q => q.level == QuestStats.Instance.questLevel);
         if (quest == null) return;
 

@@ -1,32 +1,57 @@
 using Fungus;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    public GameObject inputSystem;
+    public EventSystem inputSystem;
     public Flowchart flowChart;
 
     private void Awake()
     {
-        if(Instance == null)
+        if(Instance == null){
             Instance = this;
+
+        }
         else
             Destroy(gameObject);
-    }
 
-    private void Start()
-    {
-        if (inputSystem != null)
-            inputSystem.SetActive(false);
+        // Supprime les EventSystems en double
+        var allEventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
+        if (allEventSystems.Length > 1)
+        {
+            for (int i = 1; i < allEventSystems.Length; i++)
+            {
+                Debug.Log($"EventSystem supprimé : {allEventSystems[i].gameObject.name}");
+                Destroy(allEventSystems[i].gameObject);
+            }
+        }
     }
-
     public void ExecuteBlock(string blockName)
     {
+
+        var dialogInput = flowChart.GetComponent<DialogInput>();
+        if (dialogInput != null) dialogInput.enabled = true;
+
+        StartDialogue();
+
         flowChart.ExecuteBlock(blockName);
     }
 
+    #region GENERAL
+
+    public void StartDialogue()
+    {
+
+        MainUi.Instance.ShowMenu(false);
+        BottomUI.Instance.Show(false);
+        gameManager.instance.spawnMeteor = false;
+        Debug.Log("start dialogue");
+
+    }
 
 
     public void EndDialogue()
@@ -34,18 +59,8 @@ public class DialogueManager : MonoBehaviour
         MainUi.Instance.ShowMenu(true);
         BottomUI.Instance.Show(true);
         gameManager.instance.spawnMeteor = true;
-        if (inputSystem != null)
-            inputSystem.SetActive(false);
     }
 
-    public void StartDialogue()
-    {
-        MainUi.Instance.ShowMenu(false);
-        BottomUI.Instance.Show(false);
-        gameManager.instance.spawnMeteor = false;
-        if (inputSystem != null)
-            inputSystem.SetActive(true);
-    }
 
     public void StartWarning()
     {
@@ -57,4 +72,6 @@ public class DialogueManager : MonoBehaviour
     {
         gameManager.instance.activeWarning(false);
     }
+
+    #endregion
 }

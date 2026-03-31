@@ -51,7 +51,8 @@ public class spaceShip : MonoBehaviour
 
     public void LoadAnimation()
     {
-        animator.SetBool("isWood", Ship.Current.type == SpaceShipElement.Wood);
+        if (Ship.Current == null) return;
+        animator.SetBool("isWood", Ship.Current?.type == SpaceShipElement.Wood);
     }
 
     public void SetPause(bool pause)

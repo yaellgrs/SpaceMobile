@@ -58,6 +58,8 @@ public class QuestUI : MonoBehaviour
         questUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
 
+        Debug.LogError("Load Quest Ui");
+
         var root = questUI.rootVisualElement;
         VE_main = root.Q<VisualElement>("main");
 
@@ -135,6 +137,8 @@ public class QuestUI : MonoBehaviour
     {
         lauchTransition = true;
         gameManager.instance.SetPause(false);
+
+        Debug.LogError("CLOSE QUEST UI");
 
         VE_main.RemoveFromClassList("trans");
         VE_main.schedule.Execute(() =>
@@ -246,6 +250,17 @@ public class QuestUI : MonoBehaviour
         exit.clicked -= Close;
         back.clicked += Close;
         exit.clicked += Close;
+
+        back.SetEnabled(false);
+        exit.SetEnabled(false);
+
+        VE_main.schedule.Execute(() =>
+        {
+            back.SetEnabled(true);
+            exit.SetEnabled(true);
+        }).StartingIn(200);
+
+
         Btn_switch.clicked += Switch;
 
         ScrollView scroll = root.Q<ScrollView>("scroll");

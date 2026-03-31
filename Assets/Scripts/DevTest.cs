@@ -41,6 +41,10 @@ public class DevTest : MonoBehaviour
             
             BottomUI.Instance.LoadUI();
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Stats.Instance.firstConnection = false;
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             gameManager.instance.upStage();
