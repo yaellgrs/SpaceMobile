@@ -4369,7 +4369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1551023419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4754,6 +4754,8 @@ GameObject:
   - component: {fileID: 1710157000}
   - component: {fileID: 1710157024}
   - component: {fileID: 1710157023}
+  - component: {fileID: 1710157027}
+  - component: {fileID: 1710157025}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -4792,7 +4794,7 @@ MonoBehaviour:
   scrollPos: {x: 269.35968, y: 515.38745}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 446
+  blockViewHeight: 444
   zoom: 0.97
   scrollViewRect:
     serializedVersion: 2
@@ -4800,7 +4802,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 1710157027}
   selectedCommands: []
   variables: []
   description: 
@@ -5278,8 +5281,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -61.639687
-    y: -113.86598
-    width: 140.01001
+    y: -112.83505
+    width: 140.008
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5288,8 +5291,8 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1710157020}
   - {fileID: 1710157018}
+  - {fileID: 1710157020}
   - {fileID: 1710157017}
   - {fileID: 1710157016}
   - {fileID: 1710157015}
@@ -5358,6 +5361,50 @@ MonoBehaviour:
     floatRef: {fileID: 0}
     floatVal: 1
   durationOLD: 0
+--- !u!114 &1710157025
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 52
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: EndDialogue
+  delay: 0
+--- !u!114 &1710157027
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Block
+  nodeRect:
+    serializedVersion: 2
+    x: -73.52835
+    y: -237.54532
+    width: 110.192
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 51
+  blockName: New Block
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1710157025}
+  suppressAllAutoSelections: 0
 --- !u!1 &1752593082
 GameObject:
   m_ObjectHideFlags: 0

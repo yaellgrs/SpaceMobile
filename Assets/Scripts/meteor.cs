@@ -254,6 +254,9 @@ public class spaceObject : MonoBehaviour
 
     public virtual void DieCalcul()
     {
+        if (Stats.Instance.firstConnection)
+            MainUi.Instance.questUI.LoadQuestUI();
+
         if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
         else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);
 
@@ -395,7 +398,6 @@ public class spaceObject : MonoBehaviour
         
         if(Stats.Instance.firstConnection) {
 
-            MainUi.Instance.questUI.LoadQuestUI();
             Stats.Instance.firstConnection = false; 
         }
 

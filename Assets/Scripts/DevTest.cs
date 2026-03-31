@@ -12,6 +12,7 @@ public class DevTest : MonoBehaviour
     {
         ShowTuto(false); // desactive les tutos
         gameManager.instance.InitGame();
+        if (Stats.Instance.firstConnection) DialogueManager.Instance.ExecuteBlock("FirstConnection");
     }
 
     private void ShowTuto(bool show)

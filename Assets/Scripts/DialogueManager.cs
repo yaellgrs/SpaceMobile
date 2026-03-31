@@ -20,21 +20,26 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
 
         // Supprime les EventSystems en double
-        var allEventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
-        if (allEventSystems.Length > 1)
-        {
-            for (int i = 1; i < allEventSystems.Length; i++)
-            {
-                Debug.Log($"EventSystem supprimé : {allEventSystems[i].gameObject.name}");
-                Destroy(allEventSystems[i].gameObject);
-            }
-        }
+        //var allEventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
+        //if (allEventSystems.Length > 1)
+        //{
+        //    for (int i = 1; i < allEventSystems.Length; i++)
+        //    {
+        //        Debug.Log($"EventSystem supprimé : {allEventSystems[i].gameObject.name}");
+        //        Destroy(allEventSystems[i].gameObject);
+        //    }
+        //}
+    }
+
+    private void Start()
+    {
+        if (Stats.Instance.firstConnection) DialogueManager.Instance.ExecuteBlock("FirstConnection");
     }
     public void ExecuteBlock(string blockName)
     {
 
-        var dialogInput = flowChart.GetComponent<DialogInput>();
-        if (dialogInput != null) dialogInput.enabled = true;
+        //var dialogInput = flowChart.GetComponent<DialogInput>();
+        //if (dialogInput != null) dialogInput.enabled = true;
 
         StartDialogue();
 

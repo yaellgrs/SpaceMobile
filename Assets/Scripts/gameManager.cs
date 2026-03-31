@@ -91,9 +91,6 @@ public class gameManager : MonoBehaviour
     public void InitGame()
     {
         SetWorldScale();
-
-        if (Stats.Instance.firstConnection) DialogueManager.Instance.ExecuteBlock("FirstConnection");
-        else Debug.LogError("Already connected");
     }
 
     public void SetWorldScale()
@@ -118,7 +115,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isPaused) timer += Time.deltaTime;
+        if(!isPaused && spawnMeteor) timer += Time.deltaTime;
         autoSaveTimer += Time.deltaTime;
         Datas.Instance.current.time += Time.deltaTime;
 
