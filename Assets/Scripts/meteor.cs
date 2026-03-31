@@ -392,6 +392,12 @@ public class spaceObject : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
-        if(Stats.Instance.firstConnection) Stats.Instance.firstConnection = false;
+        
+        if(Stats.Instance.firstConnection) {
+
+            MainUi.Instance.questUI.LoadQuestUI();
+            Stats.Instance.firstConnection = false; 
+        }
+
     }
 }
