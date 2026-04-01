@@ -1,16 +1,17 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
-using UnityEngine.Localization.SmartFormat.Utilities;
-using Unity.VisualScripting;
-using System.Linq;
 using Newtonsoft.Json.Bson;
-using UnityEngine.Localization.Components;
-using Unity.Loading;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Loading;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.SmartFormat.Utilities;
+using UnityEngine.Localization.Tables;
+using UnityEngine.UIElements;
 
 public class QuestUI : MonoBehaviour
 {
@@ -51,6 +52,17 @@ public class QuestUI : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public IEnumerator DelayLoadQuest()
+    {
+        yield return new WaitForSeconds(1f);
+        MainUi.Instance.questUI.LoadQuestUI();
+    }
+
+    public void LoadWithDelay()
+    {
+        StartCoroutine(DelayLoadQuest());
     }
 
     public void LoadQuestUI()

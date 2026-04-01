@@ -20,8 +20,7 @@ MonoBehaviour:
     - rid: 9040802075139375377
   m_TableData:
   - m_Id: 5438910464
-    m_Localized: "Il y a trop de m\xE9t\xE9orites dans l'espace, s'il te plait aides
-      moi !"
+    m_Localized: "Une vague de m\xE9t\xE9orite approche, sauves moi ! "
     m_Metadata:
       m_Items: []
   - m_Id: 285480005632

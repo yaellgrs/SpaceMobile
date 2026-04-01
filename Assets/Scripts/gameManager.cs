@@ -162,7 +162,6 @@ public class gameManager : MonoBehaviour
             meteor.loadSpeed();
             ActiveSlowMotionVolume(true);
         }
-        Debug.Log("meteor distance :  " + Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position));
     }
 
     public void updateWarning()

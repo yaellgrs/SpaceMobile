@@ -138,7 +138,7 @@ public class QuestManager
 
         if (type != QuestType.Speed)
         {
-            if (QuestStats.Instance.progress.isBigger(objectif))
+            if (QuestStats.Instance.progress >= objectif)
             {
                 return true;
             }

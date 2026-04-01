@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 9040802075139375376
   m_TableData:
   - m_Id: 5438910464
-    m_Localized: There are too many meteorites in space, please help me !
+    m_Localized: "Une vague de m\xE9t\xE9orite approche, sauves moi ! "
     m_Metadata:
       m_Items: []
   - m_Id: 285480005632

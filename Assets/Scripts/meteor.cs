@@ -1,5 +1,6 @@
 using GoogleMobileAds.Api;
 using NUnit.Compatibility;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -253,6 +254,8 @@ public class spaceObject : MonoBehaviour
         }
     }
 
+
+
     public virtual void DieCalcul()
     {
         if (Stats.Instance.firstConnection){
@@ -260,8 +263,8 @@ public class spaceObject : MonoBehaviour
             gameManager.instance.ActiveSlowMotionVolume(false);
 
             BottomUI.Instance.Show(true);
-            MainUi.Instance.questUI.LoadQuestUI();
-            //Invoke(nameof(MainUi.Instance.questUI.LoadQuestUI), 0.5f);
+            //MainUi.Instance.questUI.LoadQuestUI();
+            MainUi.Instance.questUI.LoadWithDelay();
         }
 
         if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
