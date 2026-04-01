@@ -34,16 +34,17 @@ public class DevTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Ship.Current.type = SpaceShipData.SpaceShipElement.Wood;
-            Ship.Current.SetNextType(0);
+            //Ship.Current.type = SpaceShipData.SpaceShipElement.Wood;
+            //Ship.Current.SetNextType(0);
 
-            Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
+            //Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
 
-            Init();
+            //Init();
             
+
+            Stats.Instance.firstConnection = false;
+            Stats.Instance.ironUnlocked = true;
             BottomUI.Instance.LoadUI();
-            Stats.Instance.firstConnection = true;
-            Stats.Instance.ironUnlocked = false;
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {

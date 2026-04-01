@@ -28,9 +28,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 85868537655296
-    m_Localized: "Nos r\xE9serves de fer sont insuffisantes. Ciblez les m\xE9t\xE9orites
-      de fer pour en r\xE9colter davantage ! Am\xE9liorez la forge pour augmenter
-      les gains \xE0 chaque destruction."
+    m_Localized: "Il faut obtenir le plus de bois possible pour renforcer le vaisceaux
+      avant la prochaine vague de m\xE9t\xE9orite."
     m_Metadata:
       m_Items: []
   - m_Id: 86366347014144
@@ -116,6 +115,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 9040802075139375377
+  - m_Id: 101960174984335360
+    m_Localized: Obtiens du bois avec la forge de ton vaisceaux
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

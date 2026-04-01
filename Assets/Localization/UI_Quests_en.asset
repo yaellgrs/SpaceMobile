@@ -28,8 +28,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 85868537655296
-    m_Localized: We're running low on iron. Target iron meteors to collect more!
-      Upgrade the forge to boost your gains from each one!
+    m_Localized: "Il faut obtenir le plus de bois possible pour renforcer le vaisceaux
+      avant la prochaine vague de m\xE9t\xE9orite."
     m_Metadata:
       m_Items: []
   - m_Id: 86366347014144
@@ -110,6 +110,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 9040802075139375376
+  - m_Id: 101960174984335360
+    m_Localized: Obtiens du bois avec la forge de ton vaisceaux
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

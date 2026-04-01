@@ -45,7 +45,7 @@ public class IronUi : BaseUI
             else
                 className = "ironUpTrans";
             forgeUiVE.RemoveFromClassList(className);
-            if (!stopAnim)
+            if (!stopAnim && Stats.Instance.ironUnlocked)
             {
                 forgeUiVE.schedule.Execute(() =>
                 {
@@ -62,8 +62,9 @@ public class IronUi : BaseUI
                 }).StartingIn(500);
 
             }
-            else
+            else if (Stats.Instance.ironUnlocked)
             {
+
                 forgeUI.gameObject.SetActive(false);
                 upgradeUI.gameObject.SetActive(false);
                 gameManager.instance.SetPause(false);
@@ -81,6 +82,12 @@ public class IronUi : BaseUI
 
         }
 
+    }
+
+    public override void forgeUpgradeClicked()
+    {
+        if (Stats.Instance.upgradeUnlocked)
+            base.forgeUpgradeClicked();
     }
 
 
@@ -108,9 +115,9 @@ public class IronUi : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
-        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
 
-        DialogueManager.Instance.ExecuteBlock("FirstOpenWood");
+        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
+        LoadForgeDialogue();
 
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
@@ -152,6 +159,7 @@ public class IronUi : BaseUI
         }
 
         loadIronLogo();
+        LoadForgeBackground();
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
@@ -159,6 +167,21 @@ public class IronUi : BaseUI
         Ship.Current.OnTypeChanged -= loadIronLogo;
         Ship.Current.OnTypeChanged += loadIronLogo;
 
+
+    }
+
+    private void LoadForgeDialogue()
+    {
+
+        DialogueManager.Instance.ExecuteBlock("FirstOpenWood");
+
+        Stats.Instance.ironUnlocked = false;
+    }
+
+    private void LoadForgeBackground()
+    {
+        string path = "UI/Forge/" + (Stats.Instance.upgradeUnlocked ? "forgeUI" : "forgeUILocked");
+        forgeUiVE.style.backgroundImage = Resources.Load<Texture2D>(path);
 
     }
 

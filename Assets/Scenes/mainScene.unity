@@ -5102,11 +5102,19 @@ GameObject:
   - component: {fileID: 1710157055}
   - component: {fileID: 1710157054}
   - component: {fileID: 1710157053}
-  - component: {fileID: 1710157052}
   - component: {fileID: 1710157050}
   - component: {fileID: 1710157065}
   - component: {fileID: 1710157067}
   - component: {fileID: 1710157066}
+  - component: {fileID: 1710157074}
+  - component: {fileID: 1710157073}
+  - component: {fileID: 1710157072}
+  - component: {fileID: 1710157071}
+  - component: {fileID: 1710157069}
+  - component: {fileID: 1710157068}
+  - component: {fileID: 1710157075}
+  - component: {fileID: 1710157076}
+  - component: {fileID: 1710157077}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5142,21 +5150,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 386.011, y: 666.99225}
+  scrollPos: {x: 320.0301, y: 394.89127}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 473.60004
-  zoom: 0.7900002
+  blockViewHeight: 351
+  zoom: 0.96999973
   scrollViewRect:
     serializedVersion: 2
     x: -343
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1710157063}
-  selectedCommands:
-  - {fileID: 1710157067}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -5620,9 +5626,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -240.70792
-    y: -237.58136
-    width: 140.01001
+    x: -243.18217
+    y: -192.22046
+    width: 140.008
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5669,24 +5675,6 @@ MonoBehaviour:
   targetObject: {fileID: 742157410}
   methodName: EndDialogue
   delay: 0
---- !u!114 &1710157052
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710156985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Fungus::Fungus.Wait
-  itemId: 87
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  durationOLD: 0
 --- !u!114 &1710157053
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5909,9 +5897,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -181.6002
-    y: -79.47432
-    width: 137.38
+    x: -242.63138
+    y: -138.85576
+    width: 137.376
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5929,7 +5917,6 @@ MonoBehaviour:
   - {fileID: 1710157055}
   - {fileID: 1710157054}
   - {fileID: 1710157053}
-  - {fileID: 1710157052}
   - {fileID: 1710157066}
   - {fileID: 1710157050}
   suppressAllAutoSelections: 0
@@ -5983,6 +5970,198 @@ MonoBehaviour:
   indentLevel: 0
   targetObject: {fileID: 742157410}
   methodName: Hide
+  delay: 0
+--- !u!114 &1710157068
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 105
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: EndDialogue
+  delay: 0
+--- !u!114 &1710157069
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 104
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: UnHide
+  delay: 0
+--- !u!114 &1710157071
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 97
+  indentLevel: 0
+  storyText: "Tu as d\xE9j\xE0 trouv\xE9 la hache ?"
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157072
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Wait
+  itemId: 96
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 0.5
+  durationOLD: 0
+--- !u!114 &1710157073
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 95
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: Hide
+  delay: 0
+--- !u!114 &1710157074
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Block
+  nodeRect:
+    serializedVersion: 2
+    x: -242.36426
+    y: -83.51325
+    width: 150.864
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 106
+  blockName: FirstMachineClick
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1710157072}
+  - {fileID: 1710157073}
+  - {fileID: 1710157075}
+  - {fileID: 1710157071}
+  - {fileID: 1710157076}
+  - {fileID: 1710157069}
+  - {fileID: 1710157077}
+  - {fileID: 1710157068}
+  suppressAllAutoSelections: 0
+--- !u!114 &1710157075
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Wait
+  itemId: 107
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 0.5
+  durationOLD: 0
+--- !u!114 &1710157076
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 108
+  indentLevel: 0
+  storyText: Avec le bois produit tu pourras renforcer notre vaisceaux
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157077
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 109
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: IronDialogue
   delay: 0
 --- !u!1 &1752593082
 GameObject:

@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: Quest_objectif-GetStarParticle
     m_Metadata:
       m_Items: []
+  - m_Id: 101960174984335360
+    m_Key: Quest_objectif-FarmWood
+    m_Metadata:
+      m_Items: []
   - m_Id: 739707456532480
     m_Key: Quest_objectif-KillUraniumMeteor
     m_Metadata:

@@ -88,5 +88,11 @@ public class DialogueManager : MonoBehaviour
         BottomUI.Instance.Hide(false);
     }
 
+    public void IronDialogue()
+    {
+        MainUi.Instance.ironUI.IronClicked();
+        MainUi.Instance.questUI.LoadWithDelay();
+    }
+
     #endregion
 }

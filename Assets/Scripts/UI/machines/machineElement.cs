@@ -287,8 +287,21 @@ public partial class machineElement : Button
         {
             SoundManager.Instance.PlaySound(SoundEffectType.Forge);
             getProduction(true);
-            if (this is machineIronElement && !Stats.Instance.ironTuto)
-                Tuto.Instance.AddMachineClicked();
+
+
+            if (this is machineIronElement)
+            {
+                if (!Stats.Instance.ironTuto)
+                    Tuto.Instance.AddMachineClicked();
+
+                if (Ship.Current.type == SpaceShipData.SpaceShipElement.Wood)
+                    QuestManager.Instance.upQuest();
+            }
+            if (!Stats.Instance.ironUnlocked)
+            {
+                Stats.Instance.ironUnlocked = true;
+                DialogueManager.Instance.ExecuteBlock("FirstMachineClick");
+            }
         }
     }
 

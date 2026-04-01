@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: quest2
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 2
-  type: 1
+  type: 2
   objectif:
-    Mantisse: 2.5
-    Exp: 3
+    Mantisse: 75
+    Exp: 0
   rewardDiamand: 2
-  text: "Nos r\xE9serves de fer sont insuffisantes. Ciblez les m\xE9t\xE9orites de
-    fer pour en r\xE9colter davantage ! Am\xE9liorez la forge pour augmenter les
-    gains \xE0 chaque destruction."
+  text: "Il faut obtenir le plus de bois possible pour renforcer le vaisceaux avant
+    la prochaine vague de m\xE9t\xE9orite."

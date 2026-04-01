@@ -112,6 +112,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 9040802075139375379
+  - m_Id: 101960174984335360
+    m_Localized: Obtiens du bois avec la forge de ton vaisceaux
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
