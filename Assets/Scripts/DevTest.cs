@@ -38,6 +38,7 @@ public class DevTest : MonoBehaviour
             Ship.Current.SetNextType(0);
 
             Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
+            Stats.Instance.firstConnection = true;
             Init();
             
             BottomUI.Instance.LoadUI();

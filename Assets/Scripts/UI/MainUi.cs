@@ -158,7 +158,7 @@ public class MainUi : MonoBehaviour
         upUraniumUI();
         uraniumUI.loadUpdateUI();
         ironUI.loadUpdateUI();
-        SetQuestCompleted(QuestManager.Instance.isCompleted());
+        SetQuestCompleted(QuestManager.Instance != null ? QuestManager.Instance.isCompleted() : false);
 
         //updateStage();
         upLevelUI();

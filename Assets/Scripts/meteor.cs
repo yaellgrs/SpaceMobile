@@ -259,7 +259,9 @@ public class spaceObject : MonoBehaviour
             UpSpeed.Instance.setSpeed(1f);
             gameManager.instance.ActiveSlowMotionVolume(false);
 
-            Invoke(nameof(MainUi.Instance.questUI.LoadQuestUI), 0.5f);
+            BottomUI.Instance.Show(true);
+            MainUi.Instance.questUI.LoadQuestUI();
+            //Invoke(nameof(MainUi.Instance.questUI.LoadQuestUI), 0.5f);
         }
 
         if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;

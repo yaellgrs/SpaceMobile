@@ -42,8 +42,12 @@ public class QuestManager
             Debug.LogError("Ship Current is null");    
             return; 
         }
-        string path = "Datas/Quests/" + Ship.Current.type.ToString();
+        Debug.Log("Ship type : '" + Ship.Current.type.ToString() + "'");
+        string path = "Data/Quests/" + Ship.Current.type.ToString();
+        Debug.Log("Loading path : '" + path + "'");
         quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
+        var test = Resources.LoadAll<ScriptableObject>(path);
+        Debug.Log("Found : " + test.Length + " assets");
         if (quests.Count == 0)
             Debug.LogWarning("No Quest at : " + path);
 

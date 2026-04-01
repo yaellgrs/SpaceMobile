@@ -59,6 +59,7 @@ public class gameManager : MonoBehaviour
 
             QuestStats.Init();
             QuestManager.Init();
+
             BottomUI.Instance.LoadUI();
 
             SetPause(false);
@@ -155,6 +156,7 @@ public class gameManager : MonoBehaviour
         if(Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position ) < 2f)
         {
             Debug.Log("SLOWINGG");
+            BottomUI.Instance.Show(false);
             UpSpeed.Instance.setSpeed(0.1f);
             meteor.Move();
             meteor.loadSpeed();

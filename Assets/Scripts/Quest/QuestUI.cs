@@ -43,7 +43,7 @@ public class QuestUI : MonoBehaviour
     {
         questUI.gameObject.SetActive(false);
         successUI.gameObject.SetActive(false);
-        QuestManager.Instance.initQuest();
+
 
     }
 
@@ -55,6 +55,13 @@ public class QuestUI : MonoBehaviour
 
     public void LoadQuestUI()
     {
+        if(QuestManager.Instance == null)
+        {
+            QuestManager.Init();
+            return;
+        }
+        QuestManager.Instance.initQuest();
+
         questUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
 
@@ -117,9 +124,8 @@ public class QuestUI : MonoBehaviour
         loadQuest();
 
         diamandReward.text = QuestManager.Instance.reward.ToString();
-        Lbl_shipFragment.text = QuestManager.Instance.CalculShipFragmentReward().ToString();
+        Lbl_shipFragment.text = "1";
         Lbl_shipFragment.style.color = Utility.GetShipColor();
-        Debug.LogWarning("total " + QuestManager.Instance.CalculShipFragmentReward() * 10);
 
         VE_shipFragment.style.backgroundImage = Utility.GetShipFragmentLogo();
 
@@ -217,7 +223,6 @@ public class QuestUI : MonoBehaviour
                 }
             }
             questCount.text = QuestStats.Instance.questLevel + "/" + QuestStats.Instance.questMaxLevel;
-            Debug.LogError(QuestStats.Instance.questLevel + "/" + QuestStats.Instance.questMaxLevel + "  : " + Ship.Current.type);
 
 
         }
