@@ -3,4 +3,5 @@
     <ui:VisualElement name="secondForge" picking-mode="Ignore" class="secondForgeBase" style="background-image: resource(&quot;UI/Bottom/Wood/SecondForge&quot;);"/>
     <ui:VisualElement name="prestige" picking-mode="Ignore" class="prestigeBase" style="background-image: resource(&quot;UI/Bottom/prestigeLocked&quot;);"/>
     <ui:VisualElement name="mainForge" picking-mode="Ignore" class="mainForge"/>
+    <ui:VisualElement name="hide" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.82); display: flex; visibility: hidden;"/>
 </ui:UXML>

@@ -41,7 +41,7 @@ public class DialogueManager : MonoBehaviour
         //var dialogInput = flowChart.GetComponent<DialogInput>();
         //if (dialogInput != null) dialogInput.enabled = true;
 
-        StartDialogue();
+        //StartDialogue();
 
         flowChart.ExecuteBlock(blockName);
     }
@@ -76,6 +76,16 @@ public class DialogueManager : MonoBehaviour
     public void StopWarning()
     {
         gameManager.instance.activeWarning(false);
+    }
+
+    public void Hide()
+    {
+        BottomUI.Instance.Hide(true);
+    }
+
+    public void UnHide()
+    {
+        BottomUI.Instance.Hide(false);
     }
 
     #endregion

@@ -110,6 +110,8 @@ public class IronUi : BaseUI
         base.loadForgeUI();
         BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
 
+        DialogueManager.Instance.ExecuteBlock("FirstOpenWood");
+
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");
