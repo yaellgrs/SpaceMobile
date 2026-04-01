@@ -3,6 +3,7 @@ using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Localization;
@@ -107,6 +108,13 @@ public class QuestManager
         Stats.Instance.AddDiamand(reward);
         Stats.Instance.AddShipFragment(QuestManager.Instance.CalculShipFragmentReward());
 
+        if (!Stats.Instance.ironUnlocked)
+        {
+
+            Stats.Instance.ironUnlocked = true;
+            BottomUI.Instance.LoadUI();
+        }
+
         MainUi.Instance.questUI.refreshQuestUI();
         QuestStats.Instance.progress = new BigNumber(0);
         QuestStats.Instance.timeCompleted = 0;
@@ -135,6 +143,8 @@ public class QuestManager
     public bool isCompleted()
     {
         if (QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel) return false;
+
+
 
         if (type != QuestType.Speed)
         {

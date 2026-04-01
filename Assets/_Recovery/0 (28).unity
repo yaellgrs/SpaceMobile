@@ -4822,6 +4822,7 @@ GameObject:
   - component: {fileID: 1710157046}
   - component: {fileID: 1710157045}
   - component: {fileID: 1710157044}
+  - component: {fileID: 1710157043}
   - component: {fileID: 1710157042}
   - component: {fileID: 1710157041}
   - component: {fileID: 1710157040}
@@ -4832,6 +4833,7 @@ GameObject:
   - component: {fileID: 1710157035}
   - component: {fileID: 1710157034}
   - component: {fileID: 1710157033}
+  - component: {fileID: 1710157032}
   - component: {fileID: 1710157031}
   - component: {fileID: 1710157030}
   - component: {fileID: 1710157029}
@@ -4871,11 +4873,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 276.9369, y: 510.54016}
+  scrollPos: {x: 269.35968, y: 515.38745}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 473.60004
-  zoom: 1
+  blockViewHeight: 444
+  zoom: 0.97
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -4883,7 +4885,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1710157027}
+  - {fileID: 1710157049}
   selectedCommands: []
   variables: []
   description: 
@@ -4927,8 +4929,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -227.12834
-    y: -282.3453
+    x: -73.52835
+    y: -237.54532
     width: 110.192
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -5013,6 +5015,36 @@ MonoBehaviour:
     floatRef: {fileID: 0}
     floatVal: 1
   durationOLD: 0
+--- !u!114 &1710157032
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Portrait
+  itemId: 70
+  indentLevel: 0
+  display: 2
+  stage: {fileID: 0}
+  character: {fileID: 1260565254}
+  replacedCharacter: {fileID: 1260565254}
+  portrait: {fileID: 0}
+  offset: 0
+  fromPosition: {fileID: 907090207}
+  toPosition: {fileID: 1357696505}
+  facing: 0
+  useDefaultSettings: 1
+  fadeDuration: 0.5
+  moveDuration: 1
+  shiftOffset: {x: 0, y: 0}
+  move: 1
+  shiftIntoPlace: 0
+  waitUntilFinished: 0
 --- !u!114 &1710157033
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5258,6 +5290,36 @@ MonoBehaviour:
     floatRef: {fileID: 0}
     floatVal: 1
   durationOLD: 0
+--- !u!114 &1710157043
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Portrait
+  itemId: 59
+  indentLevel: 0
+  display: 1
+  stage: {fileID: 0}
+  character: {fileID: 1260565254}
+  replacedCharacter: {fileID: 0}
+  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  offset: 0
+  fromPosition: {fileID: 0}
+  toPosition: {fileID: 907090207}
+  facing: 0
+  useDefaultSettings: 1
+  fadeDuration: 0.5
+  moveDuration: 1
+  shiftOffset: {x: 0, y: 0}
+  move: 1
+  shiftIntoPlace: 0
+  waitUntilFinished: 1
 --- !u!114 &1710157044
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5392,8 +5454,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -208.70793
-    y: -184.78134
+    x: -17.507961
+    y: 64.81867
     width: 140.008
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -5408,6 +5470,7 @@ MonoBehaviour:
   - {fileID: 1710157046}
   - {fileID: 1710157045}
   - {fileID: 1710157044}
+  - {fileID: 1710157043}
   - {fileID: 1710157042}
   - {fileID: 1710157041}
   - {fileID: 1710157040}
@@ -5418,6 +5481,7 @@ MonoBehaviour:
   - {fileID: 1710157035}
   - {fileID: 1710157034}
   - {fileID: 1710157033}
+  - {fileID: 1710157032}
   - {fileID: 1710157031}
   - {fileID: 1710157030}
   - {fileID: 1710157029}
