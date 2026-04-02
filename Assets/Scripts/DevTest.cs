@@ -44,7 +44,15 @@ public class DevTest : MonoBehaviour
 
             Stats.Instance.firstConnection = false;
             Stats.Instance.ironUnlocked = true;
-            Stats.Instance.dialogues["FirstUpgradeOpen"] = false;
+            Stats.Instance.upgradeUnlocked = true;
+            Stats.Instance.dialogues["FirstConnection"] = true;
+            Stats.Instance.dialogues["FirstOpenWood"] = true;
+            Stats.Instance.dialogues["FirstMachineClick"] = true;
+            Stats.Instance.dialogues["FirstUpgradeOpen"] = true;
+            Stats.Instance.dialogues["FirstUpgradeLevelUp"] = false;
+            QuestStats.Instance.reset();
+            QuestStats.Instance.questLevel = 4;
+            QuestStats.Instance.progress = new BigNumber(0);
             BottomUI.Instance.LoadUI();
         }
         if (Input.GetKeyDown(KeyCode.Y))

@@ -208,6 +208,7 @@ public static class Utility
     {
         MainUi.Instance.settingUI.backClicked();
         Stats.Instance.reset();
+        QuestStats.Instance.reset();
 
         BottomUI.Instance.LoadUI();
         Stats.Instance.firstConnection = true;

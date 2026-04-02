@@ -50,7 +50,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 466124553531392
-    m_Localized: Now that we're stronger, it's time to take action. Destroy meteors!
+    m_Localized: "Trouves ces fameuses m\xE9t\xE9orites de bois pour augmenter les
+      ressources. "
     m_Metadata:
       m_Items: []
   - m_Id: 470882718789632

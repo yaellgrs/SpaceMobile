@@ -238,6 +238,16 @@ public partial class UpgradesElement : VisualElement
         }
         Load();
         gameManager.instance.SmallVibrate();
+
+        if(this is UpgradesIronElement)
+        {
+            if (!Stats.Instance.dialogues["FirstUpgradeLevelUp"])
+            {
+                Stats.Instance.dialogues["FirstUpgradeLevelUp"] = true;
+                Stats.Instance.ironMeteorUnlocked = true;
+                DialogueManager.Instance.ExecuteBlock("FirstUpgradeLevelUp");
+            }
+        }
     }   
 
     #endregion
