@@ -214,4 +214,11 @@ public static class Utility
         DialogueManager.Instance.ExecuteBlock("FirstConnection");
     }
 
+    public static string GetMachineName(int i)
+    {
+        if(Ship.Current.type == SpaceShipData.SpaceShipElement.Wood) return Consts.MACHINE_WOOD_NAMES[i];
+        if(Ship.Current.type == SpaceShipData.SpaceShipElement.Iron) return Consts.MACHINE_IRON_NAMES[i];
+        return "";
+    }
+
 }

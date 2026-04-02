@@ -49,7 +49,8 @@ public class machineIronElement : machineElement
 
     protected override void SetLogo()
     {
-        Texture2D texture = Resources.Load<Texture2D>("logos/iron/" + data.machineName);
+        Texture2D texture = Resources.Load<Texture2D>("logos/" + Ship.Current.type.ToString() + "/" + data.machineName);
+        Debug.Log("Loading texture at path : " + "logos/" + Ship.Current.type.ToString() + "/" + data.machineName);
         VE_logo.style.backgroundImage = new StyleBackground(texture);
     }
 

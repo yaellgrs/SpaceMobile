@@ -13,4 +13,7 @@ public class Consts
     };
 
     public static Color COLOR_URANIUM = Utility.Hex("#00FF0E");
+
+    public static string[] MACHINE_IRON_NAMES = { "Enclume", "forgeuse", "forgeuses" };
+    public static string[] MACHINE_WOOD_NAMES = { "Hache", "Scie", "Tronçonneuse" };
 }

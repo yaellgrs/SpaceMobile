@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 42fd863ed75627545b4c8ab860139fe9
+guid: 17a7fe6c29540ea47a1a8ab2cd77c19f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6177855141157715546
-    second: ironMachines_0
+      213: 374677648360923393
+    second: Hache_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ironMachines_0
+      name: Hache_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 217
-        height: 198
+        x: 8
+        y: 5
+        width: 200
+        height: 186
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5eb68ae4862cb550800000000000000
-      internalID: 6177855141157715546
+      spriteID: 101e4d7065f133500800000000000000
+      internalID: 374677648360923393
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ironMachines_0: 6177855141157715546
+      Hache_0: 374677648360923393
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
