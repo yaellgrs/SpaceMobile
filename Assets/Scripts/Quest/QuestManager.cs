@@ -33,6 +33,7 @@ public class QuestManager
         {
             Instance = new QuestManager();
             Instance.LoadQuests();
+            Instance.initQuest();
         }
     }
 

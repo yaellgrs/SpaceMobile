@@ -115,9 +115,13 @@ public class IronUi : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
+        if (!Stats.Instance.dialogues["FirstOpenWood"])
+        {
+            Stats.Instance.dialogues["FirstOpenWood"] = true;
+            BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
+            LoadForgeDialogue();
+        }
 
-        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
-        LoadForgeDialogue();
 
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");

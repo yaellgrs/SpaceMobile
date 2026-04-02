@@ -295,11 +295,12 @@ public partial class machineElement : Button
                     Tuto.Instance.AddMachineClicked();
 
                 if (Ship.Current.type == SpaceShipData.SpaceShipElement.Wood)
-                    QuestManager.Instance.upQuest();
+                    QuestManager.Instance.upQuest(CalculReward());
             }
-            if (!Stats.Instance.ironUnlocked)
+            if (!Stats.Instance.dialogues["FirstMachineClick"])
             {
                 Stats.Instance.ironUnlocked = true;
+                Stats.Instance.dialogues["FirstMachineClick"] = true;
                 DialogueManager.Instance.ExecuteBlock("FirstMachineClick");
             }
         }

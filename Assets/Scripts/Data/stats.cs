@@ -75,6 +75,12 @@ public class Stats
     public bool ironTuto = false;
     public bool uraniumTuto = false;
     public bool ironUnlocked = false;
+    public Dictionary<string, bool> dialogues = new Dictionary<string, bool>()
+    {
+        { "FirstConnection", false },
+        {"FirstOpenWood", false},
+        {"FirstMachineClick", false},
+    };
     public bool upgradeUnlocked = false;
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
