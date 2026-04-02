@@ -27,6 +27,8 @@ public class spaceShip : MonoBehaviour
     private bool isPause = false;
 
 
+    [SerializeField] private HitEffect hitEffect;
+
 
     private void Awake()
     {
@@ -162,6 +164,7 @@ public class spaceShip : MonoBehaviour
 
     public void getDamage(BigNumber amount, bool boss = false)
     {
+        if (hitEffect != null) hitEffect.ActiveHitEffect();
         if (boss)
         {
             Ship.Current.shield.Set(0);
@@ -186,7 +189,6 @@ public class spaceShip : MonoBehaviour
             Ship.Current.life -= x;
             if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
         }
-
         MainUi.Instance.upShieldBar();
     }
 
