@@ -382,7 +382,7 @@ public class gameManager : MonoBehaviour
                 {meteorType.Normal, normalProb},
                 {meteorType.Scatter, ScatterProb},
                 {meteorType.Big, BigProb},
-                {meteorType.Iron, ironProb},
+                {Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ? meteorType.Wood : meteorType.Iron, ironProb},
                 {meteorType.Uranium, uraniumProb},
                 {meteorType.Diamand, Stats.Instance.diamandProb },
             };

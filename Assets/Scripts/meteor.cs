@@ -16,9 +16,7 @@ using Image = UnityEngine.UI.Image;
 public class spaceObject : MonoBehaviour
 {
     public TextMeshProUGUI lifeText;
-    public GameObject ironCollectiblePrefab;
-    public GameObject uraniumCollectiblePrefab;
-    public GameObject diamandCollectiblePrefab;
+    public GameObject collectiblePrefab;
 
     public ParticleSystem starParticle;
     public ParticleSystem meteorParticle;
@@ -52,7 +50,7 @@ public class spaceObject : MonoBehaviour
     public Vector3 baseScale;
     public int level = 1;
 
-    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium, None};
+    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Wood, Uranium, None};
     public meteorType type;
 
     public bool isDestroyByRocket = false;
@@ -121,15 +119,9 @@ public class spaceObject : MonoBehaviour
         {
             lifeMax.Multiply(0.5f);
         }
-        else if (type == meteorType.Iron)
+        else if (type == meteorType.Iron || type == meteorType.Uranium ||type == meteorType.Wood)
         {
             lifeMax.Multiply(1.5f);
-            if (!Stats.Instance.popupTutos[PopupTuto.ironMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
-        }
-        else if (type == meteorType.Uranium)
-        {
-            lifeMax.Multiply(1.5f); 
-            if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
         }
         else if (type == meteorType.Scatter)
         {
@@ -172,7 +164,7 @@ public class spaceObject : MonoBehaviour
             spaceObjectSpeed *= 1.25f;
         else if(type== meteorType.miniMeteor)
             spaceObjectSpeed *= 0.5f;
-        else if(type == meteorType.Uranium || type == meteorType.Iron)
+        else if(type == meteorType.Uranium || type == meteorType.Iron || type == meteorType.Wood)
             spaceObjectSpeed *= 1.15f;
 
 
@@ -283,19 +275,25 @@ public class spaceObject : MonoBehaviour
 
         if (type == meteorType.Diamand)
         {
-            GameObject obj = Instantiate(diamandCollectiblePrefab);
+            GameObject obj = Instantiate(collectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
         }
         else if (type == meteorType.Iron)
         {
-            GameObject obj = Instantiate(ironCollectiblePrefab);
+            GameObject obj = Instantiate(collectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
         }
         else if (type == meteorType.Uranium)
         {
-            GameObject obj = Instantiate(uraniumCollectiblePrefab);
+            GameObject obj = Instantiate(collectiblePrefab);
+            Collectible collectible = obj.GetComponent<Collectible>();
+            collectible.Init(transform.position);
+        }
+        else if (type == meteorType.Wood)
+        {
+            GameObject obj = Instantiate(collectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
         }

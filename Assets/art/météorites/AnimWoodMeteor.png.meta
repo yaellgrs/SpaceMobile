@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 56b63d5c38fb14349a173843f1f093b9
+guid: a1e1a00e21fe3514eb2dbe8a31d1fd7e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9013406588612924384
-    second: mainRessource_0
+      213: 4230439437260512841
+    second: AnimWoodMeteor_0
+  - first:
+      213: 3358497174917543946
+    second: AnimWoodMeteor_1
+  - first:
+      213: -404882805195763919
+    second: AnimWoodMeteor_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mainRessource_0
+      name: AnimWoodMeteor_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 344
-        height: 172
+        y: 1
+        width: 237
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 02caf857672f9e280800000000000000
-      internalID: -9013406588612924384
+      spriteID: 94e57bd114a85ba30800000000000000
+      internalID: 4230439437260512841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimWoodMeteor_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 3
+        width: 238
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a08fc12f267cb9e20800000000000000
+      internalID: 3358497174917543946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimWoodMeteor_2
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 0
+        width: 234
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13f84acdb31916af0800000000000000
+      internalID: -404882805195763919
       vertices: []
       indices: 
       edges: []
@@ -161,7 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mainRessource_0: -9013406588612924384
+      AnimWoodMeteor_0: 4230439437260512841
+      AnimWoodMeteor_1: 3358497174917543946
+      AnimWoodMeteor_2: -404882805195763919
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -8,7 +8,7 @@ public class Collectible : MonoBehaviour
 
     private bool collected = false;
 
-    public enum CollectibleType { iron, uranium, Diamand };
+    public enum CollectibleType { iron, uranium, Diamand, Wood };
 
     public CollectibleType type;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,6 +18,9 @@ public class Collectible : MonoBehaviour
         switch (type)
         {
             case CollectibleType.iron:
+                reward = new BigNumber(OfflineUI.calculOfflineIronEarn(60, false));
+                break;
+            case CollectibleType.Wood:
                 reward = new BigNumber(OfflineUI.calculOfflineIronEarn(60, false));
                 break;
             case CollectibleType.uranium:
@@ -67,6 +70,10 @@ public class Collectible : MonoBehaviour
                         Stats.Instance.AddIron(reward);
                         if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
                         break;
+                    case CollectibleType.Wood:
+                        Stats.Instance.AddIron(reward);
+                        if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
+                        break;
                     case CollectibleType.uranium:
                         Stats.Instance.AddUranium(reward);
                         if (QuestManager.Instance.type == QuestType.KillUraniumMeteor) QuestManager.Instance.upQuest(reward);
@@ -105,6 +112,9 @@ public class Collectible : MonoBehaviour
         {
             case CollectibleType.iron:
                 MarkersUI.Instance.ShowMarker(transform.position, "+" + reward.ToString(), MarkerType.Iron);
+                break;
+            case CollectibleType.Wood:
+                MarkersUI.Instance.ShowMarker(transform.position, "+" + reward.ToString(), MarkerType.Wood);
                 break;
             case CollectibleType.uranium:
                 MarkersUI.Instance.ShowMarker(transform.position, "+" + reward.ToString(), MarkerType.Uranium);

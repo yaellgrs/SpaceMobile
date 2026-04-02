@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7061209113746028781
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2194695972966590875, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4230439437260512841, guid: a1e1a00e21fe3514eb2dbe8a31d1fd7e, type: 3}
+    - target: {fileID: 2802500051505844045, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802500051505844045, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 172.39415
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 249.57445
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954850402007151504, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284934456727501853, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_Name
+      value: WoodMeteor Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482572478085618534, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: collectiblePrefab
+      value: 
+      objectReference: {fileID: 1043401879135688721, guid: 870793ba415a29f46ad6ee4df16d24ea, type: 3}
+    - target: {fileID: 6750313323580521183, guid: 3cc51b0faf48679449671092da446775, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1cb74e37b05a5de449f53fdc49591d07, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3cc51b0faf48679449671092da446775, type: 3}
