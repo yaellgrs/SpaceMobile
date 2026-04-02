@@ -204,4 +204,14 @@ public static class Utility
         return 1f + (Ship.Current.level - 1) * 0.01f;
     }
 
+    public static void Reset()
+    {
+        MainUi.Instance.settingUI.backClicked();
+        Stats.Instance.reset();
+
+        BottomUI.Instance.LoadUI();
+        Stats.Instance.firstConnection = true;
+        DialogueManager.Instance.ExecuteBlock("FirstConnection");
+    }
+
 }

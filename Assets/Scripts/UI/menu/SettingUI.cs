@@ -113,7 +113,7 @@ public class SettingUI : MonoBehaviour
         Utility.InitClickButtonSound(root);
     }
 
-    private void backClicked()
+    public void backClicked()
     {
         if(menuVE != null)
         {
@@ -282,7 +282,7 @@ public class SettingUI : MonoBehaviour
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
 
-        //totalssssssssssssssssssssssssssssssssssssss
+        //total
 
         ScrollView scrollView = root.Q<ScrollView>("scroll");
         VisualElement titles = scrollView.Q<VisualElement>("titles");
@@ -426,6 +426,7 @@ public class SettingUI : MonoBehaviour
         pause = root.Q<Button>("pause");
         damage = root.Q<Button>("damage");
         xp = root.Q<Button>("xp");
+        Button Btn_reset = root.Q<Button>("reset");
 
         slider_general.value = Settings.Instance.sound_general_value;
         slider_music.value = Settings.Instance.sound_music_value;
@@ -456,6 +457,7 @@ public class SettingUI : MonoBehaviour
         damage.clicked += DamageClicked;
         xp.clicked += XpClicked;
         Btn_showBanner.clicked += showBannerClicked;
+        Btn_reset.clicked += Utility.Reset;
 
         SetSettingButton();
 

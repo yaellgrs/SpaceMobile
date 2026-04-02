@@ -111,9 +111,12 @@ public class QuestManager
 
         if (!Stats.Instance.ironUnlocked)
         {
-
             Stats.Instance.ironUnlocked = true;
             BottomUI.Instance.LoadUI();
+        }
+        else if (!Stats.Instance.upgradeUnlocked)
+        {
+            Stats.Instance.upgradeUnlocked = true;
         }
 
         MainUi.Instance.questUI.refreshQuestUI();

@@ -115,14 +115,10 @@ public class IronUi : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
-        if (!Stats.Instance.dialogues["FirstOpenWood"])
-        {
-            Stats.Instance.dialogues["FirstOpenWood"] = true;
-            BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
-            LoadForgeDialogue();
-        }
 
+        LoadForgeDialogue();
 
+        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");
@@ -176,10 +172,12 @@ public class IronUi : BaseUI
 
     private void LoadForgeDialogue()
     {
-
-        DialogueManager.Instance.ExecuteBlock("FirstOpenWood");
-
-        Stats.Instance.ironUnlocked = false;
+        if (!Stats.Instance.dialogues["FirstOpenWood"])
+        {
+            Stats.Instance.dialogues["FirstOpenWood"] = true;
+            Stats.Instance.ironUnlocked = false;
+            DialogueManager.Instance.ExecuteBlock("FirstOpenWood");
+        }
     }
 
     private void LoadForgeBackground()
@@ -197,6 +195,9 @@ public class IronUi : BaseUI
     public override void loadUpdateUI()
     {
         base.loadUpdateUI();
+
+        LoadUpgradeDialogue();
+
         var root = upgradeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");
@@ -215,6 +216,16 @@ public class IronUi : BaseUI
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
+    }
+
+    private void LoadUpgradeDialogue()
+    {
+        if (!Stats.Instance.dialogues["FirstUpgradeOpen"])
+        {
+            Stats.Instance.dialogues["FirstUpgradeOpen"] = true;
+            Debug.LogError("upgrade DIalogue");
+            DialogueManager.Instance.ExecuteBlock("FirstUpgradeOpen");
+        }
     }
 
     private void uraniumClicked()

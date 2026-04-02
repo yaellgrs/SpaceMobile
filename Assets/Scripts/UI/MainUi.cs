@@ -156,8 +156,8 @@ public class MainUi : MonoBehaviour
         enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
-        uraniumUI.loadUpdateUI();
-        ironUI.loadUpdateUI();
+        //uraniumUI.loadUpdateUI();
+        //ironUI.loadUpdateUI();
         SetQuestCompleted(QuestManager.Instance != null ? QuestManager.Instance.isCompleted() : false);
 
         //updateStage();

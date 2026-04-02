@@ -44,6 +44,7 @@ public class DevTest : MonoBehaviour
 
             Stats.Instance.firstConnection = false;
             Stats.Instance.ironUnlocked = true;
+            Stats.Instance.dialogues["FirstUpgradeOpen"] = false;
             BottomUI.Instance.LoadUI();
         }
         if (Input.GetKeyDown(KeyCode.Y))
