@@ -364,8 +364,15 @@ public class gameManager : MonoBehaviour
         Debug.Log("spawn space object");
         int stage = Ship.Current.stage;
 
-        int BigProb = stage > 25 ? 200 : 0;
-        int ScatterProb = stage < 10 ? 0 : 200;
+        int BigProb = stage > 200 ? 450 :
+                        stage > 100 ? 400 :
+                        stage > 50 ? 300 : 
+                        stage > 25 ? 200: 0;
+        int ScatterProb = stage > 200 ? 450 :
+                stage > 100 ? 400 :
+                stage > 50 ? 300 :
+                stage > 10 ? 200 : 0;
+
         int uraniumProb = Ship.Current.HaveUranium() && stage > 20 ? 40 : 0;
         int ironProb = stage > 10 ? 40 : 0;
         int normalProb = Mathf.Max(0, 1000 - (ScatterProb + BigProb + ironProb + uraniumProb + Stats.Instance.diamandProb));
