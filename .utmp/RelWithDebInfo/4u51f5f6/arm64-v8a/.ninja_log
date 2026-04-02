@@ -21,3 +21,5 @@
 48	1464	7968386870215762	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	58ac5cd8409aa88a
 20	1558	7968386871161901	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	9ae7d40e3c68d17
 1558	1648	7968386872114155	C:/Users/YAEL/Documents/programmation/Unity/2D/SpaceIdle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4u51f5f6/obj/arm64-v8a/libgame.so	383e6281371c6fe5
+7	285	7968751060970635	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	d047525832918f4f
+285	439	7968751062370624	C:/Users/YAEL/Documents/programmation/Unity/2D/SpaceIdle/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4u51f5f6/obj/arm64-v8a/libswappywrapper.so	d000d5ccc6170492

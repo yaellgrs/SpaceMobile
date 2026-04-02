@@ -3596,6 +3596,7 @@ GameObject:
   - component: {fileID: 1253694413}
   - component: {fileID: 1253694414}
   - component: {fileID: 1253694415}
+  - component: {fileID: 1253694416}
   m_Layer: 10
   m_Name: spaceShip
   m_TagString: Untagged
@@ -3696,6 +3697,7 @@ MonoBehaviour:
   shieldRegen: 0
   animSpeed: 0.001
   repelerLink: {fileID: 0}
+  hitEffect: {fileID: 1253694416}
 --- !u!58 &1253694414
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3754,6 +3756,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1253694416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253694410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2472061649d9e0e46ac12c223751bdf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitEffect
 --- !u!1 &1260565253
 GameObject:
   m_ObjectHideFlags: 0
