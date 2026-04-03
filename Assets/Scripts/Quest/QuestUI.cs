@@ -287,6 +287,7 @@ public class QuestUI : MonoBehaviour
         foreach(SuccessType key in Enum.GetValues(typeof(SuccessType)))
         {
             scroll.Add(new SuccessElement(key));
+
         }
 
         refreshSuccessUi();

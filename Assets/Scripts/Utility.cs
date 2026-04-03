@@ -222,4 +222,24 @@ public static class Utility
         return "";
     }
 
+    public static string FormatDatasValue(object value)
+    {
+        //if (value2 != null && value.GetType() == value2.GetType()) return FormatDatasValue(value);
+
+        if (value == null) return "null";
+
+        if (value is BigNumber bn)
+        {
+            return bn.ToString();
+        }
+
+        if (value is float f)
+        {
+            return Utility.TimeToString_dhms((long)f);
+        }
+
+        return value.ToString();
+    }
+
+
 }

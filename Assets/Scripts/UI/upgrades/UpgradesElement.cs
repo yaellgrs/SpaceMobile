@@ -241,7 +241,6 @@ public partial class UpgradesElement : VisualElement
 
         if(this is UpgradesIronElement)
         {
-
             if (QuestManager.Instance.type == QuestType.UpgradeIron)
                 QuestManager.Instance.upQuest();
 

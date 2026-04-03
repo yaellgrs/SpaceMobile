@@ -111,6 +111,7 @@ public partial class SuccessElement : VisualElement
         BigNumber objectif = getObjectif();
 
         Lbl_progress.text = progress.ToString() + "/" + objectif.ToString();
+        Debug.Log("type " + type.ToString() +  " Progress : " + progress.ToString() + " / Objectif : " + objectif.ToString());    
 
         bool enable = (objectif < progress);
         Btn_claim.SetEnabled(enable);
@@ -136,8 +137,14 @@ public partial class SuccessElement : VisualElement
         if (Datas.Instance == null) return new BigNumber(0);
 
         var field = typeof(Datas).GetField(type.ToString());
+        if( field == null) return new BigNumber(0);
 
-        return field == null ? new BigNumber(0) : (BigNumber)field.GetValue(Datas.Instance);
+        BigNumber progress = new BigNumber(0);
+        progress += (BigNumber)field.GetValue(Datas.Instance.current);
+        progress += (BigNumber)field.GetValue(Datas.Instance.currentShip);
+        progress += (BigNumber)field.GetValue(Datas.Instance.total);
+
+        return progress;
     }
 
     private BigNumber getObjectif()

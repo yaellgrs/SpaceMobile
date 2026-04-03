@@ -147,22 +147,6 @@ public class SettingUI : MonoBehaviour
         var root = bonusUI.rootVisualElement;
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
-        //damageTotal = root.Q<Label>("damageTotal");
-        //damageBoost = root.Q<Label>("damageBoost");
-        //damagePrestige = root.Q<Label>("damagePrestige");
-        //damageLevel = root.Q<Label>("damageLevel");
-        //damageLevelPerm = root.Q<Label>("damageLevelPerm");
-
-        //float mult = Stats.Instance.prest_damage_multiplicator * Stats.Instance.damage_Multiplicator_Lvl * Stats.Instance.perm_Damage_Multiplicator_Lvl;
-        //if (Stats.Instance.damageBoostTime > 0)
-        //{
-        //    damageBoost.text = "x2.00";
-        //    mult *= 2;
-        //}
-        //damageTotal.text = "x" + mult.ToString("F2");
-        //damagePrestige.text = "x" + Stats.Instance.prest_damage_multiplicator.ToString("F2");
-        //damageLevel.text = "x" + Stats.Instance.damage_Multiplicator_Lvl.ToString("F2");
-        //damageLevelPerm.text = "x" + Stats.Instance.perm_Damage_Multiplicator_Lvl.ToString("F2");
 
         VisualElement Lbl_totalDamage = root.Q<VisualElement>("damage");
         VisualElement Lbl_totalLife = root.Q<VisualElement>("life");
@@ -318,9 +302,9 @@ public class SettingUI : MonoBehaviour
                     object obj3 = dicoTotal.Contains(key) ? dicoTotal[key] : null;
                     rows.Add(createStatLine(
                         key.ToString(),
-                        FormatValue(obj1),
-                        FormatValue(Datas.SumDataValue(obj1, obj2)),
-                        FormatValue(Datas.SumDataValue(obj1, obj2, obj3)),
+                        Utility.FormatDatasValue(obj1),
+                        Utility.FormatDatasValue(Datas.SumDataValue(obj1, obj2)),
+                        Utility.FormatDatasValue(Datas.SumDataValue(obj1, obj2, obj3)),
                         true
                     ));
                     currentTotal += dicoCurrent.Contains(key) ?  (BigNumber)dicoCurrent[key] : new BigNumber(0); ;
@@ -330,9 +314,9 @@ public class SettingUI : MonoBehaviour
                 }
                 VisualElement title = createStatLine(
                     name,
-                    FormatValue(currentTotal),
-                    FormatValue(Datas.SumDataValue(currentTotal, shipTotal)),
-                    FormatValue(Datas.SumDataValue(currentTotal, shipTotal, Total, max: (name == "maxStage")))
+                    Utility.FormatDatasValue(currentTotal),
+                    Utility.FormatDatasValue(Datas.SumDataValue(currentTotal, shipTotal)),
+                    Utility.FormatDatasValue(Datas.SumDataValue(currentTotal, shipTotal, Total, max: (name == "maxStage")))
                 );
                 title.AddToClassList("totalRow");
                 parent.Add(title);
@@ -341,9 +325,9 @@ public class SettingUI : MonoBehaviour
             }
             else
             {
-                string current = FormatValue(field.GetValue(Datas.Instance.current));
-                string total = FormatValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), max: (field.Name == "maxStage")));
-                string ship = FormatValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), field.GetValue(Datas.Instance.total), max: (field.Name == "maxStage")));
+                string current = Utility.FormatDatasValue(field.GetValue(Datas.Instance.current));
+                string total = Utility.FormatDatasValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), max: (field.Name == "maxStage")));
+                string ship = Utility.FormatDatasValue(Datas.SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip), field.GetValue(Datas.Instance.total), max: (field.Name == "maxStage")));
                 // verif name == "maxStage"
                 parent.Add(createStatLine(name, current, ship, total));
             }
@@ -382,22 +366,6 @@ public class SettingUI : MonoBehaviour
         return line;
     }
 
-    private string FormatValue(object value)
-    {
-        //if (value2 != null && value.GetType() == value2.GetType()) return FormatValue(value);
-
-        if (value == null) return "null"; 
-
-        if(value is BigNumber bn){
-            return bn.ToString();
-        }
-
-        if (value is float f) {
-            return Utility.TimeToString_dhms((long)f);
-        }
-
-        return value.ToString();
-    }
 
 
 
