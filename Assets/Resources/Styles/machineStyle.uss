@@ -166,7 +166,7 @@
 .machineEmployeeLogo {
     background-image: url("project://database/Assets/art/Characters/ouvrier.png?fileID=2800000&guid=1186e9fd2ada2ac458fad5e4fdcf5e05&type=3#ouvrier");
     position: absolute;
-    top: 56%;
+    top: 60%;
     left: 23%;
     width: 5%;
     height: auto;
@@ -327,8 +327,23 @@
     width: initial;
     top: 14.5%;
     left: 5.5%;
-    background-image: resource("logos/iron/anvil");
+    background-image: resource("logos/Wood/Hache");
     aspect-ratio: 1.2;
     overflow: visible;
     font-size: 10px;
+}
+
+.lockBorderButtons {
+    flex-direction: row;
+    top: 70%;
+    position: absolute;
+    width: 20%;
+    justify-content: center;
+    align-self: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: flex;
+    overflow: visible;
+    height: 18%;
+    background-color: rgba(255, 0, 0, 0);
 }

@@ -16,4 +16,16 @@ public class Consts
 
     public static string[] MACHINE_IRON_NAMES = { "Enclume", "forgeuse", "forgeuses" };
     public static string[] MACHINE_WOOD_NAMES = { "Hache", "Scie", "Tronçonneuse" };
+
+    public static Color[] BORDERS_COLORS =
+    {    
+         new Color(1f, 1f, 1f),
+         new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f),
+         new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f),
+         new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f),
+         new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f),
+         new Color(0f, 0f, 0f),
+    };
+
+    public static readonly int[] BORDER_EMPLOYEE = { 0, 1, 2, 4, 6, 10 };
 }

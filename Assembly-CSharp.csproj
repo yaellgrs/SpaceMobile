@@ -93,6 +93,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\Scripts\UI\BorderUI.cs" />
     <Compile Include="Assets\Scripts\UI\menu\ShopUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\UI\machines\machineElement.cs" />
     <Compile Include="Assets\Scripts\Ads\Ads.cs" />
+    <Compile Include="Assets\Scripts\UI\BuyBorderElement.cs" />
     <Compile Include="Assets\Scripts\meteorBoss.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesElement.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
@@ -164,6 +166,7 @@
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.dll" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - AFL.txt" />
+    <None Include="Assets\Resources\Styles\LockBorderStyle.uss" />
     <None Include="Assets\UI\Shop\diamonds.uxml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.iOS.dll" />
@@ -223,6 +226,7 @@
     <None Include="Assets\UI\UraniumUpdate.uxml" />
     <None Include="Assets\UI\menu\tutorial.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\UI\BorderUI.uxml" />
     <None Include="Assets\UI\xpUI.uxml" />
     <None Include="Assets\UI\menu\menuUSS.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Android.dll" />
@@ -245,6 +249,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\UI\AdsUI.uxml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\Resources\Styles\BuyBorderStyle.uss" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

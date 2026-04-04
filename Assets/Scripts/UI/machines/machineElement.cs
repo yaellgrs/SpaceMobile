@@ -31,12 +31,9 @@ public class machineData
     }
     //constantes
     public static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
-    public static readonly int[] cps = { 0, 1, 2, 4, 6, 10 };
 
-    public static readonly Color bronze = new Color(208 / 255.0f, 144 / 255.0f, 95 / 255.0f);
-    public static readonly Color silver = new Color(130 / 255.0f, 130 / 255.0f, 130 / 255.0f);
-    public static readonly Color gold = new Color(201 / 255.0f, 152 / 255.0f, 44 / 255.0f);
-    public static readonly Color diamand = new Color(2 / 255.0f, 208 / 255.0f, 202 / 255.0f);
+
+
 
     //variables
     public int levelMax = 100;
@@ -98,6 +95,9 @@ public partial class machineElement : Button
     [JsonIgnore] public Label Lbl_name;
     [JsonIgnore] public VisualElement VE_logo;
 
+    [JsonIgnore] public VisualElement VE_LockBorderButtons;
+
+
     //parent
 
     #endregion
@@ -138,6 +138,7 @@ public partial class machineElement : Button
         Lbl_reward = new Label();
         Lbl_name = new Label();
         VE_logo = new VisualElement();
+        VE_LockBorderButtons = new VisualElement();
 
         Lbl_level.text = "Lv : 1/5";
         Lbl_employee.text = "x0";
@@ -155,6 +156,23 @@ public partial class machineElement : Button
         Lbl_reward.AddToClassList("machineReward");
         Lbl_name.AddToClassList("machineName");
         Lbl_level.AddToClassList("machineLevel");
+        VE_LockBorderButtons.AddToClassList("lockBorderButtons");
+
+        LockBorderElement lockBorder = new LockBorderElement(borderColor.bronze, true);
+        lockBorder.name = "bronze";
+        VE_LockBorderButtons.Add(lockBorder);
+        LockBorderElement lockBorder2 = new LockBorderElement(borderColor.iron, true);
+        lockBorder2.name = "iron";
+        VE_LockBorderButtons.Add(lockBorder2);
+        LockBorderElement lockBorder3 = new LockBorderElement(borderColor.gold, true);
+        lockBorder3.name = "gold";
+        VE_LockBorderButtons.Add(lockBorder3);
+        LockBorderElement lockBorder4 = new LockBorderElement(borderColor.diamand, true);
+        lockBorder4.name = "diamad";
+        VE_LockBorderButtons.Add(lockBorder4);
+        LockBorderElement lockBorder5 = new LockBorderElement(borderColor.black, false);
+        lockBorder5.name = "black";
+        VE_LockBorderButtons.Add(lockBorder5);
 
         Add(Lbl_level);
 
@@ -163,6 +181,7 @@ public partial class machineElement : Button
         Add(Lbl_reward);
         Add(Lbl_name);
         Add(VE_logo);
+        Add(VE_LockBorderButtons);
 
         InitUpButton();
         InitBuyCover();
@@ -531,12 +550,11 @@ public partial class machineElement : Button
 
         
 
-        Color[] colors = { Color.white, machineData.bronze, machineData.silver, machineData.gold, machineData.diamand, Color.white };
-        style.unityBackgroundImageTintColor = colors[(int)data.color];
-        Btn_up.style.unityBackgroundImageTintColor = colors[(int)data.color];
-        VE_logo.style.unityBackgroundImageTintColor = colors[(int)data.color];
+        style.unityBackgroundImageTintColor = Consts.BORDERS_COLORS[(int)data.color];
+        Btn_up.style.unityBackgroundImageTintColor = Consts.BORDERS_COLORS[(int)data.color];
+        VE_logo.style.unityBackgroundImageTintColor = Consts.BORDERS_COLORS[(int)data.color];
 
-        data.production_cps = machineData.cps[(int)data.color];
+        data.production_cps = Consts.BORDER_EMPLOYEE[(int)data.color];
         data.nextColorlevel = machineData.levelColor[(int)data.color];
     }
 

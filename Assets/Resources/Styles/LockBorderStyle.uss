@@ -1,0 +1,12 @@
+VisualElement {
+}
+
+.LockBorderCheck {
+    background-image: url("project://database/Assets/art/UI/check.png?fileID=2800000&guid=9b1aaa78405ec1847be8ece0a9b758b7&type=3#check");
+    width: 50%;
+    display: flex;
+    position: absolute;
+    aspect-ratio: 1;
+    left: 53%;
+    top: 63%;
+}
