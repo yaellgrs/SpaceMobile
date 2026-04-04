@@ -38,15 +38,16 @@
 }
 
 .machineEmployee {
-    left: 25%;
-    width: 50%;
+    left: 90%;
+    width: 20%;
     color: rgb(255, 255, 255);
     font-size: 20px;
     -unity-font-style: bold;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
     position: absolute;
-    top: 67.5%;
-    -unity-text-align: upper-center;
+    top: initial;
+    -unity-text-align: middle-left;
+    height: 100%;
 }
 
 .machineReward {
@@ -160,6 +161,16 @@
     left: 0;
     -unity-text-align: middle-center;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.machineEmployeeLogo {
+    background-image: url("project://database/Assets/art/Characters/ouvrier.png?fileID=2800000&guid=1186e9fd2ada2ac458fad5e4fdcf5e05&type=3#ouvrier");
+    position: absolute;
+    top: 56%;
+    left: 23%;
+    width: 5%;
+    height: auto;
+    aspect-ratio: 1;
 }
 
 .machineUpButton {

@@ -482,6 +482,7 @@ public class PrestigeUI : BaseUI
 
     private void buyClicked()
     {
+        Stats.Instance.addPrestige(-calculCostPrestige());
         addNewUpgrades(prestigeSelected);
         if (MainUi.Instance.prestigeUI.buyUI.gameObject.activeSelf == true)
             MainUi.Instance.prestigeUI.buyUI.gameObject.SetActive(false);

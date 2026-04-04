@@ -93,6 +93,7 @@ public partial class machineElement : Button
     //other
     [JsonIgnore] public Label Lbl_level;
     [JsonIgnore] public Label Lbl_employee;
+    [JsonIgnore] public VisualElement VE_employeeLogo;
     [JsonIgnore] public Label Lbl_reward;
     [JsonIgnore] public Label Lbl_name;
     [JsonIgnore] public VisualElement VE_logo;
@@ -133,12 +134,13 @@ public partial class machineElement : Button
 
         Lbl_level = new Label();
         Lbl_employee = new Label();
+        VE_employeeLogo = new VisualElement();
         Lbl_reward = new Label();
         Lbl_name = new Label();
         VE_logo = new VisualElement();
 
         Lbl_level.text = "Lv : 1/5";
-        Lbl_employee.text = "Employee : 0";
+        Lbl_employee.text = "x0";
         Lbl_employee.name = "employee";
         Lbl_reward.text = "Reward : 350";
         Lbl_reward.name = "reward";
@@ -149,12 +151,15 @@ public partial class machineElement : Button
 
         VE_logo.AddToClassList("machineLogo");
         Lbl_employee.AddToClassList("machineEmployee");
+        VE_employeeLogo.AddToClassList("machineEmployeeLogo");
         Lbl_reward.AddToClassList("machineReward");
         Lbl_name.AddToClassList("machineName");
         Lbl_level.AddToClassList("machineLevel");
 
         Add(Lbl_level);
-        Add(Lbl_employee);
+
+        Add(VE_employeeLogo);
+        VE_employeeLogo.Add(Lbl_employee);
         Add(Lbl_reward);
         Add(Lbl_name);
         Add(VE_logo);
@@ -265,7 +270,7 @@ public partial class machineElement : Button
         BigNumber RewardInc = new BigNumber(CalculReward(data.level + getMulitplicator()));
         RewardInc.Subtract(CalculReward());
         Lbl_reward.text = $"Reward : {CalculReward().ToString()} <color=green>(+{RewardInc.ToString()})</color>";
-        Lbl_employee.text = "Employee : " + (data.production_cps);
+        Lbl_employee.text = "x" + (data.production_cps).ToString();
         Lbl_employee.text += (GetColorAmount() > 0 )? $"<color=green>(+{GetColorAmount().ToString()})</color>" : "";
         Lbl_level.text = (data.level == data.levelMax) ? "Lv : UP" : $"Lv : {data.level}/{data.levelMax} <color=cyan>(+{getMulitplicator()})</color>";
     }

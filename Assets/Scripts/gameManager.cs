@@ -386,11 +386,13 @@ public class gameManager : MonoBehaviour
                 {meteorType.Uranium, uraniumProb},
                 {meteorType.Diamand, Stats.Instance.diamandProb },
             };
-        SpawnWithProbability(probabilites);
+        //SpawnWithProbability(probabilites);
+        SpawnMeteor(meteorType.Diamand);
     }
     
     private void SpawnWithProbability<T>(Dictionary<T, int> probabilites)
     {
+        
         if (probabilites.Values.Sum() > 1000)
             Debug.LogWarning("Probability sum above 1000");
 

@@ -157,9 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeText: {fileID: 8347547598530196512}
-  ironCollectiblePrefab: {fileID: 1043401879135688721, guid: 6ed58148e22cae1458bd8118a663ba0a, type: 3}
-  uraniumCollectiblePrefab: {fileID: 1043401879135688721, guid: c5e4c466386e3fd449285f1e07028744, type: 3}
-  diamandCollectiblePrefab: {fileID: 1043401879135688721, guid: 7944c6d21ff2ab84098820090648a053, type: 3}
+  collectiblePrefab: {fileID: 1043401879135688721, guid: c5e4c466386e3fd449285f1e07028744, type: 3}
   starParticle: {fileID: 6253564791328759841}
   meteorParticle: {fileID: 4219518427155093783}
   spaceObjectSpeed: 10
