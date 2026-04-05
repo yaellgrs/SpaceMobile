@@ -2,6 +2,7 @@ using GoogleMobileAds.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,7 +33,13 @@ public class machineData
     //constantes
     public static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
 
-
+    public Dictionary<borderColor, BorderBuyType> borderbuys = new Dictionary<borderColor, BorderBuyType>() {
+        {borderColor.bronze, BorderBuyType.unbuyed},
+        {borderColor.iron, BorderBuyType.unbuyed},
+        {borderColor.gold, BorderBuyType.unbuyed},
+        {borderColor.diamand, BorderBuyType.unbuyed},
+        {borderColor.black, BorderBuyType.unbuyed},
+    };
 
 
     //variables
@@ -157,22 +164,7 @@ public partial class machineElement : Button
         Lbl_name.AddToClassList("machineName");
         Lbl_level.AddToClassList("machineLevel");
         VE_LockBorderButtons.AddToClassList("lockBorderButtons");
-
-        LockBorderElement lockBorder = new LockBorderElement(borderColor.bronze, true);
-        lockBorder.name = "bronze";
-        VE_LockBorderButtons.Add(lockBorder);
-        LockBorderElement lockBorder2 = new LockBorderElement(borderColor.iron, true);
-        lockBorder2.name = "iron";
-        VE_LockBorderButtons.Add(lockBorder2);
-        LockBorderElement lockBorder3 = new LockBorderElement(borderColor.gold, true);
-        lockBorder3.name = "gold";
-        VE_LockBorderButtons.Add(lockBorder3);
-        LockBorderElement lockBorder4 = new LockBorderElement(borderColor.diamand, true);
-        lockBorder4.name = "diamad";
-        VE_LockBorderButtons.Add(lockBorder4);
-        LockBorderElement lockBorder5 = new LockBorderElement(borderColor.black, false);
-        lockBorder5.name = "black";
-        VE_LockBorderButtons.Add(lockBorder5);
+        VE_LockBorderButtons.name = "lockBorderButtons";
 
         Add(Lbl_level);
 
@@ -187,8 +179,21 @@ public partial class machineElement : Button
         InitBuyCover();
 
         SetLogos();
+        LoadLockBorders();
     }
 
+    private void LoadLockBorders()
+    {
+        VE_LockBorderButtons.Clear();
+        int i = 0;
+        foreach (var val in data.borderbuys)
+        {
+            if (data.level < machineData.levelColor[(int)val.Key - 1]) continue;
+            LockBorderElement lockBorder = new LockBorderElement(this, val.Key, val.Value);
+            VE_LockBorderButtons.Add(lockBorder);
+            i++;
+        }
+    }
 
 
     private void InitUpButton()
@@ -276,6 +281,9 @@ public partial class machineElement : Button
         upMachineCostText();
         LoadMachineInfos();
 
+        SetLogos();
+        LoadLockBorders();
+
         clicked -= StartProduction;
         clicked += StartProduction;
         Btn_up.clicked -= LevelUp;
@@ -345,7 +353,6 @@ public partial class machineElement : Button
         data.multiplicator = Mathf.Min(UpMode.Instance.upModeMultiplicator, getLimitLevel() - data.level);
 
 
-        setMaxColor();
         Lbl_upCost.text = CalculLevelUpCost().ToString();
 
         if (QuestManager.Instance.type == QuestType.UpgradeMachine)
@@ -359,27 +366,11 @@ public partial class machineElement : Button
         }
         upMachineCostText();
         LoadMachineInfos();
+
+        LoadLockBorders();
+        //SetBorderColor();
     }
 
-    public void setMaxColor()
-    {
-        int index = -1;
-        for(int i = 0; i < machineData.levelColor.Length; i++)
-        {
-            if (machineData.levelColor[i] <= data.level)
-                index = i;
-            else
-                break;
-        }
-
-        if(index != -1 && index != (int)data.color - 1 )
-        {
-            data.color = (borderColor)(index + 1);
-            if (data.color == borderColor.black)
-                Lbl_upCost.style.display = DisplayStyle.None;
-            SetBorderColor();
-        }
-    }
     
     public virtual void Update(Rect scrollRect)
     {
@@ -417,18 +408,34 @@ public partial class machineElement : Button
         calculedNumber.Set(priceModifier * Stats.Instance.upgradesPriceReducer * 15f); //price * 
         calculedNumber.Multiply(pow, false); //1.75 ** level
 
-        //if (data.level == data.nextColorlevel)
-        //    calculedNumber.Multiply(3, false);
 
         double factor = (System.Math.Pow(r, mult) - 1) / (r - 1);//calcule de la suite géométrique
         calculedNumber.Multiply(factor, false);
-        calculedNumber.Add(addColorCost(data.level, data.level + mult, r), false);
 
         calculedNumber.Normalize();
         return calculedNumber;
     }
 
-    private BigNumber addColorCost(int baseLevel, int endLevel, double r)
+    public BigNumber CalculColorTempPrice(borderColor color)
+    {
+        int level = machineData.levelColor[(int)color];
+        BigNumber price = new BigNumber(data.BN_price * 0.01f);
+        if (price < new BigNumber(1)) price.Set(1);
+
+        double factor = 15.00 * System.Math.Pow(1.25, level) * Stats.Instance.upgradesPriceReducer;
+
+        price.Multiply(factor, false);
+
+        price.Normalize();
+        return price;
+    }
+
+    public int CalculColorLifePrice(borderColor color)
+    {
+        return 25 * (int)color;
+    }
+
+/*    private BigNumber addColorCost(int baseLevel, int endLevel, double r)
     {
         BigNumber priceModifier = new BigNumber(0);
         foreach(int lvColor in machineData.levelColor)
@@ -446,7 +453,7 @@ public partial class machineElement : Button
 
         priceModifier.Normalize();
         return priceModifier;
-    }
+    }*/
 
     private int GetColorAmount()
     {
@@ -521,6 +528,13 @@ public partial class machineElement : Button
     #region ------ adaptativeStyle ------
     protected void SetBorderColor()
     {
+
+        foreach (var val in data.borderbuys)
+        {
+            if (val.Value == BorderBuyType.unbuyed) break;
+            data.color = val.Key;
+        }
+
         StyleSheet blackBorderStyle = Resources.Load<StyleSheet>("styles/machineBlackBorderStyle");
         StyleSheet styleSheet = Resources.Load<StyleSheet>("styles/machineStyle");
 

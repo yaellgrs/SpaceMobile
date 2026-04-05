@@ -8,8 +8,9 @@ public partial class LockBorderElement : Button
     #region --- Elements ---
     VisualElement VE_check;
 
+    private machineElement machine;
     private borderColor borderColor;
-    private bool isBuy;
+    private BorderBuyType buyType;
 
     #endregion
 
@@ -19,10 +20,11 @@ public partial class LockBorderElement : Button
         Init();
     }
 
-    public LockBorderElement(borderColor borderColor, bool isBuy)
+    public LockBorderElement(machineElement machine, borderColor borderColor, BorderBuyType buyType)
     {
+        this.machine = machine;
         this.borderColor = borderColor;
-        this.isBuy = isBuy;
+        this.buyType = buyType;
         Init();
     }
 
@@ -34,6 +36,8 @@ public partial class LockBorderElement : Button
         VE_check = new VisualElement();
 
         VE_check.AddToClassList("LockBorderCheck");
+        AddToClassList("LockBorderElement");
+        AddToClassList("button");
 
 
         style.backgroundColor = Consts.BORDERS_COLORS[(int)borderColor];
@@ -43,11 +47,21 @@ public partial class LockBorderElement : Button
         Add(VE_check);
 
         LoadCheck();
+
+        clicked += Buy;
     }
 
     private void LoadCheck()
     {
-        VE_check.style.display = isBuy ? DisplayStyle.Flex : DisplayStyle.None;
+        VE_check.style.display = buyType == BorderBuyType.unbuyed ? DisplayStyle.None : DisplayStyle.Flex;
+        Color color = buyType == BorderBuyType.permanent ? Color.skyBlue : Color.green;
+        VE_check.style.unityBackgroundImageTintColor = color;
     }
+
+    private void Buy()
+    {
+        BorderUI.Instance?.Open(machine);
+    }
+
 
 }

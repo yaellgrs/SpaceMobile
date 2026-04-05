@@ -5,7 +5,7 @@ using DG.Tweening;
 public class HitEffect : MonoBehaviour
 {
     private static float duration = 0.35f;
-    private static float maxIntensity = 0.65f;
+    private static float maxIntensity = 0.25f;
 
     private int hitEffectAmount = Shader.PropertyToID("_HitEffectAmount");
 

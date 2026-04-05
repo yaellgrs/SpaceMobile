@@ -40,7 +40,9 @@ public class DevTest : MonoBehaviour
             //Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
 
             //Init();
-            
+            MainUi.Instance.settingUI.backClicked();
+            Stats.Instance.reset();
+            QuestStats.Instance.reset();
 
             Stats.Instance.firstConnection = false;
             Stats.Instance.ironUnlocked = true;

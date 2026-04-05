@@ -386,8 +386,8 @@ public class gameManager : MonoBehaviour
                 {meteorType.Uranium, uraniumProb},
                 {meteorType.Diamand, Stats.Instance.diamandProb },
             };
-        //SpawnWithProbability(probabilites);
-        SpawnMeteor(meteorType.Diamand);
+        SpawnWithProbability(probabilites);
+        //SpawnMeteor(meteorType.Diamand);
     }
     
     private void SpawnWithProbability<T>(Dictionary<T, int> probabilites)

@@ -16,8 +16,9 @@ VisualElement {
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     align-self: center;
-    height: 20%;
+    height: 15%;
     width: 100%;
+    margin-top: 7.5%;
 }
 
 .BuyBorderDescription {
@@ -55,9 +56,24 @@ VisualElement {
     color: rgb(255, 255, 255);
     font-size: 22px;
     -unity-font-style: bold;
-    padding-top: 18px;
-    padding-right: 18px;
-    padding-bottom: 18px;
-    padding-left: 18px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
     -unity-text-align: middle-center;
+    flex-direction: row-reverse;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.unity-button__image {
+    width: 25%;
+    aspect-ratio: 1;
+    padding-left: 0;
+    margin-left: 5%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
 }
