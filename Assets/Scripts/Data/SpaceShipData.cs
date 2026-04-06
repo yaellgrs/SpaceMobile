@@ -92,6 +92,8 @@ public class SpaceShipData
                     machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
             }
             machine.data.color = borderColor.white;
+            if (machine.data.BN_price >= new BigNumber(100000))
+                machine.data.isBuyed = false;
             machine.LoadMachine();
             machine.data.level = machineData.levelColor[(int)machine.data.color];
         }
@@ -104,6 +106,9 @@ public class SpaceShipData
                     machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
             }
             machine.data.color = borderColor.white;
+            if (machine.data.BN_price >= new BigNumber(100000) && machine.data.color == borderColor.white)
+                machine.data.isBuyed = false;
+
             machine.LoadMachine();
             machine.data.level = machineData.levelColor[(int)machine.data.color];
         }
