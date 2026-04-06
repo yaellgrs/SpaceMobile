@@ -56,7 +56,7 @@ public class Stats
     [JsonIgnore] public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
 
     //global
-    public int diamand { get; private set; } = 0;
+    public int diamand = 0;
 
     public long lastConnection;
     public bool firstConnection = true;
