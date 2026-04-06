@@ -7,6 +7,7 @@ public class BorderUI : MonoBehaviour
     public static BorderUI Instance;
     public UIDocument document;
 
+    VisualElement VE_main;
     VisualElement VE_container;
     Button Btn_close;
 
@@ -35,7 +36,15 @@ public class BorderUI : MonoBehaviour
         if (machine == null) return;
         var root = document.rootVisualElement;
 
-         VE_container = root.Q<VisualElement>("container");
+        VE_main = root.Q<VisualElement>("main");
+
+        VE_main.AddToClassList("trans");
+        VE_main.schedule.Execute(() =>
+        {
+            VE_main.RemoveFromClassList("trans");
+        }).StartingIn(50);
+
+        VE_container = root.Q<VisualElement>("container");
         Btn_close = root.Q<Button>("close");
 
         Load();
@@ -61,12 +70,29 @@ public class BorderUI : MonoBehaviour
 
     private void OnDisable()
     {
-        
+
     }
 
     public void Close()
     {
-        this.machine = null;
-        document.gameObject.SetActive(false);
+
+        if (VE_main != null)
+        {
+            VE_main.RemoveFromClassList("trans");
+            VE_main.schedule.Execute(() =>
+            {
+                VE_main.AddToClassList("trans");
+            }).StartingIn(50);
+            VE_main.schedule.Execute(() =>
+            {
+                this.machine = null;
+                document.gameObject.SetActive(false);
+            }).StartingIn(500);
+        }
+        else
+        {
+            this.machine = null;
+            document.gameObject.SetActive(false);
+        }
     }
 }

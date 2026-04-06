@@ -433,7 +433,9 @@ public partial class machineElement : Button
 
     public int CalculColorLifePrice(borderColor color)
     {
-        return 25 * (int)color;
+        if ((int)color == 1) return 25;
+        if(data.borderbuys[color] == BorderBuyType.permanent) return 0;
+        return 25 + CalculColorLifePrice(color - 1);
     }
 
 /*    private BigNumber addColorCost(int baseLevel, int endLevel, double r)
