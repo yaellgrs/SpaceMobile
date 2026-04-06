@@ -31,7 +31,7 @@ public class machineData
         this.machineName = machineName;
     }
     //constantes
-    public static readonly int[] levelColor = { 5, 10, 25, 50, 100, 110 };
+    public static readonly int[] levelColor = { 1, 5, 10, 25, 50, 100, 110 };
 
     public Dictionary<borderColor, BorderBuyType> borderbuys = new Dictionary<borderColor, BorderBuyType>() {
         {borderColor.bronze, BorderBuyType.unbuyed},
@@ -59,6 +59,7 @@ public class machineData
     public borderColor color = borderColor.white;
 
     public int production_cps = 0;
+
 
     public override bool Equals(object obj)
     {
@@ -188,7 +189,7 @@ public partial class machineElement : Button
         int i = 0;
         foreach (var val in data.borderbuys)
         {
-            if (data.level < machineData.levelColor[(int)val.Key - 1]) continue;
+            if (data.level < machineData.levelColor[(int)val.Key]) continue;
             LockBorderElement lockBorder = new LockBorderElement(this, val.Key, val.Value);
             VE_LockBorderButtons.Add(lockBorder);
             i++;
@@ -418,7 +419,7 @@ public partial class machineElement : Button
 
     public BigNumber CalculColorTempPrice(borderColor color)
     {
-        int level = machineData.levelColor[(int)color];
+        int level = machineData.levelColor[(int)color + 1];
         BigNumber price = new BigNumber(data.BN_price * 0.01f);
         if (price < new BigNumber(1)) price.Set(1);
 
@@ -531,7 +532,7 @@ public partial class machineElement : Button
 
         foreach (var val in data.borderbuys)
         {
-            if (val.Value == BorderBuyType.unbuyed) break;
+            if (val.Value == BorderBuyType.unbuyed) continue;
             data.color = val.Key;
         }
 
@@ -569,7 +570,6 @@ public partial class machineElement : Button
         VE_logo.style.unityBackgroundImageTintColor = Consts.BORDERS_COLORS[(int)data.color];
 
         data.production_cps = Consts.BORDER_EMPLOYEE[(int)data.color];
-        data.nextColorlevel = machineData.levelColor[(int)data.color];
     }
 
     public bool IsVisibleInScrollView(Rect scrollRect)

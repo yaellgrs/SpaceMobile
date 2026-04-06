@@ -51,7 +51,7 @@ public class BorderUI : MonoBehaviour
 
         foreach (var val in machine.data.borderbuys)
         {
-
+            if (machine.data.level < machineData.levelColor[(int)val.Key]) break;
             BuyBorderElement elem = new BuyBorderElement(machine, val.Key, val.Value);
 
             VE_container.Add(elem);

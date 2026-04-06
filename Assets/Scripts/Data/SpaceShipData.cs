@@ -2,8 +2,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 public enum SpaceShipType { Main };
@@ -77,6 +79,49 @@ public class SpaceShipData
             life.Set(lifeMax.getTotal());
         if (shield.isBigger(shieldMax.getTotal()))
             shield.Set(shieldMax.getTotal());
+    }
+
+    public void Prestige()
+    {
+        foreach(machineElement machine in machinesIron)
+        {
+            machine.data.level = 1;
+            foreach (var val in machine.data.borderbuys.ToList())
+            {
+                if (machine.data.borderbuys[val.Key] == BorderBuyType.temp)
+                    machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
+            }
+            machine.data.color = borderColor.white;
+            machine.LoadMachine();
+            machine.data.level = machineData.levelColor[(int)machine.data.color];
+        }
+        foreach (machineElement machine in machinesUranium)
+        {
+
+            foreach (var val in machine.data.borderbuys.ToList())
+            {
+                if (machine.data.borderbuys[val.Key] == BorderBuyType.temp)
+                    machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
+            }
+            machine.data.color = borderColor.white;
+            machine.LoadMachine();
+            machine.data.level = machineData.levelColor[(int)machine.data.color];
+        }
+        foreach (var upgrade in upgradesIron)
+        {
+            upgrade.data.level = 1;
+            upgrade.Load();
+        }
+        foreach (var upgrade in upgradesUranium)
+        {
+            upgrade.data.level = 1;
+            upgrade.Load();
+        }
+    }
+
+    public void MachinesPrestige()
+    {
+
     }
 
     private void LoadMachines(bool reset = false)

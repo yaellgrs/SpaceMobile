@@ -352,7 +352,10 @@ public class PrestigeUI : BaseUI
 
         Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
         Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
-        Ship.Current.Load(true);
+
+        Ship.Current.Prestige(); // Load(true);
+        foreach(var elem in Ship.Current.machinesIron)
+
 
         gameManager.instance.RestartStage();
 
