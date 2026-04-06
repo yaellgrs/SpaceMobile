@@ -147,9 +147,6 @@ public class UraniumUI : BaseUI
         else
             uraniumUnlockedVE.style.visibility = Visibility.Visible;
 
-        if (!Stats.Instance.uraniumTuto && Ship.Current.HaveUranium())
-            Tuto.Instance.LoadForgeTuto(false);
-
 
     }
 

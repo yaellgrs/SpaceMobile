@@ -76,8 +76,6 @@ public class IronUi : BaseUI
         else
         {
             gameManager.instance.SetPause(true);
-            if (!Stats.Instance.ironTuto)
-                Tuto.Instance.LoadForgeTuto(true);
             loadForgeUI();
 
         }
