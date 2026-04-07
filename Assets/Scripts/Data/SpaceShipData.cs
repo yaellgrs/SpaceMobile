@@ -173,8 +173,8 @@ public class SpaceShipData
         {
             dataUpgradesIron.Clear();   
             dataUpgradesIron[UpgradesIronElement.UpgradeType.Damage] = new UpgradeData(1.425f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.4f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.375f);
+            //dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.4f);
+            //dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.375f);
             dataUpgradesIron[UpgradesIronElement.UpgradeType.Life] = new UpgradeData(1.35f);
             dataUpgradesIron[UpgradesIronElement.UpgradeType.ShootSpeed] = new UpgradeData(1.375f);
 

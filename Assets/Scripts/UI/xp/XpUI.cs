@@ -27,7 +27,7 @@ public class XpUI : MonoBehaviour
 
     public Label damageBonus;
     public Label lifeBonus;
-    public Label shieldBonus;
+    //public Label shieldBonus;
 
 
     void Start()
@@ -56,7 +56,7 @@ public class XpUI : MonoBehaviour
         levelLabel = root.Q<Label>("level");
         damageBonus = root.Q<Label>("damage");
         lifeBonus = root.Q<Label>("life");
-        shieldBonus = root.Q<Label>("shield");
+        //shieldBonus = root.Q<Label>("shield");
 
        
         if (Ship.Current.level == 100) {
@@ -83,7 +83,7 @@ public class XpUI : MonoBehaviour
 
         damageBonus.text = Stats.Instance.damage_Multiplicator_Lvl*100 + "%";
         lifeBonus.text = Stats.Instance.life_Multiplicator_Lvl *100 + "%";
-        shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl *100 + "%";
+        //shieldBonus.text = Stats.Instance.shield_Multiplicator_Lvl *100 + "%";
 
         Utility.InitClickButtonSound(root);
     }

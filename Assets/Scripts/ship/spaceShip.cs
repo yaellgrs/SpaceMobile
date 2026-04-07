@@ -169,28 +169,26 @@ public class spaceShip : MonoBehaviour
         if (boss)
         {
             Debug.LogError("BOOOOOSSS");
-            Ship.Current.shield.Set(0);
+            //Ship.Current.shield.Set(0);
             Ship.Current.life.Set(0);
             return;
         }
 
-        if (Ship.Current.shield >= amount)
-        {
-            Ship.Current.shield -= amount;
-            if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);
-        }
-        else
-        {
-            BigNumber x = new BigNumber(amount);
-            x -= Ship.Current.shield;
-            if (Ship.Current.shield.Mantisse < 0)
-            {
-                Ship.Current.shield.Set(0);
-            }
+        //if (Ship.Current.shield >= amount)
+        //{
+        //    Ship.Current.shield -= amount;
+        //    if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);
+        //}
 
-            Ship.Current.life -= x;
-            if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
-        }
+        //BigNumber x = new BigNumber(amount);
+        //x -= Ship.Current.shield;
+        //if (Ship.Current.shield.Mantisse < 0)
+        //{
+        //    Ship.Current.shield.Set(0);
+        //}
+
+        Ship.Current.life -= amount;
+        if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
         MainUi.Instance.upShieldBar();
     }
 

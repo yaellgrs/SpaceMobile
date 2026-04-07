@@ -357,7 +357,7 @@ public class PrestigeUI : BaseUI
         foreach(var elem in Ship.Current.machinesIron)
 
 
-        gameManager.instance.RestartStage();
+
 
 
         Datas.Instance.Prestige();
@@ -403,6 +403,8 @@ public class PrestigeUI : BaseUI
         Ship.Current.Load();
 
         gameManager.instance.InitGame();
+
+        gameManager.instance.RestartStage();
     }
 
 
