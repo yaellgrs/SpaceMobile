@@ -269,10 +269,18 @@ public class gameManager : MonoBehaviour
         if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
 
         CheckStageBoss();
-        MainUi.Instance.updateStage();
 
         MainUi.Instance.ShowBossLife(bossStage);
 
+        Ship.Current.life = new BigNumber(spaceShip.instance.getMaxLife());
+
+        MainUi.Instance.updateStage();
+    }
+
+    public void RestartStage()
+    {
+        DestroyMeteors();
+        LoadStage();
 
     }
 
@@ -474,18 +482,7 @@ public class gameManager : MonoBehaviour
             Destroy(obj.gameObject);
         }
     }
-    public void RestartStage()
-    {
-        DestroyMeteors();
 
-        meteorKilled = 0;
-        Ship.Current.life = new BigNumber(spaceShip.instance.getMaxLife());
-        Ship.Current.shield = new BigNumber(spaceShip.instance.getMaxShield());
-
-        MainUi.Instance.enemyLabel.text = meteorToKill.ToString();
-        MainUi.Instance.healthBar.style.width = Length.Percent(100);
-        MainUi.Instance.updateStage();
-    }
     public void launchMiniMeteor(Transform trans)
     {
         meteorType type = meteorType.miniMeteor;

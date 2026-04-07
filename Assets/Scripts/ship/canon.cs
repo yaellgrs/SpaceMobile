@@ -11,7 +11,7 @@ public class canon : MonoBehaviour
     public Lazer lazer;
     public Lazer rocket;
 
-    float speed = 100f;
+    float speed = 60f;
     public float degats = 2f;
     float shootTimer = 0.1f;
     float timer = 0f;
