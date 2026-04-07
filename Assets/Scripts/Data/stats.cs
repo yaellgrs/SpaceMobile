@@ -99,6 +99,7 @@ public class Stats
     public float areaSize = 1.25f;
     public float rocketTimerMax = 25f;
     public float rocketMultiplier = 5f;
+    public float lazerSpeed = 1f;
 
     //prestige
     public bool prestigeUnlocked = false; //

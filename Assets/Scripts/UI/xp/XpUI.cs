@@ -70,7 +70,7 @@ public class XpUI : MonoBehaviour
         else
         {
 
-            xpBar.style.width = (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax);
+            xpBar.style.width =Length.Percent(Mathf.Min(100, (float)Ship.Current.BN_xp.GetPercentByDivided(Ship.Current.BN_xpMax)));
             xpLabel.text = Ship.Current.BN_xp.ToString() + "/" + Ship.Current.BN_xpMax.ToString() + "XP";
         }
 
@@ -103,7 +103,7 @@ public class XpUI : MonoBehaviour
                 xpUI.gameObject.SetActive(false);
                 levelUpUI.gameObject.SetActive(false);
                 gameManager.instance.SetPause(false);
-            }).StartingIn(300);
+            }).StartingIn(500);
         }
         else
         {

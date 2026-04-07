@@ -164,15 +164,17 @@ public class spaceShip : MonoBehaviour
 
     public void getDamage(BigNumber amount, bool boss = false)
     {
+
         if (hitEffect != null) hitEffect.ActiveHitEffect();
         if (boss)
         {
+            Debug.LogError("BOOOOOSSS");
             Ship.Current.shield.Set(0);
             Ship.Current.life.Set(0);
             return;
         }
 
-        if (Ship.Current.shield.isBigger(amount))
+        if (Ship.Current.shield >= amount)
         {
             Ship.Current.shield -= amount;
             if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);

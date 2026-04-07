@@ -85,9 +85,9 @@ public class canon : MonoBehaviour
         projectil.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         angle = angle * Mathf.Deg2Rad;
         projectil.transform.position = transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)*0.3f;
-        Vector2 force = direction * speed * rocketSpeed;
+        Vector2 force = direction   ;
         force.Normalize();
-        projectil.GetComponent<Rigidbody2D>().AddForce(force*250);
+        projectil.GetComponent<Rigidbody2D>().AddForce(force * rocketSpeed * speed *Stats.Instance.lazerSpeed);
     }
 
     public void setPause(bool pause)
