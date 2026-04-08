@@ -1,8 +1,6 @@
 
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class OfflineUI : MonoBehaviour 
@@ -118,7 +116,7 @@ public class OfflineUI : MonoBehaviour
             if (m.data.production_cps == 0) //!offline = booster acheté
                 return false;
         }
-        foreach (machineIronElement m in Ship.Current.machinesUranium)
+        foreach (machineUraniumElement m in Ship.Current.machinesUranium)
         {
             if (m.data.production_cps == 0) //!offline = booster acheté
                 return false;

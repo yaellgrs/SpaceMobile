@@ -321,11 +321,11 @@ public class gameManager : MonoBehaviour
     public void getStageReward(float posY, int stage, float fontFactor = 1f)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(1.3f * (Screen.width / 2f), posY * (Screen.height / 3f), 10));
-        float reward;
+        BigNumber reward = new BigNumber(1);
         MarkerType type;
         if (Random.Range(0, 2) == 1)
         {//BN_xp
-            reward = stage * 1.25f * 5;
+            reward *= stage * 1.25f * 5;
             if (Stats.Instance.xpBoostTime > 0)
                 reward *= 2;
             Ship.Current.AddXP(new BigNumber(reward));
@@ -335,14 +335,14 @@ public class gameManager : MonoBehaviour
         {
             if(Ship.Current.HaveUranium() && Random.Range(0, 2) == 1)
             {//uranium 
-                reward = (int)(stage * 0.5f);
+                reward *= (int)(stage * 15f);
                 type = MarkerType.Uranium;
                 Stats.Instance.AddUranium(new BigNumber(reward));
 
             }
             else
             {//iron
-                reward  = (int)(stage * 2.5f);
+                reward  *= 10 *Mathf.Pow(1.2f, stage);
                 type = MarkerType.Iron;
                 Stats.Instance.AddIron(new BigNumber(reward));
             }
