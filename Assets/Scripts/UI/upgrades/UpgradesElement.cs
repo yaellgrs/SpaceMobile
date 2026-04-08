@@ -215,8 +215,6 @@ public partial class UpgradesElement : VisualElement
 
     #region ----- main workflow ----
 
-
-
     protected virtual void LevelUp()
     {
         if (!CanPay() || !haveLevel()) return;

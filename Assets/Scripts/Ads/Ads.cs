@@ -10,7 +10,7 @@ public class Ads : MonoBehaviour
     private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
     private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";*/
 
-    private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
+    private const string _RewardAdUnitId = "ca-app-pub-2287437722164523/1941909652";
     private const string _BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111";
 
     //ca-app-pub-2287437722164523~4568072994

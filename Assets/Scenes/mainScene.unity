@@ -653,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &200111596
 Transform:
   m_ObjectHideFlags: 0
@@ -3389,7 +3389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 519420031}
-  lazer: {fileID: -3228976638706693443, guid: 70b07d6db198bc44c9f2806451f293cb, type: 3}
+  lazer: {fileID: 373326445536111638, guid: b72fee9f32a1e284f891aca59749247d, type: 3}
   rocket: {fileID: 526609577095891960, guid: 7936bec8f29affa429b74aa795474e3a, type: 3}
   degats: 1
   canFire: 1
