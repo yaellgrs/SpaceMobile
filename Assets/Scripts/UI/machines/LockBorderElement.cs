@@ -47,8 +47,6 @@ public partial class LockBorderElement : Button
         Add(VE_check);
 
         LoadCheck();
-
-        clicked += Buy;
     }
 
     private void LoadCheck()
@@ -58,10 +56,6 @@ public partial class LockBorderElement : Button
         VE_check.style.unityBackgroundImageTintColor = color;
     }
 
-    private void Buy()
-    {
-        BorderUI.Instance?.Open(machine);
-    }
 
 
 }

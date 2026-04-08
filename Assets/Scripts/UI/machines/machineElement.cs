@@ -103,7 +103,7 @@ public partial class machineElement : Button
     [JsonIgnore] public Label Lbl_name;
     [JsonIgnore] public VisualElement VE_logo;
 
-    [JsonIgnore] public VisualElement VE_LockBorderButtons;
+    [JsonIgnore] public Button Btn_LockBorderButtons;
 
 
     //parent
@@ -146,7 +146,7 @@ public partial class machineElement : Button
         Lbl_reward = new Label();
         Lbl_name = new Label();
         VE_logo = new VisualElement();
-        VE_LockBorderButtons = new VisualElement();
+        Btn_LockBorderButtons = new Button();
 
         Lbl_level.text = "Lv : 1/5";
         Lbl_employee.text = "x0";
@@ -164,8 +164,8 @@ public partial class machineElement : Button
         Lbl_reward.AddToClassList("machineReward");
         Lbl_name.AddToClassList("machineName");
         Lbl_level.AddToClassList("machineLevel");
-        VE_LockBorderButtons.AddToClassList("lockBorderButtons");
-        VE_LockBorderButtons.name = "lockBorderButtons";
+        Btn_LockBorderButtons.AddToClassList("lockBorderButtons");
+        Btn_LockBorderButtons.name = "lockBorderButtons";
 
         Add(Lbl_level);
 
@@ -174,7 +174,10 @@ public partial class machineElement : Button
         Add(Lbl_reward);
         Add(Lbl_name);
         Add(VE_logo);
-        Add(VE_LockBorderButtons);
+        Add(Btn_LockBorderButtons);
+
+        Btn_LockBorderButtons.clicked -= () => { BorderUI.Instance?.Open(this); };
+        Btn_LockBorderButtons.clicked += () => { BorderUI.Instance?.Open(this); };
 
         InitUpButton();
         InitBuyCover();
@@ -185,13 +188,15 @@ public partial class machineElement : Button
 
     private void LoadLockBorders()
     {
-        VE_LockBorderButtons.Clear();
+        Btn_LockBorderButtons.Clear();
         int i = 0;
+
+
         foreach (var val in data.borderbuys)
         {
             if (data.level < machineData.levelColor[(int)val.Key]) continue;
             LockBorderElement lockBorder = new LockBorderElement(this, val.Key, val.Value);
-            VE_LockBorderButtons.Add(lockBorder);
+            Btn_LockBorderButtons.Add(lockBorder);
             i++;
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class OfflineUI : MonoBehaviour 
@@ -71,7 +72,7 @@ public class OfflineUI : MonoBehaviour
 
         timeLabel.text = Utility.TimeToString_dhms(time);
 
-        if(Ship.Current.level < 12)
+        if(!haveAutomation())
         {
             timeLabel.text = "";
             Lbl_message.text = "You first need to have the automation for this.";
@@ -107,7 +108,22 @@ public class OfflineUI : MonoBehaviour
         {
             offlineUI.gameObject.SetActive(false);
             gameManager.instance.SetPause(false);
-        }).StartingIn(300);
+        }).StartingIn(500);
+    }
+
+    public bool haveAutomation()
+    {
+        foreach (machineIronElement m in Ship.Current.machinesIron)
+        {
+            if (m.data.production_cps == 0) //!offline = booster acheté
+                return false;
+        }
+        foreach (machineIronElement m in Ship.Current.machinesUranium)
+        {
+            if (m.data.production_cps == 0) //!offline = booster acheté
+                return false;
+        }
+        return true;
     }
 
 
