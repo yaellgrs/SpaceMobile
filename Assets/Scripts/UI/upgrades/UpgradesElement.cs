@@ -236,6 +236,7 @@ public partial class UpgradesElement : VisualElement
             //set in load donc j'ai commenté
             //Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
         }
+        Stats.Instance.starPariticul.Normalize();
         Load();
         gameManager.instance.SmallVibrate();
 

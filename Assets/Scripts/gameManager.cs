@@ -268,6 +268,9 @@ public class gameManager : MonoBehaviour
         calculMeteorToKill();
         if (MainUi.Instance.enemyLabel != null) MainUi.Instance.enemyLabel.text = meteorToKill.ToString() + "/" + meteorToKill.ToString();
 
+
+        Datas.Instance.current.maxStage = Mathf.Max(Datas.Instance.current.maxStage, Ship.Current.stage);
+
         CheckStageBoss();
 
         MainUi.Instance.ShowBossLife(bossStage);
