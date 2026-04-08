@@ -24,7 +24,7 @@ public class machineData
     }
     public machineData(string machineName, BigNumber initPrice)
     {
-        if (initPrice < new BigNumber(100000))
+        if (initPrice <= new BigNumber(1000))
             isBuyed = true;
 
         BN_price = initPrice;
@@ -324,10 +324,7 @@ public partial class machineElement : Button
 
             if (this is machineIronElement)
             {
-                if (!Stats.Instance.ironTuto)
-                    Tuto.Instance.AddMachineClicked();
-
-                if (Ship.Current.type == SpaceShipData.SpaceShipElement.Wood)
+                if (QuestManager.Instance.type == QuestType.FarmWood)
                     QuestManager.Instance.upQuest(CalculReward());
             }
             if (!Stats.Instance.dialogues["FirstMachineClick"])
