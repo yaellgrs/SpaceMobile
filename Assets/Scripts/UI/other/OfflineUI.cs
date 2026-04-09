@@ -113,15 +113,15 @@ public class OfflineUI : MonoBehaviour
     {
         foreach (machineIronElement m in Ship.Current.machinesIron)
         {
-            if (m.data.production_cps == 0) //!offline = booster acheté
-                return false;
+            if (m.data.production_cps != 0) //!offline = booster acheté
+                return true;
         }
         foreach (machineUraniumElement m in Ship.Current.machinesUranium)
         {
-            if (m.data.production_cps == 0) //!offline = booster acheté
-                return false;
+            if (m.data.production_cps != 0) //!offline = booster acheté
+                return true;
         }
-        return true;
+        return false;
     }
 
 
