@@ -32,6 +32,7 @@ public class BottomUI : MonoBehaviour
         VE_hide = root.Q<VisualElement>("hide");
 
         Ship.Current.OnTypeChanged += LoadUI;
+
     }
 
     public void LoadUI()
@@ -71,6 +72,18 @@ public class BottomUI : MonoBehaviour
         VE_hide.style.visibility = hide ? Visibility.Visible : Visibility.Hidden;
     }
 
+
+    public void AdaptBanner(bool adapt)
+    {
+
+        Debug.Log("banner height :"  + Ads.Instance.getBannerHeight() + "  Screen.height: " + Screen.height);
+        float bannerHeight = (Ads.Instance.getBannerHeight() / Screen.height) * 45f;
+        float offset = adapt ? -bannerHeight : 1.5f;
+
+        VE_SecondForge.style.top = Length.Percent(offset);
+        VE_MainForge.style.top = Length.Percent(offset);
+        VE_Prestige.style.top = Length.Percent(offset);
+    }
 
     private void OnDisable()
     {

@@ -216,15 +216,18 @@ public class MainUi : MonoBehaviour
 
     public void adaptBanner(bool adapt)
     {
-        Debug.Log("adapt banner : " + adapt);
+        if (VE_main == null)
+            VE_main = mainUI.rootVisualElement.Q<VisualElement>("main");
         if (adapt)
         {
-            VE_main.style.height = Length.Percent(93.5f);
+            float bannerHeight = (0f / Screen.height) * 100f;
+            VE_main.style.height = Length.Percent(100f - bannerHeight);
         }
         else
         {
             VE_main.style.height = Length.Percent(100);
         }
+        BottomUI.Instance.AdaptBanner(adapt);
     }
 
     public void ShowBossLife(bool show)

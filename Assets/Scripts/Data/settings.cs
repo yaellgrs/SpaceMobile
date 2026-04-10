@@ -7,7 +7,7 @@ public class Settings
 
     //settings
     public bool isPausable = true;
-    public bool showBanner = true;
+    public bool showBanner = false;
     public bool isVibrate = true;
     public bool activeSound = true;
     public bool displayDamageMarker = true;

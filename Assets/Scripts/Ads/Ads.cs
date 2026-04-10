@@ -1,26 +1,18 @@
 ﻿using GoogleMobileAds;
 using GoogleMobileAds.Api;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ads : MonoBehaviour
 {
-    /*
-    private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
-    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";*/
-
     private const string _RewardAdUnitId = "ca-app-pub-2287437722164523/1941909652";
-    private const string _BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111";
-
-    //ca-app-pub-2287437722164523~4568072994
-    //ca-app-pub-2287437722164523/3942107179
-    //ca-app-pub-2287437722164523/8457751465
+    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";
 
     private BannerView bannerView;
 
-
-    public enum RewardType { Diamand, Ressources, Resurection ,None};
+    public enum RewardType { Diamand, Ressources, Resurection, None };
 
     public static Ads Instance;
 
@@ -28,19 +20,14 @@ public class Ads : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
-        {
+        if (Instance == null)
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     void Start()
     {
-        // Initialisation de l'AdMob SDK
         MobileAds.Initialize(initStatus =>
         {
             LoadRewardedAd();
@@ -48,52 +35,130 @@ public class Ads : MonoBehaviour
         });
     }
 
+    public float getBannerHeight()
+    {
+        if (bannerView != null)
+            return bannerView.GetHeightInPixels();
+        return 0;
+    }
+
     public void CreateBanner()
     {
-        /*
-        if (bannerView != null)
-            return;
+        if (bannerView != null) return;
 
-        int bannerWidth = Screen.width;
+        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(
+            AdSize.FullWidth
+        );
 
-        // Optionnel : limiter à une largeur max raisonnable pour le SDK
-        bannerWidth = Mathf.Min(bannerWidth, 10);
-
-
-        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(bannerWidth);
-
+        // Création avec position temporaire (0,0)
         bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+#if UNITY_EDITOR
+        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+#else
+    bannerView = new BannerView(_BannerAdUnitId, adSize, 0, 0);
+#endif
 
         AdRequest request = new AdRequest();
 
-
-
         bannerView.OnBannerAdLoaded += () =>
         {
-            Debug.Log("✅ Banner loaded");
+        #if !UNITY_EDITOR
+                    int yPos = GetBannerYPositionDp();
+                    bannerView.SetPosition(0, yPos);
+        #endif
             if (Settings.Instance.showBanner)
+            {
                 bannerView.Show();
+                MainUi.Instance.adaptBanner(true);
+                BottomUI.Instance.AdaptBanner(true);
+            }
+            else
+            {
+                bannerView.Hide();
+            }
         };
 
         bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
         {
-            Debug.LogError("❌ Banner failed to load: " + error);
+            Debug.LogError("Banner failed to load: " + error);
         };
 
         bannerView.LoadAd(request);
+    }
 
-        ShowBannerDelayed(1f);*/
+    private int GetNavBarHeightDp()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var resources = activity.Call<AndroidJavaObject>("getResources"))
+            using (var metrics = resources.Call<AndroidJavaObject>("getDisplayMetrics"))
+            {
+                float density = metrics.Get<float>("density");
+                int resourceId = resources.Call<int>("getIdentifier",
+                    "navigation_bar_height", "dimen", "android");
+
+                if (resourceId > 0)
+                {
+                    int heightPx = resources.Call<int>("getDimensionPixelSize", resourceId);
+                    return Mathf.RoundToInt(heightPx / density);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("GetNavBarHeightDp error: " + e);
+        }
+#endif
+        return 0;
+    }
+
+    private int GetBannerYPositionDp()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var resources = activity.Call<AndroidJavaObject>("getResources"))
+            using (var metrics = resources.Call<AndroidJavaObject>("getDisplayMetrics"))
+            {
+                float density = metrics.Get<float>("density");
+
+                int screenHeightPx = metrics.Get<int>("heightPixels");
+                int screenHeightDp = Mathf.RoundToInt(screenHeightPx / density);
+
+                int bannerHeightDp = Mathf.RoundToInt(bannerView.GetHeightInPixels() / density);
+
+                int navBarDp = GetNavBarHeightDp();
+
+                int yPos = screenHeightDp - bannerHeightDp - navBarDp;
+                Debug.Log($"Banner Y = {yPos}dp (screen={screenHeightDp}, banner={bannerHeightDp}, nav={navBarDp})");
+                return yPos;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("GetBannerYPositionDp error: " + e);
+        }
+#else
+        // Fallback éditeur : simule une nav bar de 48dp
+        int screenHeightDp = Mathf.RoundToInt(Screen.height / (Screen.dpi / 160f));
+        int bannerHeightDp = Mathf.RoundToInt(bannerView.GetHeightInPixels() / (Screen.dpi / 160f));
+        return screenHeightDp - bannerHeightDp - 48;
+#endif
     }
 
     private IEnumerator ShowBannerDelayed(float delay)
     {
         yield return new WaitForSeconds(delay);
-        ShowBanner(true);
+        ShowBanner(Settings.Instance.showBanner);
     }
 
     public void ShowBanner(bool show)
     {
-        /*
         if (show)
         {
             bannerView?.Show();
@@ -103,7 +168,7 @@ public class Ads : MonoBehaviour
         {
             bannerView?.Hide();
             MainUi.Instance.adaptBanner(false);
-        }*/
+        }
     }
 
     public void HideBanner()
@@ -111,15 +176,14 @@ public class Ads : MonoBehaviour
         bannerView?.Hide();
     }
 
-
     public void LoadRewardedAd()
     {
-        // Détruit l'ancienne pub si elle existe
         if (_rewardedAd != null)
         {
             _rewardedAd.Destroy();
             _rewardedAd = null;
         }
+
         var adRequest = new AdRequest();
 
         RewardedAd.Load(_RewardAdUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
@@ -130,34 +194,18 @@ public class Ads : MonoBehaviour
                 return;
             }
             _rewardedAd = ad;
-
             Debug.Log("Rewarded ad loaded");
 
-            // Abonnements aux événements utiles
-            _rewardedAd.OnAdFullScreenContentClosed += () =>
-            {
-                LoadRewardedAd(); // Recharge pour plus tard
-            };
-            _rewardedAd.OnAdFullScreenContentFailed += (AdError error) =>
-            {
-                LoadRewardedAd();
-            };
+            _rewardedAd.OnAdFullScreenContentClosed += () => LoadRewardedAd();
+            _rewardedAd.OnAdFullScreenContentFailed += (AdError err) => LoadRewardedAd();
         });
     }
 
-
-
     public void ShowRewardedAd(RewardType type)
     {
-        Debug.Log("ShowRewardedAd");
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
-            Debug.Log("Showing ad");
-            _rewardedAd.Show((Reward reward) =>
-            {
-                // Ajoute ici la récompense pour le joueur
-                GetReward(type);
-            });
+            _rewardedAd.Show((Reward reward) => GetReward(type));
         }
         else
         {
@@ -178,20 +226,12 @@ public class Ads : MonoBehaviour
                 break;
             case RewardType.Resurection:
                 Stats.Instance.ReduceLifeBoss = true;
-                Debug.Log("Resurection given");
                 Stats.Instance.deadPubWatch++;
                 ResurectionUI.Instance.Resurection();
                 break;
         }
     }
 
-    public static BigNumber getIronAdsReward()
-    {
-        return OfflineUI.calculOfflineIronEarn(150, false);
-    }
-
-    public static BigNumber getUraniumAdsReward()
-    {
-         return OfflineUI.calculOfflineUraniumEarn(150, false);
-    }
+    public static BigNumber getIronAdsReward() => OfflineUI.calculOfflineIronEarn(150, false);
+    public static BigNumber getUraniumAdsReward() => OfflineUI.calculOfflineUraniumEarn(150, false);
 }

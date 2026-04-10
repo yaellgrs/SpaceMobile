@@ -29,11 +29,6 @@ public class SettingUI : MonoBehaviour
     private VisualElement menuVE;
 
     //bonus
-    private Label damageTotal;
-    private Label damageBoost;
-    private Label damagePrestige;
-    private Label damageLevel;
-    private Label damageLevelPerm;
     /*    private Label starTotal;
         private Label starLevel;
         private Label starPrestige;*/

@@ -479,6 +479,7 @@ public partial class machineElement : Button
         BigNumber reward = new BigNumber(1);
         reward.Multiply(Mathf.Pow(1.175f, lvl)); //  1.2^reallevel * ( 0.5 * initialTIme^2 )
         reward.Add(lvl - 1);
+        if (Settings.Instance.showBanner) reward *= Consts.BANNER_REWARD;
 
         BigNumber machinePriceModifier = data.BN_price * 0.00085f;
         if (machinePriceModifier > new BigNumber(1)) reward *= machinePriceModifier;

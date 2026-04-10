@@ -6,6 +6,7 @@ public class Consts
 
     public const int BASE_STELLAR_METEOR_PROBABILITY = 5; // 0.5%  - 2%
     public const int BASE_STELLAR_BOSS_PROBABILITY = 200; // 20%   -  >100% 
+    public const float BANNER_REWARD = 1.25f;
 
     public static Color[] SHIP_COLOR ={
         Utility.Hex("#B07C61"), //Wood

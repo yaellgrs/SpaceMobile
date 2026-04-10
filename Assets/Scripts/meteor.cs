@@ -396,6 +396,7 @@ public class spaceObject : MonoBehaviour
             result *= 2;
         }
         result *= Stats.Instance.XpMultiplicator;
+        if(Settings.Instance.showBanner)result *= Consts.BANNER_REWARD;
         return result;
     }
 
