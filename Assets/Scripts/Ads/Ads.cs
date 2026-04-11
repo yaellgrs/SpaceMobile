@@ -149,6 +149,8 @@ public class Ads : MonoBehaviour
         int bannerHeightDp = Mathf.RoundToInt(bannerView.GetHeightInPixels() / (Screen.dpi / 160f));
         return screenHeightDp - bannerHeightDp - 48;
 #endif
+
+        return 0;
     }
 
     private IEnumerator ShowBannerDelayed(float delay)

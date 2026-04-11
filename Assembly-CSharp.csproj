@@ -208,6 +208,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.dll" />
     <None Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\link.xml" />
+    <None Include="Assets\AddressableAssetsData\link.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Samples\Shader Graph\Common\Subgraphs\SampleReflectionProbes.hlsl" />
     <None Include="Assets\UI\Quest\QuestUITest.uxml" />
