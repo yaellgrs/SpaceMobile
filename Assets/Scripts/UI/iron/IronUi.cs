@@ -95,6 +95,20 @@ public class IronUi : BaseUI
             ironLabel.text = Ship.Current.iron.ToString();
     }
 
+    public void adaptBanner(bool adapt)
+    {
+        if (forgeUiVE == null) return;
+            //forgeUiVE = forgeUI.rootVisualElement.Q<VisualElement>("forgeUI");
+        if (adapt)
+        {
+            forgeUiVE.style.height = Length.Percent(100f - Ads.Instance.getBannerHeight());
+        }
+        else
+        {
+            forgeUiVE.style.height = Length.Percent(100);
+        }
+    }
+
     protected override void upModeButtonClicked()
     {
         base.upModeButtonClicked();
@@ -123,6 +137,8 @@ public class IronUi : BaseUI
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("forgeUI");
         VE_ironLogo = root.Query<VisualElement>("ironLogo");
+
+        adaptBanner(Settings.Instance.showBanner);
 
         SV_scroll = root.Query<ScrollView>("scroll");
         if (!stopAnim)

@@ -38,7 +38,7 @@ public class Ads : MonoBehaviour
     public float getBannerHeight()
     {
         if (bannerView != null)
-            return bannerView.GetHeightInPixels();
+            return ( bannerView.GetHeightInPixels()/ Screen.height) * 50f; ;
         return 0;
     }
 

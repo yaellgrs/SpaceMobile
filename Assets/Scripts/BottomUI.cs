@@ -76,9 +76,7 @@ public class BottomUI : MonoBehaviour
     public void AdaptBanner(bool adapt)
     {
 
-        Debug.Log("banner height :"  + Ads.Instance.getBannerHeight() + "  Screen.height: " + Screen.height);
-        float bannerHeight = (Ads.Instance.getBannerHeight() / Screen.height) * 45f;
-        float offset = adapt ? -bannerHeight : 1.5f;
+        float offset = adapt ? -Ads.Instance.getBannerHeight() : 1.5f;
 
         VE_SecondForge.style.top = Length.Percent(offset);
         VE_MainForge.style.top = Length.Percent(offset);

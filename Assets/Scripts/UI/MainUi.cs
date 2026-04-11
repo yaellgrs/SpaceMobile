@@ -220,13 +220,13 @@ public class MainUi : MonoBehaviour
             VE_main = mainUI.rootVisualElement.Q<VisualElement>("main");
         if (adapt)
         {
-            float bannerHeight = (0f / Screen.height) * 100f;
-            VE_main.style.height = Length.Percent(100f - bannerHeight);
+            VE_main.style.translate = new Translate(0, -Ads.Instance.getBannerHeight());
         }
         else
         {
-            VE_main.style.height = Length.Percent(100);
+            VE_main.style.translate = new Translate(0, 0);
         }
+        //ironUI.adaptBanner(adapt);
         BottomUI.Instance.AdaptBanner(adapt);
     }
 
