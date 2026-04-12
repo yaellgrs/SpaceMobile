@@ -230,6 +230,8 @@ public class PrestigeUI : BaseUI
         black = root.Q<VisualElement>("black");
         forgeUiVE = root.Q<VisualElement>("main");
 
+        adaptBanner(Settings.Instance.showBanner);
+
         if (classActived)
         {
             classActived = false;
@@ -568,6 +570,8 @@ public class PrestigeUI : BaseUI
 
         Btn_buy = root.Q<Button>("buy");
         Lbl_cost = root.Q<Label>("cost");
+
+        adaptBanner(Settings.Instance.showBanner);
 
         VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
         VisualElement isLastShip = root.Q<VisualElement>("isLastShip");

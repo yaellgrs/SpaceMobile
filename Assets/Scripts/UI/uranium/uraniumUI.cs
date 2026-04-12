@@ -105,6 +105,7 @@ public class UraniumUI : BaseUI
         forgeUiVE = root.Q<VisualElement>("forgeUI");
         SV_scroll = root.Q<ScrollView>("scroll");
 
+        adaptBanner(Settings.Instance.showBanner);
 
         SV_scroll.Clear();
 
@@ -159,6 +160,8 @@ public class UraniumUI : BaseUI
         uraniumLabel = root.Q<Label>("uranium");
         forgeUiVE = root.Q<VisualElement>("forgeUI");
         upUraniumLabel();
+
+        adaptBanner(Settings.Instance.showBanner);
 
         //scroll
         ScrollView scroll = root.Q<ScrollView>("scroll");

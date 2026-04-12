@@ -11,7 +11,7 @@ public class BaseUI : MonoBehaviour
 
     //ui général
     private Button backButton;
-    private Button backButton2;
+    protected Button backButton2;
     private Button upgradeButton;
     private Button forgeButton;
     private Button upModeButton;
@@ -40,6 +40,22 @@ public class BaseUI : MonoBehaviour
         //initializeMachine();
         initializeUpgrade();
 
+    }
+
+    public void adaptBanner(bool adapt)
+    {
+        if (forgeUiVE == null) return;
+        //forgeUiVE = forgeUI.rootVisualElement.Q<VisualElement>("forgeUI");
+        if (adapt)
+        {
+            forgeUiVE.style.top = Length.Percent(-Ads.Instance.getBannerHeight());
+            backButton2.style.top = Length.Percent(-Ads.Instance.getBannerHeight());
+        }
+        else
+        {
+            forgeUiVE.style.top = Length.Percent(0);
+            backButton2.style.top = Length.Percent(0);
+        }
     }
 
     public virtual void InitMachines()
