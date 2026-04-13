@@ -158,6 +158,9 @@ public class ShopUI : MonoBehaviour
         shopUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
 
+        DialogueManager.Instance.TryDialogue("FirstShopOpen");
+        
+
         var root = shopUI.rootVisualElement;
 
         main = root.Q<VisualElement>("main");

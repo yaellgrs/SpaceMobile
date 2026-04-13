@@ -1106,7 +1106,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 420f1a79e0887ad469c3adf5e7d3f6b8, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 0ee13bba64c605840a1e967f9af9931c, type: 3}
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -3644,7 +3644,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 420f1a79e0887ad469c3adf5e7d3f6b8, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 137c8db9bf90fd94ea2302606164f200, type: 3}
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -5273,6 +5273,14 @@ GameObject:
   - component: {fileID: 1710157089}
   - component: {fileID: 1710157088}
   - component: {fileID: 1710157087}
+  - component: {fileID: 1710157104}
+  - component: {fileID: 1710157102}
+  - component: {fileID: 1710157101}
+  - component: {fileID: 1710157100}
+  - component: {fileID: 1710157099}
+  - component: {fileID: 1710157098}
+  - component: {fileID: 1710157106}
+  - component: {fileID: 1710157105}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5308,7 +5316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 316.19092, y: 385.285}
+  scrollPos: {x: 481.26923, y: 82.40122}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 351
@@ -5320,9 +5328,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1710157097}
+  - {fileID: 1710157104}
   selectedCommands:
-  - {fileID: 1710157092}
+  - {fileID: 1710157106}
   variables: []
   description: 
   stepPause: 0
@@ -5788,7 +5796,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -243.18217
     y: -192.22046
-    width: 140.008
+    width: 140.01001
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6059,7 +6067,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -242.63138
     y: -138.85576
-    width: 137.376
+    width: 137.38
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6243,7 +6251,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -243.16426
     y: -85.91328
-    width: 150.864
+    width: 150.86
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6479,8 +6487,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -241.82298
-    y: -27.085
-    width: 154.648
+    y: -29.085
+    width: 154.65
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6735,8 +6743,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -243.71487
-    y: 29.714989
-    width: 170.416
+    y: 28.714989
+    width: 170.42
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6756,6 +6764,192 @@ MonoBehaviour:
   - {fileID: 1710157091}
   - {fileID: 1710157090}
   suppressAllAutoSelections: 0
+--- !u!114 &1710157098
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 140
+  indentLevel: 0
+  storyText: "Pff, je d\xE9truis ce que je vois de toute fa\xE7on."
+  description: 
+  character: {fileID: 849192706}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157099
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 139
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: EndDialogue
+  delay: 0
+--- !u!114 &1710157100
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 137
+  indentLevel: 0
+  storyText: "Figure toi qu\u2019elle te donne une monnaie exceptionnelle qui te
+    permet d\u2019obtenir des boosts, des ouvriers \xE0 vie et pleins d\u2019autres
+    r\xE9compenses que je te laisserai d\xE9couvrir."
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157101
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 136
+  indentLevel: 0
+  storyText: "As-tu remarqu\xE9 ces petites m\xE9t\xE9orites bleues hyper rapides
+    ?"
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157102
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Wait
+  itemId: 135
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 0.5
+  durationOLD: 0
+--- !u!114 &1710157104
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Block
+  nodeRect:
+    serializedVersion: 2
+    x: -255.88794
+    y: 205.36588
+    width: 134.67
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 141
+  blockName: FirstShopOpen
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1710157106}
+  - {fileID: 1710157102}
+  - {fileID: 1710157101}
+  - {fileID: 1710157098}
+  - {fileID: 1710157100}
+  - {fileID: 1710157105}
+  - {fileID: 1710157099}
+  suppressAllAutoSelections: 0
+--- !u!114 &1710157105
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 143
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: UnHide
+  delay: 0
+--- !u!114 &1710157106
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 142
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: Hide
+  delay: 0
 --- !u!1 &1752593082
 GameObject:
   m_ObjectHideFlags: 0

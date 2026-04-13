@@ -18,17 +18,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
-
-        // Supprime les EventSystems en double
-        //var allEventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
-        //if (allEventSystems.Length > 1)
-        //{
-        //    for (int i = 1; i < allEventSystems.Length; i++)
-        //    {
-        //        Debug.Log($"EventSystem supprimé : {allEventSystems[i].gameObject.name}");
-        //        Destroy(allEventSystems[i].gameObject);
-        //    }
-        //}
     }
 
     private void Start()
@@ -44,6 +33,22 @@ public class DialogueManager : MonoBehaviour
         //StartDialogue();
 
         flowChart.ExecuteBlock(blockName);
+    }
+
+    public void TryDialogue(string dialogue)
+    {
+        Debug.Log("try dialogue " + dialogue);
+        if (!Stats.Instance.dialogues.ContainsKey(dialogue))
+        {
+            Debug.Log("Dialogue " + dialogue + " doesn't exist.");
+            return;
+        }
+        if(!Stats.Instance.dialogues[dialogue])
+        {
+            ExecuteBlock(dialogue);
+            Stats.Instance.dialogues[dialogue] = true;
+            Stats.Instance.save();
+        }   
     }
 
     #region GENERAL
