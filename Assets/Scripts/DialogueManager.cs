@@ -33,22 +33,24 @@ public class DialogueManager : MonoBehaviour
         //StartDialogue();
 
         flowChart.ExecuteBlock(blockName);
+
     }
 
-    public void TryDialogue(string dialogue)
+    public bool TryDialogue(string dialogue)
     {
-        Debug.Log("try dialogue " + dialogue);
         if (!Stats.Instance.dialogues.ContainsKey(dialogue))
         {
             Debug.Log("Dialogue " + dialogue + " doesn't exist.");
-            return;
+            return false;
         }
         if(!Stats.Instance.dialogues[dialogue])
         {
             ExecuteBlock(dialogue);
             Stats.Instance.dialogues[dialogue] = true;
             Stats.Instance.save();
-        }   
+            return true;
+        }
+        return false;
     }
 
     #region GENERAL
@@ -59,7 +61,6 @@ public class DialogueManager : MonoBehaviour
         MainUi.Instance.ShowMenu(false);
         BottomUI.Instance.Show(false);
         gameManager.instance.spawnMeteor = false;
-        Debug.Log("start dialogue");
 
     }
 
@@ -85,18 +86,23 @@ public class DialogueManager : MonoBehaviour
 
     public void Hide()
     {
-        BottomUI.Instance.Hide(true);
+        DialogueUI.Instance.Hide(true);
     }
 
     public void UnHide()
     {
-        BottomUI.Instance.Hide(false);
+        DialogueUI.Instance.Hide(false);
     }
 
     public void IronDialogue()
     {
         MainUi.Instance.ironUI.IronClicked();
         MainUi.Instance.questUI.LoadWithDelay();
+    }
+
+    public void SetFirstBoss()
+    {
+        Stats.Instance.firstBoss = true;
     }
 
     #endregion

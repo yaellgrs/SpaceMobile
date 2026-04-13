@@ -34,7 +34,14 @@ public class meteorBoss : spaceObject
         setTimerLimit();
         setAnimation();
         attackTimer = ATTACK_TIMER_LIMITE;
+
+
+        Move();
+        DialogueManager.Instance.TryDialogue("FirstBoss");
+
+
     }
+
     protected override bool CanBeStellar()
     {
         return true;
@@ -70,6 +77,12 @@ public class meteorBoss : spaceObject
     // Update is called once per frame
     protected override void Update()
     {
+        if(Stats.Instance.firstBoss && Stats.Instance.dialogues["FirstBoss"])
+        {
+            Debug.Log("First boss slow motion");
+            gameManager.instance.ActiveSlowMotion(4f);
+        }
+
         if (gameManager.instance.isPaused) { return; }
         base.Update();
         statutTimer += Time.deltaTime;
@@ -179,6 +192,7 @@ public class meteorBoss : spaceObject
 
     private bool canAttack()
     {
+        return false;
         if (bossType == BossType.Speed) return false;
         else return wave <= 3;
     }
@@ -208,6 +222,14 @@ public class meteorBoss : spaceObject
 
             Stats.Instance.prestigeUnlocked = true;
             if (reload) BottomUI.Instance.LoadUI();
+        }
+
+        if (Stats.Instance.firstBoss)
+        {
+            Stats.Instance.firstBoss = false;
+            UpSpeed.Instance.setSpeed(1f);
+            gameManager.instance.ActiveSlowMotionVolume(false);
+            DialogueManager.Instance.TryDialogue("FirstBossKill");
         }
     }
 

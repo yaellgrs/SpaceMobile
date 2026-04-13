@@ -139,7 +139,10 @@ public class gameManager : MonoBehaviour
             autoSaveTimer = 0f;
         }
 
-        if (Stats.Instance.firstConnection) KillFirstMeteor();
+        if (Stats.Instance.firstConnection) { 
+            ActiveSlowMotion(2f);
+            BottomUI.Instance.Show(false);
+        }
 
         updateWarning();
         updateDeadVolume();
@@ -147,21 +150,23 @@ public class gameManager : MonoBehaviour
 
     }
 
-    public void KillFirstMeteor()
+    public bool ActiveSlowMotion(float distance)
     {
-        if (meteors.Count <= 0) return;
+        if (meteors.Count <= 0) return false;
 
         spaceObject meteor = meteors[0];
 
-        if(Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position ) < 2f)
+        if(Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position ) < distance)
         {
-            Debug.Log("SLOWINGG");
-            BottomUI.Instance.Show(false);
+
             UpSpeed.Instance.setSpeed(0.1f);
             meteor.Move();
             meteor.loadSpeed();
             ActiveSlowMotionVolume(true);
+            return true;
         }
+
+        return false;
     }
 
     public void updateWarning()
@@ -309,9 +314,9 @@ public class gameManager : MonoBehaviour
 
         Dictionary<BossType, int> probabilites = new Dictionary<BossType, int>
             {
-                {BossType.Normal, 450},
-                {BossType.Ressource, 100},
-                {BossType.Speed, 450},
+                {BossType.Normal, Ship.Current.stage == 10 ? 1000 : 450},
+                {BossType.Ressource, Ship.Current.stage == 10 ? 0 : 100},
+                {BossType.Speed, Ship.Current.stage == 10 ? 0 : 450},
             };
         SpawnWithProbability(probabilites);
 
@@ -409,6 +414,8 @@ public class gameManager : MonoBehaviour
 
         int x = UnityEngine.Random.Range(0, 1000);
         int sumProb = 0;
+
+
 
         foreach (var elem in probabilites)
         {

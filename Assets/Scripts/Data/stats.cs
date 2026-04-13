@@ -76,6 +76,7 @@ public class Stats
     public bool uraniumTuto = false;
     public bool ironUnlocked = false;
     public bool ironMeteorUnlocked = false;
+    public bool firstBoss = false;
     public Dictionary<string, bool> dialogues = new Dictionary<string, bool>()
     {
         { "FirstConnection", false },
@@ -84,6 +85,8 @@ public class Stats
         {"FirstUpgradeOpen", false},
         {"FirstUpgradeLevelUp", false},
         {"FirstShopOpen", false},
+        {"FirstBoss", false},
+        {"FirstBossKill", false},
     };
     public bool upgradeUnlocked = false;
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
