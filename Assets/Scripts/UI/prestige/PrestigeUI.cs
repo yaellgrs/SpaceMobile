@@ -277,6 +277,8 @@ public class PrestigeUI : BaseUI
         }
         else
             unlockLevel.style.visibility = Visibility.Visible;
+
+        DialogueManager.Instance.TryDialogue("FirstPrestigeOpen");
     }
 
     public void LoadPrestige()

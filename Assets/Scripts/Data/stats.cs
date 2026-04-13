@@ -87,6 +87,7 @@ public class Stats
         {"FirstShopOpen", false},
         {"FirstBoss", false},
         {"FirstBossKill", false},
+        {"FirstPrestigeOpen", false},
     };
     public bool upgradeUnlocked = false;
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
