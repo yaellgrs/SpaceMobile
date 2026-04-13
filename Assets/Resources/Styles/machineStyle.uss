@@ -338,7 +338,7 @@
     top: 70%;
     position: absolute;
     width: 20%;
-    justify-content: center;
+    justify-content: space-evenly;
     align-self: center;
     flex-grow: 1;
     flex-shrink: 0;

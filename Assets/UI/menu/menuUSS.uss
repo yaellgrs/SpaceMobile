@@ -76,3 +76,30 @@
     width: 100%;
     flex-direction: column;
 }
+
+.menuButton {
+    position: relative;
+    height: 12.5%;
+    width: auto;
+    top: auto;
+    left: auto;
+    background-color: rgba(47, 30, 28, 0.57);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+    flex-grow: 1;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}

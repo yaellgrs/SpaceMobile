@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
-public partial class LockBorderElement : Button
+public partial class LockBorderElement : VisualElement
 {
     #region --- Elements ---
     VisualElement VE_check;

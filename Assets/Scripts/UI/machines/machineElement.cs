@@ -179,6 +179,10 @@ public partial class machineElement : Button
         Btn_LockBorderButtons.clicked -= () => { BorderUI.Instance?.Open(this); };
         Btn_LockBorderButtons.clicked += () => { BorderUI.Instance?.Open(this); };
 
+
+        Btn_LockBorderButtons.style.display = data.level > 5 ? DisplayStyle.Flex :  DisplayStyle.None;
+
+
         InitUpButton();
         InitBuyCover();
 

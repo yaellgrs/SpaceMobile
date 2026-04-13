@@ -15,4 +15,12 @@ VisualElement {
     flex-direction: column;
     flex-grow: 0;
     position: relative;
+    margin-top: 0%;
+    margin-right: 0%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    flex-shrink: 0;
+    aspect-ratio: 1;
+    width: auto;
+    height: 100%;
 }
