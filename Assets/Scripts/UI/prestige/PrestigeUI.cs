@@ -409,6 +409,8 @@ public class PrestigeUI : BaseUI
         gameManager.instance.InitGame();
 
         gameManager.instance.RestartStage();
+
+        DialogueManager.Instance.TryDialogue("FirstPrestige");
     }
 
 

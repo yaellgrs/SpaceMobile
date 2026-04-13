@@ -105,5 +105,10 @@ public class DialogueManager : MonoBehaviour
         Stats.Instance.firstBoss = true;
     }
 
+    public void OpenQuest()
+    {
+        MainUi.Instance.questUI.LoadWithDelay();
+    }
+
     #endregion
 }
