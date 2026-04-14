@@ -116,6 +116,18 @@ MonoBehaviour:
     m_Localized: Obtiens du bois avec la forge de ton vaisceaux
     m_Metadata:
       m_Items: []
+  - m_Id: 106556196201009152
+    m_Localized: 'Elimines les boss :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106556863871291392
+    m_Localized: 'Traverses des trous noirs : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106564855266119680
+    m_Localized: "Am\xE9liore ton vaisceaux avec les particules d'\xE9toiles  :"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: quest2
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 2
-  type: 2
+  type: 3
   objectif:
     Mantisse: 75
     Exp: 0

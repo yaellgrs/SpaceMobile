@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647211a173c3748448b7a069d6f70120, type: 3}
   m_Name: quest10
   m_EditorClassIdentifier: Assembly-CSharp::Quests
-  level: 9
-  type: 8
+  level: 10
+  type: 0
   objectif:
-    Mantisse: 2.5
-    Exp: 1
+    Mantisse: 10
+    Exp: 0
   rewardDiamand: 5
   text: "Et si tu te testais un peu ? Essaie de finir les 20 premi\xE8res vagues
     de m\xE9t\xE9orites en moins de 5 minutes ! N\u2019h\xE9site pas \xE0 mettre

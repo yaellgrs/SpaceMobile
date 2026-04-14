@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest9
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 9
-  type: 7
+  type: 4
   objectif:
     Mantisse: 1
-    Exp: 0
+    Exp: 2
   rewardDiamand: 2
   text: "Un g\xE9n\xE9rateur de fer, ce n\u2019est plus suffisant pour avancer. Et
     si tu essayais d\u2019\xE9conomiser pour doubler ta production ?"

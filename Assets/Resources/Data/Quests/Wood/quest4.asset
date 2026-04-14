@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: quest4
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 4
-  type: 1
+  type: 2
   objectif:
     Mantisse: 250
     Exp: 0

@@ -43,6 +43,30 @@ MonoBehaviour:
     m_Key: Quest_objectif-UpgradeUranium
     m_Metadata:
       m_Items: []
+  - m_Id: 1246249826070528
+    m_Key: Quest_objectif-UnlockMachine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246248500670464
+    m_Key: Quest_objectif-UpgradeMachine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246252795637760
+    m_Key: Quest_objectif-Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106556196201009152
+    m_Key: Quest_objectif-KillBoss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106556863871291392
+    m_Key: Quest_objectif-Prestige
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106564855266119680
+    m_Key: Quest_objectif-UpgradePrestige
+    m_Metadata:
+      m_Items: []
   - m_Id: 5438910464
     m_Key: Quest_dialogue-1
     m_Metadata:
@@ -71,10 +95,6 @@ MonoBehaviour:
     m_Key: Quest_dialogue-7
     m_Metadata:
       m_Items: []
-  - m_Id: 857070512320512
-    m_Key: Quest_dialogue-end
-    m_Metadata:
-      m_Items: []
   - m_Id: 1245777727795200
     m_Key: Quest_dialogue-8
     m_Metadata:
@@ -87,16 +107,8 @@ MonoBehaviour:
     m_Key: Quest_dialogue-10
     m_Metadata:
       m_Items: []
-  - m_Id: 1246248500670464
-    m_Key: Quest_objectif-UpgradeMachine
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1246249826070528
-    m_Key: Quest_objectif-UnlockMachine
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1246252795637760
-    m_Key: Quest_objectif-Speed
+  - m_Id: 857070512320512
+    m_Key: Quest_dialogue-end
     m_Metadata:
       m_Items: []
   m_Metadata:

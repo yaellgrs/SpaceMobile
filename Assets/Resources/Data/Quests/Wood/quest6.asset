@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest6
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 6
-  type: 4
+  type: 10
   objectif:
-    Mantisse: 2.5
-    Exp: 3
+    Mantisse: 1
+    Exp: 0
   rewardDiamand: 2
   text: "Il est maintenant temps d'exploiter le pouvoir de l'uranium. Mais avant
     il va falloir r\xE9cup\xE9rer quelques uraniums ! Penses a am\xE9liorer ta forge

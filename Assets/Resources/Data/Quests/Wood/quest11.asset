@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: quest11
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 11
-  type: 4
+  type: 5
   objectif:
-    Mantisse: 250
-    Exp: 6
+    Mantisse: 2.5
+    Exp: 2
   rewardDiamand: 2
   text: Met le text ici puis dis le moi, je le mettrais dans la table de traduction.
