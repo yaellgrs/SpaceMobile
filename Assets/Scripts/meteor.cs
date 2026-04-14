@@ -329,7 +329,7 @@ public class spaceObject : MonoBehaviour
 
     public virtual BigNumber GetStarParticle()
     {
-        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.25f, 0.5f);
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
         return reward;
     }
 

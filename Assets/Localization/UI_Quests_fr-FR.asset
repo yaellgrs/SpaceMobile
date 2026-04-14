@@ -56,14 +56,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 470882718789632
-    m_Localized: "Tu as bien progress\xE9, mais il est temps de recommencer\u2026
-      en mieux !\nFais un prestige pour revenir encore plus fort ."
+    m_Localized: "Il faut vite trouver une solution ! Si on ne d\xE9truis pas ce
+      boss on va\u2026 on sera foutu."
     m_Metadata:
       m_Items: []
   - m_Id: 738363026911232
-    m_Localized: "Il est maintenant temps d'exploiter le pouvoir de l'uranium. Mais
-      avant il va falloir r\xE9cup\xE9rer quelques uraniums ! Penses a am\xE9liorer
-      ta forge d'uranium pour en gagner plein sur les m\xE9t\xE9orites d'uranium."
+    m_Localized: "Il faut absolument qu\u2019on d\xE9couvre ce qu\u2019il y a d\xE9rri\xE8re
+      la poussi\xE8re d\u2019\xE9toile. Peut \xEAtre qu\u2019elle pourra nous sauver."
     m_Metadata:
       m_Items: []
   - m_Id: 739707456532480
@@ -72,8 +71,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 739583590346752
-    m_Localized: "Bien jou\xE9 ! Maintenant, am\xE9liore le vaisseau en utilisant
-      l'uranium !"
+    m_Localized: "On a r\xE9ussie a avoir les particules d\u2019\xE9toile ! Utilises
+      les j\u2019ai hate de voir ce qu\u2019on va avoir avec ! "
     m_Metadata:
       m_Items: []
   - m_Id: 739708047929344
@@ -86,20 +85,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1245777727795200
-    m_Localized: "Pour pouvoir profiter pleinement des gains des m\xE9t\xE9orites
-      de fer et d'uranium, il faut avant tout avoir des forges bien \xE9quip\xE9es
-      ! Am\xE9liore tous tes g\xE9n\xE9rateurs autant que possible."
+    m_Localized: "Passons aux choses s\xE9rieuse, si on veut s\u2019en sortir il
+      va falloir commencer a produire du bois en grande quantit\xE9 ! "
     m_Metadata:
       m_Items: []
   - m_Id: 1245862343684096
-    m_Localized: "Un g\xE9n\xE9rateur de fer, ce n\u2019est plus suffisant pour avancer.
-      Et si tu essayais d\u2019\xE9conomiser pour doubler ta production ?"
+    m_Localized: "Olalala j\u2019ai jamais vu autant de bois de toute ma vie !! Tu
+      vas pouvoir nous cr\xE9er une vrai forteresse avec ! "
     m_Metadata:
       m_Items: []
   - m_Id: 1245862968635392
-    m_Localized: "Et si tu te testais un peu ? Essaie de finir les 20 premi\xE8res
-      vagues de m\xE9t\xE9orites en moins de 5 minutes ! N\u2019h\xE9site pas \xE0
-      mettre la vitesse des m\xE9t\xE9orites en x2."
+    m_Localized: 'Tues des boss ( temporaire ) '
     m_Metadata:
       m_Items: []
   - m_Id: 1246248500670464
@@ -129,6 +125,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 106564855266119680
     m_Localized: "Am\xE9liore ton vaisceaux avec les particules d'\xE9toiles  :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106581840758673408
+    m_Localized: "D\xE9penses des particules d\u2019\xE9toiles ( temporaire ) "
     m_Metadata:
       m_Items: []
   references:

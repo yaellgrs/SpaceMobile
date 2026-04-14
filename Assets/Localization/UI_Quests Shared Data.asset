@@ -107,6 +107,12 @@ MonoBehaviour:
     m_Key: Quest_dialogue-10
     m_Metadata:
       m_Items: []
+  - m_Id: 106581840758673408
+    m_Key: 'Quest_dialogue-11
+
+'
+    m_Metadata:
+      m_Items: []
   - m_Id: 857070512320512
     m_Key: Quest_dialogue-end
     m_Metadata:

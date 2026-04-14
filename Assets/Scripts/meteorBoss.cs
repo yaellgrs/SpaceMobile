@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BossType { Normal, Ressource, Speed };
+public enum BossType { Normal, Spawner, Ressource, Speed };
 
 public class meteorBoss : spaceObject
 {
@@ -192,8 +192,7 @@ public class meteorBoss : spaceObject
 
     private bool canAttack()
     {
-        return false;
-        if (bossType == BossType.Speed) return false;
+        if (bossType == BossType.Speed || bossType == BossType.Normal) return false;
         else return wave <= 3;
     }
 
@@ -240,7 +239,7 @@ public class meteorBoss : spaceObject
 
     public override BigNumber GetStarParticle()
     {
-        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.75f, 1.5f);
         return reward;
     }
 }
