@@ -505,7 +505,7 @@ public class PrestigeUI : BaseUI
     }
     private BigNumber calculCostPrestige()
     {
-        return new BigNumber(15*Mathf.Pow(5, Stats.Instance.upgradesPrestige.Count));
+        return new BigNumber(1*Mathf.Pow(5, Stats.Instance.upgradesPrestige.Count));
     }
     private void backClicked(UIDocument document)
     {
