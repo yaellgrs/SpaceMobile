@@ -198,10 +198,9 @@ public class MainUi : MonoBehaviour
 
     public void ShowMenu(bool show)
     {
-        if (VE_main == null)
-            VE_main = mainUI.rootVisualElement.Q<VisualElement>("main");
+        VisualElement hidable = mainUI.rootVisualElement.Q<VisualElement>("hidable");
 
-        VE_main.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+        hidable.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
     public void EnableShoot(bool enable)

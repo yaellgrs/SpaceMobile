@@ -625,8 +625,8 @@ public class PrestigeUI : BaseUI
 
     private void LoadBuyUI()
     {
-        bool canBuy = Stats.Instance.shipFragment >= CalculShipUpgradeCost();
-        Lbl_cost.text = Stats.Instance.shipFragment + "/" + CalculShipUpgradeCost();
+        bool canBuy = QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel;
+        Lbl_cost.text = (QuestStats.Instance.questLevel - 1) + "/" + QuestStats.Instance.questMaxLevel;
         Btn_buy.SetEnabled(canBuy);
     }
 
@@ -639,17 +639,11 @@ public class PrestigeUI : BaseUI
         backClicked(upgradeShip);
         backClicked(upgradeUI);
 
-        Stats.Instance.AddShipFragment(-CalculShipUpgradeCost());
         spaceShip.instance.LoadAnimation();
 
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
 
-    }
-
-    private int CalculShipUpgradeCost()
-    {
-        return 100;
     }
 
 }
