@@ -15,7 +15,7 @@ MonoBehaviour:
   level: 4
   type: 2
   objectif:
-    Mantisse: 250
+    Mantisse: 2
     Exp: 0
   rewardDiamand: 2
   text: "Trouves ces fameuses m\xE9t\xE9orites de bois pour augmenter les ressources. "
