@@ -38,6 +38,9 @@ public class DialogueUI : MonoBehaviour
 
     public IEnumerator LaunchTransition()
     {
+        yield return new WaitForSeconds(0.25f);
+
+
         var root = document.rootVisualElement;
         VisualElement container = root.Q<VisualElement>("transitionVideo");
 
@@ -48,9 +51,36 @@ public class DialogueUI : MonoBehaviour
         container.Add(image);
         VP_transition.Play();
 
+        image.style.opacity = 0;
+        float time = 0;
+
+        while(time < 0.5f)
+        {
+            image.style.opacity = Mathf.Lerp(0, 1, time/0.5f);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        image.style.opacity = 1f;
+
         yield return new WaitForSeconds(2f);
+
+        time = 0;
+
+        while (time <0.5f)
+        {
+            
+            image.style.opacity = Mathf.Lerp(1, 0, time/0.5f);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
         container.Clear();
         VP_transition.Stop();
+
+        DialogueManager.Instance.TryDialogue("FirstPrestige");
 
     }
 }

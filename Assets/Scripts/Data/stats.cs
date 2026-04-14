@@ -247,8 +247,6 @@ public class Stats
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         string path = Application.persistentDataPath + "/stats.json";
 
-        Debug.LogError("save at : " + path);
-
         var settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Auto,

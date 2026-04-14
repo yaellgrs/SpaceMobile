@@ -404,12 +404,14 @@ public class PrestigeUI : BaseUI
 
         gameManager.instance.RestartStage();
 
-        DialogueManager.Instance.TryDialogue("FirstPrestige");
+
 
         if (QuestManager.Instance.type == QuestType.Prestige)
         {
             QuestManager.Instance.upQuest();
         }
+
+        StartCoroutine(DialogueUI.Instance.LaunchTransition());
     }
 
 
@@ -643,6 +645,8 @@ public class PrestigeUI : BaseUI
 
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
+
+        StartCoroutine(DialogueUI.Instance.LaunchTransition());
 
     }
 
