@@ -250,6 +250,13 @@ public partial class UpgradesElement : VisualElement
                 DialogueManager.Instance.ExecuteBlock("FirstUpgradeLevelUp");
             }
         }
+
+
+        if(this is UpgradesPrestigeElement)
+        {
+            if (QuestManager.Instance.type == QuestType.UpgradePrestige)
+                QuestManager.Instance.upQuest();
+        }
     }   
 
     #endregion

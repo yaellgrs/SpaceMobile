@@ -231,6 +231,11 @@ public class meteorBoss : spaceObject
             gameManager.instance.ActiveSlowMotionVolume(false);
             DialogueManager.Instance.TryDialogue("FirstBossKill");
         }
+
+        if (QuestManager.Instance.type == QuestType.KillBoss)
+        {
+            QuestManager.Instance.upQuest();
+        }
     }
 
     public override BigNumber GetStarParticle()

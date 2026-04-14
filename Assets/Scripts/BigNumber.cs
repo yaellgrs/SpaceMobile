@@ -377,7 +377,7 @@ public class BigNumber
 
     public bool isBigger(int n)
     {
-        BigNumber nBig = new BigNumber(n, 1);
+        BigNumber nBig = new BigNumber(n);
 
         if (nBig.Exp > Exp)
         {
@@ -391,6 +391,9 @@ public class BigNumber
     }
     public bool isBigger(BigNumber nBig)
     {
+        Normalize();
+        nBig.Normalize();
+
         if (Exp > nBig.Exp)
             return true;
 
@@ -419,6 +422,8 @@ public class BigNumber
 
     public bool isBiggerOrEqual(BigNumber nBig)
     {
+        Normalize();
+        nBig.Normalize();
         if (Exp > nBig.Exp)
             return true;
 

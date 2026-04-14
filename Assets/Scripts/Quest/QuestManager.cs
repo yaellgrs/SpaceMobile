@@ -14,7 +14,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.UIElements;
 using static QuestUI;
 
-public enum QuestType { KillMeteor, KillIronMeteor,FarmWood,  UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Speed, None };
+public enum QuestType { KillBoss, KillMeteor, KillIronMeteor,FarmWood,  UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Prestige, UpgradePrestige, Speed, None };
 
 public class QuestManager 
 {
@@ -74,7 +74,7 @@ public class QuestManager
     #region upQuests
     public void upQuest()
     {
-        if (new[] { QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine }.Contains(type))
+        if (new[] { QuestType.UpgradePrestige, QuestType.KillBoss, QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine, QuestType.Prestige }.Contains(type))
         {
             QuestStats.Instance.progress.Add(1);
         }
@@ -154,6 +154,14 @@ public class QuestManager
         {
             if (QuestStats.Instance.progress >= objectif)
             {
+                Debug.Log("----------------------------------------------------------------");
+                Debug.Log("Quest completed : " + type.ToString() + " progress : " + QuestStats.Instance.progress.ToString() + " objectif : " + objectif.ToString());
+                Debug.Log("completed  : " + (QuestStats.Instance.progress >= objectif));
+                Debug.Log("completed  : " + (QuestStats.Instance.progress > objectif));
+                Debug.Log("progress mantisse: " + QuestStats.Instance.progress.Mantisse + " exp: " + QuestStats.Instance.progress.Exp);
+                Debug.Log("objectif mantisse: " + objectif.Mantisse + " exp: " + objectif.Exp);
+                Debug.Log("----------------------------------------------------------------");
+
                 return true;
             }
         }

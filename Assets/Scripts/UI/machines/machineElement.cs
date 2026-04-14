@@ -180,7 +180,7 @@ public partial class machineElement : Button
         Btn_LockBorderButtons.clicked += () => { BorderUI.Instance?.Open(this); };
 
 
-        Btn_LockBorderButtons.style.display = data.level > 5 ? DisplayStyle.Flex :  DisplayStyle.None;
+
 
 
         InitUpButton();
@@ -192,6 +192,7 @@ public partial class machineElement : Button
 
     private void LoadLockBorders()
     {
+        Btn_LockBorderButtons.style.display = data.level >= 5 ? DisplayStyle.Flex : DisplayStyle.None;
         Btn_LockBorderButtons.Clear();
         int i = 0;
 

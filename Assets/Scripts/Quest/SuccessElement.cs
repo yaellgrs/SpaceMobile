@@ -110,8 +110,7 @@ public partial class SuccessElement : VisualElement
         BigNumber progress = getProgress();
         BigNumber objectif = getObjectif();
 
-        Lbl_progress.text = progress.ToString() + "/" + objectif.ToString();
-        Debug.Log("type " + type.ToString() +  " Progress : " + progress.ToString() + " / Objectif : " + objectif.ToString());    
+        Lbl_progress.text = progress.ToString() + "/" + objectif.ToString();  
 
         bool enable = (objectif < progress);
         Btn_claim.SetEnabled(enable);
