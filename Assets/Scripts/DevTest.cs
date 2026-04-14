@@ -31,6 +31,10 @@ public class DevTest : MonoBehaviour
         {
             QuestManager.Instance.Claim();
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StartCoroutine(DialogueUI.Instance.LaunchTransition());
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {

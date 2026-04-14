@@ -110,8 +110,8 @@ public class Stats
     //prestige
     public bool prestigeUnlocked = false; //
 
-    public BigNumber starPariticul { get; private set; } = new BigNumber(0, 0); //
-    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(0, 0);//
+    public BigNumber starPariticul = new BigNumber(0, 0); //
+    public BigNumber prestigeWaiting = new BigNumber(0, 0);//
 
     public BigNumber BN_shipMoney = new BigNumber(0);
     public BigNumber BN_shipMoneyWaiting = new BigNumber(0);

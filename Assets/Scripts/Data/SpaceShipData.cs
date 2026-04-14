@@ -267,6 +267,9 @@ public class SpaceShipData
         life = new BigNumber(0);
         shield = new BigNumber(0);
 
+        Stats.Instance.starPariticul = new BigNumber(0);
+        Stats.Instance.prestigeWaiting = new BigNumber(0);
+
         iron = new BigNumber(0);
         uranium = new BigNumber(0);
 
