@@ -1,4 +1,4 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="Hide" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.78);"/>
-    <ui:VisualElement name="transitionVideo" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;"/>
+    <ui:VisualElement name="transitionVideo" picking-mode="Ignore" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
 </ui:UXML>

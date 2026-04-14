@@ -370,7 +370,7 @@ public class PrestigeUI : BaseUI
         if(QuestManager.Instance.type == QuestType.GetStarParticle)
             QuestManager.Instance.upQuest(bonus);
 
-
+        gameManager.instance.DestroyMeteors();
         gameManager.instance.SetPause(true);
 
         if (ResurectionUI.Instance.resurectionUI.gameObject.activeInHierarchy)

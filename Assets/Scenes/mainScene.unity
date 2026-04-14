@@ -452,12 +452,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103605666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.28216, y: 0.0831, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1990720117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &109596515
 GameObject:
@@ -1711,6 +1711,38 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &544357565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 544357566}
+  m_Layer: 0
+  m_Name: --- Videos ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &544357566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544357565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55371, y: -0.1029, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1480591421}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &562419093
@@ -3047,6 +3079,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueUI
   document: {fileID: 1014098486}
+  VP_transition: {fileID: 1480591420}
+  RT_transition: {fileID: 8400000, guid: 7210a4770df884e4fb92d26f8895652b, type: 2}
 --- !u!114 &1014098486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4146,7 +4180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1369320541}
   m_Layer: 0
-  m_Name: 'UI '
+  m_Name: '--- UI --- '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4340,6 +4374,72 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
+--- !u!1 &1480591419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1480591421}
+  - component: {fileID: 1480591420}
+  m_Layer: 0
+  m_Name: newShip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!328 &1480591420
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480591419}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 4a88ccfb6c6a381468bce32839a80da9, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 519420031}
+  m_TargetTexture: {fileID: 8400000, guid: 7210a4770df884e4fb92d26f8895652b, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 1
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources: []
+  m_DirectAudioVolumes: []
+  m_Url: 
+  m_EnabledAudioTracks: 
+  m_DirectAudioMutes: 
+  m_ControlledAudioTrackCount: 0
+  m_PlayOnAwake: 0
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
+--- !u!4 &1480591421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480591419}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.20371, y: -1.0770999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 544357566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1481542395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5903,7 +6003,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -242.20654
     y: -191.24484
-    width: 140.008
+    width: 140.01001
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6175,7 +6275,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -242.63138
     y: -138.85576
-    width: 137.376
+    width: 137.38
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6359,7 +6459,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -243.16426
     y: -85.91328
-    width: 150.864
+    width: 150.86
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6596,7 +6696,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -241.82298
     y: -29.085
-    width: 154.648
+    width: 154.65
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6852,7 +6952,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -243.71487
     y: 28.714989
-    width: 170.416
+    width: 170.42
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7007,7 +7107,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -240.88794
     y: 96.18941
-    width: 134.672
+    width: 134.67
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7551,7 +7651,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -240.73615
     y: 213.91318
-    width: 119.408005
+    width: 119.41
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7938,7 +8038,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -238.85217
     y: 284.9567
-    width: 152.248
+    width: 152.25
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8324,7 +8424,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -244.6242
     y: 351.18524
-    width: 121.784004
+    width: 121.79
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -9200,6 +9300,7 @@ Transform:
   - {fileID: 566735865}
   - {fileID: 322039853}
   - {fileID: 682772289}
+  - {fileID: 103605668}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1995263582
@@ -9896,4 +9997,4 @@ SceneRoots:
   - {fileID: 200111596}
   - {fileID: 693390174}
   - {fileID: 1990720117}
-  - {fileID: 103605668}
+  - {fileID: 544357566}
