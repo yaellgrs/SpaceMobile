@@ -407,7 +407,8 @@ public class spaceObject : MonoBehaviour
         
         if(Stats.Instance.firstConnection) {
 
-            Stats.Instance.firstConnection = false; 
+            Stats.Instance.firstConnection = false;
+            DialogueManager.Instance.ShowMenu();
         }
 
     }

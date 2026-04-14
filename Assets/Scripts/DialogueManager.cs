@@ -59,6 +59,7 @@ public class DialogueManager : MonoBehaviour
     {
 
         MainUi.Instance.ShowMenu(false);
+        MainUi.Instance.EnableShoot(false);
         BottomUI.Instance.Show(false);
         gameManager.instance.spawnMeteor = false;
 
@@ -68,8 +69,20 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         MainUi.Instance.ShowMenu(true);
+        MainUi.Instance.EnableShoot(true);
         BottomUI.Instance.Show(true);
         gameManager.instance.spawnMeteor = true;
+    }
+
+    public void HideMenu()
+    {
+        MainUi.Instance.ShowMenu(false);
+        BottomUI.Instance.Show(false);
+    }
+    public void ShowMenu()
+    {
+        MainUi.Instance.ShowMenu(true);
+        BottomUI.Instance.Show(true);
     }
 
 

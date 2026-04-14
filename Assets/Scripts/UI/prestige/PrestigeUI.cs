@@ -358,10 +358,6 @@ public class PrestigeUI : BaseUI
         Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
 
         Ship.Current.Prestige(); // Load(true);
-        foreach(var elem in Ship.Current.machinesIron)
-
-
-
 
 
         Datas.Instance.Prestige();
@@ -372,9 +368,7 @@ public class PrestigeUI : BaseUI
 
 
         if(QuestManager.Instance.type == QuestType.GetStarParticle)
-            QuestStats.Instance.progress = new BigNumber(bonus);
-        else
-            QuestStats.Instance.progress = new BigNumber(0);
+            QuestManager.Instance.upQuest(bonus);
 
 
         gameManager.instance.SetPause(true);

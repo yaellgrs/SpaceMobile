@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Fungus.AssertCommand;
 
 public enum BossType { Normal, Spawner, Ressource, Speed };
 
@@ -77,10 +78,15 @@ public class meteorBoss : spaceObject
     // Update is called once per frame
     protected override void Update()
     {
-        if(Stats.Instance.firstBoss && Stats.Instance.dialogues["FirstBoss"])
+        if(Stats.Instance.firstBoss)
         {
-            Debug.Log("First boss slow motion");
-            gameManager.instance.ActiveSlowMotion(4f);
+            if(Stats.Instance.dialogues["FirstBoss"])
+                gameManager.instance.ActiveSlowMotion(4f);
+
+            if(Vector3.Distance(spaceShip.instance.transform.position, transform.position) < 1.75f)
+            {
+                spaceObjectSpeed = 0f;
+            }
         }
 
         if (gameManager.instance.isPaused) { return; }
@@ -228,6 +234,7 @@ public class meteorBoss : spaceObject
             Stats.Instance.firstBoss = false;
             UpSpeed.Instance.setSpeed(1f);
             gameManager.instance.ActiveSlowMotionVolume(false);
+            DialogueManager.Instance.ShowMenu();
             DialogueManager.Instance.TryDialogue("FirstBossKill");
         }
 

@@ -53,7 +53,7 @@ public class DevTest : MonoBehaviour
             Stats.Instance.dialogues["FirstUpgradeOpen"] = true;
             Stats.Instance.dialogues["FirstUpgradeLevelUp"] = false;
             QuestStats.Instance.reset();
-            QuestStats.Instance.questLevel = 4;
+            QuestStats.Instance.questLevel = 1;
             QuestStats.Instance.progress = new BigNumber(0);
             BottomUI.Instance.LoadUI();
         }

@@ -5301,7 +5301,6 @@ GameObject:
   - component: {fileID: 1710157031}
   - component: {fileID: 1710157030}
   - component: {fileID: 1710157029}
-  - component: {fileID: 1710157028}
   - component: {fileID: 1710157063}
   - component: {fileID: 1710157060}
   - component: {fileID: 1710157059}
@@ -5405,6 +5404,9 @@ GameObject:
   - component: {fileID: 1710157152}
   - component: {fileID: 1710157151}
   - component: {fileID: 1710157164}
+  - component: {fileID: 1710157166}
+  - component: {fileID: 1710157167}
+  - component: {fileID: 1710157168}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5440,21 +5442,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 504.33102, y: 255.28531}
+  scrollPos: {x: 521.59717, y: 365.3905}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 280
-  zoom: 0.85000014
+  blockViewHeight: 661.60004
+  zoom: 0.8200002
   scrollViewRect:
     serializedVersion: 2
     x: -343
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1710157163}
-  selectedCommands:
-  - {fileID: 1710157164}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -5466,23 +5466,6 @@ MonoBehaviour:
   hideCommands: []
   luaEnvironment: {fileID: 0}
   luaBindingName: flowchart
---- !u!114 &1710157028
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710156985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
-  itemId: 74
-  indentLevel: 0
-  targetObject: {fileID: 742157410}
-  methodName: EndDialogue
-  delay: 0
 --- !u!114 &1710157029
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5918,9 +5901,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -243.18217
-    y: -192.22046
-    width: 140.01001
+    x: -242.20654
+    y: -191.24484
+    width: 140.008
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5948,7 +5931,8 @@ MonoBehaviour:
   - {fileID: 1710157031}
   - {fileID: 1710157030}
   - {fileID: 1710157029}
-  - {fileID: 1710157028}
+  - {fileID: 1710157166}
+  - {fileID: 1710157167}
   suppressAllAutoSelections: 0
 --- !u!114 &1710157050
 MonoBehaviour:
@@ -6191,7 +6175,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -242.63138
     y: -138.85576
-    width: 137.38
+    width: 137.376
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6375,7 +6359,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -243.16426
     y: -85.91328
-    width: 150.86
+    width: 150.864
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6612,7 +6596,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -241.82298
     y: -29.085
-    width: 154.65
+    width: 154.648
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6868,7 +6852,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -243.71487
     y: 28.714989
-    width: 170.42
+    width: 170.416
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7023,7 +7007,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -240.88794
     y: 96.18941
-    width: 134.67
+    width: 134.672
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7380,6 +7364,7 @@ MonoBehaviour:
   - {fileID: 1710157108}
   - {fileID: 1710157107}
   - {fileID: 1710157112}
+  - {fileID: 1710157168}
   suppressAllAutoSelections: 0
 --- !u!114 &1710157121
 MonoBehaviour:
@@ -7566,7 +7551,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -240.73615
     y: 213.91318
-    width: 119.41
+    width: 119.408005
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7953,7 +7938,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -238.85217
     y: 284.9567
-    width: 152.25
+    width: 152.248
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8339,7 +8324,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -244.6242
     y: 351.18524
-    width: 121.79
+    width: 121.784004
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8364,7 +8349,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &1710157164
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -8378,6 +8363,57 @@ MonoBehaviour:
   indentLevel: 0
   targetObject: {fileID: 742157410}
   methodName: OpenQuests
+  delay: 0
+--- !u!114 &1710157166
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 213
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: EndDialogue
+  delay: 0
+--- !u!114 &1710157167
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 214
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: HideMenu
+  delay: 0
+--- !u!114 &1710157168
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 215
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: HideMenu
   delay: 0
 --- !u!1 &1752593082
 GameObject:

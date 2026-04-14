@@ -70,22 +70,22 @@ public class QuestManager
     #region upQuests
     public void upQuest()
     {
-        if (new[] { QuestType.UpgradePrestige, QuestType.KillBoss, QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine, QuestType.Prestige }.Contains(type))
-        {
-            QuestStats.Instance.progress.Add(1);
-        }
+        //if (new[] { QuestType.UpgradePrestige, QuestType.KillBoss, QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine, QuestType.Prestige }.Contains(type))
+        //{
+        //    QuestStats.Instance.progress.Add(1);
+        //}
 
-
+        QuestStats.Instance.progress.Add(1);
         MainUi.Instance.SetQuestCompleted(isCompleted());
     }
 
     public void upQuest(BigNumber n)
     {
-        if (new[] { QuestType.KillIronMeteor, QuestType.KillUraniumMeteor, QuestType.FarmWood}.Contains(type))
-        {
-            QuestStats.Instance.progress.Add(n);
-        }
-
+        //if (new[] { QuestType., QuestType.KillIronMeteor, QuestType.KillUraniumMeteor, QuestType.FarmWood}.Contains(type))
+        //{
+        //    QuestStats.Instance.progress.Add(n);
+        //}
+        QuestStats.Instance.progress.Add(n);
         MainUi.Instance.SetQuestCompleted(isCompleted());
     }
 
@@ -142,7 +142,7 @@ public class QuestManager
 
     public bool isCompleted()
     {
-        if (QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel) return false;
+        if (QuestStats.Instance.questLevel >= QuestStats.Instance.questMaxLevel) return false;
 
 
 

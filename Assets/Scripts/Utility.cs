@@ -206,6 +206,8 @@ public static class Utility
 
     public static void Reset()
     {
+        gameManager.instance.DestroyMeteors();
+
         MainUi.Instance.settingUI.backClicked();
         Stats.Instance.reset();
         QuestStats.Instance.reset();

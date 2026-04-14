@@ -141,7 +141,7 @@ public class gameManager : MonoBehaviour
 
         if (Stats.Instance.firstConnection) { 
             ActiveSlowMotion(2f);
-            BottomUI.Instance.Show(false);
+
         }
 
         updateWarning();
@@ -150,19 +150,26 @@ public class gameManager : MonoBehaviour
 
     }
 
-    public bool ActiveSlowMotion(float distance)
+    public bool ActiveSlowMotion(float distanceMin)
     {
         if (meteors.Count <= 0) return false;
 
         spaceObject meteor = meteors[0];
 
-        if(Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position ) < distance)
+        Debug.Log("active slow motion");
+
+        float distance = Vector3.Distance(spaceShip.instance.transform.position, meteor.transform.position);
+
+        if (distance < distanceMin)
         {
 
-            UpSpeed.Instance.setSpeed(0.1f);
+            if(distance < 1.5f) UpSpeed.Instance.setSpeed(0.0f);
+            else UpSpeed.Instance.setSpeed(0.1f);
+
             meteor.Move();
             meteor.loadSpeed();
             ActiveSlowMotionVolume(true);
+            //BottomUI.Instance.Show(false);
             return true;
         }
 
