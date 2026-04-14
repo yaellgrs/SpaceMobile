@@ -44,17 +44,13 @@ public class QuestManager
             Debug.LogError("Ship Current is null");    
             return; 
         }
-        Debug.Log("Ship type : '" + Ship.Current.type.ToString() + "'");
         string path = "Data/Quests/" + Ship.Current.type.ToString();
-        Debug.Log("Loading path : '" + path + "'");
         quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
         var test = Resources.LoadAll<ScriptableObject>(path);
-        Debug.Log("Found : " + test.Length + " assets");
         if (quests.Count == 0)
             Debug.LogWarning("No Quest at : " + path);
 
         QuestStats.Instance.questMaxLevel = quests.Count;
-        Debug.Log("quest count : " + quests.Count);
 
 
         Ship.Current.OnTypeChanged -= SetNextQuests;
@@ -154,14 +150,6 @@ public class QuestManager
         {
             if (QuestStats.Instance.progress >= objectif)
             {
-                Debug.Log("----------------------------------------------------------------");
-                Debug.Log("Quest completed : " + type.ToString() + " progress : " + QuestStats.Instance.progress.ToString() + " objectif : " + objectif.ToString());
-                Debug.Log("completed  : " + (QuestStats.Instance.progress >= objectif));
-                Debug.Log("completed  : " + (QuestStats.Instance.progress > objectif));
-                Debug.Log("progress mantisse: " + QuestStats.Instance.progress.Mantisse + " exp: " + QuestStats.Instance.progress.Exp);
-                Debug.Log("objectif mantisse: " + objectif.Mantisse + " exp: " + objectif.Exp);
-                Debug.Log("----------------------------------------------------------------");
-
                 return true;
             }
         }
