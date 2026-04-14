@@ -106,7 +106,7 @@ public class meteorBoss : spaceObject
     {
         if (wave > 3) return;
         meteorType type;
-        if (bossType == BossType.Normal)
+        if (bossType == BossType.Spawner)
         {
             type = wave switch
             {

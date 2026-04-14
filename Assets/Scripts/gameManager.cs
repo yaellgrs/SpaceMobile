@@ -314,7 +314,8 @@ public class gameManager : MonoBehaviour
 
         Dictionary<BossType, int> probabilites = new Dictionary<BossType, int>
             {
-                {BossType.Normal, Ship.Current.stage == 10 ? 1000 : 450},
+                {BossType.Normal, Ship.Current.stage == 10 ? 1000 : 0},
+                {BossType.Spawner, Ship.Current.stage == 10 ? 0 : 450},
                 {BossType.Ressource, Ship.Current.stage == 10 ? 0 : 100},
                 {BossType.Speed, Ship.Current.stage == 10 ? 0 : 450},
             };
