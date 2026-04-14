@@ -516,23 +516,23 @@ public class SettingUI : MonoBehaviour
         var root = LangueUI.rootVisualElement;
 
         french = root.Q<Button>("french");
-        english = root.Q<Button>("english");
-        german = root.Q<Button>("german");
-        espagna = root.Q<Button>("espagna");
+        //english = root.Q<Button>("english");
+        //german = root.Q<Button>("german");
+        //espagna = root.Q<Button>("espagna");
         exit = root.Q<Button>("exit");
         back = root.Q<Button>("back");
 
         SetButtonsLanguage();
 
         french.clicked -= SetLangFr;
-        english.clicked -= SetLangEn;
-        german.clicked -= SetLangDe;
-        espagna.clicked -= SetLangEs;
+        //english.clicked -= SetLangEn;
+        //german.clicked -= SetLangDe;
+        //espagna.clicked -= SetLangEs;
 
         french.clicked += SetLangFr;
-        english.clicked += SetLangEn;
-        german.clicked += SetLangDe;
-        espagna.clicked += SetLangEs;
+        //english.clicked += SetLangEn;
+        //german.clicked += SetLangDe;
+        //espagna.clicked += SetLangEs;
 
         exit.clicked += backClicked;
         back.clicked += backLangueClicked;
