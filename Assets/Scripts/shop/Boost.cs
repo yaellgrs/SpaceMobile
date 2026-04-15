@@ -12,6 +12,7 @@ public class Boost
     private VisualElement boost;
     private Button buy;
     private Label Lbl_time;
+    private Label Lbl_diamand;
     private Label Lbl_coef;
     //private Label Lbl_price;
 
@@ -30,10 +31,13 @@ public class Boost
         buy = boost.Q<Button>("buy");
         //Lbl_price = boost.Q<Label>("diamand");
         Lbl_time = boost.Q<Label>("time");
+        Lbl_diamand = boost.Q<Label>("diamand");
         Lbl_coef = boost.Q<Label>("coef");
 
-        if (type != Type.time) loadBonusActive();
+        if (type == Type.time) Lbl_diamand.text = price.ToString();
 
+        loadBonusActive();
+  
         buy.clicked += Buy;
 
         buy.SetEnabled(CanPay());
@@ -51,9 +55,10 @@ public class Boost
         }
         else
         {
+           
             Utility.setBorderColor(boost, Color.white);
-            Lbl_time.style.display = DisplayStyle.None;
-            Lbl_coef.style.display = DisplayStyle.None;
+            if(Lbl_time != null) Lbl_time.style.display = DisplayStyle.None;
+            if(Lbl_coef != null ) Lbl_coef.style.display = DisplayStyle.None;
         }
 
         //Lbl_price.text = price.ToString();
@@ -61,7 +66,7 @@ public class Boost
 
     private bool checkActive()
     {
-
+        if(type == Type.time) return false;
         return Stats.Instance.boosts[type].time > 0f; 
     }
 
@@ -76,43 +81,11 @@ public class Boost
         {
             if (type == Type.time)
             {
-                if(Ship.Current.level < 12)
-                {
-                    shopUI.Close();
-                    MainUi.Instance.offlineUI.showErrorMessage = true;
-                    MainUi.Instance.offlineUI.Load();
-                    return;
-                }
-                else
-                {
                     shopUI.Close();
                     Stats.Instance.lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (time * 3600);
-                    MainUi.Instance.offlineUI.Load();
-                }
+                    MainUi.Instance.offlineUI.Load(false);
+                
             }
-            //if(type == Type.damage)
-            //{
-            //    Stats.Instance.damageBoostTime = time * 3600;
-            //    loadBonusActive();
-            //}
-            //if(type == Type.xp)
-            //{
-            //    Stats.Instance.xpBoostTime = time * 3600;
-            //    loadBonusActive();
-            //}
-            //if(type == Type.pvShield)
-            //{
-            //    Stats.Instance.pvShieldBoostTime = time * 3600;
-            //    Ship.Current.life = spaceShip.instance.getMaxLife();
-            //    Ship.Current.shield = spaceShip.instance.getMaxShield();
-            //    loadBonusActive();
-            //}
-            //if(type == Type.ressources)
-            //{
-            //    Stats.Instance.ressourcesBoostTime = time * 3600;
-            //    loadBonusActive();
-            //}
-            //Stats.Instance.AddDiamand(-price);
             Pay();
         }
 
@@ -130,23 +103,14 @@ public class Boost
             Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostPrestige);
         if (type == Type.ressources)
             Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostRessource);
+        if (type == Type.time)
+            Stats.Instance.AddDiamand(-price);
     }
 
     public bool CanPay()
     {
+        if(type == Type.time) return price <= Stats.Instance.diamand;
         return Stats.Instance.boosts[type].coef != 2f || (Stats.Instance.boosts[type].coef == 2f && Stats.Instance.boosts[type].time <= 0f);
 
-/*        if (type == Type.damage)
-
-
-
-        if (type == Type.xp)
-            return Stats.Instance.xpBoostTime <= 0;
-        if (type == Type.pvShield)
-            return Stats.Instance.pvShieldBoostTime <= 0;
-        if (type == Type.ressources)
-            return Stats.Instance.ressourcesBoostTime <= 0;
-
-        return false;*/
     }   //oui si 1f ( 0f ) so 1.5f( xf ) ou 2f( 0f)
 }

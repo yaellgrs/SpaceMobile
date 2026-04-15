@@ -32,11 +32,13 @@ public class OfflineUI : MonoBehaviour
         }
     }
 
-    public void Load()
+    public void Load(bool offline = true)
     {
-        var root = offlineUI.rootVisualElement;
         offlineUI.gameObject.SetActive(true);
+        gameManager.instance.SetPause(true);
+        var root = offlineUI.rootVisualElement;
 
+        if (offlineUI == null) return;
         main = root.Q<VisualElement>("main");
 
         main.AddToClassList("trans");
@@ -55,14 +57,16 @@ public class OfflineUI : MonoBehaviour
 
         long time = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastConnection;
 
-        BigNumber iron = calculOfflineIronEarn(time, true);
-        BigNumber uranium = calculOfflineUraniumEarn(time, true);
+        BigNumber iron = calculOfflineIronEarn(time, offline);
+        BigNumber uranium = calculOfflineUraniumEarn(time, offline);
 
         ironEarned.text = "+" + iron.ToString();
 
         timeLabel.text = Utility.TimeToString_dhms(time);
 
-        if(!haveAutomation())
+        Debug.LogError("offline : " + offline);
+
+        if (!haveAutomation() && offline)
         {
             timeLabel.text = "";
             Lbl_message.text = "You first need to have the automation for this.";
