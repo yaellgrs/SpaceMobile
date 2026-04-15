@@ -1,3 +1,4 @@
+using GoogleMobileAds.Api;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,7 +12,7 @@ public class Boost
     private VisualElement boost;
     private Button buy;
     private Label Lbl_time;
-    private Label Lbl_price;
+    //private Label Lbl_price;
 
     public int time; // in hour
     public int price; // in diamand
@@ -26,20 +27,14 @@ public class Boost
 
         boost = root.Q<VisualElement>(name);
         buy = boost.Q<Button>("buy");
-        Lbl_price = boost.Q<Label>("diamand");
+        //Lbl_price = boost.Q<Label>("diamand");
         Lbl_time = boost.Q<Label>("time");
 
         if (type != Type.time) loadBonusActive();
 
         buy.clicked += Buy;
-        if (Stats.Instance.diamand < price)
-        {
-            buy.SetEnabled(false);
-        }
-        else
-        {
-            buy.SetEnabled(true);
-        }
+
+        buy.SetEnabled(CanPay());
     }
 
     private void loadBonusActive()
@@ -56,7 +51,7 @@ public class Boost
             Lbl_time.style.display = DisplayStyle.None;
         }
 
-        Lbl_price.text = price.ToString();
+        //Lbl_price.text = price.ToString();
     }
 
     private bool checkActive()
@@ -79,7 +74,7 @@ public class Boost
 
     private void Buy()
     {
-        if(Stats.Instance.diamand >= price)
+        if(CanPay())
         {
             if (type == Type.time)
             {
@@ -97,31 +92,52 @@ public class Boost
                     MainUi.Instance.offlineUI.Load();
                 }
             }
-            if(type == Type.damage)
-            {
-                Stats.Instance.damageBoostTime = time * 3600;
-                loadBonusActive();
-            }
-            if(type == Type.xp)
-            {
-                Stats.Instance.xpBoostTime = time * 3600;
-                loadBonusActive();
-            }
-            if(type == Type.pvShield)
-            {
-                Stats.Instance.pvShieldBoostTime = time * 3600;
-                Ship.Current.life = spaceShip.instance.getMaxLife();
-                Ship.Current.shield = spaceShip.instance.getMaxShield();
-                loadBonusActive();
-            }
-            if(type == Type.ressources)
-            {
-                Stats.Instance.ressourcesBoostTime = time * 3600;
-                loadBonusActive();
-            }
-
-            Stats.Instance.AddDiamand(-price);
+            //if(type == Type.damage)
+            //{
+            //    Stats.Instance.damageBoostTime = time * 3600;
+            //    loadBonusActive();
+            //}
+            //if(type == Type.xp)
+            //{
+            //    Stats.Instance.xpBoostTime = time * 3600;
+            //    loadBonusActive();
+            //}
+            //if(type == Type.pvShield)
+            //{
+            //    Stats.Instance.pvShieldBoostTime = time * 3600;
+            //    Ship.Current.life = spaceShip.instance.getMaxLife();
+            //    Ship.Current.shield = spaceShip.instance.getMaxShield();
+            //    loadBonusActive();
+            //}
+            //if(type == Type.ressources)
+            //{
+            //    Stats.Instance.ressourcesBoostTime = time * 3600;
+            //    loadBonusActive();
+            //}
+            //Stats.Instance.AddDiamand(-price);
+            Pay();
         }
 
+    }
+
+    public void Pay()
+    {
+        Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostDamage);
+    }
+
+    public bool CanPay()
+    {
+        Debug.Log(" damage boost time : " + Stats.Instance.damageBoostTime);
+
+        if (type == Type.damage)
+            return Stats.Instance.damageBoostTime <= 0;
+        if (type == Type.xp)
+            return Stats.Instance.xpBoostTime <= 0;
+        if (type == Type.pvShield)
+            return Stats.Instance.pvShieldBoostTime <= 0;
+        if (type == Type.ressources)
+            return Stats.Instance.ressourcesBoostTime <= 0;
+
+        return false;
     }
 }

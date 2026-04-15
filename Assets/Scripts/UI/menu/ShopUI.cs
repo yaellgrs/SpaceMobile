@@ -209,7 +209,7 @@ public class ShopUI : MonoBehaviour
 
     private void ButtonShop()
     {
-        Debug.Log("click");
+        Debug.Log("click button shop");
         if (timeScroll.style.display == DisplayStyle.None)
         {
             LoadTime();
@@ -241,7 +241,7 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    private void LoadBoost()
+    public void LoadBoost()
     {
         Debug.Log("load boost");
 
