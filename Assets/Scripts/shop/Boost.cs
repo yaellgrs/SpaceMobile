@@ -14,6 +14,10 @@ public class Boost
     private Label Lbl_time;
     private Label Lbl_diamand;
     private Label Lbl_coef;
+
+    private Label Lbl_mainRessource;
+    private Label Lbl_uranium;
+    private VisualElement VE_mainRessource;
     //private Label Lbl_price;
 
     public int time; // in hour
@@ -29,18 +33,38 @@ public class Boost
 
         boost = root.Q<VisualElement>(name);
         buy = boost.Q<Button>("buy");
-        //Lbl_price = boost.Q<Label>("diamand");
         Lbl_time = boost.Q<Label>("time");
         Lbl_diamand = boost.Q<Label>("diamand");
         Lbl_coef = boost.Q<Label>("coef");
 
-        if (type == Type.time) Lbl_diamand.text = price.ToString();
+        Lbl_mainRessource = boost.Q<Label>("mainRessource");
+        Lbl_uranium = boost.Q<Label>("uranium");
+        VE_mainRessource = boost.Q<VisualElement>("mainRessourceLogo");
+
+        if (type == Type.time) { 
+            Lbl_diamand.text = price.ToString();
+            LoadTimeBonus();
+        }
 
         loadBonusActive();
   
         buy.clicked += Buy;
 
         buy.SetEnabled(CanPay());
+    }
+
+    private void LoadTimeBonus()
+    {
+        Lbl_mainRessource.style.color = Utility.GetShipColor();
+        Lbl_uranium.style.color = Consts.COLOR_URANIUM;
+        VE_mainRessource.style.backgroundImage = Utility.GetMainRessourceLogo();
+
+        Lbl_uranium.style.display = Ship.Current.HaveUranium() ? DisplayStyle.Flex : DisplayStyle.None;
+
+
+        long t = time * 3600;
+        Lbl_mainRessource.text = "+" + OfflineUI.calculOfflineIronEarn(t, false).ToString();
+        Lbl_uranium.text = "+" + OfflineUI.calculOfflineUraniumEarn(t, false).ToString();
     }
 
     private void loadBonusActive()

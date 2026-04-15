@@ -103,7 +103,7 @@ public class ShopUI : MonoBehaviour
         Boost time1 = new Boost()
         {
             time = 1,
-            price = 25,
+            price = 10,
             name = "time1",
             type = Boost.Type.time,
             shopUI = this
@@ -111,22 +111,22 @@ public class ShopUI : MonoBehaviour
         Boost time2 = new Boost()
         {
             time = 6,
-            price = 50,
+            price = 25,
             name = "time2",
             type = Boost.Type.time,
             shopUI = this
         };
         Boost time3 = new Boost()
         {
-            time = 1,
-            price = 75,
+            time = 12,
+            price = 50,
             name = "time3",
             type = Boost.Type.time,
             shopUI = this
         };
         Boost time4 = new Boost()
         {
-            time = 1,
+            time = 24,
             price = 100,
             name = "time4",
             type = Boost.Type.time,
