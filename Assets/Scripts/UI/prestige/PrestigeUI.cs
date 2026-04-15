@@ -43,9 +43,12 @@ public class PrestigeUI : BaseUI
     private Button diamandBtn;
     private Label rewardLabel;
     private Label bonusLabel;
+    private Label Lbl_boost;
     private Label totalLabel;
 
     private BigNumber bonus;
+    private BigNumber BN_boost;
+    private BigNumber BN_reward;
 
     //buy UI
     private Button backButton2;
@@ -298,17 +301,33 @@ public class PrestigeUI : BaseUI
         diamandBtn = root.Q<Button>("diamand");
         rewardLabel = root.Q<Label>("reward");
         bonusLabel = root.Q<Label>("bonus");
+        Lbl_boost = root.Q<Label>("boost");
         totalLabel = root.Q<Label>("total");
 
         rewardLabel.text = "Normal Reward : " + Stats.Instance.prestigeWaiting;
+
+
+        float mult = Stats.Instance.star_multiplicator_prestige - 1f;
+
         bonus = new BigNumber(Stats.Instance.prestigeWaiting);
-
-        float mult = Stats.Instance.star_mutliplicator_level - 1f;;
+        BN_reward = new BigNumber(Stats.Instance.prestigeWaiting);
         bonus.Multiply(mult);
-        bonusLabel.text = "Bonus ( x" + Stats.Instance.star_mutliplicator_level.ToString("F2") + " ) : " + bonus;
+        bonusLabel.text = "Bonus ( x" + Stats.Instance.star_multiplicator_prestige.ToString("F2") + " ) : +" + bonus;
 
-        bonus.Add(Stats.Instance.prestigeWaiting);
-        totalLabel.text = "Total : " + bonus;
+
+
+        BN_reward.Add(bonus);
+
+        BN_boost = new BigNumber(BN_reward);
+
+        BN_boost.Multiply((Stats.Instance.boosts[Boost.Type.prestige].time <= 0 ? 1f : Stats.Instance.boosts[Boost.Type.prestige].coef - 1));
+        Lbl_boost.text = "Boost ( " + ((Stats.Instance.boosts[Boost.Type.prestige].time <= 0) ? "Inactive" 
+                        : "x"+Stats.Instance.boosts[Boost.Type.prestige].coef.ToString("F1")) + " ) : +"
+                        + BN_boost.ToString();
+
+        BN_reward.Add(BN_boost);
+
+        totalLabel.text = "Total : " + BN_reward;
 
         if (Stats.Instance.prestigeWaiting.EqualZero()){
             prestigeReset.enabledSelf = false;
@@ -332,17 +351,18 @@ public class PrestigeUI : BaseUI
         backButton1.clicked += () => { backClicked(prestigeUI); };
 
     }
+
+
     private void diamandClicked()
     {
-        Stats.Instance.AddUranium(bonus);
+        Stats.Instance.addPrestige(BN_reward);
         Stats.Instance.AddDiamand(-50);
         PrestigeResetClicked();
     }
 
     private void PrestigeResetClicked()
     {
-        Stats.Instance.AddUranium(bonus);
-        Stats.Instance.addPrestige(Stats.Instance.prestigeWaiting);
+        Stats.Instance.addPrestige(BN_reward);
         Stats.Instance.prestigeWaiting.Set(0);
 
         Ship.Current.stage = 1;
@@ -358,7 +378,6 @@ public class PrestigeUI : BaseUI
         Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
 
         Ship.Current.Prestige(); // Load(true);
-
 
         Datas.Instance.Prestige();
 
@@ -382,7 +401,6 @@ public class PrestigeUI : BaseUI
         }
         else
         {
-
             MainUi.Instance.uraniumUI.loadUpdateUI();
             MainUi.Instance.uraniumUI.IronClicked();
 

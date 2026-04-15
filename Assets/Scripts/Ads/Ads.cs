@@ -239,6 +239,10 @@ public class Ads : MonoBehaviour
                 setBoost(Boost.Type.xp);
                 MainUi.Instance.shopUI.LoadBoost();
                 break;
+            case RewardType.BoostPrestige:
+                setBoost(Boost.Type.prestige);
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
             case RewardType.BoostLife:
                 setBoost(Boost.Type.pvShield);
                 MainUi.Instance.shopUI.LoadBoost();
@@ -252,12 +256,10 @@ public class Ads : MonoBehaviour
 
     public void setBoost(Boost.Type type)
     {
-        Debug.Log("before boost : " + type + "time : " + Stats.Instance.boosts[type].time + " coef : " + Stats.Instance.boosts[type].coef);
         float coef = 1f;
         if (Stats.Instance.boosts[type].time <= 0f) coef = 1.5f;
         else coef = Stats.Instance.boosts[type].coef == 1f ? 1.5f : 2f; 
         Stats.Instance.boosts[type] = (coef, 3600);
-        Debug.Log("after boost : " + type + "time : " + Stats.Instance.boosts[type].time + " coef : " + Stats.Instance.boosts[type].coef);
     }
 
 

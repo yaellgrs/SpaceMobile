@@ -19,7 +19,7 @@ public class Boost
     public int price; // in diamand
     public string name;
 
-    public enum Type { time, damage, xp, pvShield, ressources };
+    public enum Type { time, damage, xp, pvShield, prestige, ressources };
     public Type type;
 
     public void load(UIDocument ShopDocument)
@@ -126,6 +126,8 @@ public class Boost
             Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostXp);
         if (type == Type.pvShield)
             Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostLife);
+        if (type == Type.prestige)
+            Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostPrestige);
         if (type == Type.ressources)
             Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostRessource);
     }

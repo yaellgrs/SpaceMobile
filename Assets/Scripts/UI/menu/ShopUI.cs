@@ -79,8 +79,8 @@ public class ShopUI : MonoBehaviour
         {
             time = 1,
             price = 50,
-            name = "pvShield",
-            type = Boost.Type.pvShield,
+            name = "prestige",
+            type = Boost.Type.prestige,
             shopUI = this
         };
         Boost ressources = new Boost()
