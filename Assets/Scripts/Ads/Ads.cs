@@ -12,7 +12,7 @@ public class Ads : MonoBehaviour
 
     private BannerView bannerView;
 
-    public enum RewardType { Diamand, Ressources, Resurection, BoostDamage, None };
+    public enum RewardType { Diamand, Ressources, Resurection, BoostDamage, BoostLife, BoostXp, BoostRessource, BoostPrestige, None };
 
     public static Ads Instance;
 
@@ -234,7 +234,18 @@ public class Ads : MonoBehaviour
             case RewardType.BoostDamage:
                 Stats.Instance.damageBoostTime =  3600;
                 MainUi.Instance.shopUI.LoadBoost();
-                //loadBonusActive();
+                break;
+            case RewardType.BoostXp:
+                Stats.Instance.xpBoostTime =  3600;
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
+            case RewardType.BoostLife:
+                Stats.Instance.pvShieldBoostTime =  3600;
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
+            case RewardType.BoostRessource:
+                Stats.Instance.ressourcesBoostTime =  3600;
+                MainUi.Instance.shopUI.LoadBoost();
                 break;
         }
     }

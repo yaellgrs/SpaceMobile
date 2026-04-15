@@ -56,6 +56,7 @@ public class Boost
 
     private bool checkActive()
     {
+        Debug.LogError("boost ressource : " + Stats.Instance.ressourcesBoostTime);
         if (type == Type.damage) return (Stats.Instance.damageBoostTime > 0); // Stats.Instance.damageBoostTime
         if (type == Type.xp) return (Stats.Instance.xpBoostTime > 0); //Stats.Instance.xpBoostTime); 
         if (type == Type.pvShield) return (Stats.Instance.pvShieldBoostTime > 0); //Stats.Instance.pvShieldBoostTime
@@ -121,8 +122,15 @@ public class Boost
     }
 
     public void Pay()
-    {
-        Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostDamage);
+    { 
+        if (type == Type.damage)
+            Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostDamage);
+        if (type == Type.xp)
+            Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostXp);
+        if (type == Type.pvShield)
+            Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostLife);
+        if (type == Type.ressources)
+            Ads.Instance.ShowRewardedAd(Ads.RewardType.BoostRessource);
     }
 
     public bool CanPay()
