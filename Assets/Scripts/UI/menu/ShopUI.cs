@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -33,42 +34,26 @@ public class ShopUI : MonoBehaviour
         initBoostTime();
         shopUI.gameObject.SetActive(false);
         buyUI.gameObject.SetActive(false);
-        if(Stats.Instance.xpBoostTime > 0)
-        {
-            Debug.Log("boost BN_xp :  " + Stats.Instance.xpBoostTime);
-        }
-        if (Stats.Instance.damageBoostTime > 0)
-        {
-            Debug.Log("boost damage :  " + Stats.Instance.damageBoostTime);
-        }
-        if (Stats.Instance.pvShieldBoostTime > 0)
-        {
-            Debug.Log("boost pv and shield :  " + Stats.Instance.pvShieldBoostTime);
-        }
-        if (Stats.Instance.ressourcesBoostTime > 0)
-        {
-            Debug.Log("boost ressources :  " + Stats.Instance.ressourcesBoostTime);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Stats.Instance.damageBoostTime > 0)
+        UpdateBoost(Time.deltaTime);
+    }
+
+    public void UpdateBoost(float dt)
+    {
+        foreach (Boost.Type type in Enum.GetValues(typeof(Boost.Type)))
         {
-            Stats.Instance.damageBoostTime-= Time.deltaTime;
-        }
-        if (Stats.Instance.xpBoostTime > 0)
-        {
-            Stats.Instance.xpBoostTime -= Time.deltaTime;
-        }
-        if (Stats.Instance.pvShieldBoostTime > 0)
-        {
-            Stats.Instance.pvShieldBoostTime -= Time.deltaTime;
-        }
-        if (Stats.Instance.ressourcesBoostTime > 0)
-        {
-            Stats.Instance.ressourcesBoostTime -= Time.deltaTime;
+            if (!Stats.Instance.boosts.ContainsKey(type))
+                Stats.Instance.boosts.Add(type, (1f, 0f));
+            if (Stats.Instance.boosts[type].time > 0)
+            {
+                var boost = Stats.Instance.boosts[type];
+                boost.time -= dt;
+                Stats.Instance.boosts[type] = boost;
+            }
         }
     }
 

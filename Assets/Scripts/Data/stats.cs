@@ -65,11 +65,13 @@ public class Stats
     public bool HasNoAds = false;
 
     //boost
-    public float damageBoostTime = 0f;
-    public float xpBoostTime = 0f;
-    public float pvShieldBoostTime = 0f;
-    public float ressourcesBoostTime = 0f;
+    //public float damageBoostTime = 0f;
+    //public float xpBoostTime = 0f;
+    //public float pvShieldBoostTime = 0f;
+    //public float ressourcesBoostTime = 0f;
     public bool ReduceLifeBoss = false;
+
+    public Dictionary<Boost.Type, (float coef, float time)> boosts = new Dictionary<Boost.Type, (float, float)>();
 
     //tutos
     public bool ironTuto = false;

@@ -22,16 +22,8 @@ public class OfflineUI : MonoBehaviour
         calculOfflineUraniumEarn(30, false);
         if (!Stats.Instance.firstConnection)
         {
-            if (Stats.Instance.damageBoostTime > 0)
-            {
-                long time = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastConnection;
-                Stats.Instance.damageBoostTime -= time;
-            }
-            if (Stats.Instance.xpBoostTime > 0)
-            {
-                long time = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastConnection;
-                Stats.Instance.xpBoostTime -= time;
-            }
+            long time = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastConnection;
+            MainUi.Instance.shopUI.UpdateBoost(time);
             Load();
         }
         else

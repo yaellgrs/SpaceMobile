@@ -391,9 +391,9 @@ public class spaceObject : MonoBehaviour
                 result *= 5f;
                 break;
         }
-        if(Stats.Instance.xpBoostTime > 0)
+        if (Stats.Instance.boosts[Boost.Type.xp].time > 0)
         {
-            result *= 2;
+            result.Multiply(Stats.Instance.boosts[Boost.Type.xp].coef);
         }
         result *= Stats.Instance.XpMultiplicator;
         if(Settings.Instance.showBanner)result *= Consts.BANNER_REWARD;

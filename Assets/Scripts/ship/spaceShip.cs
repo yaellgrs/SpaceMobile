@@ -214,8 +214,8 @@ public class spaceShip : MonoBehaviour
     public BigNumber getMaxLife()
     {
         BigNumber life = new BigNumber(Ship.Current.lifeMax.getTotal());
-        if (Stats.Instance.pvShieldBoostTime > 0) {
-            life.Multiply(2);
+        if (Stats.Instance.boosts[Boost.Type.pvShield].time > 0) {
+            life.Multiply(Stats.Instance.boosts[Boost.Type.pvShield].coef);
         }
         return life;
     }
@@ -223,10 +223,6 @@ public class spaceShip : MonoBehaviour
     public BigNumber getMaxShield()
     {
         BigNumber shield = new BigNumber(Ship.Current.shieldMax.getTotal());
-        if (Stats.Instance.pvShieldBoostTime > 0)
-        {
-            shield.Multiply(2);
-        }
         return shield;
     }
 }

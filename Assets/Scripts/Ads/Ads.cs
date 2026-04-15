@@ -232,23 +232,34 @@ public class Ads : MonoBehaviour
                 ResurectionUI.Instance.Resurection();
                 break;
             case RewardType.BoostDamage:
-                Stats.Instance.damageBoostTime =  3600;
+                setBoost(Boost.Type.damage);
                 MainUi.Instance.shopUI.LoadBoost();
                 break;
             case RewardType.BoostXp:
-                Stats.Instance.xpBoostTime =  3600;
+                setBoost(Boost.Type.xp);
                 MainUi.Instance.shopUI.LoadBoost();
                 break;
             case RewardType.BoostLife:
-                Stats.Instance.pvShieldBoostTime =  3600;
+                setBoost(Boost.Type.pvShield);
                 MainUi.Instance.shopUI.LoadBoost();
                 break;
             case RewardType.BoostRessource:
-                Stats.Instance.ressourcesBoostTime =  3600;
+                setBoost(Boost.Type.ressources);
                 MainUi.Instance.shopUI.LoadBoost();
                 break;
         }
     }
+
+    public void setBoost(Boost.Type type)
+    {
+        Debug.Log("before boost : " + type + "time : " + Stats.Instance.boosts[type].time + " coef : " + Stats.Instance.boosts[type].coef);
+        float coef = 1f;
+        if (Stats.Instance.boosts[type].time <= 0f) coef = 1.5f;
+        else coef = Stats.Instance.boosts[type].coef == 1f ? 1.5f : 2f; 
+        Stats.Instance.boosts[type] = (coef, 3600);
+        Debug.Log("after boost : " + type + "time : " + Stats.Instance.boosts[type].time + " coef : " + Stats.Instance.boosts[type].coef);
+    }
+
 
     public static BigNumber getIronAdsReward() => OfflineUI.calculOfflineIronEarn(150, false);
     public static BigNumber getUraniumAdsReward() => OfflineUI.calculOfflineUraniumEarn(150, false);

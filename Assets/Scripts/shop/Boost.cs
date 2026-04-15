@@ -12,6 +12,7 @@ public class Boost
     private VisualElement boost;
     private Button buy;
     private Label Lbl_time;
+    private Label Lbl_coef;
     //private Label Lbl_price;
 
     public int time; // in hour
@@ -29,6 +30,7 @@ public class Boost
         buy = boost.Q<Button>("buy");
         //Lbl_price = boost.Q<Label>("diamand");
         Lbl_time = boost.Q<Label>("time");
+        Lbl_coef = boost.Q<Label>("coef");
 
         if (type != Type.time) loadBonusActive();
 
@@ -44,11 +46,14 @@ public class Boost
             Utility.setBorderColor(boost, Color.green);
             Lbl_time.style.display = DisplayStyle.Flex;
             Lbl_time.text = getTime();
+            Lbl_coef.style.display = DisplayStyle.Flex;
+            Lbl_coef.text = "x" + Stats.Instance.boosts[type].coef.ToString("F1");
         }
         else
         {
             Utility.setBorderColor(boost, Color.white);
             Lbl_time.style.display = DisplayStyle.None;
+            Lbl_coef.style.display = DisplayStyle.None;
         }
 
         //Lbl_price.text = price.ToString();
@@ -56,21 +61,13 @@ public class Boost
 
     private bool checkActive()
     {
-        Debug.LogError("boost ressource : " + Stats.Instance.ressourcesBoostTime);
-        if (type == Type.damage) return (Stats.Instance.damageBoostTime > 0); // Stats.Instance.damageBoostTime
-        if (type == Type.xp) return (Stats.Instance.xpBoostTime > 0); //Stats.Instance.xpBoostTime); 
-        if (type == Type.pvShield) return (Stats.Instance.pvShieldBoostTime > 0); //Stats.Instance.pvShieldBoostTime
-        if (type == Type.ressources) return (Stats.Instance.ressourcesBoostTime > 0); //Stats.Instance.ressourcesBoostTime
-        return false;
+
+        return Stats.Instance.boosts[type].time > 0f; 
     }
 
     private string getTime()
     {
-        if (type == Type.damage) return Utility.TimeToString_hm((long)Stats.Instance.damageBoostTime);
-        if (type == Type.xp) return Utility.TimeToString_hm((long)Stats.Instance.xpBoostTime);
-        if (type == Type.pvShield) return Utility.TimeToString_hm((long)Stats.Instance.pvShieldBoostTime);
-        if (type == Type.ressources) return Utility.TimeToString_hm((long)Stats.Instance.ressourcesBoostTime);
-        return "";
+        return Utility.TimeToString_hm((long)Stats.Instance.boosts[type].time);
     }
 
     private void Buy()
@@ -135,10 +132,12 @@ public class Boost
 
     public bool CanPay()
     {
-        Debug.Log(" damage boost time : " + Stats.Instance.damageBoostTime);
+        return Stats.Instance.boosts[type].coef != 2f || (Stats.Instance.boosts[type].coef == 2f && Stats.Instance.boosts[type].time <= 0f);
 
-        if (type == Type.damage)
-            return Stats.Instance.damageBoostTime <= 0;
+/*        if (type == Type.damage)
+
+
+
         if (type == Type.xp)
             return Stats.Instance.xpBoostTime <= 0;
         if (type == Type.pvShield)
@@ -146,6 +145,6 @@ public class Boost
         if (type == Type.ressources)
             return Stats.Instance.ressourcesBoostTime <= 0;
 
-        return false;
-    }
+        return false;*/
+    }   //oui si 1f ( 0f ) so 1.5f( xf ) ou 2f( 0f)
 }
