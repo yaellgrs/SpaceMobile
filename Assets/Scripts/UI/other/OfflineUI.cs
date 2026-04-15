@@ -8,7 +8,12 @@ public class OfflineUI : MonoBehaviour
     public UIDocument offlineUI;
 
     private Label timeLabel;
-    private Label ironEarned;
+
+    private Label Lbl_iron;
+    private VisualElement VE_iron;
+    private VisualElement VE_reward;
+    private Label Lbl_uranium;
+
     private Label Lbl_message;
     private Label Lbl_win;
     private Button claimBtn;
@@ -48,7 +53,10 @@ public class OfflineUI : MonoBehaviour
         }).StartingIn(50);
 
         timeLabel = root.Q<Label>("time");
-        ironEarned = root.Q<Label>("ironEarned");
+        Lbl_iron = root.Q<Label>("ironEarned");
+        Lbl_uranium = root.Q<Label>("uraniumEarned");
+        VE_iron = root.Q<VisualElement>("mainRessourceLogo");
+        VE_reward = root.Q<VisualElement>("reward");
         Lbl_message = root.Q<Label>("message");
         Lbl_win = root.Q<Label>("win");
         claimBtn = root.Q<Button>("claim");
@@ -60,7 +68,13 @@ public class OfflineUI : MonoBehaviour
         BigNumber iron = calculOfflineIronEarn(time, offline);
         BigNumber uranium = calculOfflineUraniumEarn(time, offline);
 
-        ironEarned.text = "+" + iron.ToString();
+        Lbl_iron.text = "+" + iron.ToString();
+        Lbl_iron.style.color = Utility.GetShipColor();
+        VE_iron.style.backgroundImage= Utility.GetMainRessourceLogo();
+
+        Lbl_uranium.style.color = Consts.COLOR_URANIUM;
+        Lbl_uranium.text = "+" + uranium.ToString();
+        Lbl_uranium.style.display = Ship.Current.HaveUranium() ? DisplayStyle.Flex : DisplayStyle.None;
 
         timeLabel.text = Utility.TimeToString_dhms(time);
 
@@ -71,15 +85,17 @@ public class OfflineUI : MonoBehaviour
             timeLabel.text = "";
             Lbl_message.text = "You first need to have the automation for this.";
             Lbl_message.style.color = Color.red;
-            ironEarned.style.display = DisplayStyle.None;
+            VE_reward.style.display = DisplayStyle.None;
             Lbl_win.style.display = DisplayStyle.None;
+
+            
 
         }
         else
         {
             Lbl_message.text = "you have been disconnected for";
             Lbl_message.style.color = Color.white;
-            ironEarned.style.display = DisplayStyle.Flex;
+            VE_reward.style.display = DisplayStyle.Flex;
             Lbl_win.style.display = DisplayStyle.Flex;
         }
        
