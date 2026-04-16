@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\UI\machines\machineUraniumElement.cs" />
     <Compile Include="Assets\Scripts\UI\BossFragmentUi.cs" />
     <Compile Include="Assets\Scripts\UI\upgrades\UpgradesIronElement.cs" />
+    <Compile Include="Assets\Scripts\UI\LoadAdsUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\Consts.cs" />
@@ -216,6 +217,7 @@
     <None Include="Assets\UI\xpstyle.uss" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\UI\menu\bonusTest.uxml" />
+    <None Include="Assets\UI\Ads\LoadAdsUI.uxml" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll" />
     <None Include="Assets\Resources\Data\Quests\Wood\readme.txt" />
@@ -252,7 +254,7 @@
     <None Include="Assets\UI\bottomStyle.uss" />
     <None Include="Assets\GoogleMobileAds\GoogleMobileAds.Ump.Android.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\UI\AdsUI.uxml" />
+    <None Include="Assets\UI\Ads\AdsUI.uxml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\Resources\Styles\BuyBorderStyle.uss" />
   </ItemGroup>

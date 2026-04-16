@@ -111,13 +111,12 @@ public class AdsUI : MonoBehaviour
 
         //if (IAPManager.Instance.CheckAds()) Ads.Instance.SetReward(reward);
         Ads.Instance.ShowRewardedAd(reward);
-        Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        
         pubDelay = pubDelayWatch;
         Datas.Instance.current.pubWatch++;
-        Close();
     }
 
-    private void Close()
+    public void Close()
     {
 
         main.RemoveFromClassList("trans");

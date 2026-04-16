@@ -8,7 +8,7 @@ using UnityEngine;
 public class Ads : MonoBehaviour
 {
     private const string _RewardAdUnitId = "ca-app-pub-2287437722164523/1941909652";
-    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";
+    //private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";
 
     private BannerView bannerView;
 
@@ -17,6 +17,9 @@ public class Ads : MonoBehaviour
     public static Ads Instance;
 
     private RewardedAd _rewardedAd;
+
+    private int tentative = 0;
+    private bool showVideo = true;
 
     private void Awake()
     {
@@ -51,113 +54,15 @@ public class Ads : MonoBehaviour
         );
 
         // Création avec position temporaire (0,0)
-        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
-#if UNITY_EDITOR
-        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
-#else
-    bannerView = new BannerView(_BannerAdUnitId, adSize, 0, 0);
-#endif
+//        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+//#if UNITY_EDITOR
+//        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+//#else
+//    bannerView = new BannerView(_BannerAdUnitId, adSize, 0, 0);
+//#endif
 
-        AdRequest request = new AdRequest();
-
-        bannerView.OnBannerAdLoaded += () =>
-        {
-        #if !UNITY_EDITOR
-                    int yPos = GetBannerYPositionDp();
-                    bannerView.SetPosition(0, yPos);
-        #endif
-            if (Settings.Instance.showBanner)
-            {
-                bannerView.Show();
-                MainUi.Instance.adaptBanner(true);
-                BottomUI.Instance.AdaptBanner(true);
-            }
-            else
-            {
-                bannerView.Hide();
-            }
-        };
-
-        bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
-        {
-            Debug.LogError("Banner failed to load: " + error);
-        };
-
-        bannerView.LoadAd(request);
     }
 
-    private int GetNavBarHeightDp()
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        try
-        {
-            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-            using (var resources = activity.Call<AndroidJavaObject>("getResources"))
-            using (var metrics = resources.Call<AndroidJavaObject>("getDisplayMetrics"))
-            {
-                float density = metrics.Get<float>("density");
-                int resourceId = resources.Call<int>("getIdentifier",
-                    "navigation_bar_height", "dimen", "android");
-
-                if (resourceId > 0)
-                {
-                    int heightPx = resources.Call<int>("getDimensionPixelSize", resourceId);
-                    return Mathf.RoundToInt(heightPx / density);
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("GetNavBarHeightDp error: " + e);
-        }
-#endif
-        return 0;
-    }
-
-    private int GetBannerYPositionDp()
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        try
-        {
-            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-            using (var resources = activity.Call<AndroidJavaObject>("getResources"))
-            using (var metrics = resources.Call<AndroidJavaObject>("getDisplayMetrics"))
-            {
-                float density = metrics.Get<float>("density");
-
-                int screenHeightPx = metrics.Get<int>("heightPixels");
-                int screenHeightDp = Mathf.RoundToInt(screenHeightPx / density);
-
-                int bannerHeightDp = Mathf.RoundToInt(bannerView.GetHeightInPixels() / density);
-
-                int navBarDp = GetNavBarHeightDp();
-
-                int yPos = screenHeightDp - bannerHeightDp - navBarDp;
-                Debug.Log($"Banner Y = {yPos}dp (screen={screenHeightDp}, banner={bannerHeightDp}, nav={navBarDp})");
-                return yPos;
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("GetBannerYPositionDp error: " + e);
-        }
-#else
-        // Fallback éditeur : simule une nav bar de 48dp
-        int screenHeightDp = Mathf.RoundToInt(Screen.height / (Screen.dpi / 160f));
-        int bannerHeightDp = Mathf.RoundToInt(bannerView.GetHeightInPixels() / (Screen.dpi / 160f));
-        return screenHeightDp - bannerHeightDp - 48;
-#endif
-
-        return 0;
-    }
-
-    private IEnumerator ShowBannerDelayed(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        ShowBanner(Settings.Instance.showBanner);
-    }
 
     public void ShowBanner(bool show)
     {
@@ -205,14 +110,38 @@ public class Ads : MonoBehaviour
 
     public void ShowRewardedAd(RewardType type)
     {
-        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        if (_rewardedAd != null && _rewardedAd.CanShowAd() && showVideo)
         {
-            _rewardedAd.Show((Reward reward) => GetReward(type));
+
+            _rewardedAd.Show((Reward reward) => {
+
+                GetReward(type);
+                LoadAdsUI.Instance.Close();
+            });
+            tentative = 0;
+        }
+        else if(tentative < 10)
+        {
+            tentative++;
+            StartCoroutine(ReloadAd(type, 0.5f));
+            LoadAdsUI.Instance.Open();
+
         }
         else
         {
-            Debug.Log("Ad not ready");
+            // no found
+            LoadAdsUI.Instance.SetError();
+
+            tentative = 0;
         }
+    }
+
+    private IEnumerator ReloadAd(RewardType type, float delay)
+    {
+        LoadRewardedAd();
+        yield return new WaitForSeconds(delay); // laisse le temps de charger
+        ShowRewardedAd(type);
+
     }
 
     public void GetReward(RewardType type)
@@ -220,9 +149,13 @@ public class Ads : MonoBehaviour
         switch (type)
         {
             case RewardType.Diamand:
+                Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                MainUi.Instance.adsUI.Close();
                 Stats.Instance.AddDiamand(5);
                 break;
             case RewardType.Ressources:
+                Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                MainUi.Instance.adsUI.Close();
                 Stats.Instance.AddIron(getIronAdsReward());
                 Stats.Instance.AddUranium(getUraniumAdsReward());
                 break;
