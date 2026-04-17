@@ -34,3 +34,4 @@ Thumbs.db
 # Safety (Unity)
 # =====================
 !*.meta
+/Packages/com.merry-yellow.code-assist
