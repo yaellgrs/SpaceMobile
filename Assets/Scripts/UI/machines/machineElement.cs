@@ -445,26 +445,6 @@ public partial class machineElement : Button
         return 25 + CalculColorLifePrice(color - 1);
     }
 
-/*    private BigNumber addColorCost(int baseLevel, int endLevel, double r)
-    {
-        BigNumber priceModifier = new BigNumber(0);
-        foreach(int lvColor in machineData.levelColor)
-        {
-            if (lvColor > baseLevel && lvColor <= endLevel)
-            {
-                priceModifier = data.BN_price * 0.01f;
-                if (priceModifier < new BigNumber(1)) priceModifier.Set(1);
-                double factor = 15.00 * System.Math.Pow(r, lvColor) * Stats.Instance.upgradesPriceReducer;
-
-                priceModifier.Multiply(factor, false);
-                priceModifier.Add(priceModifier, false);
-            }
-        }
-
-        priceModifier.Normalize();
-        return priceModifier;
-    }*/
-
     private int GetColorAmount()
     {
         int i = 0;
@@ -488,6 +468,13 @@ public partial class machineElement : Button
 
         BigNumber machinePriceModifier = data.BN_price * 0.00085f;
         if (machinePriceModifier > new BigNumber(1)) reward *= machinePriceModifier;
+
+
+        if (Stats.Instance.boosts.ContainsKey(Boost.Type.damage))
+        {
+            if (Stats.Instance.boosts[Boost.Type.ressources].time > 0f)
+                reward *= Stats.Instance.boosts[Boost.Type.ressources].coef;
+        }
 
         reward.round();
 

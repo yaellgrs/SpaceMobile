@@ -33,7 +33,9 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            Ship.Current.iron = new BigNumber(0);
+            var boost = Stats.Instance.boosts[Boost.Type.damage];
+            boost.time = 0f;
+            Stats.Instance.boosts[Boost.Type.damage] = boost;
         }
 
         if (Input.GetKeyDown(KeyCode.R))

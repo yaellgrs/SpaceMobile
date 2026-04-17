@@ -30,6 +30,11 @@ public class Lazer : MonoBehaviour
             {
                 bool critic = UnityEngine.Random.Range(0, 1000) <= Stats.Instance.critical_Prob;
                 BigNumber dmg = new BigNumber(Ship.Current.damage.getTotal(isRocket, critic));
+                if (Stats.Instance.boosts.ContainsKey(Boost.Type.damage))
+                {
+                    if (Stats.Instance.boosts[Boost.Type.damage].time > 0f) 
+                        dmg *= Stats.Instance.boosts[Boost.Type.damage].coef;
+                }
                 meteor.life.Subtract(dmg);
 
                 if (isRocket)
