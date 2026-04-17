@@ -6,7 +6,7 @@ public class QuestStats
 {
     static public QuestStats Instance;
 
-    public int questMaxLevel = 10;
+    public int questMaxLevel = 11;
     public int questLevel = 1;
     public BigNumber progress = new BigNumber(0);
 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest5
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 5
-  type: 3
+  type: 0
   objectif:
     Mantisse: 1
-    Exp: 2
+    Exp: 0
   rewardDiamand: 5
   text: "Tu as bien progress\xE9, mais il est temps de recommencer\u2026 en mieux
     !\nFais un prestige pour revenir encore plus fort ."

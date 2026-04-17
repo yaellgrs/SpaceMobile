@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 //public enum MarkerType { Xp, Diamand, Damage, Iron, Uranium, Critique, Prestige };
-public enum MarkerType { Xp, Diamand, Damage, Iron, Uranium, Critique, Prestige };
+public enum MarkerType { Xp, Diamand, Damage, Iron, Wood, Uranium, Critique, Prestige };
 [UxmlElement]
 public partial class markerElement : Label
 {
@@ -18,6 +18,7 @@ public partial class markerElement : Label
         Utility.Hex("#FF0000"), //Diamand
         Utility.Hex("#FF0E00"), //Damage
         Utility.Hex("#FFA300"), //Iron
+        Utility.Hex("#B07C61"), //Wood
         Utility.Hex("#00FF05"),  //Uranium
         Utility.Hex("#Damage"),  //Crtique
         Utility.Hex("#FAFF00"),  //Prestige

@@ -27,6 +27,8 @@ public class spaceShip : MonoBehaviour
     private bool isPause = false;
 
 
+    [SerializeField] private HitEffect hitEffect;
+
 
     private void Awake()
     {
@@ -51,7 +53,8 @@ public class spaceShip : MonoBehaviour
 
     public void LoadAnimation()
     {
-        animator.SetBool("isWood", Ship.Current.type == SpaceShipElement.Wood);
+        if (Ship.Current == null) return;
+        animator.SetBool("isWood", Ship.Current?.type == SpaceShipElement.Wood);
     }
 
     public void SetPause(bool pause)
@@ -59,7 +62,6 @@ public class spaceShip : MonoBehaviour
         if (animator == null)return;
         animator.speed = pause ? 0f : 1f;
 
-        Debug.Log("set pause : " + pause);
         isPause = pause;
     }
 
@@ -72,6 +74,7 @@ public class spaceShip : MonoBehaviour
             if (!gameManager.instance.isPaused)
             {
                 shieldRegen += Time.deltaTime;
+                if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
             }
             MainUi.Instance.upShieldRegenUI();
             if (shieldRegen > Stats.Instance.shield_Regen_Time && Ship.Current.life.isBigger(new BigNumber(0)))
@@ -94,6 +97,7 @@ public class spaceShip : MonoBehaviour
         {
             gameManager.instance.RestartStage();
             Handheld.Vibrate();
+            gameManager.instance.ActiveDeadVolume();
             if (Ship.Current.stage % Stats.BOSS_STAGE_GAP == 0)
             {
                 Ship.Current.isDead = true;
@@ -160,31 +164,31 @@ public class spaceShip : MonoBehaviour
 
     public void getDamage(BigNumber amount, bool boss = false)
     {
+
+        if (hitEffect != null) hitEffect.ActiveHitEffect();
         if (boss)
         {
-            Ship.Current.shield.Set(0);
+            Debug.LogError("BOOOOOSSS");
+            //Ship.Current.shield.Set(0);
             Ship.Current.life.Set(0);
             return;
         }
 
-        if (Ship.Current.shield.isBigger(amount))
-        {
-            Ship.Current.shield -= amount;
-            if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);
-        }
-        else
-        {
-            BigNumber x = new BigNumber(amount);
-            x -= Ship.Current.shield;
-            if (Ship.Current.shield.Mantisse != 0)
-            {
-                Ship.Current.shield.Set(0);
-            }
+        //if (Ship.Current.shield >= amount)
+        //{
+        //    Ship.Current.shield -= amount;
+        //    if(new BigNumber(0).isBigger(Ship.Current.shield)) Ship.Current.shield.Set(0);
+        //}
 
-            Ship.Current.life -= x;
-            if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
-        }
+        //BigNumber x = new BigNumber(amount);
+        //x -= Ship.Current.shield;
+        //if (Ship.Current.shield.Mantisse < 0)
+        //{
+        //    Ship.Current.shield.Set(0);
+        //}
 
+        Ship.Current.life -= amount;
+        if (Ship.Current.life.Mantisse < 0) Ship.Current.life.Set(0);
         MainUi.Instance.upShieldBar();
     }
 
@@ -210,8 +214,8 @@ public class spaceShip : MonoBehaviour
     public BigNumber getMaxLife()
     {
         BigNumber life = new BigNumber(Ship.Current.lifeMax.getTotal());
-        if (Stats.Instance.pvShieldBoostTime > 0) {
-            life.Multiply(2);
+        if (Stats.Instance.boosts[Boost.Type.pvShield].time > 0) {
+            life.Multiply(Stats.Instance.boosts[Boost.Type.pvShield].coef);
         }
         return life;
     }
@@ -219,10 +223,6 @@ public class spaceShip : MonoBehaviour
     public BigNumber getMaxShield()
     {
         BigNumber shield = new BigNumber(Ship.Current.shieldMax.getTotal());
-        if (Stats.Instance.pvShieldBoostTime > 0)
-        {
-            shield.Multiply(2);
-        }
         return shield;
     }
 }

@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 9040802075139375379
   m_TableData:
   - m_Id: 5438910464
-    m_Localized: "Hay demasiados meteoritos en el espacio, \xA1ay\xFAdenme !"
+    m_Localized: "Une vague de m\xE9t\xE9orite approche, j'ai peur  ! "
     m_Metadata:
       m_Items: []
   - m_Id: 285480005632
@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 86366347014144
-    m_Localized: 'Gana hierros destruyendo meteoritos de hierro :'
+    m_Localized: "Tues des m\xE9t\xE9orites de bois : "
     m_Metadata:
       m_Items: []
   - m_Id: 336272101945344
@@ -55,14 +55,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 470882718789632
-    m_Localized: "Has avanzado mucho, pero es hora de empezar de nuevo\u2026 \xA1mejor
-      que antes!\nHaz un prestigio para volver a\xFAn m\xE1s fuerte."
+    m_Localized: "Il faut vite trouver une solution ! Si on ne d\xE9truis pas ce
+      boss on va\u2026 on sera foutu."
     m_Metadata:
       m_Items: []
   - m_Id: 738363026911232
-    m_Localized: "Ahora es el momento de aprovechar el poder del uranio. \xA1Pero
-      primero tendr\xE1s que recolectar un poco de uranio! No olvides mejorar tu
-      forja de uranio para ganar mucho m\xE1s con los meteoritos de uranio."
+    m_Localized: "Il faut absolument qu\u2019on d\xE9couvre ce qu\u2019il y a d\xE9rri\xE8re
+      la poussi\xE8re d\u2019\xE9toile. Peut \xEAtre qu\u2019elle pourra nous sauver."
     m_Metadata:
       m_Items: []
   - m_Id: 739707456532480
@@ -70,7 +69,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 739583590346752
-    m_Localized: "\xA1Bien hecho! \xA1Ahora mejora la nave usando uranio!"
+    m_Localized: "On a r\xE9ussie a avoir les particules d\u2019\xE9toile ! Utilises
+      les j\u2019ai hate de voir ce qu\u2019on va avoir avec ! "
     m_Metadata:
       m_Items: []
   - m_Id: 739708047929344
@@ -83,20 +83,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1245777727795200
-    m_Localized: "Para aprovechar al m\xE1ximo las ganancias de los meteoritos de
-      hierro y uranio, \xA1primero necesitas tener forjas bien equipadas! Mejora
-      todos tus generadores tanto como puedas."
+    m_Localized: "Passons aux choses s\xE9rieuse, si on veut s\u2019en sortir il
+      va falloir commencer a produire du bois en grande quantit\xE9 ! "
     m_Metadata:
       m_Items: []
   - m_Id: 1245862343684096
-    m_Localized: "Un generador de hierro ya no es suficiente para avanzar. \xBFY
-      si ahorras para duplicar tu producci\xF3n?"
+    m_Localized: "Olalala j\u2019ai jamais vu autant de bois de toute ma vie !! Tu
+      vas pouvoir nous cr\xE9er une vrai forteresse avec ! "
     m_Metadata:
       m_Items: []
   - m_Id: 1245862968635392
-    m_Localized: "\xBFY si te pones a prueba un poco? \xA1Intenta completar las primeras
-      20 oleadas de meteoritos en menos de 5 minutos! No dudes en poner la velocidad
-      de los meteoritos en x2."
+    m_Localized: 'Tues des boss ( temporaire ) '
     m_Metadata:
       m_Items: []
   - m_Id: 1246248500670464
@@ -112,6 +109,26 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 9040802075139375379
+  - m_Id: 101960174984335360
+    m_Localized: Obtiens du bois avec la forge de ton vaisceaux
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106556196201009152
+    m_Localized: 'Elimines les boss :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106556863871291392
+    m_Localized: 'Traverses des trous noirs : '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106564855266119680
+    m_Localized: "Am\xE9liore ton vaisceaux avec les particules d'\xE9toiles  :"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106581840758673408
+    m_Localized: "Obtient des particules d\u2019\xE9toiles ( temporaire ) "
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

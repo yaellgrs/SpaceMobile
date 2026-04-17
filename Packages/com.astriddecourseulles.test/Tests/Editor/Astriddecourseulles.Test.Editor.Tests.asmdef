@@ -1,0 +1,14 @@
+{
+    "name": "Astriddecourseulles.Test.Editor.Tests",
+    "references": [
+        "Astriddecourseulles.Test.Editor",
+        "Astriddecourseulles.Test"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

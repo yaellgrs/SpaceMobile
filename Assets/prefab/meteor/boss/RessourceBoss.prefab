@@ -5108,7 +5108,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.203, y: -0.495, z: 0}
-  m_LocalScale: {x: 1.25, y: -1.25, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6375443823900872329}
@@ -5168,7 +5168,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 1667664292612734564, guid: 657067dc4923bf241aaceb46f08d757d, type: 3}
   m_Color: {r: 0.94539356, g: 1, b: 0, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.975, y: 0.97}
   m_AdaptiveModeThreshold: 0.5
@@ -5237,9 +5237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::meteorBoss
   lifeText: {fileID: 7251142301218911079}
-  ironCollectiblePrefab: {fileID: 1043401879135688721, guid: 6ed58148e22cae1458bd8118a663ba0a, type: 3}
-  uraniumCollectiblePrefab: {fileID: 1043401879135688721, guid: c5e4c466386e3fd449285f1e07028744, type: 3}
-  diamandCollectiblePrefab: {fileID: 1043401879135688721, guid: 7944c6d21ff2ab84098820090648a053, type: 3}
+  collectiblePrefab: {fileID: 0}
   starParticle: {fileID: 2220919918932805080}
   meteorParticle: {fileID: 5968306807431856328}
   spaceObjectSpeed: 0
@@ -5251,11 +5249,11 @@ MonoBehaviour:
     Exp: 0
   spawnTime: 0
   isPause: 0
-  baseScale: {x: 1.25, y: -1.25, z: 1}
+  baseScale: {x: 1.25, y: 1.25, z: 1}
   level: 1
   type: 0
   isDestroyByRocket: 0
-  bossType: 1
+  bossType: 2
   statut: 0
   firstWavePrefab: {fileID: 5482572478085618534, guid: 953d49ffe405f5147ba770cf52664af7, type: 3}
   secondWavePrefab: {fileID: 2963011495043054338, guid: ae90cab106598914390aa66d5ea0a82a, type: 3}

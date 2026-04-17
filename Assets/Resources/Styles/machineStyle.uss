@@ -38,15 +38,16 @@
 }
 
 .machineEmployee {
-    left: 25%;
-    width: 50%;
+    left: 90%;
+    width: 20%;
     color: rgb(255, 255, 255);
     font-size: 20px;
     -unity-font-style: bold;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
     position: absolute;
-    top: 67.5%;
-    -unity-text-align: upper-center;
+    top: initial;
+    -unity-text-align: middle-left;
+    height: 100%;
 }
 
 .machineReward {
@@ -160,6 +161,16 @@
     left: 0;
     -unity-text-align: middle-center;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
+}
+
+.machineEmployeeLogo {
+    background-image: url("project://database/Assets/art/Characters/ouvrier.png?fileID=2800000&guid=1186e9fd2ada2ac458fad5e4fdcf5e05&type=3#ouvrier");
+    position: absolute;
+    top: 60%;
+    left: 23%;
+    width: 5%;
+    height: auto;
+    aspect-ratio: 1;
 }
 
 .machineUpButton {
@@ -316,8 +327,39 @@
     width: initial;
     top: 14.5%;
     left: 5.5%;
-    background-image: resource("logos/iron/anvil");
+    background-image: resource("logos/Wood/Hache");
     aspect-ratio: 1.2;
     overflow: visible;
     font-size: 10px;
+}
+
+.lockBorderButtons {
+    flex-direction: row;
+    top: 70%;
+    position: absolute;
+    width: 20%;
+    justify-content: space-evenly;
+    align-self: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: flex;
+    overflow: visible;
+    height: 18%;
+    background-color: rgba(255, 0, 0, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }

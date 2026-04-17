@@ -15,7 +15,7 @@ MonoBehaviour:
   level: 1
   type: 1
   objectif:
-    Mantisse: 1
-    Exp: 2
+    Mantisse: 10
+    Exp: 0
   rewardDiamand: 2
-  text: "Il y a trop de m\xE9t\xE9orites dans l'espace, s'il te plait aides moi !"
+  text: "Une vague de m\xE9t\xE9orite approche, sauves moi ! "

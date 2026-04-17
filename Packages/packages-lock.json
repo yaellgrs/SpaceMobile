@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.astriddecourseulles.test": {
+      "version": "file:com.astriddecourseulles.test",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.test-framework": "1.6.0"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "13.0.2",
       "depth": 1,

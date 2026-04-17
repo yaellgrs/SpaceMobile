@@ -13,14 +13,15 @@ public class PrestigeUI : BaseUI
     private static Dictionary<UpgradeType, float> UpgradesPriceFactor = new Dictionary<UpgradeType, float>()
     {
         { UpgradeType.PrestigeMultiplicator, 1.4f},
-        { UpgradeType.LessMeteor, 1.4f},
-        { UpgradeType.LessPriceUpgrades, 1.4f},
-        { UpgradeType.XpBoost, 1.4f},
-        { UpgradeType.DamageMultiplicator, 1.4f},
-        { UpgradeType.StageSkip, 1.4f},
-        { UpgradeType.OmegaProb, 1.4f},
-        { UpgradeType.MinimumLevel, 1.4f},
+        { UpgradeType.LessPriceUpgrades, 1.13f},
+        { UpgradeType.DamageMultiplicator, 1.125f},
+        { UpgradeType.StageSkip, 1.135f},
+        { UpgradeType.OmegaProb, 1.15f},
+        { UpgradeType.MinimumLevel, 1.165f},
+
         { UpgradeType.CriticalProbability, 1.4f},
+        { UpgradeType.LessMeteor, 1.4f},
+        { UpgradeType.XpBoost, 1.4f},
     };
 
     public UIDocument prestigeUI;
@@ -42,9 +43,12 @@ public class PrestigeUI : BaseUI
     private Button diamandBtn;
     private Label rewardLabel;
     private Label bonusLabel;
+    private Label Lbl_boost;
     private Label totalLabel;
 
     private BigNumber bonus;
+    private BigNumber BN_boost;
+    private BigNumber BN_reward;
 
     //buy UI
     private Button backButton2;
@@ -229,6 +233,8 @@ public class PrestigeUI : BaseUI
         black = root.Q<VisualElement>("black");
         forgeUiVE = root.Q<VisualElement>("main");
 
+        adaptBanner(Settings.Instance.showBanner);
+
         if (classActived)
         {
             classActived = false;
@@ -274,6 +280,8 @@ public class PrestigeUI : BaseUI
         }
         else
             unlockLevel.style.visibility = Visibility.Visible;
+
+        DialogueManager.Instance.TryDialogue("FirstPrestigeOpen");
     }
 
     public void LoadPrestige()
@@ -293,17 +301,33 @@ public class PrestigeUI : BaseUI
         diamandBtn = root.Q<Button>("diamand");
         rewardLabel = root.Q<Label>("reward");
         bonusLabel = root.Q<Label>("bonus");
+        Lbl_boost = root.Q<Label>("boost");
         totalLabel = root.Q<Label>("total");
 
         rewardLabel.text = "Normal Reward : " + Stats.Instance.prestigeWaiting;
+
+
+        float mult = Stats.Instance.star_multiplicator_prestige - 1f;
+
         bonus = new BigNumber(Stats.Instance.prestigeWaiting);
-
-        float mult = Stats.Instance.star_mutliplicator_level - 1f;;
+        BN_reward = new BigNumber(Stats.Instance.prestigeWaiting);
         bonus.Multiply(mult);
-        bonusLabel.text = "Bonus ( x" + Stats.Instance.star_mutliplicator_level.ToString("F2") + " ) : " + bonus;
+        bonusLabel.text = "Bonus ( x" + Stats.Instance.star_multiplicator_prestige.ToString("F2") + " ) : +" + bonus;
 
-        bonus.Add(Stats.Instance.prestigeWaiting);
-        totalLabel.text = "Total : " + bonus;
+
+
+        BN_reward.Add(bonus);
+
+        BN_boost = new BigNumber(BN_reward);
+
+        BN_boost.Multiply((Stats.Instance.boosts[Boost.Type.prestige].time <= 0 ? 1f : Stats.Instance.boosts[Boost.Type.prestige].coef - 1));
+        Lbl_boost.text = "Boost ( " + ((Stats.Instance.boosts[Boost.Type.prestige].time <= 0) ? "Inactive" 
+                        : "x"+Stats.Instance.boosts[Boost.Type.prestige].coef.ToString("F1")) + " ) : +"
+                        + BN_boost.ToString();
+
+        BN_reward.Add(BN_boost);
+
+        totalLabel.text = "Total : " + BN_reward;
 
         if (Stats.Instance.prestigeWaiting.EqualZero()){
             prestigeReset.enabledSelf = false;
@@ -327,28 +351,21 @@ public class PrestigeUI : BaseUI
         backButton1.clicked += () => { backClicked(prestigeUI); };
 
     }
+
+
     private void diamandClicked()
     {
-        Stats.Instance.AddUranium(bonus);
+        Stats.Instance.addPrestige(BN_reward);
         Stats.Instance.AddDiamand(-50);
         PrestigeResetClicked();
     }
 
     private void PrestigeResetClicked()
     {
-        Stats.Instance.AddUranium(bonus);
+        Stats.Instance.addPrestige(BN_reward);
         Stats.Instance.prestigeWaiting.Set(0);
 
         Ship.Current.stage = 1;
-
-        Ship.Current.dataMachinesIron.Clear();
-        Ship.Current.dataMachinesIron.Clear();
-
-        Ship.Current.machinesUranium.Clear();
-        Ship.Current.upgradesUranium.Clear();
-
-        MainUi.Instance.ironUI.initializeUpgrade();
-        MainUi.Instance.uraniumUI.initializeUpgrade();
 
         Ship.Current.iron.Set(0);
         Ship.Current.uranium.Set(0);
@@ -360,24 +377,20 @@ public class PrestigeUI : BaseUI
         Ship.Current.life.Set(Ship.Current.lifeMax.getTotal());
         Ship.Current.shield.Set(Ship.Current.shieldMax.getTotal());
 
-        gameManager.instance.RestartStage();
-
+        Ship.Current.Prestige(); // Load(true);
 
         Datas.Instance.Prestige();
 
-        backClicked(forgeUI);
         backClicked(buyUI);
+        backClicked(forgeUI);
+        backClicked(prestigeUI);
+
 
         if(QuestManager.Instance.type == QuestType.GetStarParticle)
-        {
-            QuestStats.Instance.progress = new BigNumber(bonus);
-        }
-        else
-        {
-            QuestStats.Instance.progress = new BigNumber(0);
-        }
+            QuestManager.Instance.upQuest(bonus);
 
-            gameManager.instance.SetPause(true);
+        gameManager.instance.DestroyMeteors();
+        gameManager.instance.SetPause(true);
 
         if (ResurectionUI.Instance.resurectionUI.gameObject.activeInHierarchy)
         {
@@ -388,7 +401,6 @@ public class PrestigeUI : BaseUI
         }
         else
         {
-
             MainUi.Instance.uraniumUI.loadUpdateUI();
             MainUi.Instance.uraniumUI.IronClicked();
 
@@ -407,6 +419,17 @@ public class PrestigeUI : BaseUI
         Ship.Current.Load();
 
         gameManager.instance.InitGame();
+
+        gameManager.instance.RestartStage();
+
+
+
+        if (QuestManager.Instance.type == QuestType.Prestige)
+        {
+            QuestManager.Instance.upQuest();
+        }
+
+        StartCoroutine(DialogueUI.Instance.LaunchTransition());
     }
 
 
@@ -489,13 +512,14 @@ public class PrestigeUI : BaseUI
 
     private void buyClicked()
     {
+        Stats.Instance.addPrestige(-calculCostPrestige());
         addNewUpgrades(prestigeSelected);
         if (MainUi.Instance.prestigeUI.buyUI.gameObject.activeSelf == true)
             MainUi.Instance.prestigeUI.buyUI.gameObject.SetActive(false);
     }
     private BigNumber calculCostPrestige()
     {
-        return new BigNumber(15*Mathf.Pow(5, Stats.Instance.upgradesPrestige.Count));
+        return new BigNumber(1*Mathf.Pow(5, Stats.Instance.upgradesPrestige.Count));
     }
     private void backClicked(UIDocument document)
     {
@@ -563,37 +587,32 @@ public class PrestigeUI : BaseUI
         uraniumButton = root.Q<Button>("uranium");
         ironButton = root.Q<Button>("iron");
         forgeUiVE = root.Q<VisualElement>("main");
-        Button Btn_ship = root.Q<Button>("ship");
         black = root.Q<VisualElement>("black");
         Lbl_shipMoney = root.Q<Label>("shipMoney");
 
-        loadShipMoney();
 
-        ScrollView scroll = root.Q<ScrollView>("scroll");
-        scroll.Clear();
-        foreach (UpgradesShipElement upgrade in Ship.Current.upgradesShip)
-        {
-            if(upgrade.isUnlocked()){
-            scroll.Add(upgrade);
-                upgrade.Load();
-            }
-        }
-        //scroll.Add(buyButtonUI);
+        Btn_buy = root.Q<Button>("buy");
+        Lbl_cost = root.Q<Label>("cost");
+
+        adaptBanner(Settings.Instance.showBanner);
+
+        VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
+        VisualElement isLastShip = root.Q<VisualElement>("isLastShip");
+        bool last = Ship.Current != null ? Ship.Current.isLastShip() : false;
+        haveNextLevel.style.display = last ? DisplayStyle.None : DisplayStyle.Flex;
+        isLastShip.style.display = last ? DisplayStyle.Flex : DisplayStyle.None;
+
+        LoadBuyUI();
+        if (last) Btn_buy.style.display = DisplayStyle.None;
+
 
         uraniumButton.clicked += uraniumClicked;
         ironButton.clicked += ironClicked;
 
-        Btn_ship.clicked -= loadUpgradeShip;
-        Btn_ship.clicked += loadUpgradeShip;
-
-        Stats.Instance.OnShipMoneyChanged -= loadShipMoney;
-        Stats.Instance.OnShipMoneyChanged += loadShipMoney;
+        Btn_buy.clicked -= loadUpgradeShip;
+        Btn_buy.clicked += loadUpgradeShip;
     }
 
-    private void loadShipMoney()
-    {
-        if(Lbl_shipMoney != null) Lbl_shipMoney.text = Stats.Instance.BN_shipMoney.ToString() + " (+" + Stats.Instance.BN_shipMoneyWaiting.ToString() +")";  
-    }
 
     private void loadUpgradeShip()
     {
@@ -611,28 +630,14 @@ public class PrestigeUI : BaseUI
 
 
         Btn_back = root.Q<Button>("back");
-        Btn_buy = root.Q<Button>("buy");
-        Lbl_cost = root.Q<Label>("cost");
-
-
-
-
-        VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
-        VisualElement isLastShip = root.Q<VisualElement>("isLastShip");
-        bool last = Ship.Current.isLastShip();
-        haveNextLevel.style.display = last ? DisplayStyle.None : DisplayStyle.Flex;
-        isLastShip.style.display = last ? DisplayStyle.Flex : DisplayStyle.None;
-
+        Button Btn_close = root.Q<Button>("close");
+        Btn_buy = root.Q<Button>("upgrade");
 
 
         Btn_back.clicked -= () => { backClicked(upgradeShip); };
         Btn_back.clicked += () => { backClicked(upgradeShip); };
-
-
-        LoadBuyUI();
-        if (last) Btn_buy.enabledSelf = false;
-
-        Debug.Log(Btn_buy == null ? "Btn_buy NULL" : "Btn_buy OK");
+        Btn_close.clicked -= () => { backClicked(upgradeShip); };
+        Btn_close.clicked += () => { backClicked(upgradeShip); };
 
         Btn_buy.clicked -= BuyNextShip;
         Btn_buy.clicked += BuyNextShip;
@@ -640,8 +645,8 @@ public class PrestigeUI : BaseUI
 
     private void LoadBuyUI()
     {
-        bool canBuy = Stats.Instance.shipFragment >= CalculShipUpgradeCost();
-        Lbl_cost.text = Stats.Instance.shipFragment + "/" + CalculShipUpgradeCost();
+        bool canBuy = QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel;
+        Lbl_cost.text = (QuestStats.Instance.questLevel - 1) + "/" + QuestStats.Instance.questMaxLevel;
         Btn_buy.SetEnabled(canBuy);
     }
 
@@ -654,16 +659,13 @@ public class PrestigeUI : BaseUI
         backClicked(upgradeShip);
         backClicked(upgradeUI);
 
-        Stats.Instance.AddShipFragment(-CalculShipUpgradeCost());
+        spaceShip.instance.LoadAnimation();
 
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
 
-    }
+        StartCoroutine(DialogueUI.Instance.LaunchTransition());
 
-    private int CalculShipUpgradeCost()
-    {
-        return 100;
     }
 
 }

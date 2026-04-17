@@ -19,6 +19,8 @@ public class BottomUI : MonoBehaviour
     private VisualElement VE_MainForge;
     private VisualElement VE_Prestige;
 
+    private VisualElement VE_hide;
+
     SelectedMenu menu = SelectedMenu.None;
 
     private void OnEnable()
@@ -27,14 +29,17 @@ public class BottomUI : MonoBehaviour
         VE_SecondForge = root.Q<VisualElement>("secondForge");
         VE_MainForge = root.Q<VisualElement>("mainForge");
         VE_Prestige = root.Q<VisualElement>("prestige");
+        VE_hide = root.Q<VisualElement>("hide");
 
-        LoadUI();
         Ship.Current.OnTypeChanged += LoadUI;
+
     }
 
     public void LoadUI()
     {
-        string firstForgePath = "UI/Bottom/" + Ship.Current.type + "/FirstForge";
+        string firstForgePath = Stats.Instance.ironUnlocked ? "UI/Bottom/" + Ship.Current.type + "/FirstForge" 
+                                                            : "UI/Bottom/Wood/firstForgeLocked";
+
         string secondForgePath = Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ?
             "UI/Bottom/Wood/SecondForge" : "UI/Bottom/SecondForge";
         string prestigePath = Stats.Instance.prestigeUnlocked ? "UI/Bottom/prestige" : "UI/Bottom/prestigeLocked";
@@ -57,6 +62,26 @@ public class BottomUI : MonoBehaviour
         menu = menuToOpen;
     }
 
+    public void Show(bool show)
+    {
+        document.rootVisualElement.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    public void Hide(bool hide)
+    {
+        VE_hide.style.visibility = hide ? Visibility.Visible : Visibility.Hidden;
+    }
+
+
+    public void AdaptBanner(bool adapt)
+    {
+
+        float offset = adapt ? -Ads.Instance.getBannerHeight() : 1.5f;
+
+        VE_SecondForge.style.top = Length.Percent(offset);
+        VE_MainForge.style.top = Length.Percent(offset);
+        VE_Prestige.style.top = Length.Percent(offset);
+    }
 
     private void OnDisable()
     {

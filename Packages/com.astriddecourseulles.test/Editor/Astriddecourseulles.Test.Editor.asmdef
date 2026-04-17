@@ -1,0 +1,10 @@
+{
+    "name": "Astriddecourseulles.Test.Editor",
+    "references": [
+      "Astriddecourseulles.Test"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

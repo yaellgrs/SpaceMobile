@@ -1,46 +1,36 @@
 ﻿using GoogleMobileAds;
 using GoogleMobileAds.Api;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ads : MonoBehaviour
 {
-    /*
-    private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
-    private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";*/
-
-    private const string _RewardAdUnitId = "ca-app-pub-3940256099942544/5224354917";
-    private const string _BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111";
-
-    //ca-app-pub-2287437722164523~4568072994
-    //ca-app-pub-2287437722164523/3942107179
-    //ca-app-pub-2287437722164523/8457751465
+    private const string _RewardAdUnitId = "ca-app-pub-2287437722164523/1941909652";
+    //private const string _BannerAdUnitId = "ca-app-pub-2287437722164523/3942107179";
 
     private BannerView bannerView;
 
-
-    public enum RewardType { Diamand, Ressources, Resurection ,None};
+    public enum RewardType { Diamand, Ressources, Resurection, BoostDamage, BoostLife, BoostXp, BoostRessource, BoostPrestige, None };
 
     public static Ads Instance;
 
     private RewardedAd _rewardedAd;
 
+    private int tentative = 0;
+    private bool showVideo = true;
+
     private void Awake()
     {
-        if(Instance == null)
-        {
+        if (Instance == null)
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     void Start()
     {
-        // Initialisation de l'AdMob SDK
         MobileAds.Initialize(initStatus =>
         {
             LoadRewardedAd();
@@ -48,52 +38,34 @@ public class Ads : MonoBehaviour
         });
     }
 
+    public float getBannerHeight()
+    {
+        if (bannerView != null)
+            return ( bannerView.GetHeightInPixels()/ Screen.height) * 50f; ;
+        return 0;
+    }
+
     public void CreateBanner()
     {
-        /*
-        if (bannerView != null)
-            return;
+        if (bannerView != null) return;
 
-        int bannerWidth = Screen.width;
+        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(
+            AdSize.FullWidth
+        );
 
-        // Optionnel : limiter à une largeur max raisonnable pour le SDK
-        bannerWidth = Mathf.Min(bannerWidth, 10);
+        // Création avec position temporaire (0,0)
+//        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+//#if UNITY_EDITOR
+//        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
+//#else
+//    bannerView = new BannerView(_BannerAdUnitId, adSize, 0, 0);
+//#endif
 
-
-        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(bannerWidth);
-
-        bannerView = new BannerView(_BannerAdUnitId, adSize, AdPosition.Bottom);
-
-        AdRequest request = new AdRequest();
-
-
-
-        bannerView.OnBannerAdLoaded += () =>
-        {
-            Debug.Log("✅ Banner loaded");
-            if (Settings.Instance.showBanner)
-                bannerView.Show();
-        };
-
-        bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
-        {
-            Debug.LogError("❌ Banner failed to load: " + error);
-        };
-
-        bannerView.LoadAd(request);
-
-        ShowBannerDelayed(1f);*/
     }
 
-    private IEnumerator ShowBannerDelayed(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        ShowBanner(true);
-    }
 
     public void ShowBanner(bool show)
     {
-        /*
         if (show)
         {
             bannerView?.Show();
@@ -103,7 +75,7 @@ public class Ads : MonoBehaviour
         {
             bannerView?.Hide();
             MainUi.Instance.adaptBanner(false);
-        }*/
+        }
     }
 
     public void HideBanner()
@@ -111,15 +83,14 @@ public class Ads : MonoBehaviour
         bannerView?.Hide();
     }
 
-
     public void LoadRewardedAd()
     {
-        // Détruit l'ancienne pub si elle existe
         if (_rewardedAd != null)
         {
             _rewardedAd.Destroy();
             _rewardedAd = null;
         }
+
         var adRequest = new AdRequest();
 
         RewardedAd.Load(_RewardAdUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
@@ -130,39 +101,47 @@ public class Ads : MonoBehaviour
                 return;
             }
             _rewardedAd = ad;
-
             Debug.Log("Rewarded ad loaded");
 
-            // Abonnements aux événements utiles
-            _rewardedAd.OnAdFullScreenContentClosed += () =>
-            {
-                LoadRewardedAd(); // Recharge pour plus tard
-            };
-            _rewardedAd.OnAdFullScreenContentFailed += (AdError error) =>
-            {
-                LoadRewardedAd();
-            };
+            _rewardedAd.OnAdFullScreenContentClosed += () => LoadRewardedAd();
+            _rewardedAd.OnAdFullScreenContentFailed += (AdError err) => LoadRewardedAd();
         });
     }
 
-
-
     public void ShowRewardedAd(RewardType type)
     {
-        Debug.Log("ShowRewardedAd");
-        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        if (_rewardedAd != null && _rewardedAd.CanShowAd() && showVideo)
         {
-            Debug.Log("Showing ad");
-            _rewardedAd.Show((Reward reward) =>
-            {
-                // Ajoute ici la récompense pour le joueur
+
+            _rewardedAd.Show((Reward reward) => {
+
                 GetReward(type);
+                LoadAdsUI.Instance.Close();
             });
+            tentative = 0;
+        }
+        else if(tentative < 10)
+        {
+            tentative++;
+            StartCoroutine(ReloadAd(type, 0.5f));
+            LoadAdsUI.Instance.Open();
+
         }
         else
         {
-            Debug.Log("Ad not ready");
+            // no found
+            LoadAdsUI.Instance.SetError();
+
+            tentative = 0;
         }
+    }
+
+    private IEnumerator ReloadAd(RewardType type, float delay)
+    {
+        LoadRewardedAd();
+        yield return new WaitForSeconds(delay); // laisse le temps de charger
+        ShowRewardedAd(type);
+
     }
 
     public void GetReward(RewardType type)
@@ -170,26 +149,53 @@ public class Ads : MonoBehaviour
         switch (type)
         {
             case RewardType.Diamand:
+                Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                MainUi.Instance.adsUI.Close();
                 Stats.Instance.AddDiamand(5);
                 break;
             case RewardType.Ressources:
+                Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                MainUi.Instance.adsUI.Close();
                 Stats.Instance.AddIron(getIronAdsReward());
                 Stats.Instance.AddUranium(getUraniumAdsReward());
                 break;
             case RewardType.Resurection:
                 Stats.Instance.ReduceLifeBoss = true;
                 Stats.Instance.deadPubWatch++;
+                ResurectionUI.Instance.Resurection();
+                break;
+            case RewardType.BoostDamage:
+                setBoost(Boost.Type.damage);
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
+            case RewardType.BoostXp:
+                setBoost(Boost.Type.xp);
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
+            case RewardType.BoostPrestige:
+                setBoost(Boost.Type.prestige);
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
+            case RewardType.BoostLife:
+                setBoost(Boost.Type.pvShield);
+                MainUi.Instance.shopUI.LoadBoost();
+                break;
+            case RewardType.BoostRessource:
+                setBoost(Boost.Type.ressources);
+                MainUi.Instance.shopUI.LoadBoost();
                 break;
         }
     }
 
-    public static BigNumber getIronAdsReward()
+    public void setBoost(Boost.Type type)
     {
-        return OfflineUI.calculOfflineIronEarn(150, false);
+        float coef = 1f;
+        if (Stats.Instance.boosts[type].time <= 0f) coef = 1.5f;
+        else coef = Stats.Instance.boosts[type].coef == 1f ? 1.5f : 2f; 
+        Stats.Instance.boosts[type] = (coef, 3600);
     }
 
-    public static BigNumber getUraniumAdsReward()
-    {
-         return OfflineUI.calculOfflineUraniumEarn(150, false);
-    }
+
+    public static BigNumber getIronAdsReward() => OfflineUI.calculOfflineIronEarn(150, false);
+    public static BigNumber getUraniumAdsReward() => OfflineUI.calculOfflineUraniumEarn(150, false);
 }

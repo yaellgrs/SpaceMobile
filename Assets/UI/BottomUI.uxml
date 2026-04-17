@@ -2,5 +2,6 @@
     <Style src="project://database/Assets/UI/bottomStyle.uss?fileID=7433441132597879392&amp;guid=5fc6d2ad569363c4499a7cc9fcf7eaee&amp;type=3#bottomStyle"/>
     <ui:VisualElement name="secondForge" picking-mode="Ignore" class="secondForgeBase" style="background-image: resource(&quot;UI/Bottom/Wood/SecondForge&quot;);"/>
     <ui:VisualElement name="prestige" picking-mode="Ignore" class="prestigeBase" style="background-image: resource(&quot;UI/Bottom/prestigeLocked&quot;);"/>
-    <ui:VisualElement name="mainForge" picking-mode="Ignore" class="mainForge"/>
+    <ui:VisualElement name="mainForge" picking-mode="Ignore" class="mainForge" style="-unity-background-image-tint-color: rgb(255, 255, 255);"/>
+    <ui:VisualElement name="hide" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.82); display: flex; visibility: hidden;"/>
 </ui:UXML>

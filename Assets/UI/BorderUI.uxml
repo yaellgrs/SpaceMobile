@@ -1,0 +1,15 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Styles/BuyBorderStyle.uss?fileID=7433441132597879392&amp;guid=ef2fc88d31fc7894e8ff74e82cd99d98&amp;type=3#BuyBorderStyle"/>
+    <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=4557b39d9f8cb3f4ab7f4a8dfcde6d3c&amp;type=3#style"/>
+    <Style src="project://database/Assets/UI/menu/menuUSS.uss?fileID=7433441132597879392&amp;guid=2d04128a2a7794f4abb4c5aa528530ab&amp;type=3#menuUSS"/>
+    <ui:Button text="Button" name="close" style="width: 100%; height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(0, 0, 0, 0.69);"/>
+    <ui:VisualElement name="main" class="base" style="flex-grow: 1; width: 70%; height: 60%; position: absolute; background-color: rgb(38, 38, 38); top: 20%; left: 15%; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
+        <ui:VisualElement name="container" style="flex-grow: 1; position: absolute; height: 80%; width: 80%; top: 10%; left: 10%; justify-content: flex-start;">
+            <BuyBorderElement/>
+            <BuyBorderElement/>
+            <BuyBorderElement/>
+            <BuyBorderElement/>
+            <BuyBorderElement/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

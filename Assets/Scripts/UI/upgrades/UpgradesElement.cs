@@ -137,7 +137,11 @@ public partial class UpgradesElement : VisualElement
     #region ----- Loads ----
     public void Load()
     {
-        if (data.level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement) data.level = Stats.Instance.MinimalLevel;
+        if (data.level < Stats.Instance.MinimalLevel && this is not UpgradesPrestigeElement){
+            data.level = (int)Stats.Instance.MinimalLevel;
+            if (UnityEngine.Random.Range(0f, 1f) < Stats.Instance.MinimalLevel - (int)Stats.Instance.MinimalLevel) data.level++;
+        
+        }
 
         LoadStat();
         LoadUI();
@@ -211,8 +215,6 @@ public partial class UpgradesElement : VisualElement
 
     #region ----- main workflow ----
 
-
-
     protected virtual void LevelUp()
     {
         if (!CanPay() || !haveLevel()) return;
@@ -232,8 +234,29 @@ public partial class UpgradesElement : VisualElement
             //set in load donc j'ai commenté
             //Lbl_level.text = (level == levelMax) ? "MAX" : level.ToString() + "/" + levelMax.ToString();
         }
+        Stats.Instance.starPariticul.Normalize();
         Load();
         gameManager.instance.SmallVibrate();
+
+        if(this is UpgradesIronElement)
+        {
+            if (QuestManager.Instance.type == QuestType.UpgradeIron)
+                QuestManager.Instance.upQuest();
+
+            if (!Stats.Instance.dialogues["FirstUpgradeLevelUp"])
+            {
+                Stats.Instance.dialogues["FirstUpgradeLevelUp"] = true;
+                Stats.Instance.ironMeteorUnlocked = true;
+                DialogueManager.Instance.ExecuteBlock("FirstUpgradeLevelUp");
+            }
+        }
+
+
+        if(this is UpgradesPrestigeElement)
+        {
+            if (QuestManager.Instance.type == QuestType.UpgradePrestige)
+                QuestManager.Instance.upQuest();
+        }
     }   
 
     #endregion

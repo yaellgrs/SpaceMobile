@@ -45,7 +45,7 @@ public class IronUi : BaseUI
             else
                 className = "ironUpTrans";
             forgeUiVE.RemoveFromClassList(className);
-            if (!stopAnim)
+            if (!stopAnim && Stats.Instance.ironUnlocked)
             {
                 forgeUiVE.schedule.Execute(() =>
                 {
@@ -62,8 +62,9 @@ public class IronUi : BaseUI
                 }).StartingIn(500);
 
             }
-            else
+            else if (Stats.Instance.ironUnlocked)
             {
+
                 forgeUI.gameObject.SetActive(false);
                 upgradeUI.gameObject.SetActive(false);
                 gameManager.instance.SetPause(false);
@@ -75,12 +76,16 @@ public class IronUi : BaseUI
         else
         {
             gameManager.instance.SetPause(true);
-            if (!Stats.Instance.ironTuto)
-                Tuto.Instance.LoadForgeTuto(true);
             loadForgeUI();
 
         }
 
+    }
+
+    public override void forgeUpgradeClicked()
+    {
+        if (Stats.Instance.upgradeUnlocked)
+            base.forgeUpgradeClicked();
     }
 
 
@@ -89,6 +94,8 @@ public class IronUi : BaseUI
         if (ironLabel != null)
             ironLabel.text = Ship.Current.iron.ToString();
     }
+
+
 
     protected override void upModeButtonClicked()
     {
@@ -108,14 +115,18 @@ public class IronUi : BaseUI
     public override void loadForgeUI()
     {
         base.loadForgeUI();
-        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
 
+        LoadForgeDialogue();
+
+        BottomUI.Instance.OpenMenu(SelectedMenu.MainForge);
         var root = forgeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");
         ironLabel = root.Query<Label>("iron");
         forgeUiVE = root.Query<VisualElement>("forgeUI");
         VE_ironLogo = root.Query<VisualElement>("ironLogo");
+
+        adaptBanner(Settings.Instance.showBanner);
 
         SV_scroll = root.Query<ScrollView>("scroll");
         if (!stopAnim)
@@ -150,6 +161,7 @@ public class IronUi : BaseUI
         }
 
         loadIronLogo();
+        LoadForgeBackground();
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
@@ -157,6 +169,23 @@ public class IronUi : BaseUI
         Ship.Current.OnTypeChanged -= loadIronLogo;
         Ship.Current.OnTypeChanged += loadIronLogo;
 
+
+    }
+
+    private void LoadForgeDialogue()
+    {
+        if (!Stats.Instance.dialogues["FirstOpenWood"])
+        {
+            Stats.Instance.dialogues["FirstOpenWood"] = true;
+            Stats.Instance.ironUnlocked = false;
+            DialogueManager.Instance.ExecuteBlock("FirstOpenWood");
+        }
+    }
+
+    private void LoadForgeBackground()
+    {
+        string path = "UI/Forge/" + (Stats.Instance.upgradeUnlocked ? "forgeUI" : "forgeUILocked");
+        forgeUiVE.style.backgroundImage = Resources.Load<Texture2D>(path);
 
     }
 
@@ -168,6 +197,9 @@ public class IronUi : BaseUI
     public override void loadUpdateUI()
     {
         base.loadUpdateUI();
+
+        LoadUpgradeDialogue();
+
         var root = upgradeUI.rootVisualElement;
         uraniumButton = root.Q<Button>("uranium");
         prestigeButton = root.Q<Button>("prestige");
@@ -175,6 +207,9 @@ public class IronUi : BaseUI
         forgeUiVE = root.Query<VisualElement>("updateUI");
         
         forgeUiVE.RemoveFromClassList("ironUpTrans");
+
+
+        adaptBanner(Settings.Instance.showBanner);
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
         scroll.Clear();
@@ -186,6 +221,16 @@ public class IronUi : BaseUI
 
         uraniumButton.clicked += uraniumClicked;
         prestigeButton.clicked += prestigeClicked;
+    }
+
+    private void LoadUpgradeDialogue()
+    {
+        if (!Stats.Instance.dialogues["FirstUpgradeOpen"])
+        {
+            Stats.Instance.dialogues["FirstUpgradeOpen"] = true;
+            Debug.LogError("upgrade DIalogue");
+            DialogueManager.Instance.ExecuteBlock("FirstUpgradeOpen");
+        }
     }
 
     private void uraniumClicked()

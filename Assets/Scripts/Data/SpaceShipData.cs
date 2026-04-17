@@ -2,8 +2,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 public enum SpaceShipType { Main };
@@ -79,15 +81,63 @@ public class SpaceShipData
             shield.Set(shieldMax.getTotal());
     }
 
+    public void Prestige()
+    {
+        foreach(machineElement machine in machinesIron)
+        {
+            machine.data.level = 1;
+            foreach (var val in machine.data.borderbuys.ToList())
+            {
+                if (machine.data.borderbuys[val.Key] == BorderBuyType.temp)
+                    machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
+            }
+            machine.data.color = borderColor.white;
+            if (machine.data.BN_price >= new BigNumber(100000))
+                machine.data.isBuyed = false;
+            machine.LoadMachine();
+            machine.data.level = machineData.levelColor[(int)machine.data.color];
+        }
+        foreach (machineElement machine in machinesUranium)
+        {
+
+            foreach (var val in machine.data.borderbuys.ToList())
+            {
+                if (machine.data.borderbuys[val.Key] == BorderBuyType.temp)
+                    machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
+            }
+            machine.data.color = borderColor.white;
+            if (machine.data.BN_price >= new BigNumber(100000) && machine.data.color == borderColor.white)
+                machine.data.isBuyed = false;
+
+            machine.LoadMachine();
+            machine.data.level = machineData.levelColor[(int)machine.data.color];
+        }
+        foreach (var upgrade in upgradesIron)
+        {
+            upgrade.data.level = 1;
+            upgrade.Load();
+        }
+        foreach (var upgrade in upgradesUranium)
+        {
+            upgrade.data.level = 1;
+            upgrade.Load();
+        }
+    }
+
+    public void MachinesPrestige()
+    {
+
+    }
+
     private void LoadMachines(bool reset = false)
     {
         if (dataMachinesIron.Count == 0 || reset)
         {
             dataMachinesIron = new List<machineData>
             {
-                new machineData("Anvil", new BigNumber(1, 3)), //-> level 1->2 >150
-                new machineData("ironMachine", new BigNumber(1, 5)), //->
-                new machineData("ironMachines", new BigNumber(1, 7)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
+                new machineData(Utility.GetMachineName(0), new BigNumber(1, 3)), //-> level 1->2 >150
+                new machineData(Utility.GetMachineName(1), new BigNumber(1, 4)), //->
+                new machineData(Utility.GetMachineName(2), new BigNumber(1, 5)),    // cout 1e9          -> level 1-> 2 :  1e6     / level 99 -> 100 : 1e12 
             };
         }
         if (dataMachinesUranium.Count == 0 || reset)
@@ -123,9 +173,10 @@ public class SpaceShipData
         {
             dataUpgradesIron.Clear();   
             dataUpgradesIron[UpgradesIronElement.UpgradeType.Damage] = new UpgradeData(1.425f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.4f);
-            dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.375f);
+            //dataUpgradesIron[UpgradesIronElement.UpgradeType.RegenShield] = new UpgradeData(1.4f);
+            //dataUpgradesIron[UpgradesIronElement.UpgradeType.Shield] = new UpgradeData(1.375f);
             dataUpgradesIron[UpgradesIronElement.UpgradeType.Life] = new UpgradeData(1.35f);
+            dataUpgradesIron[UpgradesIronElement.UpgradeType.ShootSpeed] = new UpgradeData(1.375f);
 
         }
         if (dataUpgradesUranium.Count == 0 || reset)
@@ -215,6 +266,9 @@ public class SpaceShipData
 
         life = new BigNumber(0);
         shield = new BigNumber(0);
+
+        Stats.Instance.starPariticul = new BigNumber(0);
+        Stats.Instance.prestigeWaiting = new BigNumber(0);
 
         iron = new BigNumber(0);
         uranium = new BigNumber(0);

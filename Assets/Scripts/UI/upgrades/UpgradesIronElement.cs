@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 public class UpgradesIronElement : UpgradesElement
 {
     #region ----- variables -----
-    public enum UpgradeType { Life, Damage, Shield, RegenShield }
+    public enum UpgradeType { Life, Damage, ShootSpeed, Shield, RegenShield }
     public UpgradeType type;
     #endregion
 
@@ -35,7 +35,8 @@ public class UpgradesIronElement : UpgradesElement
         bonus.Subtract(GetReward(data.level));
 
         Lbl_description.text = $"{type.ToString()}: {getStat()}";
-        if(data.level < data.levelMax) Lbl_description.text += $" <color=green>(+{bonus.ToString()})</color>";
+        bool round = type != UpgradeType.ShootSpeed;
+        if (data.level < data.levelMax) Lbl_description.text += $" <color=green>(+{bonus.getNormalNotation(round)})</color>";
         string logo_path = "Upgrades/Iron/" + type.ToString();
         VE_logo.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>(logo_path));
     }
@@ -52,6 +53,8 @@ public class UpgradesIronElement : UpgradesElement
                 return Ship.Current.shieldMax.initial.ToString();
             case UpgradeType.RegenShield:
                 return Ship.Current.regenShield.ToString();
+            case UpgradeType.ShootSpeed:
+                return Stats.Instance.lazerSpeed.ToString("F2");
         }
         return "";
     }
@@ -65,8 +68,8 @@ public class UpgradesIronElement : UpgradesElement
                 diff.Set(spaceShip.instance.getMaxLife());
                 diff.Subtract(Ship.Current.life);
 
-                Ship.Current.lifeMax.initial.Set(10);
-                Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1,  1.64697f); // 5 * 100^1.65
+                Ship.Current.lifeMax.initial.Set(GetReward(data.level));
+                //Ship.Current.lifeMax.initial *= 0.5f * Mathf.Pow(data.level + 1,  1.64697f); // 5 * 100^1.65
 
                 Ship.Current.life.Set(spaceShip.instance.getMaxLife());
                 Ship.Current.life.Subtract(diff);
@@ -79,8 +82,8 @@ public class UpgradesIronElement : UpgradesElement
                 diff = new BigNumber(0);
                 diff.Set(spaceShip.instance.getMaxShield());
                 diff.Subtract(Ship.Current.shield);
-                Ship.Current.shieldMax.initial.Set(10);
-                Ship.Current.shieldMax.initial *= 0.5f * Mathf.Pow(data.level + 1, 1.14825f);
+
+                Ship.Current.shieldMax.initial.Set(GetReward(data.level));
 
                 Ship.Current.shield.Set(spaceShip.instance.getMaxShield());
                 Ship.Current.shield.Subtract(diff);
@@ -88,6 +91,9 @@ public class UpgradesIronElement : UpgradesElement
             case UpgradeType.RegenShield:
                 Ship.Current.regenShield = new BigNumber(10, 0);
                 Ship.Current.regenShield.Multiply(0.20f * data.level);
+                break;
+            case UpgradeType.ShootSpeed:
+                Stats.Instance.lazerSpeed = 1f + 0.05f * (data.level - 1);
                 break;
             default:
                 break;
@@ -102,19 +108,22 @@ public class UpgradesIronElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.Life:
-                reward.Set(10);
-                reward *= 0.5f * Mathf.Pow(lvl + 1, 1.64697f);
+                reward.Set(3.25f);
+                reward *= Mathf.Pow(lvl + 1, 1.64697f);
                 break;
             case UpgradeType.Damage:
                 reward.Set(Mathf.Pow(lvl, 1.272f));
                 break;
             case UpgradeType.Shield:
-                reward.Set(10);
+                reward.Set(1);
                 reward *= 0.5f * Mathf.Pow(lvl + 1, 1.14825f);
                 break;
             case UpgradeType.RegenShield:
                 reward = new BigNumber(10);
                 reward.Multiply(0.20f *lvl);
+                break;
+            case UpgradeType.ShootSpeed:
+                reward = new BigNumber(1f + 0.05f * (lvl - 1));
                 break;
         }
         return reward;

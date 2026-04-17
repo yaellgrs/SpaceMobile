@@ -11,7 +11,7 @@ public class canon : MonoBehaviour
     public Lazer lazer;
     public Lazer rocket;
 
-    float speed = 100f;
+    float speed = 60f;
     public float degats = 2f;
     float shootTimer = 0.1f;
     float timer = 0f;
@@ -85,9 +85,9 @@ public class canon : MonoBehaviour
         projectil.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         angle = angle * Mathf.Deg2Rad;
         projectil.transform.position = transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)*0.3f;
-        Vector2 force = direction * speed * rocketSpeed;
+        Vector2 force = direction   ;
         force.Normalize();
-        projectil.GetComponent<Rigidbody2D>().AddForce(force*250);
+        projectil.GetComponent<Rigidbody2D>().AddForce(force * rocketSpeed * speed *Stats.Instance.lazerSpeed);
     }
 
     public void setPause(bool pause)

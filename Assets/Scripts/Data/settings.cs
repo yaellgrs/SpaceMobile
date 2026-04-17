@@ -7,7 +7,7 @@ public class Settings
 
     //settings
     public bool isPausable = true;
-    public bool showBanner = true;
+    public bool showBanner = false;
     public bool isVibrate = true;
     public bool activeSound = true;
     public bool displayDamageMarker = true;
@@ -18,7 +18,7 @@ public class Settings
     public float sound_music_value = 100f;
     public float sound_effect_value = 100f;
 
-    public string currentLangage = "en";
+    public string currentLangage = "fr-FR";
 
 
 

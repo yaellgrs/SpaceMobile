@@ -11,6 +11,8 @@ public class DevTest : MonoBehaviour
     private void Init()
     {
         ShowTuto(false); // desactive les tutos
+        gameManager.instance.InitGame();
+        if (Stats.Instance.firstConnection) DialogueManager.Instance.ExecuteBlock("FirstConnection");
     }
 
     private void ShowTuto(bool show)
@@ -29,16 +31,39 @@ public class DevTest : MonoBehaviour
         {
             QuestManager.Instance.Claim();
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StartCoroutine(DialogueUI.Instance.LaunchTransition());
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Ship.Current.type = SpaceShipData.SpaceShipElement.Wood;
-            Ship.Current.SetNextType(0);
+            //Ship.Current.type = SpaceShipData.SpaceShipElement.Wood;
+            //Ship.Current.SetNextType(0);
 
-            Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
-            Init();
-            
+            //Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
+
+            //Init();
+            MainUi.Instance.settingUI.backClicked();
+            Stats.Instance.reset();
+            QuestStats.Instance.reset();
+
+            Stats.Instance.firstConnection = false;
+            Stats.Instance.ironUnlocked = true;
+            Stats.Instance.upgradeUnlocked = true;
+            Stats.Instance.dialogues["FirstConnection"] = true;
+            Stats.Instance.dialogues["FirstOpenWood"] = true;
+            Stats.Instance.dialogues["FirstMachineClick"] = true;
+            Stats.Instance.dialogues["FirstUpgradeOpen"] = true;
+            Stats.Instance.dialogues["FirstUpgradeLevelUp"] = false;
+            QuestStats.Instance.reset();
+            QuestStats.Instance.questLevel = 11;
+            QuestStats.Instance.progress = new BigNumber(0);
             BottomUI.Instance.LoadUI();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Stats.Instance.firstConnection = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -75,13 +100,14 @@ public class DevTest : MonoBehaviour
             for (int i = 0; i < 50; i++) //level up 5 fois
                 MainUi.Instance.xpUI.LevelUp();
 
-            Stats.Instance.addPrestige(new BigNumber(1, 100)); // donne 1^100 prestige
+            Stats.Instance.addPrestige(new BigNumber(1.2, 3)); // donne 1^100 prestige
 
-            Stats.Instance.AddIron(new BigNumber(1, 100));// donne 1^100 fer
+            Stats.Instance.AddIron(new BigNumber(1.2, 300));// donne 1^100 fer
             Stats.Instance.AddUranium(new BigNumber(1, 100));// donne 1^100 uranium
 
             Stats.Instance.AddShipMoney(new BigNumber(1, 100), false);
             Stats.Instance.AddShipFragment(100);
+            Stats.Instance.addPrestige(new BigNumber(1, 2));
 
             Stats.Instance.AddDiamand(100);
         }

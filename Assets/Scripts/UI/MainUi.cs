@@ -35,7 +35,7 @@ public class MainUi : MonoBehaviour
     //mainUI
     private VisualElement VE_main;
 
-    protected Button fire;
+    protected Button Btn_fire;
 
     private Label ironLabel;
     private Label uraniumLabel;
@@ -112,7 +112,7 @@ public class MainUi : MonoBehaviour
         speedButton = root.Q<Button>("speedButton");
         pubButton = root.Q<Button>("pubButton");
         Button shopButton = root.Q<Button>("shop");
-        fire = root.Q<Button>("fire");
+        Btn_fire = root.Q<Button>("fire");
         Button questButton = root.Q<Button>("quest");
         questCompleted = root.Q<VisualElement>("questCompleted");
         VE_AutoShoot = root.Q<VisualElement>("autoShoot");
@@ -156,9 +156,9 @@ public class MainUi : MonoBehaviour
         enemyLabel.text = gameManager.instance.meteorToKill.ToString() + "/" + gameManager.instance.meteorToKill.ToString();
         upIronUI();
         upUraniumUI();
-        uraniumUI.loadUpdateUI();
-        ironUI.loadUpdateUI();
-        SetQuestCompleted(QuestManager.Instance.isCompleted());
+        //uraniumUI.loadUpdateUI();
+        //ironUI.loadUpdateUI();
+        SetQuestCompleted(QuestManager.Instance != null ? QuestManager.Instance.isCompleted() : false);
 
         //updateStage();
         upLevelUI();
@@ -182,7 +182,7 @@ public class MainUi : MonoBehaviour
 
         UpSpeed.Instance.load(speedButton);
 
-        fire.clicked += Fire;
+        Btn_fire.clicked += Fire;
         loadRocketButton();
 
         shieldTimeLabel.text = (Stats.Instance.shield_Regen_Time - spaceShip.instance.shieldRegen).ToString("F1") + "s";
@@ -194,6 +194,21 @@ public class MainUi : MonoBehaviour
         Ship.Current.OnTypeChanged += LoadIronLogo;
 
         Utility.InitClickButtonSound(root);
+    }
+
+    public void ShowMenu(bool show)
+    {
+        VisualElement hidable = mainUI.rootVisualElement.Q<VisualElement>("hidable");
+
+        hidable.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    public void EnableShoot(bool enable)
+    {
+        if (Btn_fire == null)
+            Btn_fire = mainUI.rootVisualElement.Q<Button>("fire");
+
+        Btn_fire.style.display = enable ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
     public void LoadIronLogo()
@@ -208,15 +223,18 @@ public class MainUi : MonoBehaviour
 
     public void adaptBanner(bool adapt)
     {
-        Debug.Log("adapt banner : " + adapt);
+        if (VE_main == null)
+            VE_main = mainUI.rootVisualElement.Q<VisualElement>("main");
         if (adapt)
         {
-            VE_main.style.height = Length.Percent(93.5f);
+            VE_main.style.height = Length.Percent(100f - Ads.Instance.getBannerHeight());
         }
         else
         {
             VE_main.style.height = Length.Percent(100);
         }
+        //ironUI.adaptBanner(adapt);
+        BottomUI.Instance.AdaptBanner(adapt);
     }
 
     public void ShowBossLife(bool show)
@@ -430,6 +448,8 @@ public class MainUi : MonoBehaviour
 
     private void normalUpClicked()
     {
+        if (!Stats.Instance.ironUnlocked) return;
+
         ironUI.classActived = true;
         ironUI.IronClicked();
 

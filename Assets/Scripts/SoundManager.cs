@@ -57,7 +57,7 @@ public class SoundManager : MonoBehaviour
     private void InitSound()
     {
         MusicEntry targetMusic = Musics.Find(x => x.type == MusicType.Main);
-        targetMusic.audio.volume = GetVolume();
+        targetMusic.audio.volume = GetVolumeMusic();
         targetMusic.audio.Play();
         currentSound = targetMusic;
     }
@@ -67,7 +67,7 @@ public class SoundManager : MonoBehaviour
         AudioSource audio = SoundEffects.Find(x => x.type == type).audio;
         if (audio == null) return;
 
-        audio.PlayOneShot(audio.clip, GetVolume());
+        audio.PlayOneShot(audio.clip, GetVolumeEffect());
     }
 
     public IEnumerator PlaySoundWithTime(SoundEffectType type, float time)
@@ -75,23 +75,31 @@ public class SoundManager : MonoBehaviour
         AudioSource audio = SoundEffects.Find(x => x.type == type).audio;
         if (audio == null) yield break;
 
-        audio.PlayOneShot(audio.clip, GetVolume());
+        audio.PlayOneShot(audio.clip, GetVolumeEffect());
 
         yield return new WaitForSeconds(time);
         audio.Stop();
     }
 
-    public float GetVolume()
+    public float GetVolumeEffect()
     {
         return Settings.Instance.activeSound ? (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_effect_value / 100) : 0;
     }
 
+    public float GetVolumeMusic()
+    {
+        return Settings.Instance.activeSound ? (Settings.Instance.sound_general_value / 100) * (Settings.Instance.sound_music_value / 100) : 0;
+    }
+
     public IEnumerator TransitionMusic(MusicType type)
     {
+
         float time = 0;
         MusicEntry targetMusic = Musics.Find(x => x.type == type);
         if (targetMusic == null) yield break;
 
+
+        float startVolume = GetVolumeMusic();
 
         targetMusic.audio.volume = 0f;
         targetMusic.audio.Play();
@@ -100,14 +108,14 @@ public class SoundManager : MonoBehaviour
         {
 
             float t = time / 1.5f;
-            currentSound.audio.volume = Mathf.Lerp(GetVolume(), 0, t);
-            targetMusic.audio.volume = Mathf.Lerp(0, GetVolume(), t);
+            currentSound.audio.volume = Mathf.Lerp(startVolume, 0, t);
+            targetMusic.audio.volume = Mathf.Lerp(0, startVolume, t);
             time += Time.deltaTime;
             yield return null;
         }
         currentSound.audio.Stop();
-        currentSound.audio.volume = GetVolume();
-        targetMusic.audio.volume = GetVolume();
+        currentSound.audio.volume = GetVolumeMusic();
+        targetMusic.audio.volume = GetVolumeMusic();
 
         currentSound = targetMusic;
     }

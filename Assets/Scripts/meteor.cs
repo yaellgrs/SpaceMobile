@@ -1,5 +1,6 @@
 using GoogleMobileAds.Api;
 using NUnit.Compatibility;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -9,14 +10,13 @@ using UnityEngine.Rendering;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using static Fungus.AssertCommand;
 using Image = UnityEngine.UI.Image;
 
 public class spaceObject : MonoBehaviour
 {
     public TextMeshProUGUI lifeText;
-    public GameObject ironCollectiblePrefab;
-    public GameObject uraniumCollectiblePrefab;
-    public GameObject diamandCollectiblePrefab;
+    public GameObject collectiblePrefab;
 
     public ParticleSystem starParticle;
     public ParticleSystem meteorParticle;
@@ -50,7 +50,7 @@ public class spaceObject : MonoBehaviour
     public Vector3 baseScale;
     public int level = 1;
 
-    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Uranium, None};
+    public enum meteorType { Normal, Big, Scatter, Diamand, miniMeteor, Iron, Wood, Uranium, None};
     public meteorType type;
 
     public bool isDestroyByRocket = false;
@@ -107,32 +107,30 @@ public class spaceObject : MonoBehaviour
     {
         if (type == meteorType.Big)
         {
-            lifeMax.Multiply(5);
+            lifeMax.Multiply(2.5f);
             if (!Stats.Instance.popupTutos[PopupTuto.BigMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.BigMeteor);
         }
         else if (type == meteorType.Diamand)
         {
-            lifeMax.Multiply(2f);
+            lifeMax.Multiply(1.5f);
             if (!Stats.Instance.popupTutos[PopupTuto.diamandMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.diamandMeteor);
         }
         else if (type == meteorType.miniMeteor)
         {
             lifeMax.Multiply(0.5f);
         }
-        else if (type == meteorType.Iron)
+        else if (type == meteorType.Iron || type == meteorType.Uranium ||type == meteorType.Wood)
         {
-            lifeMax.Multiply(2.5f);
-            if (!Stats.Instance.popupTutos[PopupTuto.ironMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.ironMeteor);
-        }
-        else if (type == meteorType.Uranium)
-        {
-            lifeMax.Multiply(2.5f); 
-            if (!Stats.Instance.popupTutos[PopupTuto.uraniumMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.uraniumMeteor);
+            lifeMax.Multiply(1.5f);
         }
         else if (type == meteorType.Scatter)
         {
             if (!Stats.Instance.popupTutos[PopupTuto.splitterMeteor]) Tuto.Instance.LoadPopupTuto(PopupTuto.splitterMeteor);
         }
+
+
+        float factor = Random.Range(0.75f, 1.25f);
+        lifeMax *= factor;
     }
 
     protected float getStageModifier(List<(int stage, float mult)> paliers)
@@ -161,17 +159,15 @@ public class spaceObject : MonoBehaviour
     {
         spaceObjectSpeed = 0.75f;
         if (type == meteorType.Big)
-        {
             spaceObjectSpeed *= 0.5f;
-        }
         else if(type == meteorType.Diamand)
-        {
-            spaceObjectSpeed *= 1.5f;
-        }
+            spaceObjectSpeed *= 1.25f;
         else if(type== meteorType.miniMeteor)
-        {
-            spaceObjectSpeed *= 0.35f;
-        }
+            spaceObjectSpeed *= 0.5f;
+        else if(type == meteorType.Uranium || type == meteorType.Iron || type == meteorType.Wood)
+            spaceObjectSpeed *= 1.15f;
+
+
         spaceObjectSpeed *= UpSpeed.Instance.upModeMultiplicator * factor;
 
         List<(int stage, float mult)> paliers = new()
@@ -250,12 +246,23 @@ public class spaceObject : MonoBehaviour
         }
     }
 
+
+
     public virtual void DieCalcul()
     {
+        if (Stats.Instance.firstConnection){
+            UpSpeed.Instance.setSpeed(1f);
+            gameManager.instance.ActiveSlowMotionVolume(false);
+
+            BottomUI.Instance.Show(true);
+            //MainUi.Instance.questUI.LoadQuestUI();
+            MainUi.Instance.questUI.LoadWithDelay();
+        }
+
         if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
         else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);
 
-        if (QuestManager.Instance.type == QuestType.KillMeteor)
+        if (QuestManager.Instance.type == QuestType.KillMeteor || QuestManager.Instance.type == QuestType.KillIronMeteor)
         {
             QuestManager.Instance.upQuest();
         }
@@ -268,19 +275,25 @@ public class spaceObject : MonoBehaviour
 
         if (type == meteorType.Diamand)
         {
-            GameObject obj = Instantiate(diamandCollectiblePrefab);
+            GameObject obj = Instantiate(collectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
         }
         else if (type == meteorType.Iron)
         {
-            GameObject obj = Instantiate(ironCollectiblePrefab);
+            GameObject obj = Instantiate(collectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
         }
         else if (type == meteorType.Uranium)
         {
-            GameObject obj = Instantiate(uraniumCollectiblePrefab);
+            GameObject obj = Instantiate(collectiblePrefab);
+            Collectible collectible = obj.GetComponent<Collectible>();
+            collectible.Init(transform.position);
+        }
+        else if (type == meteorType.Wood)
+        {
+            GameObject obj = Instantiate(collectiblePrefab);
             Collectible collectible = obj.GetComponent<Collectible>();
             collectible.Init(transform.position);
         }
@@ -317,7 +330,6 @@ public class spaceObject : MonoBehaviour
     public virtual BigNumber GetStarParticle()
     {
         BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
-        Debug.Log("Reward : " + reward);
         return reward;
     }
 
@@ -345,7 +357,7 @@ public class spaceObject : MonoBehaviour
             if(type != meteorType.Diamand && !(Ship.Current.life.EqualZero()))
             {
                 Datas.Instance.current.missMeteor++;
-                spaceShip.instance.getDamage(lifeMax, this is meteorBoss);
+                spaceShip.instance.getDamage(life, this is meteorBoss);
                 MainUi.Instance.upMeteorUI();
                 if (Ship.Current.life.EqualZero() && gameManager.instance.bossStage)
                 {
@@ -379,11 +391,12 @@ public class spaceObject : MonoBehaviour
                 result *= 5f;
                 break;
         }
-        if(Stats.Instance.xpBoostTime > 0)
+        if (Stats.Instance.boosts[Boost.Type.xp].time > 0)
         {
-            result *= 2;
+            result.Multiply(Stats.Instance.boosts[Boost.Type.xp].coef);
         }
         result *= Stats.Instance.XpMultiplicator;
+        if(Settings.Instance.showBanner)result *= Consts.BANNER_REWARD;
         return result;
     }
 
@@ -391,5 +404,12 @@ public class spaceObject : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.instance.meteors.Remove(this);
+        
+        if(Stats.Instance.firstConnection) {
+
+            Stats.Instance.firstConnection = false;
+            DialogueManager.Instance.ShowMenu();
+        }
+
     }
 }

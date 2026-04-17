@@ -40,6 +40,8 @@ public class ShipManager : MonoBehaviour
         Ship.Current.Load();
 
         spaceShip.instance.LoadAnimation();
+
+        QuestManager.Init();
     }
 
     void Start()

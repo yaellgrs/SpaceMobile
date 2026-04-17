@@ -3,6 +3,7 @@ using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Localization;
@@ -13,7 +14,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.UIElements;
 using static QuestUI;
 
-public enum QuestType { KillMeteor, KillIronMeteor, UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Speed, None };
+public enum QuestType { KillBoss, KillMeteor, KillIronMeteor,FarmWood,  UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Prestige, UpgradePrestige, Speed, None };
 
 public class QuestManager 
 {
@@ -32,20 +33,24 @@ public class QuestManager
         {
             Instance = new QuestManager();
             Instance.LoadQuests();
+            Instance.initQuest();
         }
     }
 
     private void LoadQuests()
     {
 
-
-        string path = "Datas/Quests/" + Ship.Current.type.ToString();
+        if(Ship.Current == null){
+            Debug.LogError("Ship Current is null");    
+            return; 
+        }
+        string path = "Data/Quests/" + Ship.Current.type.ToString();
         quests = Resources.LoadAll<Quests>(path).OrderBy(q => q.level).ToList();
+        var test = Resources.LoadAll<ScriptableObject>(path);
         if (quests.Count == 0)
             Debug.LogWarning("No Quest at : " + path);
 
         QuestStats.Instance.questMaxLevel = quests.Count;
-        Debug.Log("quest count : " + quests.Count);
 
 
         Ship.Current.OnTypeChanged -= SetNextQuests;
@@ -65,22 +70,22 @@ public class QuestManager
     #region upQuests
     public void upQuest()
     {
-        if (new[] { QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine }.Contains(type))
-        {
-            QuestStats.Instance.progress.Add(1);
-        }
+        //if (new[] { QuestType.UpgradePrestige, QuestType.KillBoss, QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine, QuestType.Prestige }.Contains(type))
+        //{
+        //    QuestStats.Instance.progress.Add(1);
+        //}
 
-
+        QuestStats.Instance.progress.Add(1);
         MainUi.Instance.SetQuestCompleted(isCompleted());
     }
 
     public void upQuest(BigNumber n)
     {
-        if (new[] { QuestType.KillIronMeteor, QuestType.KillUraniumMeteor }.Contains(type))
-        {
-            QuestStats.Instance.progress.Add(n);
-        }
-
+        //if (new[] { QuestType., QuestType.KillIronMeteor, QuestType.KillUraniumMeteor, QuestType.FarmWood}.Contains(type))
+        //{
+        //    QuestStats.Instance.progress.Add(n);
+        //}
+        QuestStats.Instance.progress.Add(n);
         MainUi.Instance.SetQuestCompleted(isCompleted());
     }
 
@@ -100,6 +105,16 @@ public class QuestManager
         Stats.Instance.AddDiamand(reward);
         Stats.Instance.AddShipFragment(QuestManager.Instance.CalculShipFragmentReward());
 
+        if (!Stats.Instance.ironUnlocked)
+        {
+            Stats.Instance.ironUnlocked = true;
+            BottomUI.Instance.LoadUI();
+        }
+        else if (!Stats.Instance.upgradeUnlocked)
+        {
+            Stats.Instance.upgradeUnlocked = true;
+        }
+
         MainUi.Instance.questUI.refreshQuestUI();
         QuestStats.Instance.progress = new BigNumber(0);
         QuestStats.Instance.timeCompleted = 0;
@@ -112,6 +127,11 @@ public class QuestManager
 
     public void initQuest()
     {
+        if(QuestStats.Instance == null)
+        {
+            Debug.LogError("Quests instance is null");
+            return;
+        }
         var quest = quests.FirstOrDefault(q => q.level == QuestStats.Instance.questLevel);
         if (quest == null) return;
 
@@ -122,11 +142,13 @@ public class QuestManager
 
     public bool isCompleted()
     {
-        if (QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel) return false;
+        if (QuestStats.Instance.questLevel >= QuestStats.Instance.questMaxLevel) return false;
+
+
 
         if (type != QuestType.Speed)
         {
-            if (QuestStats.Instance.progress.isBigger(objectif))
+            if (QuestStats.Instance.progress >= objectif)
             {
                 return true;
             }

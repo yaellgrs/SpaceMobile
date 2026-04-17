@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Fungus.AssertCommand;
 
-public enum BossType { Normal, Ressource, Speed };
+public enum BossType { Normal, Spawner, Ressource, Speed };
 
 public class meteorBoss : spaceObject
 {
@@ -34,7 +35,14 @@ public class meteorBoss : spaceObject
         setTimerLimit();
         setAnimation();
         attackTimer = ATTACK_TIMER_LIMITE;
+
+
+        Move();
+        DialogueManager.Instance.TryDialogue("FirstBoss");
+
+
     }
+
     protected override bool CanBeStellar()
     {
         return true;
@@ -52,7 +60,8 @@ public class meteorBoss : spaceObject
     }
     protected override void setLife()
     {
-        lifeMax *= 15;
+        if(bossType == BossType.Normal) lifeMax *= 5f;
+        else lifeMax *= 8f;
     }
     public override void loadSpeed(float factor =1f)
     {
@@ -61,7 +70,7 @@ public class meteorBoss : spaceObject
         spaceObjectSpeed = bossType switch
         {
             BossType.Normal or BossType.Ressource => baseSpeed * 0.75f * factor,
-            BossType.Speed => baseSpeed * 2f,
+            BossType.Speed => baseSpeed * 2.5f,
             _ => baseSpeed,
         };
     }
@@ -69,6 +78,17 @@ public class meteorBoss : spaceObject
     // Update is called once per frame
     protected override void Update()
     {
+        if(Stats.Instance.firstBoss)
+        {
+            if(Stats.Instance.dialogues["FirstBoss"])
+                gameManager.instance.ActiveSlowMotion(4f);
+
+            if(Vector3.Distance(spaceShip.instance.transform.position, transform.position) < 1.75f)
+            {
+                spaceObjectSpeed = 0f;
+            }
+        }
+
         if (gameManager.instance.isPaused) { return; }
         base.Update();
         statutTimer += Time.deltaTime;
@@ -92,7 +112,7 @@ public class meteorBoss : spaceObject
     {
         if (wave > 3) return;
         meteorType type;
-        if (bossType == BossType.Normal)
+        if (bossType == BossType.Spawner)
         {
             type = wave switch
             {
@@ -109,7 +129,7 @@ public class meteorBoss : spaceObject
         else
             type = meteorType.None;
 
-        if(type != meteorType.None) gameManager.instance.SpawnMeteor(type, transform.position, false);
+        if(type != meteorType.None) gameManager.instance.SpawnMeteor(type, transform.position, false, Ship.Current.stage - 5 );
     }
 
     public override void Move()
@@ -118,7 +138,7 @@ public class meteorBoss : spaceObject
         Vector3 shipDir = (spaceShip.instance.transform.position - transform.position).normalized;
         Vector3 perp = new Vector3(-shipDir.y, shipDir.x, 0).normalized;
         Vector3 dir = (shipDir + perp * 6.5f).normalized;
-        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale;
+        transform.position += dir * spaceObjectSpeed * Time.deltaTime * Stats.Instance.scale * UpSpeed.Instance.upModeMultiplicator;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
@@ -178,7 +198,7 @@ public class meteorBoss : spaceObject
 
     private bool canAttack()
     {
-        if (bossType == BossType.Speed) return false;
+        if (bossType == BossType.Speed || bossType == BossType.Normal) return false;
         else return wave <= 3;
     }
 
@@ -196,10 +216,37 @@ public class meteorBoss : spaceObject
             //SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
         }
 
+        if (!Datas.Instance.current.meteorBossKilled.ContainsKey(bossType)) Datas.Instance.current.meteorBossKilled[bossType] = new BigNumber(1);
         Datas.Instance.current.meteorBossKilled[bossType] += 1;
 
 
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);
-        if (isStellar) Stats.Instance.prestigeUnlocked = true;
+        if (isStellar){
+            Debug.LogError("STELLAR BOSS KILLED");
+            bool reload = !Stats.Instance.prestigeUnlocked;
+
+            Stats.Instance.prestigeUnlocked = true;
+            if (reload) BottomUI.Instance.LoadUI();
+        }
+
+        if (Stats.Instance.firstBoss)
+        {
+            Stats.Instance.firstBoss = false;
+            UpSpeed.Instance.setSpeed(1f);
+            gameManager.instance.ActiveSlowMotionVolume(false);
+            DialogueManager.Instance.ShowMenu();
+            DialogueManager.Instance.TryDialogue("FirstBossKill");
+        }
+
+        if (QuestManager.Instance.type == QuestType.KillBoss)
+        {
+            QuestManager.Instance.upQuest();
+        }
+    }
+
+    public override BigNumber GetStarParticle()
+    {
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.75f, 1.5f);
+        return reward;
     }
 }

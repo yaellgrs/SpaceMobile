@@ -204,4 +204,38 @@ public static class Utility
         return 1f + (Ship.Current.level - 1) * 0.01f;
     }
 
+    public static void Reset()
+    {
+        gameManager.instance.DestroyMeteors();
+
+        MainUi.Instance.settingUI.backClicked();
+        Stats.Instance.reset();
+        QuestStats.Instance.reset();
+
+        BottomUI.Instance.LoadUI();
+        Stats.Instance.firstConnection = true;
+        DialogueManager.Instance.ExecuteBlock("FirstConnection");
+    }
+
+    public static string GetMachineName(int i)
+    {
+        if(Ship.Current.type == SpaceShipData.SpaceShipElement.Wood) return Consts.MACHINE_WOOD_NAMES[i];
+        if(Ship.Current.type == SpaceShipData.SpaceShipElement.Iron) return Consts.MACHINE_IRON_NAMES[i];
+        return "";
+    }
+
+    public static string FormatDatasValue(object value)
+    {
+        if (value == null) return "null";
+
+        if (value is BigNumber bn)
+            return bn.ToString();
+
+        if (value is float f)
+            return Utility.TimeToString_dhms((long)f);
+
+        return value.ToString();
+    }
+
+
 }

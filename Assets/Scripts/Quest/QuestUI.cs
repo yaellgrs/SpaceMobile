@@ -1,16 +1,17 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
-using UnityEngine.Localization.SmartFormat.Utilities;
-using Unity.VisualScripting;
-using System.Linq;
 using Newtonsoft.Json.Bson;
-using UnityEngine.Localization.Components;
-using Unity.Loading;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Loading;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.SmartFormat.Utilities;
+using UnityEngine.Localization.Tables;
+using UnityEngine.UIElements;
 
 public class QuestUI : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class QuestUI : MonoBehaviour
     {
         questUI.gameObject.SetActive(false);
         successUI.gameObject.SetActive(false);
-        QuestManager.Instance.initQuest();
+
 
     }
 
@@ -53,10 +54,30 @@ public class QuestUI : MonoBehaviour
         
     }
 
+    public IEnumerator DelayLoadQuest()
+    {
+        yield return new WaitForSeconds(1f);
+        MainUi.Instance.questUI.LoadQuestUI();
+    }
+
+    public void LoadWithDelay()
+    {
+        StartCoroutine(DelayLoadQuest());
+    }
+
     public void LoadQuestUI()
     {
+        if(QuestManager.Instance == null)
+        {
+            QuestManager.Init();
+            return;
+        }
+        QuestManager.Instance.initQuest();
+
         questUI.gameObject.SetActive(true);
         gameManager.instance.SetPause(true);
+
+        Debug.LogError("Load Quest Ui");
 
         var root = questUI.rootVisualElement;
         VE_main = root.Q<VisualElement>("main");
@@ -115,9 +136,8 @@ public class QuestUI : MonoBehaviour
         loadQuest();
 
         diamandReward.text = QuestManager.Instance.reward.ToString();
-        Lbl_shipFragment.text = QuestManager.Instance.CalculShipFragmentReward().ToString();
+        Lbl_shipFragment.text = "1";
         Lbl_shipFragment.style.color = Utility.GetShipColor();
-        Debug.LogWarning("total " + QuestManager.Instance.CalculShipFragmentReward() * 10);
 
         VE_shipFragment.style.backgroundImage = Utility.GetShipFragmentLogo();
 
@@ -135,6 +155,8 @@ public class QuestUI : MonoBehaviour
     {
         lauchTransition = true;
         gameManager.instance.SetPause(false);
+
+        Debug.LogError("CLOSE QUEST UI");
 
         VE_main.RemoveFromClassList("trans");
         VE_main.schedule.Execute(() =>
@@ -213,7 +235,6 @@ public class QuestUI : MonoBehaviour
                 }
             }
             questCount.text = QuestStats.Instance.questLevel + "/" + QuestStats.Instance.questMaxLevel;
-            Debug.LogError(QuestStats.Instance.questLevel + "/" + QuestStats.Instance.questMaxLevel + "  : " + Ship.Current.type);
 
 
         }
@@ -246,6 +267,17 @@ public class QuestUI : MonoBehaviour
         exit.clicked -= Close;
         back.clicked += Close;
         exit.clicked += Close;
+
+        back.SetEnabled(false);
+        exit.SetEnabled(false);
+
+        VE_main.schedule.Execute(() =>
+        {
+            back.SetEnabled(true);
+            exit.SetEnabled(true);
+        }).StartingIn(200);
+
+
         Btn_switch.clicked += Switch;
 
         ScrollView scroll = root.Q<ScrollView>("scroll");
@@ -255,6 +287,7 @@ public class QuestUI : MonoBehaviour
         foreach(SuccessType key in Enum.GetValues(typeof(SuccessType)))
         {
             scroll.Add(new SuccessElement(key));
+
         }
 
         refreshSuccessUi();

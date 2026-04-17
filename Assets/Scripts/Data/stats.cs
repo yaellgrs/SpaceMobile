@@ -56,7 +56,7 @@ public class Stats
     [JsonIgnore] public SpaceShipData CurrentSpaceShip => spaceShips.Find(e => e.type == currentSpaceShipType)?.data;
 
     //global
-    public int diamand { get; private set; } = 0;
+    public int diamand = 0;
 
     public long lastConnection;
     public bool firstConnection = true;
@@ -65,15 +65,34 @@ public class Stats
     public bool HasNoAds = false;
 
     //boost
-    public float damageBoostTime = 0f;
-    public float xpBoostTime = 0f;
-    public float pvShieldBoostTime = 0f;
-    public float ressourcesBoostTime = 0f;
+    //public float damageBoostTime = 0f;
+    //public float xpBoostTime = 0f;
+    //public float pvShieldBoostTime = 0f;
+    //public float ressourcesBoostTime = 0f;
     public bool ReduceLifeBoss = false;
+
+    public Dictionary<Boost.Type, (float coef, float time)> boosts = new Dictionary<Boost.Type, (float, float)>();
 
     //tutos
     public bool ironTuto = false;
     public bool uraniumTuto = false;
+    public bool ironUnlocked = false;
+    public bool ironMeteorUnlocked = false;
+    public bool firstBoss = false;
+    public Dictionary<string, bool> dialogues = new Dictionary<string, bool>()
+    {
+        { "FirstConnection", false },
+        {"FirstOpenWood", false},
+        {"FirstMachineClick", false},
+        {"FirstUpgradeOpen", false},
+        {"FirstUpgradeLevelUp", false},
+        {"FirstShopOpen", false},
+        {"FirstBoss", false},
+        {"FirstBossKill", false},
+        {"FirstPrestigeOpen", false},
+        {"FirstPrestige", false},
+    };
+    public bool upgradeUnlocked = false;
     public Dictionary<PopupTuto, bool> popupTutos = new Dictionary<PopupTuto, bool>();
 
     //Ship
@@ -88,12 +107,13 @@ public class Stats
     public float areaSize = 1.25f;
     public float rocketTimerMax = 25f;
     public float rocketMultiplier = 5f;
+    public float lazerSpeed = 1f;
 
     //prestige
     public bool prestigeUnlocked = false; //
 
-    public BigNumber starPariticul { get; private set; } = new BigNumber(0, 0); //
-    public BigNumber prestigeWaiting { get; private set; } = new BigNumber(0, 0);//
+    public BigNumber starPariticul = new BigNumber(0, 0); //
+    public BigNumber prestigeWaiting = new BigNumber(0, 0);//
 
     public BigNumber BN_shipMoney = new BigNumber(0);
     public BigNumber BN_shipMoneyWaiting = new BigNumber(0);
@@ -106,11 +126,11 @@ public class Stats
     public float prest_damage_multiplicator = 1f;
     public float probabilitéOfOmega = 5f;
     public float stageSkipProb = 0f;
-    public int MinimalLevel = 1;
+    public float MinimalLevel = 1;
     public float critical_Prob = 5;
 
     //levels
-    public int diamandProb =5; // / 1000
+    public int diamandProb =2; // / 1000
     public float machineBoost_Lvl = 1f;
     public float star_mutliplicator_level = 1f;
     public float perm_Damage_Multiplicator_Lvl = 1f;
@@ -176,8 +196,11 @@ public class Stats
     public void AddIron(BigNumber amount)
     {
         Ship.Current.iron += amount;
-        MainUi.Instance?.upIronUI();
+
         Datas.Instance.current.iron += amount;
+        Ship.Current.iron.Normalize();
+
+        MainUi.Instance?.upIronUI();
         OnIronChanged.Invoke();
     }
 
@@ -223,7 +246,6 @@ public class Stats
     }
 
     public void save() {
-        if(firstConnection) firstConnection = false;
         lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         string path = Application.persistentDataPath + "/stats.json";
 
@@ -244,12 +266,11 @@ public class Stats
     {
         Instance = new Stats();
         Init();
-        ShipManager.Instance.LoadShips();
-        save();
-        QuestStats.Instance.reset();
-        Datas.Instance.reset();
-        MainUi.Instance.upStage();
-        Tuto.Instance.loadPopupTuto();
+        ShipManager.Instance?.LoadShips();
+        QuestStats.Instance?.reset();
+        Datas.Instance?.reset();
+        MainUi.Instance?.upStage();
+        Tuto.Instance?.loadPopupTuto();
 
         if (Instance.spaceShips.Count == 0)
         {
