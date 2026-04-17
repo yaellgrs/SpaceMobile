@@ -21,6 +21,9 @@ public class OfflineUI : MonoBehaviour
 
     public bool showErrorMessage = false;
 
+    BigNumber iron;
+    BigNumber uranium;
+
 
     public void Start()
     {
@@ -65,8 +68,8 @@ public class OfflineUI : MonoBehaviour
 
         long time = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - Stats.Instance.lastConnection;
 
-        BigNumber iron = calculOfflineIronEarn(time, offline);
-        BigNumber uranium = calculOfflineUraniumEarn(time, offline);
+        iron = calculOfflineIronEarn(time, offline);
+        uranium = calculOfflineUraniumEarn(time, offline);
 
         Lbl_iron.text = "+" + iron.ToString();
         Lbl_iron.style.color = Utility.GetShipColor();
@@ -78,8 +81,6 @@ public class OfflineUI : MonoBehaviour
 
         timeLabel.text = Utility.TimeToString_dhms(time);
 
-        Debug.LogError("offline : " + offline);
-
         if (!haveAutomation() && offline)
         {
             timeLabel.text = "";
@@ -87,9 +88,6 @@ public class OfflineUI : MonoBehaviour
             Lbl_message.style.color = Color.red;
             VE_reward.style.display = DisplayStyle.None;
             Lbl_win.style.display = DisplayStyle.None;
-
-            
-
         }
         else
         {
@@ -109,6 +107,12 @@ public class OfflineUI : MonoBehaviour
 
     private void claimClicked()
     {
+        if(iron != null)
+            Stats.Instance.AddIron(iron);
+
+        if (uranium != null && Ship.Current != null && Ship.Current.HaveUranium())
+            Stats.Instance.AddIron(uranium);
+
         main.RemoveFromClassList("trans");
         main.schedule.Execute(() =>
         {
@@ -154,12 +158,7 @@ public class OfflineUI : MonoBehaviour
                 }
             }
         }
-        if (offline)
-        {
-            totaEarn.Multiply(Stats.Instance.offline_Prod_Part);
-            Stats.Instance.AddIron(totaEarn);
-        }
-
+        totaEarn *= Stats.Instance.offline_Prod_Part;
         return totaEarn;
     }
 
@@ -180,12 +179,7 @@ public class OfflineUI : MonoBehaviour
                 }
             }
         }
-
-        if (offline)
-        {
-            totaEarn.Multiply(Stats.Instance.offline_Prod_Part);
-            Stats.Instance.AddUranium(totaEarn);
-        }
+        totaEarn *= Stats.Instance.offline_Prod_Part;
         return totaEarn;
     }
 }

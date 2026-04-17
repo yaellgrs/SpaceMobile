@@ -30,6 +30,7 @@ public class spaceShip : MonoBehaviour
     [SerializeField] private HitEffect hitEffect;
 
 
+
     private void Awake()
     {
         if(instance == null)
@@ -41,6 +42,9 @@ public class spaceShip : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+   
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,7 +57,7 @@ public class spaceShip : MonoBehaviour
 
     public void LoadAnimation()
     {
-        if (Ship.Current == null) return;
+        if (Ship.Current == null|| animator == null) return;
         animator.SetBool("isWood", Ship.Current?.type == SpaceShipElement.Wood);
     }
 
@@ -214,7 +218,7 @@ public class spaceShip : MonoBehaviour
     public BigNumber getMaxLife()
     {
         BigNumber life = new BigNumber(Ship.Current.lifeMax.getTotal());
-        if (Stats.Instance.boosts[Boost.Type.pvShield].time > 0) {
+        if (Stats.Instance.boosts.ContainsKey(Boost.Type.pvShield) && Stats.Instance.boosts[Boost.Type.pvShield].time > 0) {
             life.Multiply(Stats.Instance.boosts[Boost.Type.pvShield].coef);
         }
         return life;
@@ -223,6 +227,7 @@ public class spaceShip : MonoBehaviour
     public BigNumber getMaxShield()
     {
         BigNumber shield = new BigNumber(Ship.Current.shieldMax.getTotal());
+        
         return shield;
     }
 }

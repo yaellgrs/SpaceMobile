@@ -33,7 +33,7 @@ public class DevTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            StartCoroutine(DialogueUI.Instance.LaunchTransition());
+            Ship.Current.iron = new BigNumber(0);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -60,10 +60,6 @@ public class DevTest : MonoBehaviour
             QuestStats.Instance.questLevel = 11;
             QuestStats.Instance.progress = new BigNumber(0);
             BottomUI.Instance.LoadUI();
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            Stats.Instance.firstConnection = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

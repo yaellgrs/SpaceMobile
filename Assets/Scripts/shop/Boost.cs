@@ -105,10 +105,9 @@ public class Boost
         {
             if (type == Type.time)
             {
-                    shopUI.Close();
-                    Stats.Instance.lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (time * 3600);
-                    MainUi.Instance.offlineUI.Load(false);
-                
+                shopUI.Close();
+                Stats.Instance.lastConnection = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (time * 3600);
+                MainUi.Instance.offlineUI.Load(false);
             }
             Pay();
         }

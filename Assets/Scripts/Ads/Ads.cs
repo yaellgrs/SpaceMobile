@@ -157,7 +157,7 @@ public class Ads : MonoBehaviour
                 Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 MainUi.Instance.adsUI.Close();
                 Stats.Instance.AddIron(getIronAdsReward());
-                Stats.Instance.AddUranium(getUraniumAdsReward());
+                if(Ship.Current.HaveUranium()) Stats.Instance.AddUranium(getUraniumAdsReward());
                 break;
             case RewardType.Resurection:
                 Stats.Instance.ReduceLifeBoss = true;
