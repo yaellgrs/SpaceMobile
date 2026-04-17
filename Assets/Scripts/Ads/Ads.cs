@@ -19,7 +19,7 @@ public class Ads : MonoBehaviour
     private RewardedAd _rewardedAd;
 
     private int tentative = 0;
-    private bool showVideo = true;
+    private bool videoShowed = false;
 
     private void Awake()
     {
@@ -110,12 +110,15 @@ public class Ads : MonoBehaviour
 
     public void ShowRewardedAd(RewardType type)
     {
-        if (_rewardedAd != null && _rewardedAd.CanShowAd() && showVideo)
+        if( tentative == 0) videoShowed = false;    
+
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
 
             _rewardedAd.Show((Reward reward) => {
 
                 GetReward(type);
+                videoShowed = true;
                 LoadAdsUI.Instance.Close();
             });
             tentative = 0;
@@ -140,7 +143,7 @@ public class Ads : MonoBehaviour
     {
         LoadRewardedAd();
         yield return new WaitForSeconds(delay); // laisse le temps de charger
-        ShowRewardedAd(type);
+        if(!videoShowed) ShowRewardedAd(type);
 
     }
 
