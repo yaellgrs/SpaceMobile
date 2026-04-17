@@ -147,17 +147,17 @@ public class Stats
 
     public int shipFragment = 0;
 
-    public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
-            UpgradeType.PrestigeMultiplicator,
-            UpgradeType.LessMeteor,
-            UpgradeType.LessPriceUpgrades,
-            UpgradeType.XpBoost,
-            UpgradeType.DamageMultiplicator,
-            UpgradeType.StageSkip,
-            UpgradeType.OmegaProb, 
-            UpgradeType.MinimumLevel, 
-            UpgradeType.CriticalProbability, 
-    };
+    //public List<UpgradeType> prestigeToBuy = new List<UpgradeType> {
+    //        UpgradeType.PrestigeMultiplicator,
+    //        UpgradeType.LessMeteor,
+    //        UpgradeType.LessPriceUpgrades,
+    //        UpgradeType.XpBoost,
+    //        UpgradeType.DamageMultiplicator,
+    //        UpgradeType.StageSkip,
+    //        UpgradeType.OmegaProb, 
+    //        UpgradeType.MinimumLevel, 
+    //        UpgradeType.CriticalProbability, 
+    //};
 
     public UpgradeType nextPrestigeToBuy = UpgradeType.DamageMultiplicator;
     public UpgradeType nextPrestigeToBuy2 = UpgradeType.PrestigeMultiplicator;

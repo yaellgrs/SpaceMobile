@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.SmartFormat.Utilities;
+using System;
 
 public class PrestigeUI : BaseUI
 {
@@ -102,22 +103,14 @@ public class PrestigeUI : BaseUI
     {
         Stats.Instance.AddUranium(-calculCostPrestige());
         
-        UpgradeType type;
-        if (prestige == 1)
-            type = Stats.Instance.nextPrestigeToBuy;
-        else
-            type = Stats.Instance.nextPrestigeToBuy2;
+        UpgradeType type = (prestige == 1) ? Stats.Instance.nextPrestigeToBuy : Stats.Instance.nextPrestigeToBuy2;
 
         UpgradeData data = new UpgradeData(UpgradesPriceFactor[type]);
         Stats.Instance.dataUpgradePrestige[type] = data;
         Stats.Instance.upgradesPrestige.Add(new UpgradesPrestigeElement(data, type.ToString(), type));
 
-        if (prestige == 1)
-            Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy);
-        else
-            Stats.Instance.prestigeToBuy.Remove(Stats.Instance.nextPrestigeToBuy2);
 
-        if (Stats.Instance.prestigeToBuy.Count == 0)
+        if (GetPrestigeToBuy().Count == 0)
         {
             buyButton.enabledSelf = false;
             Stats.Instance.nextPrestigeToBuy = UpgradeType.Max;
@@ -129,23 +122,55 @@ public class PrestigeUI : BaseUI
         loadForgeUI();
     }
 
+    public List<UpgradeType> GetPrestigeToBuy()
+    {
+        List<UpgradeType> list = new List<UpgradeType>();
+        foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
+        {
+            if (type != UpgradeType.Max && !Stats.Instance.dataUpgradePrestige.ContainsKey(type))
+                list.Add(type);
+        }
+        return list;
+    }
+
     private void SetNextPrestigesToBuy()
     {
-        var list = new List<UpgradeType>(Stats.Instance.prestigeToBuy);
-        list.Remove(UpgradeType.Max);
+        List<UpgradeType> list = GetPrestigeToBuy();
 
-        if (list == null || list.Count <= 1){
+
+        if(list.Count <= 0)
+        {
+            Stats.Instance.nextPrestigeToBuy = UpgradeType.Max;
             Stats.Instance.nextPrestigeToBuy2 = UpgradeType.Max;
-            Stats.Instance.nextPrestigeToBuy = (list.Count == 1) ? list[0] : UpgradeType.Max;
             return;
         }
-        else
+        UpgradeType type1 = list[UnityEngine.Random.Range(0, list.Count)];
+        Stats.Instance.nextPrestigeToBuy = type1;
+        list.Remove(type1);
+        if (list.Count <= 0)
         {
-            UpgradeType first = list[Random.Range(0, list.Count)]; ;
-            list.Remove(first);
-            Stats.Instance.nextPrestigeToBuy = first;
-            Stats.Instance.nextPrestigeToBuy2 = list[Random.Range(0, list.Count)]; ;
+            Stats.Instance.nextPrestigeToBuy2 = UpgradeType.Max;
+            return;
         }
+        UpgradeType type2 = list[UnityEngine.Random.Range(0, list.Count)];
+        Stats.Instance.nextPrestigeToBuy2 = type2;
+
+
+        //    var list = new List<UpgradeType>(Stats.Instance.prestigeToBuy);
+        //    list.Remove(UpgradeType.Max);
+
+        //    if (list == null || list.Count <= 1){
+        //        Stats.Instance.nextPrestigeToBuy2 = UpgradeType.Max;
+        //        Stats.Instance.nextPrestigeToBuy = (list.Count == 1) ? list[0] : UpgradeType.Max;
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        UpgradeType first = list[Random.Range(0, list.Count)]; ;
+        //        list.Remove(first);
+        //        Stats.Instance.nextPrestigeToBuy = first;
+        //        Stats.Instance.nextPrestigeToBuy2 = list[Random.Range(0, list.Count)]; ;
+        //    }
     }
 
     private void uraniumClicked()

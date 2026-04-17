@@ -319,7 +319,7 @@ public class ShopUI : MonoBehaviour
 
     public void Close()
     {
-
+        gameManager.instance.SetPause(false);
         main.RemoveFromClassList("trans");
         main.schedule.Execute(() =>
         {
@@ -329,7 +329,7 @@ public class ShopUI : MonoBehaviour
         {
             shopUI.gameObject.SetActive(false);
             buyUI.gameObject.SetActive(false);
-            gameManager.instance.SetPause(false);
+
             isActive = false;
         }).StartingIn(400);
     }
