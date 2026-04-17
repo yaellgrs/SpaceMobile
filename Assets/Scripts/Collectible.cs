@@ -7,7 +7,6 @@ public class Collectible : MonoBehaviour
     public float time = 5f;
 
     private bool collected = false;
-
     public enum CollectibleType { iron, uranium, Diamand, Wood };
 
     public CollectibleType type;
@@ -66,14 +65,14 @@ public class Collectible : MonoBehaviour
 
                 switch (type)
                 {
-                    //case CollectibleType.iron:
-                    //    Stats.Instance.AddIron(reward);
-                    //    if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
-                    //    break;
-                    //case CollectibleType.Wood:
-                    //    Stats.Instance.AddIron(reward);
-                    //    if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
-                    //    break;
+                    case CollectibleType.iron:
+                        Stats.Instance.AddIron(reward);
+                        if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
+                        break;
+                    case CollectibleType.Wood:
+                        Stats.Instance.AddIron(reward);
+                        if (QuestManager.Instance.type == QuestType.KillIronMeteor) QuestManager.Instance.upQuest(reward);
+                        break;
                     case CollectibleType.uranium:
                         Stats.Instance.AddUranium(reward);
                         if (QuestManager.Instance.type == QuestType.KillUraniumMeteor) QuestManager.Instance.upQuest(reward);

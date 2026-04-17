@@ -16,7 +16,6 @@ public class gameManager : MonoBehaviour
     public List<meteorPrefabEntry> meteorPrefabs;
     public List<bossPrefabEntry> bossPrefabs;
 
-
     float timeSpawnSpaceObjet = 3f; //2f
     public float timer = 0f;
     float timerSave;
@@ -25,7 +24,6 @@ public class gameManager : MonoBehaviour
 
     private Vector3 initialScale;
 
-    private BigNumber enemyLife = new BigNumber(1, 0);
     public BigNumber BN_ironEarned = new BigNumber(0);
     public BigNumber BN_xpEarned = new BigNumber(0);
 
@@ -43,8 +41,6 @@ public class gameManager : MonoBehaviour
 
     private bool slowMotionActive = false;
     float incWeight = 1f;
-
-
 
     float autoSaveTimer = 0f;
     private void Awake()
@@ -73,12 +69,10 @@ public class gameManager : MonoBehaviour
     // Start is calledonce before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         Application.targetFrameRate = 60;
         V_warning.gameObject.SetActive(false);
         InitGame();
         LoadStage();
-
     }
 
     private void calculMeteorToKill()

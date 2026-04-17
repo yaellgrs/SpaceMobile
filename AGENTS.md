@@ -2,7 +2,7 @@
 - Project name: SpaceIdle_
 - Unity version: Unity 6000.3.2f1
 - Active game object:
-  - Name: lazerTest
+  - Name: gameManager
   - Tag: Untagged
-  - Layer: lazer 
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
