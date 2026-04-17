@@ -260,11 +260,14 @@ public class ShopUI : MonoBehaviour
         switchButton = root.Q<Button>("switch");
         diamand = root.Q<Label>("diamand");
 
+        Button noAds = root.Q<Button>("noAds");
+        if(IAPManager.Instance.CheckAds())
+            noAds.SetEnabled(false);
+        else
+            noAds.clicked += () => {
+                IAPManager.Instance.BuyRemoveAds();
+            };
 
-        root.Q<Button>("noAds").clicked += () =>
-        {
-            IAPManager.Instance.BuyRemoveAds();
-        };
         root.Q<Button>("smallPack").clicked += () =>
         {
             IAPManager.Instance.BuyDiamandPack(DiamandPack.SMALL);
@@ -298,7 +301,6 @@ public class ShopUI : MonoBehaviour
 
     public void upDiamand()
     {
-        Debug.Log("up diamand");
         string dmd = Stats.Instance.diamand.ToString();
         diamand.style.width = new Length(7.5f*dmd.Length, LengthUnit.Percent);
         diamand.text = dmd;

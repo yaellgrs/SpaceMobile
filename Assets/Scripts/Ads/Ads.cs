@@ -115,12 +115,15 @@ public class Ads : MonoBehaviour
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
 
-            _rewardedAd.Show((Reward reward) => {
-
+            if (IAPManager.Instance.CheckAds())
                 GetReward(type);
-                videoShowed = true;
-                LoadAdsUI.Instance.Close();
-            });
+            else
+            {
+                _rewardedAd.Show((Reward reward) =>
+                {
+                    GetReward(type);
+                });
+            }
             tentative = 0;
         }
         else if(tentative < 10)
@@ -137,6 +140,11 @@ public class Ads : MonoBehaviour
 
             tentative = 0;
         }
+    }
+
+    public void GetAdsReward()
+    {
+
     }
 
     private IEnumerator ReloadAd(RewardType type, float delay)
@@ -189,6 +197,9 @@ public class Ads : MonoBehaviour
                 MainUi.Instance.shopUI.LoadBoost();
                 break;
         }
+
+        videoShowed = true;
+        LoadAdsUI.Instance.Close();
     }
 
     public void setBoost(Boost.Type type)

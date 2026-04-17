@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
@@ -131,7 +132,15 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
         if(args.purchasedProduct.definition.id == REMOVE_ADS)
         {
             //retirer les ads;
-            Debug.Log("you have buy no Ads");
+            foreach(Boost.Type type in Enum.GetValues(typeof(Boost.Type)))
+            {
+                if (!Stats.Instance.boosts.ContainsKey(type))
+                    Stats.Instance.boosts.Add(type, (1f, 0f));
+                var boost = Stats.Instance.boosts[type];
+                boost.time = float.MaxValue;
+                boost.coef = 2;
+                Stats.Instance.boosts[type] = boost;
+            }
         }
         if (args.purchasedProduct.definition.id == SMALL_PACK)
         {

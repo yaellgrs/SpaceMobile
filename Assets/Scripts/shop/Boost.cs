@@ -1,4 +1,4 @@
-using GoogleMobileAds.Api;
+﻿using GoogleMobileAds.Api;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -96,6 +96,11 @@ public class Boost
 
     private string getTime()
     {
+        if (Stats.Instance.boosts[type].time >= 10000f)
+        {
+            Lbl_time.style.fontSize = 85;
+            return "∞";
+        }
         return Utility.TimeToString_hm((long)Stats.Instance.boosts[type].time);
     }
 
