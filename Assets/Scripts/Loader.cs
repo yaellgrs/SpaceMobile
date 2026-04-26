@@ -24,11 +24,13 @@ public class Loader : MonoBehaviour
     IEnumerator AsyncLoadGame()
     {
 
+
         VP_start.loopPointReached += (VideoPlayer vp) => {
             VP_waiting.Play();
             Debug.Log("waiting play");
         };
         VP_start.Play();
+        VP_waiting.Prepare();
 
 
         AsyncOperation operation = SceneManager.LoadSceneAsync("MainScene");
