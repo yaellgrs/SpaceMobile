@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d2bd3e4f0af17214992a78e787932f73
+guid: 8be64a21c632d394f8057fcbe26f9830
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 819107441342390607
-    second: ChatThinking_0
+      213: 5378725300183679317
+    second: Astronaute_scared_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChatThinking_0
+      name: Astronaute_scared_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 353
         y: 0
-        width: 262
-        height: 192
+        width: 1131
+        height: 1364
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f41a71ac0ed0e5b00800000000000000
-      internalID: 819107441342390607
+      spriteID: 551cadda92215aa40800000000000000
+      internalID: 5378725300183679317
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ChatThinking_0: 819107441342390607
+      Astronaute_scared_0: 5378725300183679317
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

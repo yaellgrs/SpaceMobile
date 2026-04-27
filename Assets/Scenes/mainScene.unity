@@ -3974,9 +3974,13 @@ MonoBehaviour:
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  - {fileID: 8426481826592520733, guid: d9d4892958f7b8f45a91a4db4695eeda, type: 3}
+  - {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  - {fileID: 261437135309998005, guid: 45e4763a23959ef44ac8fa840a7b34fd, type: 3}
+  - {fileID: 5378725300183679317, guid: 8be64a21c632d394f8057fcbe26f9830, type: 3}
   portraitsFace: 2
   setSayDialog: {fileID: 158534015}
-  description: Le plus gros bg
+  description: L
 --- !u!4 &1260565255
 Transform:
   m_ObjectHideFlags: 0
@@ -5612,11 +5616,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 463.488, y: -20.487703}
+  scrollPos: {x: 532.3271, y: 927.1028}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 621.25
-  zoom: 0.8800001
+  blockViewHeight: 400
+  zoom: 0.49000046
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -5709,7 +5713,7 @@ MonoBehaviour:
   storyText: "Euhhh, d\xE9sol\xE9 je dois te laisser"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 5378725300183679317, guid: 8be64a21c632d394f8057fcbe26f9830, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -5771,7 +5775,7 @@ MonoBehaviour:
   storyText: "tiens viens l\xE0 que je te montre comment notre engin fonct\u2026"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -5854,7 +5858,7 @@ MonoBehaviour:
 '
   description: 
   character: {fileID: 849192706}
-  portrait: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -5909,7 +5913,7 @@ MonoBehaviour:
   storyText: "Oh tu es r\xE9veill\xE9 ? "
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6071,8 +6075,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -242.20654
-    y: -191.24484
+    x: -244.0889
+    y: -192.18604
     width: 140.008
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -6139,7 +6143,7 @@ MonoBehaviour:
     vague nous frappe ! "
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6166,7 +6170,7 @@ MonoBehaviour:
   storyText: "Oui bon t\u2019as eu beaucoup de chance surtout\u2026."
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 8426481826592520733, guid: d9d4892958f7b8f45a91a4db4695eeda, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6220,7 +6224,7 @@ MonoBehaviour:
   storyText: Il y en avait tellement
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 5378725300183679317, guid: 8be64a21c632d394f8057fcbe26f9830, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6319,7 +6323,7 @@ MonoBehaviour:
   storyText: glglglglglglgl >.< je suis trop jeune pour mourir
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 261437135309998005, guid: 45e4763a23959ef44ac8fa840a7b34fd, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6468,7 +6472,7 @@ MonoBehaviour:
   storyText: "Tu as d\xE9j\xE0 trouv\xE9 la hache ?"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6660,7 +6664,7 @@ MonoBehaviour:
   storyText: "Fais attention les m\xE9t\xE9orites vont vite revenir"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 5378725300183679317, guid: 8be64a21c632d394f8057fcbe26f9830, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6827,7 +6831,7 @@ MonoBehaviour:
   storyText: "Ca pourrait \xEAtre utile pour se pr\xE9parer aux futurs attaques"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6943,7 +6947,7 @@ MonoBehaviour:
   storyText: "Fiou on se sent d\xE9j\xE0 mieux !"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -7020,8 +7024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -243.71487
-    y: 28.714989
+    x: -239.00905
+    y: 36.244354
     width: 170.416
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -7105,7 +7109,7 @@ MonoBehaviour:
     r\xE9compenses que je te laisserai d\xE9couvrir."
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -7175,7 +7179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -240.88794
+    x: -237.1233
     y: 96.18941
     width: 134.672
     height: 40
@@ -7510,7 +7514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -241.60422
+    x: -238.78069
     y: 152.56938
     width: 102.64
     height: 40
@@ -7633,7 +7637,7 @@ MonoBehaviour:
   storyText: "On a quand m\xEAme eu de la chance que t\u2019ai su aussi bien r\xE9agir "
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -7657,10 +7661,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Say
   itemId: 167
   indentLevel: 0
-  storyText: "Ouah, on a \xE9chapp\xE9 bel\u2026 ^^\u2019"
+  storyText: "Ouah, on a \xE9chapp\xE9 bel\u2026"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 5378725300183679317, guid: 8be64a21c632d394f8057fcbe26f9830, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -8107,7 +8111,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -238.85217
-    y: 284.9567
+    y: 285.89786
     width: 152.248
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -8220,7 +8224,7 @@ MonoBehaviour:
     rentre notre vaisseaux surpuissant !"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -8244,10 +8248,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Say
   itemId: 209
   indentLevel: 0
-  storyText: "Tiens essaye d\u2019am\xE9liorer notre vaisseaux avec?"
+  storyText: "Tiens essaye d\u2019am\xE9liorer notre vaisseaux avec ! "
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -8301,7 +8305,7 @@ MonoBehaviour:
   storyText: On est en vie et en plus on est RICHE !
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -8362,7 +8366,7 @@ MonoBehaviour:
   storyText: "Bah le trou noir, la transformation de la poussi\xE8re TOUT !"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -8416,7 +8420,7 @@ MonoBehaviour:
   storyText: "Ca a march\xE9 ! CA A MARCHE !!!"
   description: 
   character: {fileID: 1260565254}
-  portrait: {fileID: -4691315368313153962, guid: 2a06b725dc3b65d4a9b2a14431cf8825, type: 3}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1

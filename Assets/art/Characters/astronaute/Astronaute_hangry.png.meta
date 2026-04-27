@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5480b14ea9037ea4ea847e8ef0aa742b
+guid: d9d4892958f7b8f45a91a4db4695eeda
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 727245128205115829
-    second: ChatInLove_0
+      213: 8426481826592520733
+    second: Astronaute_hangry_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChatInLove_0
+      name: Astronaute_hangry_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 353
         y: 0
-        width: 225
-        height: 225
+        width: 1131
+        height: 1364
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b1ac4b4791b71a00800000000000000
-      internalID: 727245128205115829
+      spriteID: d1af45c6390e0f470800000000000000
+      internalID: 8426481826592520733
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ChatInLove_0: 727245128205115829
+      Astronaute_hangry_0: 8426481826592520733
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
