@@ -112,7 +112,7 @@ public class Ads : MonoBehaviour
     {
         if( tentative == 0) videoShowed = false;    
 
-        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        if (_rewardedAd != null && _rewardedAd.CanShowAd() && false)
         {
 
             if (IAPManager.Instance.CheckAds())
@@ -137,7 +137,7 @@ public class Ads : MonoBehaviour
         {
             // no found
             LoadAdsUI.Instance.SetError();
-
+            videoShowed = true;
             tentative = 0;
         }
     }

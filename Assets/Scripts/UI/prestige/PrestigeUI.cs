@@ -345,7 +345,7 @@ public class PrestigeUI : BaseUI
 
         BN_boost = new BigNumber(BN_reward);
 
-        BN_boost.Multiply((Stats.Instance.boosts[Boost.Type.prestige].time <= 0 ? 1f : Stats.Instance.boosts[Boost.Type.prestige].coef - 1));
+        BN_boost.Multiply((Stats.Instance.boosts[Boost.Type.prestige].time <= 0 ? 0f : Stats.Instance.boosts[Boost.Type.prestige].coef - 1));
         Lbl_boost.text = "Boost ( " + ((Stats.Instance.boosts[Boost.Type.prestige].time <= 0) ? "Inactive" 
                         : "x"+Stats.Instance.boosts[Boost.Type.prestige].coef.ToString("F1")) + " ) : +"
                         + BN_boost.ToString();
