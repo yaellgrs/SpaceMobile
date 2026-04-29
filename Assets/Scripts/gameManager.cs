@@ -144,7 +144,7 @@ public class gameManager : MonoBehaviour
 
     }
 
-    public bool ActiveSlowMotion(float distanceMin)
+    public bool ActiveSlowMotion(float distanceMin, float intensity = 1f)
     {
         if (meteors.Count <= 0) return false;
 
@@ -162,7 +162,7 @@ public class gameManager : MonoBehaviour
 
             meteor.Move();
             meteor.loadSpeed();
-            ActiveSlowMotionVolume(true);
+            ActiveSlowMotionVolume(true, intensity);
             //BottomUI.Instance.Show(false);
             return true;
         }
@@ -213,9 +213,14 @@ public class gameManager : MonoBehaviour
         V_dead.weight = 1;
     }
 
-    public void ActiveSlowMotionVolume(bool active)
+    public void ActiveSlowMotionVolume(bool active, float intensity = 1f)
     {
         slowMotionActive = active;
+
+        Vignette vignette;
+        V_slowMotion.profile.TryGet<Vignette>(out vignette);
+        if(vignette != null)
+            vignette.intensity.value = intensity;
     }
 
     public void updateStage()

@@ -85,6 +85,11 @@ public class DialogueManager : MonoBehaviour
         BottomUI.Instance.Show(true);
     }
 
+    public void ShowBossLife()
+    {
+        MainUi.Instance.ShowBossLife(true);
+    }
+
 
     public void StartWarning()
     {
