@@ -363,11 +363,11 @@
     left: 90%;
     width: 20%;
     color: rgb(255, 255, 255);
-    font-size: 49px;
+    font-size: 34px;
     -unity-font-style: bold;
     -unity-font-definition: url("project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&guid=f2c8ac68c8499db40a2cc326aae92b8e&type=3#Marker Felt");
     position: absolute;
     top: initial;
-    -unity-text-align: middle-left;
+    -unity-text-align: lower-left;
     height: 100%;
 }

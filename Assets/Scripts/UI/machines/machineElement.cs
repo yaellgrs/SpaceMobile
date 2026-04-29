@@ -309,7 +309,7 @@ public partial class machineElement : Button
         RewardInc.Subtract(CalculReward());
         Lbl_reward.text = $"Reward : {CalculReward().ToString()} <color=green>(+{RewardInc.ToString()})</color>";
         Lbl_employee.text = "x" + (data.production_cps).ToString();
-        Lbl_employee.text += (GetColorAmount() > 0 )? $"<color=green>(+{GetColorAmount().ToString()})</color>" : "";
+        //Lbl_employee.text += (GetColorAmount() > 0 )? $"<color=green>(+{GetColorAmount().ToString()})</color>" : "";
         Lbl_level.text = (data.level == data.levelMax) ? "Lv : UP" : $"Lv : {data.level}/{data.levelMax} <color=cyan>(+{getMulitplicator()})</color>";
     }
 
