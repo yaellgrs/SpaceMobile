@@ -112,7 +112,7 @@ public class Ads : MonoBehaviour
     {
         if( tentative == 0) videoShowed = false;    
 
-        if (_rewardedAd != null && _rewardedAd.CanShowAd() && false)
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
 
             if (IAPManager.Instance.CheckAds())
