@@ -80,7 +80,7 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.Instance.SetSkipButton(false);
 
         if (currentDialogue != "")
-        {
+        {   
 
             ExecuteBlock(currentDialogue + "End");
 
