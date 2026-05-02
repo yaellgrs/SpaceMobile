@@ -91,7 +91,7 @@ public class AdsUI : MonoBehaviour
         {
             Label_diamand.style.visibility = Visibility.Hidden;
             VE_iron.style.visibility = Visibility.Visible;
-            VE_uranium.style.visibility = Visibility.Visible;
+            VE_uranium.style.visibility = Ship.Current.HaveUranium()? Visibility.Visible : Visibility.Hidden;
             reward = Ads.RewardType.Ressources;
 
             Label_uranium.text = Ads.getUraniumAdsReward().ToString();
@@ -103,6 +103,7 @@ public class AdsUI : MonoBehaviour
             VE_iron.style.visibility = Visibility.Hidden;
             VE_uranium.style.visibility = Visibility.Hidden;
             reward = Ads.RewardType.Diamand;
+            Label_diamand.text = Utility.GetDiamandPubReward().ToString();
         }
     }
 

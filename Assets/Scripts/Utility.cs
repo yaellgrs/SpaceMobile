@@ -238,4 +238,9 @@ public static class Utility
     }
 
 
+    public static int GetDiamandPubReward()
+    {
+        return 5 + 2 * Stats.Instance.ConsecutivePub;
+    }
+
 }

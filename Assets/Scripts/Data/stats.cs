@@ -63,6 +63,7 @@ public class Stats
     public int deadPubWatch = 0;
     public long lastPub = 0;
     public bool HasNoAds = false;
+    [JsonIgnore] public int ConsecutivePub = 0;
 
     //boost
     //public float damageBoostTime = 0f;

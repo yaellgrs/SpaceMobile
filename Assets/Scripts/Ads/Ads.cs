@@ -162,7 +162,8 @@ public class Ads : MonoBehaviour
             case RewardType.Diamand:
                 Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 MainUi.Instance.adsUI.Close();
-                Stats.Instance.AddDiamand(5);
+                Stats.Instance.AddDiamand(Utility.GetDiamandPubReward());
+                Stats.Instance.ConsecutivePub++;
                 break;
             case RewardType.Ressources:
                 Stats.Instance.lastPub = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -211,6 +212,6 @@ public class Ads : MonoBehaviour
     }
 
 
-    public static BigNumber getIronAdsReward() => OfflineUI.calculOfflineIronEarn(150, false);
-    public static BigNumber getUraniumAdsReward() => OfflineUI.calculOfflineUraniumEarn(150, false);
+    public static BigNumber getIronAdsReward() => OfflineUI.calculOfflineIronEarn(600, false);
+    public static BigNumber getUraniumAdsReward() => OfflineUI.calculOfflineUraniumEarn(600, false);
 }

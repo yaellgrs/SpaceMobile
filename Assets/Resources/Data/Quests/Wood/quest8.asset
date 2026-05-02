@@ -15,8 +15,8 @@ MonoBehaviour:
   level: 8
   type: 8
   objectif:
-    Mantisse: 5
-    Exp: 1
+    Mantisse: 25
+    Exp: 0
   rewardDiamand: 2
   text: "Pour pouvoir profiter pleinement des gains des m\xE9t\xE9orites de fer et
     d'uranium, il faut avant tout avoir des forges bien \xE9quip\xE9es ! Am\xE9liore

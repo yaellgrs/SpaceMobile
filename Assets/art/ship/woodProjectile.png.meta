@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1250
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,10 +129,10 @@ TextureImporter:
       name: woodProjectile_0
       rect:
         serializedVersion: 2
-        x: 226
-        y: 140
-        width: 157
-        height: 360
+        x: 0
+        y: 0
+        width: 41
+        height: 134
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ae51553212530f64cbf26bb3d9d41166
     internalID: 0
     vertices: []
     indices: 

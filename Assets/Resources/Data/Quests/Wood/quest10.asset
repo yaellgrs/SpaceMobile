@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647211a173c3748448b7a069d6f70120, type: 3}
   m_Name: quest10
   m_EditorClassIdentifier: Assembly-CSharp::Quests
-  level: 10
+  level: 5
   type: 0
   objectif:
     Mantisse: 10

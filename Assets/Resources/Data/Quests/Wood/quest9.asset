@@ -15,8 +15,8 @@ MonoBehaviour:
   level: 9
   type: 4
   objectif:
-    Mantisse: 1
-    Exp: 2
+    Mantisse: 50
+    Exp: 0
   rewardDiamand: 2
   text: "Un g\xE9n\xE9rateur de fer, ce n\u2019est plus suffisant pour avancer. Et
     si tu essayais d\u2019\xE9conomiser pour doubler ta production ?"
