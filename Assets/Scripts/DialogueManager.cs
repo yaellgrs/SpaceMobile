@@ -64,6 +64,8 @@ public class DialogueManager : MonoBehaviour
         MainUi.Instance.EnableShoot(false);
         BottomUI.Instance.Show(false);
         gameManager.instance.spawnMeteor = false;
+
+        Debug.Log("start dialogue");
         DialogueUI.Instance.SetSkipButton(true);
 
     }

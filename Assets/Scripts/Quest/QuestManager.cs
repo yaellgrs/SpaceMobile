@@ -77,6 +77,8 @@ public class QuestManager
 
         QuestStats.Instance.progress.Add(1);
         MainUi.Instance.SetQuestCompleted(isCompleted());
+
+
     }
 
     public void upQuest(BigNumber n)
@@ -87,6 +89,7 @@ public class QuestManager
         //}
         QuestStats.Instance.progress.Add(n);
         MainUi.Instance.SetQuestCompleted(isCompleted());
+        Debug.Log("up quest : " + n);
     }
 
     public void upQuest(float time)

@@ -54,6 +54,8 @@ public class DialogueUI : MonoBehaviour
             Btn_skip.clicked -= SkipDialogue;
         }
 
+        Debug.Log("skip buttpn : " + active);
+
 
     }
 

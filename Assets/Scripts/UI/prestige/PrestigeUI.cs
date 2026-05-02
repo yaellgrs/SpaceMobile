@@ -411,8 +411,7 @@ public class PrestigeUI : BaseUI
         backClicked(prestigeUI);
 
 
-        if(QuestManager.Instance.type == QuestType.GetStarParticle)
-            QuestManager.Instance.upQuest(bonus);
+
 
         gameManager.instance.DestroyMeteors();
         gameManager.instance.SetPause(true);
@@ -453,6 +452,8 @@ public class PrestigeUI : BaseUI
         {
             QuestManager.Instance.upQuest();
         }
+        if (QuestManager.Instance.type == QuestType.GetStarParticle)
+            QuestManager.Instance.upQuest(BN_reward);
 
         StartCoroutine(DialogueUI.Instance.LaunchTransition());
     }
