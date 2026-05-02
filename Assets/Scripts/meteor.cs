@@ -262,7 +262,7 @@ public class spaceObject : MonoBehaviour
         if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
         else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);
 
-        QuestStats.Instance.succ
+        //QuestStats.Instance.succ
 
         if (QuestManager.Instance.type == QuestType.KillMeteor || (QuestManager.Instance.type == QuestType.KillIronMeteor && type == meteorType.Wood) || (QuestManager.Instance.type == QuestType.KillIronMeteor && type == meteorType.Iron))
         {
