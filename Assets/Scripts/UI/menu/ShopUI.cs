@@ -261,12 +261,12 @@ public class ShopUI : MonoBehaviour
         diamand = root.Q<Label>("diamand");
 
         Button noAds = root.Q<Button>("noAds");
-        if(IAPManager.Instance.CheckAds())
-            noAds.SetEnabled(false);
-        else
+
+
             noAds.clicked += () => {
                 IAPManager.Instance.BuyRemoveAds();
             };
+        Debug.Log("ads : " + IAPManager.Instance.CheckAds());
 
         root.Q<Button>("smallPack").clicked += () =>
         {
@@ -292,6 +292,15 @@ public class ShopUI : MonoBehaviour
 
         upDiamand();
 
+
+
+    }
+
+    public void InitAds()
+    {
+
+        Button noAds = buyUI.rootVisualElement.Q<Button>("noAds");
+        noAds.SetEnabled(IAPManager.Instance.CheckAds());
 
 
     }

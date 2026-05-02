@@ -73,6 +73,7 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     {
         Debug.Log("buy no ads");
         BuyProduct(REMOVE_ADS);
+        MainUi.Instance.shopUI.InitAds();
     }
 
     public void BuyDiamandPack(DiamandPack type)

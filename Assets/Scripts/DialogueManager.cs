@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
 
     public EventSystem inputSystem;
     public Flowchart flowChart;
+    public string currentDialogue = "";
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class DialogueManager : MonoBehaviour
 
         //StartDialogue();
 
+        currentDialogue = blockName;
         flowChart.ExecuteBlock(blockName);
 
     }
@@ -62,16 +64,29 @@ public class DialogueManager : MonoBehaviour
         MainUi.Instance.EnableShoot(false);
         BottomUI.Instance.Show(false);
         gameManager.instance.spawnMeteor = false;
+        DialogueUI.Instance.SetSkipButton(true);
 
     }
 
 
     public void EndDialogue()
     {
+
+
         MainUi.Instance.ShowMenu(true);
         MainUi.Instance.EnableShoot(true);
         BottomUI.Instance.Show(true);
         gameManager.instance.spawnMeteor = true;
+        DialogueUI.Instance.SetSkipButton(false);
+
+        if (currentDialogue != "")
+        {   
+
+            ExecuteBlock(currentDialogue + "End");
+
+            flowChart.StopAllBlocks();
+            currentDialogue = "";
+        }
     }
 
     public void HideMenu()
@@ -83,6 +98,11 @@ public class DialogueManager : MonoBehaviour
     {
         MainUi.Instance.ShowMenu(true);
         BottomUI.Instance.Show(true);
+    }
+
+    public void ShowBossLife()
+    {
+        MainUi.Instance.ShowBossLife(true);
     }
 
 

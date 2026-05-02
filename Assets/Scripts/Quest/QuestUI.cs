@@ -211,6 +211,10 @@ public class QuestUI : MonoBehaviour
             {
                 localizesQuest.Arguments = new object[] { new { stage = QuestManager.Instance.objectif } };
             }
+            else if(QuestManager.Instance.type == QuestType.KillIronMeteor || QuestManager.Instance.type == QuestType.UnlockMachine)
+            {
+                localizesQuest.Arguments = new object[] { Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ? "Bois" : "Fer"};
+            }
             localizesQuest.StringChanged += (localizedValue) =>
             {
                 quest.text = localizedValue;

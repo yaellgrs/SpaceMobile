@@ -3,10 +3,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.Video;
 
 public class Loader : MonoBehaviour
 {
     public LoaderUI loaderUI;
+
+    public VideoPlayer VP_start;
+    public VideoPlayer VP_waiting;
 
     float progressShow = 0f;
 
@@ -19,6 +23,16 @@ public class Loader : MonoBehaviour
 
     IEnumerator AsyncLoadGame()
     {
+
+
+        VP_start.loopPointReached += (VideoPlayer vp) => {
+            VP_waiting.Play();
+            Debug.Log("waiting play");
+        };
+        VP_start.Play();
+        VP_waiting.Prepare();
+
+
         AsyncOperation operation = SceneManager.LoadSceneAsync("MainScene");
         operation.allowSceneActivation = false;
 

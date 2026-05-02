@@ -574,9 +574,9 @@ public class SettingUI : MonoBehaviour
         string currentLang = LocalizationSettings.SelectedLocale.Identifier.Code;
 
         SetButtonColor(french, currentLang.StartsWith("fr"));
-        SetButtonColor(english, currentLang.StartsWith("en"));
-        SetButtonColor(espagna, currentLang.StartsWith("es"));
-        SetButtonColor(german, currentLang.StartsWith("de"));
+        //SetButtonColor(english, currentLang.StartsWith("en"));
+        //SetButtonColor(espagna, currentLang.StartsWith("es"));
+        //SetButtonColor(german, currentLang.StartsWith("de"));
     }
 
     private void SetButtonColor(Button button, bool isSelected)

@@ -24,10 +24,42 @@ public class DialogueUI : MonoBehaviour
 
     public VideoPlayer VP_transition;
     public RenderTexture RT_transition;
+    public Button Btn_skip;
 
     private void Start()
     {
         Hide(false);
+    }
+
+    private void OnEnable()
+    {
+        Btn_skip = document.rootVisualElement.Q<Button>("skip");
+
+        Btn_skip.clicked += SkipDialogue;
+    }
+
+    public void SetSkipButton(bool active)
+    {
+        Btn_skip = document.rootVisualElement.Q<Button>("skip");
+
+        if (active)
+        {
+            Btn_skip.style.visibility = Visibility.Visible;
+            Btn_skip.clicked -= SkipDialogue;
+            Btn_skip.clicked += SkipDialogue;
+        }
+        else
+        {
+            Btn_skip.style.visibility = Visibility.Hidden;
+            Btn_skip.clicked -= SkipDialogue;
+        }
+
+
+    }
+
+    private void SkipDialogue()
+    {
+        DialogueManager.Instance.EndDialogue();
     }
 
     public void Hide(bool hide)

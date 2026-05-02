@@ -201,7 +201,10 @@ public class MainUi : MonoBehaviour
         VisualElement hidable = mainUI.rootVisualElement.Q<VisualElement>("hidable");
 
         hidable.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+
+        ShowBossLife(false);
     }
+
 
     public void EnableShoot(bool enable)
     {

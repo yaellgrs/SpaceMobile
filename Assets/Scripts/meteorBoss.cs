@@ -22,6 +22,8 @@ public class meteorBoss : spaceObject
     public spaceObject secondWavePrefab;
     public spaceObject thirdWavePrefab;
 
+    private bool slowMotion = false;
+
 
     public override void Init(bool spawn = true)
     {
@@ -80,8 +82,12 @@ public class meteorBoss : spaceObject
     {
         if(Stats.Instance.firstBoss)
         {
-            if(Stats.Instance.dialogues["FirstBoss"])
-                gameManager.instance.ActiveSlowMotion(4f);
+            if(Stats.Instance.dialogues["FirstBoss"] || slowMotion)
+            {
+                Stats.Instance.dialogues["FirstBoss"] = false;
+                slowMotion = true;
+                gameManager.instance.ActiveSlowMotion(4f, 0.6f);
+            }
 
             if(Vector3.Distance(spaceShip.instance.transform.position, transform.position) < 1.75f)
             {
@@ -235,6 +241,7 @@ public class meteorBoss : spaceObject
             UpSpeed.Instance.setSpeed(1f);
             gameManager.instance.ActiveSlowMotionVolume(false);
             DialogueManager.Instance.ShowMenu();
+            Stats.Instance.dialogues["FirstBoss"] = true;
             DialogueManager.Instance.TryDialogue("FirstBossKill");
         }
 

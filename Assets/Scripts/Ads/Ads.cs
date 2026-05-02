@@ -137,7 +137,7 @@ public class Ads : MonoBehaviour
         {
             // no found
             LoadAdsUI.Instance.SetError();
-
+            videoShowed = true;
             tentative = 0;
         }
     }
