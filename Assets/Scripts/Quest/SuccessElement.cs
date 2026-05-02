@@ -56,8 +56,9 @@ public partial class SuccessElement : VisualElement
     {
 
         Debug.Log("init with type : " + Type.ToString());
-        Init();
         type = Type;
+        Init();
+
     }
 
     private void Init()
@@ -95,6 +96,7 @@ public partial class SuccessElement : VisualElement
 
     public void Load()
     {
+        Debug.Log("Load");
         initQuest();
         initPorgress();
     }
@@ -107,8 +109,11 @@ public partial class SuccessElement : VisualElement
 
     public void initPorgress()
     {
+        Debug.Log("initProgress");
         BigNumber progress = getProgress();
         BigNumber objectif = getObjectif();
+
+
 
         Lbl_progress.text = progress.ToString() + "/" + objectif.ToString();  
 
@@ -142,6 +147,8 @@ public partial class SuccessElement : VisualElement
         progress += (BigNumber)field.GetValue(Datas.Instance.current);
         progress += (BigNumber)field.GetValue(Datas.Instance.currentShip);
         progress += (BigNumber)field.GetValue(Datas.Instance.total);
+
+        Debug.Log(type + " : " + progress);
 
         return progress;
     }
