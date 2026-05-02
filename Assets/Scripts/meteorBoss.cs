@@ -246,7 +246,7 @@ public class meteorBoss : spaceObject
 
     public override BigNumber GetStarParticle()
     {
-        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.75f, 1.5f);
+        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(1.5f, 2f);
         return reward;
     }
 }

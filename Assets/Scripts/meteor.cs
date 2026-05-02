@@ -329,7 +329,8 @@ public class spaceObject : MonoBehaviour
 
     public virtual BigNumber GetStarParticle()
     {
-        BigNumber reward = new BigNumber(Ship.Current.stage) * Random.Range(0.1f, 0.2f);
+        float n = Mathf.Min(1, Ship.Current.stage * Random.Range(0.1f, 0.2f));
+        BigNumber reward = new BigNumber(n);
         return reward;
     }
 
