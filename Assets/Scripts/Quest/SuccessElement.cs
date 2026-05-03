@@ -145,17 +145,20 @@ public partial class SuccessElement : VisualElement
             return new BigNumber(0);
         }
 
+        BigNumber progress = new BigNumber(0);
+
         var field = typeof(Datas).GetField(type.ToString());
         if( field == null)
         {
             Debug.LogError("no data for : " + type);
-            return new BigNumber(0);
-        }
-        BigNumber progress = new BigNumber(0);
-        if ( type == SuccessType.basicMeteorKilled) {
-            progress += Datas.Instance.current.meteorKilled[spaceObject.meteorType.Normal];
-            progress += Datas.Instance.currentShip.meteorKilled[spaceObject.meteorType.Normal];
-            progress += Datas.Instance.total.meteorKilled[spaceObject.meteorType.Normal];
+            if (type == SuccessType.basicMeteorKilled)
+            {
+                progress += Datas.Instance.current.meteorKilled[spaceObject.meteorType.Normal];
+                progress += Datas.Instance.currentShip.meteorKilled[spaceObject.meteorType.Normal];
+                progress += Datas.Instance.total.meteorKilled[spaceObject.meteorType.Normal];
+            }
+            else
+                return new BigNumber(0);
         }
         else {
             progress += (BigNumber)field.GetValue(Datas.Instance.current);
@@ -167,7 +170,7 @@ public partial class SuccessElement : VisualElement
 
 
 
-            Debug.Log(type + " : " + progress);
+        Debug.Log(type + " : " + progress);
 
         return progress;
     }

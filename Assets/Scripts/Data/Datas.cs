@@ -129,14 +129,14 @@ public class Datas
 
                 foreach (var key in keys)
                 {
-                    if(dicoShip.Contains(key) && dicoCurrent.Contains(key)) dicoCurrent[key] = SumDataValue(dicoCurrent[key], dicoShip[key]); ;
+                    if(dicoShip.Contains(key) && dicoCurrent.Contains(key)) dicoShip[key] = SumDataValue(dicoCurrent[key], dicoShip[key]); ;
                     //ici
                 }
-                field.SetValue(Datas.Instance.current, dicoCurrent);
+                field.SetValue(Datas.Instance.currentShip, dicoShip);
             }
             else
             {
-                field.SetValue(Datas.Instance.current, SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip)));
+                field.SetValue(Datas.Instance.currentShip, SumDataValue(field.GetValue(Datas.Instance.current), field.GetValue(Datas.Instance.currentShip)));
             }
         }
         Instance.currentShip.prestige++;
