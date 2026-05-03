@@ -11,7 +11,7 @@ iron meteor
 diamand meteor
 splitter meteor
 reinforced meteor
-prestige done
+prestige done - 
 omega meteor killed
  
  */
@@ -19,7 +19,7 @@ omega meteor killed
 public enum SuccessType
 {
     basicMeteorKilled, uraniumMeteorKilled, ironMeteorKilled, diamandMeteorKilled, splitterMeteorKilled, reinforcedMeteorKilled, OmegaMeteorKilled,
-    PrestigeCount, 
+    prestige, 
 }
 
 [UxmlElement] 
@@ -56,8 +56,9 @@ public partial class SuccessElement : VisualElement
     {
 
         Debug.Log("init with type : " + Type.ToString());
-        type = Type;
+
         Init();
+        this.type = Type;
 
     }
 
@@ -138,17 +139,35 @@ public partial class SuccessElement : VisualElement
 
     private BigNumber getProgress()
     {
-        if (Datas.Instance == null) return new BigNumber(0);
+        if (Datas.Instance == null)
+        {
+            Debug.LogError("Data is null");
+            return new BigNumber(0);
+        }
 
         var field = typeof(Datas).GetField(type.ToString());
-        if( field == null) return new BigNumber(0);
-
+        if( field == null)
+        {
+            Debug.LogError("no data for : " + type);
+            return new BigNumber(0);
+        }
         BigNumber progress = new BigNumber(0);
-        progress += (BigNumber)field.GetValue(Datas.Instance.current);
-        progress += (BigNumber)field.GetValue(Datas.Instance.currentShip);
-        progress += (BigNumber)field.GetValue(Datas.Instance.total);
+        if ( type == SuccessType.basicMeteorKilled) {
+            progress += Datas.Instance.current.meteorKilled[spaceObject.meteorType.Normal];
+            progress += Datas.Instance.currentShip.meteorKilled[spaceObject.meteorType.Normal];
+            progress += Datas.Instance.total.meteorKilled[spaceObject.meteorType.Normal];
+        }
+        else {
+            progress += (BigNumber)field.GetValue(Datas.Instance.current);
+            progress += (BigNumber)field.GetValue(Datas.Instance.currentShip);
+            progress += (BigNumber)field.GetValue(Datas.Instance.total);
+        }
 
-        Debug.Log(type + " : " + progress);
+
+
+
+
+            Debug.Log(type + " : " + progress);
 
         return progress;
     }
