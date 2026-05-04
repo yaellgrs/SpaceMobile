@@ -20,7 +20,7 @@ public partial class markerElement : Label
         Utility.Hex("#FFA300"), //Iron
         Utility.Hex("#B07C61"), //Wood
         Utility.Hex("#00FF05"),  //Uranium
-        Utility.Hex("#Damage"),  //Crtique
+        Utility.Hex("#D98E38"),  //Crtique
         Utility.Hex("#FAFF00"),  //Prestige
     };
 

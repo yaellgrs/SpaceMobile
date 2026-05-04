@@ -141,7 +141,6 @@ public partial class SuccessElement : VisualElement
     {
         if (Datas.Instance == null)
         {
-            Debug.LogError("Data is null");
             return new BigNumber(0);
         }
 
@@ -165,10 +164,6 @@ public partial class SuccessElement : VisualElement
             progress += (BigNumber)field.GetValue(Datas.Instance.currentShip);
             progress += (BigNumber)field.GetValue(Datas.Instance.total);
         }
-
-
-
-
 
         Debug.Log(type + " : " + progress);
 

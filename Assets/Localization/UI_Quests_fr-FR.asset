@@ -65,7 +65,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 739707456532480
-    m_Localized: "Gagnes de l'Uranium en d\xE9truisants des m\xE9t\xE9orites de fers
+    m_Localized: "Gagnes de l'Uranium en d\xE9truisants des m\xE9t\xE9orites d'Uranium
       : "
     m_Metadata:
       m_Items: []
@@ -102,7 +102,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1246249826070528
-    m_Localized: "Ach\xE8te un deuxi\xE8me g\xE9n\xE9rateur de fer :"
+    m_Localized: "Ach\xE8te un deuxi\xE8me g\xE9n\xE9rateur de {0} :"
     m_Metadata:
       m_Items: []
   - m_Id: 1246252795637760
