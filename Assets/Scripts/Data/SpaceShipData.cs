@@ -31,6 +31,10 @@ public class SpaceShipData
     public bool isDead = false;
     public long lastFragmentFight = 0;
 
+    public int baseDamage = 1;
+    public int baseLife = 10;
+    public float ressourceMultiplier = 1f;
+
     public List<machineData> dataMachinesIron = new List<machineData>();
     public List<machineData> dataMachinesUranium = new List<machineData>();
     [JsonIgnore] public List<machineIronElement> machinesIron = new List<machineIronElement>();
@@ -79,6 +83,19 @@ public class SpaceShipData
             life.Set(lifeMax.getTotal());
         if (shield.isBigger(shieldMax.getTotal()))
             shield.Set(shieldMax.getTotal());
+
+        if(type == SpaceShipElement.Wood)
+        {
+            baseDamage = 1;
+            baseLife = 10;
+            ressourceMultiplier = 1f;
+        }
+        if (type == SpaceShipElement.Iron)
+        {
+            baseDamage = 5;
+            baseLife = 50;
+            ressourceMultiplier = 1.25f;
+        }
     }
 
     public void Prestige()

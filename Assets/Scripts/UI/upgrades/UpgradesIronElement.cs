@@ -108,11 +108,11 @@ public class UpgradesIronElement : UpgradesElement
         switch (type)
         {
             case UpgradeType.Life:
-                reward.Set(3.25f);
+                reward.Set(0.325f * Ship.Current.baseLife);
                 reward *= Mathf.Pow(lvl + 1, 1.64697f);
                 break;
             case UpgradeType.Damage:
-                reward.Set(Mathf.Pow(lvl, 1.272f));
+                reward.Set(Ship.Current.baseDamage * Mathf.Pow(lvl, 1.272f));
                 break;
             case UpgradeType.Shield:
                 reward.Set(1);

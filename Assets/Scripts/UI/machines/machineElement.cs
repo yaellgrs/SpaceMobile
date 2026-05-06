@@ -480,7 +480,7 @@ public partial class machineElement : Button
             if (Stats.Instance.boosts[Boost.Type.ressources].time > 0f)
                 reward *= Stats.Instance.boosts[Boost.Type.ressources].coef;
         }
-
+        reward *= Ship.Current.ressourceMultiplier;
         reward.round();
 
         reward.Normalize();
