@@ -15,7 +15,7 @@ MonoBehaviour:
   level: 5
   type: 0
   objectif:
-    Mantisse: 10
+    Mantisse: 5
     Exp: 0
   rewardDiamand: 5
   text: "Et si tu te testais un peu ? Essaie de finir les 20 premi\xE8res vagues
