@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: quest9
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 9
-  type: 4
+  type: 1
   objectif:
-    Mantisse: 50
+    Mantisse: 5000
     Exp: 0
   rewardDiamand: 3
   text: "Un g\xE9n\xE9rateur de fer, ce n\u2019est plus suffisant pour avancer. Et

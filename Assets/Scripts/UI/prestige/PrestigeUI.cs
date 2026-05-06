@@ -690,6 +690,10 @@ public class PrestigeUI : BaseUI
         BottomUI.Instance.OpenMenu(SelectedMenu.None);
         gameManager.instance.SetPause(false);
 
+        QuestManager.Instance.LoadQuests();
+        QuestManager.Instance.initQuest();
+        QuestStats.Instance.reset();
+
         StartCoroutine(DialogueUI.Instance.LaunchTransition());
 
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   level: 11
   type: 5
   objectif:
-    Mantisse: 2.5
-    Exp: 2
-  rewardDiamand: 5
+    Mantisse: 50
+    Exp: 3
+  rewardDiamand: 10
   text: Met le text ici puis dis le moi, je le mettrais dans la table de traduction.

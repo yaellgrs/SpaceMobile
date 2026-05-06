@@ -40,14 +40,16 @@ public class DevTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //Ship.Current.type = SpaceShipData.SpaceShipElement.Wood;
+            Ship.Current.type = SpaceShipData.SpaceShipElement.Wood;
             //Ship.Current.SetNextType(0);
 
             //Stats.Instance.reset();// reset ( faut relancer le jeu pour que ça marche a 100% ) 
 
             //Init();
             MainUi.Instance.settingUI.backClicked();
-            Stats.Instance.reset();
+            //Stats.Instance.reset();
+            QuestManager.Instance.LoadQuests();
+            QuestManager.Instance.initQuest();
             QuestStats.Instance.reset();
 
             Stats.Instance.firstConnection = false;
@@ -60,7 +62,7 @@ public class DevTest : MonoBehaviour
             Stats.Instance.dialogues["FirstUpgradeOpen"] = true;
             Stats.Instance.dialogues["FirstUpgradeLevelUp"] = true;
             QuestStats.Instance.reset();
-            QuestStats.Instance.questLevel = 11;
+            QuestStats.Instance.questLevel = 12;
             QuestStats.Instance.progress = new BigNumber(0);
             BottomUI.Instance.LoadUI();
         }

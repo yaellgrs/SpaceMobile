@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest2
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 2
-  type: 13
+  type: 12
   objectif:
-    Mantisse: 10
-    Exp: 0
+    Mantisse: 1
+    Exp: 1
   rewardDiamand: 2
   text: "Nos r\xE9serves de fer sont insuffisantes. Ciblez les m\xE9t\xE9orites de
     fer pour en r\xE9colter davantage ! Am\xE9liorez la forge pour augmenter les

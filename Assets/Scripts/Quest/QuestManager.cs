@@ -37,7 +37,7 @@ public class QuestManager
         }
     }
 
-    private void LoadQuests()
+    public void LoadQuests()
     {
 
         if(Ship.Current == null){

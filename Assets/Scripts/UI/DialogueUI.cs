@@ -114,7 +114,8 @@ public class DialogueUI : MonoBehaviour
         container.Clear();
         VP_transition.Stop();
 
-        DialogueManager.Instance.TryDialogue("FirstPrestige");
+        if(DialogueManager.Instance.TryDialogue("FirstPrestige"))
+            gameManager.instance.SetPause(true);    
 
     }
 }

@@ -337,6 +337,11 @@ public partial class machineElement : Button
                 if (QuestManager.Instance.type == QuestType.FarmWood)
                     QuestManager.Instance.upQuest(CalculReward());
             }
+            if (this is machineUraniumElement)
+            {
+                if (QuestManager.Instance.type == QuestType.FarmUranium)
+                    QuestManager.Instance.upQuest(CalculReward());
+            }
             if (!Stats.Instance.dialogues["FirstMachineClick"])
             {
                 Stats.Instance.ironUnlocked = true;

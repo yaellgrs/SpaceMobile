@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: quest8
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 8
-  type: 8
+  type: 3
   objectif:
-    Mantisse: 25
-    Exp: 0
-  rewardDiamand: 3
+    Mantisse: 1
+    Exp: 12
+  rewardDiamand: 2
   text: "Pour pouvoir profiter pleinement des gains des m\xE9t\xE9orites de fer et
     d'uranium, il faut avant tout avoir des forges bien \xE9quip\xE9es ! Am\xE9liore
     tous tes g\xE9n\xE9rateurs autant que possible."
