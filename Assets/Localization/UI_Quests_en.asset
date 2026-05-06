@@ -93,7 +93,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1245862968635392
-    m_Localized: 'Tues des boss ( temporaire ) '
+    m_Localized: "Tues ces \xE9normes cr\xE9atures avant qu\u2019elle nous d\xE9truises
+      ! "
     m_Metadata:
       m_Items: []
   - m_Id: 1246248500670464
@@ -126,7 +127,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 106581840758673408
-    m_Localized: "Obtient des particules d\u2019\xE9toiles ( temporaire ) "
+    m_Localized: "Obtient ces jolies particules d\u2019\xE9toiles afin d\u2019am\xE9lioration
+      d\xE9finitivement ton vaisceaux !"
     m_Metadata:
       m_Items: []
   references:

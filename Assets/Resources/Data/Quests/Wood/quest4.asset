@@ -17,5 +17,5 @@ MonoBehaviour:
   objectif:
     Mantisse: 2
     Exp: 0
-  rewardDiamand: 2
+  rewardDiamand: 1
   text: "Trouves ces fameuses m\xE9t\xE9orites de bois pour augmenter les ressources. "

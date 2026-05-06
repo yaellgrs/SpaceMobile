@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest7
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 7
-  type: 5
+  type: 13
   objectif:
-    Mantisse: 1.5
-    Exp: 1
+    Mantisse: 1
+    Exp: 6
   rewardDiamand: 2
   text: "Bien jou\xE9 ! Maintenant, am\xE9liore le vaisseau en utilisant l'uranium
     !"

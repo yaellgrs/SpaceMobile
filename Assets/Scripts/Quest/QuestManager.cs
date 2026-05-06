@@ -14,7 +14,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.UIElements;
 using static QuestUI;
 
-public enum QuestType { KillBoss, KillMeteor, KillIronMeteor,FarmWood,  UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Prestige, UpgradePrestige, Speed, None };
+public enum QuestType { KillBoss, KillMeteor, KillIronMeteor,FarmWood,  UpgradeIron, GetStarParticle, KillUraniumMeteor, UpgradeUranium, UpgradeMachine, UnlockMachine, Prestige, UpgradePrestige, Speed, FarmUranium,  None };
 
 public class QuestManager 
 {

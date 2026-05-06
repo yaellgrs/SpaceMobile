@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest3
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 3
-  type: 2
+  type: 10
   objectif:
     Mantisse: 15
     Exp: 0
-  rewardDiamand: 2
+  rewardDiamand: 3
   text: "Pour survivre plus longtemps, notre vaisseau doit \xEAtre renforc\xE9 !
     Utilise ton fer pour l'am\xE9liorer."

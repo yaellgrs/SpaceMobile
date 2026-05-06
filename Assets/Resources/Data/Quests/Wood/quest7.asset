@@ -17,6 +17,6 @@ MonoBehaviour:
   objectif:
     Mantisse: 3
     Exp: 0
-  rewardDiamand: 2
+  rewardDiamand: 1
   text: "Bien jou\xE9 ! Maintenant, am\xE9liore le vaisseau en utilisant l'uranium
     !"

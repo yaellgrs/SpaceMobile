@@ -15,8 +15,8 @@ MonoBehaviour:
   level: 2
   type: 3
   objectif:
-    Mantisse: 75
-    Exp: 0
-  rewardDiamand: 2
+    Mantisse: 7.5
+    Exp: 1
+  rewardDiamand: 1
   text: "Il faut obtenir le plus de bois possible pour renforcer le vaisceaux avant
     la prochaine vague de m\xE9t\xE9orite."

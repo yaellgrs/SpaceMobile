@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: quest4
   m_EditorClassIdentifier: Assembly-CSharp::Quests
   level: 4
-  type: 0
+  type: 9
   objectif:
-    Mantisse: 2.5
-    Exp: 2
+    Mantisse: 10
+    Exp: 0
   rewardDiamand: 2
   text: "Maintenant qu'on est plus fort, il est temps de passer a l'action. D\xE9truis
     des m\xE9t\xE9orites ! "

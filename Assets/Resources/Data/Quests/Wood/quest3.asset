@@ -17,6 +17,6 @@ MonoBehaviour:
   objectif:
     Mantisse: 3
     Exp: 0
-  rewardDiamand: 2
+  rewardDiamand: 1
   text: "Pour survivre plus longtemps, notre vaisseau doit \xEAtre renforc\xE9 !
     Utilise ton fer pour l'am\xE9liorer."
