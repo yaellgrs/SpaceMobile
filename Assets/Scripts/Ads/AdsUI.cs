@@ -22,6 +22,7 @@ public class AdsUI : MonoBehaviour
 
     private VisualElement VE_uranium;
     private VisualElement VE_iron;
+    private VisualElement VE_ironLogo;
 
     public long pubDelay = 15;
 
@@ -96,6 +97,9 @@ public class AdsUI : MonoBehaviour
 
             Label_uranium.text = Ads.getUraniumAdsReward().ToString();
             Label_iron.text = Ads.getIronAdsReward().ToString();
+
+            VE_ironLogo.style.backgroundImage = Utility.GetMainRessourceLogo();
+            Label_iron.style.color = Utility.GetShipColor();
         }
         else
         {
