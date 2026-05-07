@@ -570,7 +570,7 @@ public class PrestigeUI : BaseUI
     private void refreshClicked()
     {
         SetNextPrestigesToBuy();
-        Stats.Instance.AddUranium(-calculCostPrestige());
+        Stats.Instance.addPrestige(-calculCostPrestige());
         setTextBuyUI(Stats.Instance.nextPrestigeToBuy);
         LastPrestigeClicked();
     }

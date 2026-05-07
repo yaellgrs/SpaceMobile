@@ -145,12 +145,13 @@ public class QuestManager
 
     public bool isCompleted()
     {
-        if (QuestStats.Instance.questLevel >= QuestStats.Instance.questMaxLevel) return false;
+        if (QuestStats.Instance.questLevel > QuestStats.Instance.questMaxLevel) return false;
 
 
-
+        Debug.Log(QuestStats.Instance.progress + " : " + objectif + " : " + (QuestStats.Instance.progress >= objectif));
         if (type != QuestType.Speed)
         {
+
             if (QuestStats.Instance.progress >= objectif)
             {
                 return true;
