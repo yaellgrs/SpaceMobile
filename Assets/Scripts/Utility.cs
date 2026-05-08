@@ -240,7 +240,7 @@ public static class Utility
 
     public static int GetDiamandPubReward()
     {
-        return 5 + 2 * Stats.Instance.ConsecutivePub;
+        return Mathf.Min(5 + 1 * Stats.Instance.ConsecutivePub, 10);
     }
 
 }

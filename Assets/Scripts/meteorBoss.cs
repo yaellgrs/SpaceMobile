@@ -130,7 +130,7 @@ public class meteorBoss : spaceObject
         else if(bossType == BossType.Ressource)
         {
             type = !Ship.Current.HaveUranium() ? meteorType.Iron : Random.Range(0, 2) == 1 ?
-                                meteorType.Iron : meteorType.Uranium;
+                                meteorType.Uranium : Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ? meteorType.Wood : meteorType.Iron;
         }
         else
             type = meteorType.None;
