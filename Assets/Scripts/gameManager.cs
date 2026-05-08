@@ -240,6 +240,8 @@ public class gameManager : MonoBehaviour
 
         for (int i = 0; i < stageSkipped; i++)
         {
+            if(Ship.Current.stage % Stats.BOSS_STAGE_GAP == 9)
+                break;
             Ship.Current.stage++;
             Datas.Instance.current.stageSkipped++;
             getStageReward(1.70f, Ship.Current.stage, 0.75f);

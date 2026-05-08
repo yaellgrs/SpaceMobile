@@ -12,7 +12,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="ironVE" style="flex-grow: 1; width: 90%; left: 5%; top: 32.5%; height: 14%; position: absolute; align-self: auto; align-content: auto; justify-content: center; align-items: center; flex-direction: row;">
             <ui:Label text="120k" name="iron" style="font-size: 40px; -unity-font-style: bold; color: rgb(255, 147, 11); -unity-font-definition: url(&quot;project://database/Assets/art/UI/font/Marker%20Felt.ttf?fileID=12800000&amp;guid=f2c8ac68c8499db40a2cc326aae92b8e&amp;type=3#Marker Felt&quot;);"/>
-            <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/art/UI/Nouveau%20dossier/iron.png?fileID=2800000&amp;guid=841fd5a5f5b7366498b74ed346cd1921&amp;type=3#iron&quot;); position: relative; height: 70%; width: 10%; top: 0; left: 0%; display: flex; align-items: auto; align-content: auto; flex-shrink: 0; padding-left: 0%; margin-left: 1%;"/>
+            <ui:VisualElement name="ironLogo" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/art/UI/Nouveau%20dossier/iron.png?fileID=2800000&amp;guid=841fd5a5f5b7366498b74ed346cd1921&amp;type=3#iron&quot;); position: relative; height: 70%; width: 10%; top: 0; left: 0%; display: flex; align-items: auto; align-content: auto; flex-shrink: 0; padding-left: 0%; margin-left: 1%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
