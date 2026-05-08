@@ -620,6 +620,14 @@ public class PrestigeUI : BaseUI
         Btn_buy = root.Q<Button>("buy");
         Lbl_cost = root.Q<Label>("cost");
 
+        Label Lbl_ressource = root.Q<Label>("ressource");
+        Label Lbl_damage = root.Q<Label>("damage");
+        Label Lbl_life = root.Q<Label>("life");
+
+        Lbl_ressource.text = (Ship.Current.ressourceMultiplier * 100).ToString("F0") + "%";
+        Lbl_damage.text = Ship.Current.baseDamage.ToString();
+        Lbl_life.text = Ship.Current.baseLife.ToString("F0");
+
         adaptBanner(Settings.Instance.showBanner);
 
         VisualElement haveNextLevel = root.Q<VisualElement>("haveNextShip");
