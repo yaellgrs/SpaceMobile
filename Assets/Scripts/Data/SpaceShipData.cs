@@ -71,8 +71,16 @@ public class SpaceShipData
     #region ------ load ----------
     public void Load(bool reset = false)
     {
-        LoadMachines(reset);
-        LoadUpgrades(reset);
+        if (reset)
+        {
+            Prestige();
+        }
+        else
+        {
+            LoadMachines(false);
+            LoadUpgrades(false);
+        }
+
 
         InitTempData();
         MainUi.Instance?.xpUI?.loadBonus();
@@ -276,7 +284,7 @@ public class SpaceShipData
     {
         type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + amount, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
         
-        level = 1;
+        //level = 1;
         fragmentlevel = 2;
         stage = 1;
         isDead = false;

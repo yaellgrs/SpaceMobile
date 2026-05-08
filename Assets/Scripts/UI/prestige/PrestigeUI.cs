@@ -679,7 +679,6 @@ public class PrestigeUI : BaseUI
 
     private void BuyNextShip()
     {
-        Debug.Log("clicked");
         Ship.Current.SetNextType(); 
 
         backClicked(upgradeShip);
