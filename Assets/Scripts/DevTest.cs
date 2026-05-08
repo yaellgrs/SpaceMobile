@@ -65,6 +65,9 @@ public class DevTest : MonoBehaviour
             QuestStats.Instance.questLevel = 11;
             QuestStats.Instance.progress = new BigNumber(300);
             BottomUI.Instance.LoadUI();
+
+
+            spaceShip.instance.LoadAnimation();
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

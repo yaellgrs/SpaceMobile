@@ -302,6 +302,9 @@ public class SpaceShipData
 
         Load(true);
 
+        Stats.Instance.dataUpgradePrestige.Clear();
+        Stats.Instance.upgradesPrestige.Clear();
+
 
         OnTypeChanged?.Invoke();
 
