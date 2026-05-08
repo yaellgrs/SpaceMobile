@@ -257,6 +257,8 @@ public partial class UpgradesElement : VisualElement
             if (QuestManager.Instance.type == QuestType.UpgradePrestige)
                 QuestManager.Instance.upQuest();
         }
+
+        Datas.Instance.current.upgradeBuy += 1;
     }   
 
     #endregion

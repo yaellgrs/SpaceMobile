@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Consts
@@ -29,4 +30,22 @@ public class Consts
     };
 
     public static readonly int[] BORDER_EMPLOYEE = { 0, 1, 2, 4, 6, 10 };
+
+
+
+    public static Dictionary<SuccessType, BigNumber[]> SUCCESS_OBJECTIF =
+        new Dictionary<SuccessType, BigNumber[]>
+    {
+    { SuccessType.meteorKilled, new BigNumber[] { new BigNumber(1000), new BigNumber(1000), new BigNumber(5000), new BigNumber(25, 3), new BigNumber(100, 3) } },
+    { SuccessType.bossKilled, new BigNumber[] { new BigNumber(10), new BigNumber(25), new BigNumber(50), new BigNumber(250), new BigNumber(1, 3) } },
+    { SuccessType.upgradeBuy, new BigNumber[] { new BigNumber(100), new BigNumber(250), new BigNumber(500), new BigNumber(1, 3), new BigNumber(5, 3) } },
+    { SuccessType.pubWatch, new BigNumber[] { new BigNumber(1), new BigNumber(5), new BigNumber(10), new BigNumber(25), new BigNumber(50) } },
+    { SuccessType.machineClicked,new BigNumber[] { new BigNumber(100), new BigNumber(500), new BigNumber(1000), new BigNumber(5, 3), new BigNumber(25, 3) } },
+    { SuccessType.urnaium,new BigNumber[] { new BigNumber(1,3), new BigNumber(1,6), new BigNumber(1,9), new BigNumber(1, 12), new BigNumber(1, 15) } },
+    { SuccessType.iron, new BigNumber[] { new BigNumber(1,3), new BigNumber(1,6), new BigNumber(1,9), new BigNumber(1, 12), new BigNumber(1, 15) } },
+    { SuccessType.startParticle, new BigNumber[] { new BigNumber(10), new BigNumber(1,3), new BigNumber(50,3), new BigNumber(500, 3), new BigNumber(1, 6) } },
+    { SuccessType.prestige, new BigNumber[] { new BigNumber(3), new BigNumber(10), new BigNumber(25), new BigNumber(50), new BigNumber(100) } },
+    };
+
+    public static int SUCCESS_LEVEL_MAX = 5;
 }

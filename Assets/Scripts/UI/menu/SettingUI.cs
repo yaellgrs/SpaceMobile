@@ -276,45 +276,58 @@ public class SettingUI : MonoBehaviour
             object valueTotal = field.GetValue(Datas.Instance.total);
 
             string name = field.Name;
-            if (valueCurrent is System.Collections.IDictionary dicoCurrent &&
-                valueShip is System.Collections.IDictionary dicoShip &&
-                valueTotal is System.Collections.IDictionary dicoTotal)
+            if (valueCurrent is Array arrCurrent &&
+    valueShip is Array arrShip &&
+    valueTotal is Array arrTotal)
             {
-                var keys = new HashSet<object>();
-                foreach (var k in dicoCurrent.Keys) keys.Add(k);
-                foreach (var k in dicoShip.Keys) keys.Add(k);
-                foreach (var k in dicoTotal.Keys) keys.Add(k);
-
                 List<VisualElement> rows = new List<VisualElement>();
+
                 BigNumber currentTotal = new BigNumber(0);
                 BigNumber shipTotal = new BigNumber(0);
                 BigNumber Total = new BigNumber(0);
 
-                foreach (var key in keys)
+                int length = Mathf.Max(arrCurrent.Length, arrShip.Length, arrTotal.Length);
+
+                for (int i = 0; i < length; i++)
                 {
-                    object obj1 = dicoCurrent.Contains(key) ? dicoCurrent[key] : null;
-                    object obj2 = dicoShip.Contains(key) ? dicoShip[key] : null;
-                    object obj3 = dicoTotal.Contains(key) ? dicoTotal[key] : null;
+                    object obj1 = i < arrCurrent.Length ? arrCurrent.GetValue(i) : null;
+                    object obj2 = i < arrShip.Length ? arrShip.GetValue(i) : null;
+                    object obj3 = i < arrTotal.Length ? arrTotal.GetValue(i) : null;
+
+                    string keyName = i.ToString();
+
+                    // nom des enums
+                    if (field.Name == "meteorKilled")
+                        keyName = ((spaceObject.meteorType)i).ToString();
+
+                    else if (field.Name == "meteorBossKilled")
+                        keyName = ((BossType)i).ToString();
+
                     rows.Add(createStatLine(
-                        key.ToString(),
+                        keyName,
                         Utility.FormatDatasValue(obj1),
                         Utility.FormatDatasValue(Datas.SumDataValue(obj1, obj2)),
                         Utility.FormatDatasValue(Datas.SumDataValue(obj1, obj2, obj3)),
                         true
                     ));
-                    currentTotal += dicoCurrent.Contains(key) ?  (BigNumber)dicoCurrent[key] : new BigNumber(0); ;
-                    shipTotal += dicoCurrent.Contains(key) ? (BigNumber)dicoShip[key] : new BigNumber(0);
-                    Total += dicoCurrent.Contains(key) ? (BigNumber)dicoTotal[key] : new BigNumber(0);
 
+                    currentTotal += obj1 as BigNumber ?? new BigNumber(0);
+                    shipTotal += obj2 as BigNumber ?? new BigNumber(0);
+                    Total += obj3 as BigNumber ?? new BigNumber(0);
                 }
+
                 VisualElement title = createStatLine(
                     name,
                     Utility.FormatDatasValue(currentTotal),
                     Utility.FormatDatasValue(Datas.SumDataValue(currentTotal, shipTotal)),
-                    Utility.FormatDatasValue(Datas.SumDataValue(currentTotal, shipTotal, Total, max: (name == "maxStage")))
+                    Utility.FormatDatasValue(Datas.SumDataValue(currentTotal, shipTotal, Total,
+                        max: (name == "maxStage")))
                 );
+
                 title.AddToClassList("totalRow");
+
                 parent.Add(title);
+
                 foreach (var row in rows)
                     parent.Add(row);
             }

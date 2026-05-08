@@ -18,7 +18,7 @@ omega meteor killed
 
 public enum SuccessType
 {
-    basicMeteorKilled, uraniumMeteorKilled, ironMeteorKilled, diamandMeteorKilled, splitterMeteorKilled, reinforcedMeteorKilled, OmegaMeteorKilled,
+    meteorKilled, bossKilled, upgradeBuy, pubWatch, machineClicked, urnaium, iron, startParticle,
     prestige, 
 }
 
@@ -30,6 +30,8 @@ public partial class SuccessElement : VisualElement
     private Button Btn_claim;
 
     private Label Lbl_reward;
+
+    private Label Lbl_level;
 
     private SuccessType _type;
 
@@ -69,6 +71,7 @@ public partial class SuccessElement : VisualElement
         Btn_claim = new Button();
 
         Lbl_reward = new Label();
+        Lbl_level = new Label();
         VisualElement diamandLogo = new VisualElement();
         Lbl_reward.text = "1000";
 
@@ -77,6 +80,7 @@ public partial class SuccessElement : VisualElement
         Lbl_progress.AddToClassList("progressLabel");
         Btn_claim.AddToClassList("claimButton");
         Btn_claim.AddToClassList("button");
+        Lbl_level.AddToClassList("level");
 
         Lbl_reward.AddToClassList("rewardLabel");
         diamandLogo.AddToClassList("diamandLogo");
@@ -85,6 +89,7 @@ public partial class SuccessElement : VisualElement
         Add(Lbl_quest);
         Add(Lbl_progress);
         Add(Btn_claim);
+        Add(Lbl_level);
 
         Btn_claim.Add(Lbl_reward);
         Lbl_reward.Add(diamandLogo);
@@ -114,9 +119,12 @@ public partial class SuccessElement : VisualElement
         BigNumber progress = getProgress();
         BigNumber objectif = getObjectif();
 
-
+        Lbl_level.text = isLevelMax() ?  "MAX" : (getObjectiflevel() - 1) + "/" + Consts.SUCCESS_LEVEL_MAX.ToString();
 
         Lbl_progress.text = progress.ToString() + "/" + objectif.ToString();  
+
+        Lbl_progress.style.visibility = isLevelMax() ? Visibility.Hidden : Visibility.Visible;
+        Btn_claim.style.visibility = isLevelMax() ? Visibility.Hidden : Visibility.Visible;
 
         bool enable = (objectif < progress);
         Btn_claim.SetEnabled(enable);
@@ -125,7 +133,14 @@ public partial class SuccessElement : VisualElement
     private void initButton()
     {
         Btn_claim.text = "claim";
+        Btn_claim.clicked -= Claim;
         Btn_claim.clicked += Claim;
+
+    }
+
+    private bool isLevelMax()
+    {
+        return getObjectiflevel() > Consts.SUCCESS_LEVEL_MAX;
     }
 
     private void Claim()
@@ -133,7 +148,7 @@ public partial class SuccessElement : VisualElement
         if (Stats.Instance == null) return;
 
         Stats.Instance.AddDiamand(getReward());
-        QuestStats.Instance.successGoals[type]++;
+        QuestStats.Instance.succesGoals[(int)type]++;
         initPorgress();
     }
 
@@ -146,23 +161,36 @@ public partial class SuccessElement : VisualElement
 
         BigNumber progress = new BigNumber(0);
 
-        var field = typeof(Datas).GetField(type.ToString());
+        var field = typeof(Data).GetField(type.ToString());
         if( field == null)
         {
-            Debug.LogError("no data for : " + type);
-            if (type == SuccessType.basicMeteorKilled)
+            if (type == SuccessType.meteorKilled)
             {
-                progress += Datas.Instance.current.meteorKilled[spaceObject.meteorType.Normal];
-                progress += Datas.Instance.currentShip.meteorKilled[spaceObject.meteorType.Normal];
-                progress += Datas.Instance.total.meteorKilled[spaceObject.meteorType.Normal];
+                foreach (var type in System.Enum.GetValues(typeof(spaceObject.meteorType)))
+                {
+                    progress += Datas.Instance.current.meteorKilled[(int)type];
+                    progress += Datas.Instance.currentShip.meteorKilled[(int)type];
+                    progress += Datas.Instance.total.meteorKilled[(int)type];
+                }
             }
-            else
+            if (type == SuccessType.bossKilled)
+            {
+                foreach (var type in System.Enum.GetValues(typeof(BossType)))
+                {
+                    progress += Datas.Instance.current.meteorBossKilled[(int)type];
+                    progress += Datas.Instance.currentShip.meteorBossKilled[(int)type];
+                    progress += Datas.Instance.total.meteorBossKilled[(int)type];
+                }
+            }
+            else{
+                Debug.LogError("no data for : " + type);
                 return new BigNumber(0);
+            }
         }
         else {
-            progress += (BigNumber)field.GetValue(Datas.Instance.current);
-            progress += (BigNumber)field.GetValue(Datas.Instance.currentShip);
-            progress += (BigNumber)field.GetValue(Datas.Instance.total);
+            progress += getStatValue(field.GetValue(Datas.Instance.current));
+            progress += getStatValue(field.GetValue(Datas.Instance.currentShip));
+            progress += getStatValue(field.GetValue(Datas.Instance.total));
         }
 
         Debug.Log(type + " : " + progress);
@@ -170,16 +198,30 @@ public partial class SuccessElement : VisualElement
         return progress;
     }
 
+    public BigNumber getStatValue(object value)
+    {
+        if (value is BigNumber bn)
+            return bn;
+
+        if (value is int i)
+            return new BigNumber(i);
+
+
+        Debug.LogError("value not trated for : " + value);
+        return new BigNumber(0);
+    }
+
     private BigNumber getObjectif()
     {
-        return new BigNumber(getObjectiflevel() * 50);
+        if (Consts.SUCCESS_OBJECTIF[type].Length <= getObjectiflevel() - 1 || getObjectiflevel() <= 0) return new BigNumber(0);
+        return Consts.SUCCESS_OBJECTIF[type][getObjectiflevel()-1];
     }
 
     private int getObjectiflevel()
     {
         if (QuestStats.Instance == null)  return 0;
-        if (!QuestStats.Instance.successGoals.ContainsKey(type)) QuestStats.Instance.initSucces();
-        return QuestStats.Instance.successGoals[type];
+        if (QuestStats.Instance.succesGoals.Length <= (int)type) QuestStats.Instance.initSucces();
+        return QuestStats.Instance.succesGoals[(int)type];
     }
 
     private int getReward()

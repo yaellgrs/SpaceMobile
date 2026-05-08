@@ -348,6 +348,8 @@ public partial class machineElement : Button
                 Stats.Instance.dialogues["FirstMachineClick"] = true;
                 DialogueManager.Instance.ExecuteBlock("FirstMachineClick");
             }
+
+            Datas.Instance.current.machineClicked += 1;
         }
     }
 
@@ -381,6 +383,7 @@ public partial class machineElement : Button
         LoadMachineInfos();
 
         LoadLockBorders();
+        Datas.Instance.current.upgradeBuy += 1;
         //SetBorderColor();
     }
 

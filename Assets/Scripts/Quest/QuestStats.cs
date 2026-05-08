@@ -12,7 +12,7 @@ public class QuestStats
 
     public float timeCompleted = 0;
 
-    public Dictionary<SuccessType, int> successGoals = new Dictionary<SuccessType, int>();
+    public int[] succesGoals;
 
     public static void Init()
     {
@@ -46,18 +46,22 @@ public class QuestStats
             progress = loaded.progress;
             questLevel = loaded.questLevel;
             timeCompleted = loaded.timeCompleted;
+            succesGoals = loaded.succesGoals;
         }
     }
 
     public void initSucces()
     {
+        int enumCount = Enum.GetValues(typeof(SuccessType)).Length;
 
-        Debug.Log("load Succes");
+        if (succesGoals == null || succesGoals.Length < enumCount)
+        {
+            Array.Resize(ref succesGoals, enumCount);
+        }
         foreach (SuccessType key in Enum.GetValues(typeof(SuccessType)))
         {
-            if (!successGoals.ContainsKey(key)) successGoals.Add(key, 1);
-            else if (successGoals[key] == 0) successGoals[key] = 1;
-            else Debug.Log("all good for " + key.ToString());
+            if (succesGoals[(int)key] <= 0)
+                succesGoals[(int)key] = 1;
         }
     }
     public void reset()

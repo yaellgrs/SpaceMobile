@@ -243,4 +243,5 @@ public static class Utility
         return Mathf.Min(5 + 1 * Stats.Instance.ConsecutivePub, 10);
     }
 
+
 }

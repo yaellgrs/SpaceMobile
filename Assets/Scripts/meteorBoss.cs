@@ -222,8 +222,8 @@ public class meteorBoss : spaceObject
             //SoundManager.Instance.lauchTransitionMusic(MusicType.Main);
         }
 
-        if (!Datas.Instance.current.meteorBossKilled.ContainsKey(bossType)) Datas.Instance.current.meteorBossKilled[bossType] = new BigNumber(1);
-        Datas.Instance.current.meteorBossKilled[bossType] += 1;
+        //if (!Datas.Instance.current.meteorBossKilled.ContainsKey(bossType)) Datas.Instance.current.meteorBossKilled[(int)bossType] = new BigNumber(1);
+        Datas.Instance.current.meteorBossKilled[(int)bossType] += 1;
 
 
         if (gameManager.instance.fragmentBoss) BossFragmentUi.EndFragmentBoss(true);

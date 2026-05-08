@@ -259,10 +259,10 @@ public class spaceObject : MonoBehaviour
             MainUi.Instance.questUI.LoadWithDelay();
         }
 
-        if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
-        else Datas.Instance.current.meteorKilled[type] = new BigNumber(1);
+        //if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
+        Datas.Instance.current.meteorKilled[(int)type] = new BigNumber(1);
 
-        //QuestStats.Instance.successGoals[SuccessType.basicMeteorKilled]++;
+        //QuestStats.Instance.successGoals[SuccessType.meteorKilled]++;
 
         if (QuestManager.Instance.type == QuestType.KillMeteor || (QuestManager.Instance.type == QuestType.KillIronMeteor && type == meteorType.Wood) || (QuestManager.Instance.type == QuestType.KillIronMeteor && type == meteorType.Iron))
         {

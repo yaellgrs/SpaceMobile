@@ -6,23 +6,35 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
+/*
+     earnStarParticle,
+ 
+ */
+
 [System.Serializable]
 public class Data
 {
     public float time = 0;
     public int maxStage = 1;
-    public int stagePassed, prestige, dead, pubWatch, rocket, missMeteor, stageSkipped = 0;
+    public int machineClicked, upgradeBuy, stagePassed, prestige, dead, pubWatch, rocket, missMeteor, stageSkipped = 0;
     public BigNumber iron = new BigNumber(0);
     public BigNumber uranium = new BigNumber(0);
     public BigNumber startParticle = new BigNumber(0);
 
-    public Dictionary<spaceObject.meteorType, BigNumber> meteorKilled = new();
-    public Dictionary<BossType, BigNumber> meteorBossKilled = new();
+    public BigNumber[] meteorKilled;
+    public BigNumber[] meteorBossKilled;
+
 
     public void Init()
     {
-        foreach (spaceObject.meteorType type in Enum.GetValues(typeof(spaceObject.meteorType))) meteorKilled[type] = new BigNumber(0);
-        foreach (BossType type in Enum.GetValues(typeof(BossType))) meteorBossKilled[type] = new BigNumber(0);
+        meteorKilled = new BigNumber[Enum.GetValues(typeof(spaceObject.meteorType)).Length];
+        meteorBossKilled = new BigNumber[Enum.GetValues(typeof(BossType)).Length];
+
+        for (int i = 0; i < meteorKilled.Length; i++)
+            meteorKilled[i] = new BigNumber(0);
+
+        for (int i = 0; i < meteorBossKilled.Length; i++)
+            meteorBossKilled[i] = new BigNumber(0);
     }
 }
 public class Datas
