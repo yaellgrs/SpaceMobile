@@ -68,47 +68,47 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5438910464
-    m_Key: Quest_dialogue-1
+    m_Key: Quest_dialogue-wood_1
     m_Metadata:
       m_Items: []
   - m_Id: 85868537655296
-    m_Key: Quest_dialogue-2
+    m_Key: Quest_dialogue-wood_2
     m_Metadata:
       m_Items: []
   - m_Id: 336869618298880
-    m_Key: Quest_dialogue-3
+    m_Key: Quest_dialogue-wood_3
     m_Metadata:
       m_Items: []
   - m_Id: 466124553531392
-    m_Key: Quest_dialogue-4
+    m_Key: Quest_dialogue-wood_4
     m_Metadata:
       m_Items: []
   - m_Id: 470882718789632
-    m_Key: Quest_dialogue-5
+    m_Key: Quest_dialogue-wood_5
     m_Metadata:
       m_Items: []
   - m_Id: 738363026911232
-    m_Key: Quest_dialogue-6
+    m_Key: Quest_dialogue-wood_6
     m_Metadata:
       m_Items: []
   - m_Id: 739583590346752
-    m_Key: Quest_dialogue-7
+    m_Key: Quest_dialogue-wood_7
     m_Metadata:
       m_Items: []
   - m_Id: 1245777727795200
-    m_Key: Quest_dialogue-8
+    m_Key: Quest_dialogue-wood_8
     m_Metadata:
       m_Items: []
   - m_Id: 1245862343684096
-    m_Key: Quest_dialogue-9
+    m_Key: Quest_dialogue-wood_9
     m_Metadata:
       m_Items: []
   - m_Id: 1245862968635392
-    m_Key: Quest_dialogue-10
+    m_Key: Quest_dialogue-Wood_10
     m_Metadata:
       m_Items: []
   - m_Id: 106581840758673408
-    m_Key: 'Quest_dialogue-11
+    m_Key: 'Quest_dialogue-Wood_11
 
 '
     m_Metadata:

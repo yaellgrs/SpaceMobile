@@ -20,6 +20,10 @@ public class UpgradesUraniumElement : UpgradesElement
         this.name = name;
         this.type = type;
     }
+    public UpgradesUraniumElement(UpgradeType type) : base()
+    {
+        this.type = type;
+    }
     #endregion
 
     #region ----- overrides Methods -----
@@ -85,6 +89,8 @@ public class UpgradesUraniumElement : UpgradesElement
         }
 
         LoadStat();
+
+
     }
 
     public override BigNumber GetReward(int lvl)

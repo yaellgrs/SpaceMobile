@@ -48,4 +48,6 @@ public class Consts
     };
 
     public static int SUCCESS_LEVEL_MAX = 5;
+
+    public static SpaceShipData.SpaceShipElement MAX_SPACESHIP_TYPE = SpaceShipData.SpaceShipElement.Iron;
 }

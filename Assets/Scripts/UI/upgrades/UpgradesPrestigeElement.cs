@@ -99,12 +99,17 @@ public class UpgradesPrestigeElement : UpgradesElement
     public override void SetReward()
     {
         int realLevel = data.level;
-        if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
+        //if (Utility.HaveTheShipUpgrade(UpgradesShipElement.UpgradeType.AdditionalLevel))
+        //{
+        //    realLevel += (int)Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel];
+        //}
+
+        if (type == UpgradeType.MinimumLevel)
         {
-            realLevel += (int)Stats.Instance.shipUpgradesReward[UpgradesShipElement.UpgradeType.AdditionalLevel];
+            Debug.LogError("minimum level set reward at level : " + realLevel);
         }
 
-        switch (type)
+            switch (type)
         {
             case UpgradeType.PrestigeMultiplicator:
                 Stats.Instance.star_multiplicator_prestige = 1f + 0.1f * realLevel;

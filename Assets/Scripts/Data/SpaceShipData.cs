@@ -282,7 +282,7 @@ public class SpaceShipData
 
     public void SetNextType(int amount = 1)
     {
-        type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + amount, 0, System.Enum.GetValues(typeof(SpaceShipData.SpaceShipElement)).Length - 1);
+        type = (SpaceShipData.SpaceShipElement)Unity.Mathematics.math.clamp((int)Ship.Current.type + amount, 0, (int)Consts.MAX_SPACESHIP_TYPE);
         
         //level = 1;
         fragmentlevel = 2;
@@ -302,11 +302,15 @@ public class SpaceShipData
 
         Load(true);
 
-        foreach (var upgrade in Stats.Instance.upgradesPrestige)
+        foreach (UpgradeType typ in Enum.GetValues(typeof(UpgradeType)))
         {
-            upgrade.data.level = 1;
-            upgrade.Load();
+            UpgradeData d = new UpgradeData();
+            d.level = 1;
+            UpgradesPrestigeElement up = new UpgradesPrestigeElement(d, "truc", typ);
+            up.SetReward();
         }
+
+
         Stats.Instance.dataUpgradePrestige.Clear();
         Stats.Instance.upgradesPrestige.Clear();
 

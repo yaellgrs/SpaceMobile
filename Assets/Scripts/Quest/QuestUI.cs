@@ -197,7 +197,7 @@ public class QuestUI : MonoBehaviour
         if (QuestStats.Instance.questLevel <= QuestStats.Instance.questMaxLevel)
         {
             //dialogue
-            string key = "Quest_dialogue-" + (QuestStats.Instance.questLevel);
+            string key = "Quest_dialogue-" +  Ship.Current.type + "_"+ (QuestStats.Instance.questLevel);
             LocalizedString localizesDialogue = new LocalizedString("UI_Quests", key);
             localizesDialogue.StringChanged += (localizedValue) =>
             {
