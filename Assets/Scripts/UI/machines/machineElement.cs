@@ -268,10 +268,6 @@ public partial class machineElement : Button
 
         Lbl_upCost.style.color = getColor();
         Lbl_name.style.color = getColor();
-
-
-
-
     }
     #endregion
 

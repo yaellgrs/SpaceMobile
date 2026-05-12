@@ -70,23 +70,29 @@ public class QuestManager
     #region upQuests
     public void upQuest()
     {
-        //if (new[] { QuestType.UpgradePrestige, QuestType.KillBoss, QuestType.KillMeteor, QuestType.UpgradeIron, QuestType.UpgradeUranium, QuestType.UpgradeMachine, QuestType.UnlockMachine, QuestType.Prestige }.Contains(type))
-        //{
-        //    QuestStats.Instance.progress.Add(1);
-        //}
+        if(type == QuestType.UnlockMachine)
+        {
+            int cpt = 0;
+            foreach(var machine in Ship.Current.machinesIron)
+            {
+                if(machine.data.isBuyed)
+                    cpt++;
+            }
+            foreach(var machine in Ship.Current.machinesUranium)
+            {
+                if(machine.data.isBuyed)
+                    cpt++;
+            }
+            QuestStats.Instance.progress.Set(cpt);
+        }
+        else
+            QuestStats.Instance.progress.Add(1);
 
-        QuestStats.Instance.progress.Add(1);
         MainUi.Instance.SetQuestCompleted(isCompleted());
-
-
     }
 
     public void upQuest(BigNumber n)
     {
-        //if (new[] { QuestType., QuestType.KillIronMeteor, QuestType.KillUraniumMeteor, QuestType.FarmWood}.Contains(type))
-        //{
-        //    QuestStats.Instance.progress.Add(n);
-        //}
         QuestStats.Instance.progress.Add(n);
         MainUi.Instance.SetQuestCompleted(isCompleted());
         Debug.Log("up quest : " + n);
