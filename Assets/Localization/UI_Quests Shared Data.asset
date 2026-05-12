@@ -68,39 +68,39 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5438910464
-    m_Key: Quest_dialogue-wood_1
+    m_Key: Quest_dialogue-Wood_1
     m_Metadata:
       m_Items: []
   - m_Id: 85868537655296
-    m_Key: Quest_dialogue-wood_2
+    m_Key: Quest_dialogue-Wood_2
     m_Metadata:
       m_Items: []
   - m_Id: 336869618298880
-    m_Key: Quest_dialogue-wood_3
+    m_Key: Quest_dialogue-Wood_3
     m_Metadata:
       m_Items: []
   - m_Id: 466124553531392
-    m_Key: Quest_dialogue-wood_4
+    m_Key: Quest_dialogue-Wood_4
     m_Metadata:
       m_Items: []
   - m_Id: 470882718789632
-    m_Key: Quest_dialogue-wood_5
+    m_Key: Quest_dialogue-Wood_5
     m_Metadata:
       m_Items: []
   - m_Id: 738363026911232
-    m_Key: Quest_dialogue-wood_6
+    m_Key: Quest_dialogue-Wood_6
     m_Metadata:
       m_Items: []
   - m_Id: 739583590346752
-    m_Key: Quest_dialogue-wood_7
+    m_Key: Quest_dialogue-Wood_7
     m_Metadata:
       m_Items: []
   - m_Id: 1245777727795200
-    m_Key: Quest_dialogue-wood_8
+    m_Key: Quest_dialogue-Wood_8
     m_Metadata:
       m_Items: []
   - m_Id: 1245862343684096
-    m_Key: Quest_dialogue-wood_9
+    m_Key: Quest_dialogue-Wood_9
     m_Metadata:
       m_Items: []
   - m_Id: 1245862968635392
@@ -108,13 +108,57 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 106581840758673408
-    m_Key: 'Quest_dialogue-Wood_11
-
-'
+    m_Key: Quest_dialogue-Wood_11
     m_Metadata:
       m_Items: []
   - m_Id: 857070512320512
     m_Key: Quest_dialogue-end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116748650250342400
+    m_Key: 'Quest_dialogue-Iron_1
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116748921684725760
+    m_Key: Quest_dialogue-Iron_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116748973593432064
+    m_Key: Quest_dialogue-Iron_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116749224240844800
+    m_Key: Quest_dialogue-Iron_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116749435633766400
+    m_Key: Quest_dialogue-Iron_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116749763036942336
+    m_Key: Quest_dialogue-Iron_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750016200937472
+    m_Key: Quest_dialogue-Iron_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750395068223488
+    m_Key: Quest_dialogue-Iron_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750426588418048
+    m_Key: Quest_dialogue-Iron_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750438412161024
+    m_Key: Quest_dialogue-Iron_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750463573790720
+    m_Key: Quest_dialogue-Iron_11
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -131,6 +131,63 @@ MonoBehaviour:
       d\xE9finitivement ton vaisceaux !\n"
     m_Metadata:
       m_Items: []
+  - m_Id: 116748650250342400
+    m_Localized: On est bien plus fort qu'avant, donc maintenant il va falloir utiliser
+      les grands moyens !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116748921684725760
+    m_Localized: "Et si on jouait a un petit jeu ? Tu penses r\xE9ussir a battre
+      les 10 premi\xE8res vagues en moins de 5 minute ? "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116748973593432064
+    m_Localized: "Bon, la c'\xE9tait serr\xE9.. Heureusement il existe certain bonus
+      qui permettent d'avancer plus vite gr\xE2ce aux poussi\xE8res d'\xE9toiles
+      ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116749224240844800
+    m_Localized: "Il nous faut plus de machine si on veut s\u2019armer pour la suite,
+      d\xE9bloques toutes les machines!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116749435633766400
+    m_Localized: "Allez un peu de d\xE9fis maintenant, tu penses que cette fois tu
+      vas y arrivas aussi facilement ? "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116749763036942336
+    m_Localized: "Il y a encore trop de m\xE9t\xE9orites g\xE9antes en libert\xE9,
+      tu pourrais faire un petit nettoyage ? "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750016200937472
+    m_Localized: "Alors tu t\u2019es familiaris\xE9 avec l\u2019uranium ? Et si tu
+      ferai une petite r\xE9serve ? "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750395068223488
+    m_Localized: "L\u2019uranium c\u2019est bien mais il ne faut pas n\xE9gliger
+      la puissance du fer, c\u2019est la base de notre vaisseaux, r\xE9coltes en
+      un peu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750426588418048
+    m_Localized: "On est si puissant maintenant !! C\u2019est l\u2019heure du grand
+      nettoyage."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750438412161024
+    m_Localized: "C\u2019est l\u2019heure du d\xE9fis ! La si tu y arrives je serais
+      vraiment tr\xE8s impression\xE9 ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116750463573790720
+    m_Localized: "On a beau avoir plein de fer et d\u2019uranium, sans particule
+      d\u2019\xE9toile on restera toujours aussi lent ! "
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
