@@ -537,6 +537,7 @@ public partial class machineElement : Button
         {
             if (val.Value == BorderBuyType.unbuyed) continue;
             data.color = val.Key;
+            if (data.isBuyed == false) data.isBuyed = true;
         }
 
         StyleSheet blackBorderStyle = Resources.Load<StyleSheet>("styles/machineBlackBorderStyle");

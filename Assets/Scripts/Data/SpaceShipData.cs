@@ -117,7 +117,7 @@ public class SpaceShipData
                     machine.data.borderbuys[val.Key] = BorderBuyType.unbuyed;
             }
             machine.data.color = borderColor.white;
-            if (machine.data.BN_price >= new BigNumber(100000))
+            if (machine.data.BN_price >= new BigNumber(1, 4))
                 machine.data.isBuyed = false;
             machine.LoadMachine();
             machine.data.level = machineData.levelColor[(int)machine.data.color];
