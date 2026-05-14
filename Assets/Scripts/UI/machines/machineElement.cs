@@ -380,7 +380,9 @@ public partial class machineElement : Button
 
         LoadLockBorders();
         Datas.Instance.current.upgradeBuy += 1;
-        //SetBorderColor();
+
+        if(data.level > 5)
+            DialogueManager.Instance.TryDialogue("BuyEmployee");
     }
 
     
