@@ -266,12 +266,12 @@ public class gameManager : MonoBehaviour
         LoadStage();
 
 
-        if (QuestManager.Instance.type == QuestType.Speed && !(QuestManager.Instance.isCompleted()))
+        if (QuestManager.Instance.type == QuestType.Speed )
         {
-            if (new BigNumber(Ship.Current.stage).isBigger(QuestManager.Instance.objectif))
-            {
-                QuestStats.Instance.timeCompleted = Datas.Instance.current.time;
-            }
+            if(!(QuestManager.Instance.isCompleted()))
+                QuestManager.Instance.upQuest(Datas.Instance.current.time);
+
+            MainUi.Instance.SetQuestCompleted(QuestManager.Instance.isCompleted());
         }
     }
 
@@ -388,7 +388,6 @@ public class gameManager : MonoBehaviour
 
     private void spawnSpaceObject()
     {
-        Debug.Log("spawn space object");
         int stage = Ship.Current.stage;
 
         int BigProb = stage > 200 ? 450 :

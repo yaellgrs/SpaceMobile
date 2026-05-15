@@ -1,3 +1,4 @@
+using Fungus;
 using Newtonsoft.Json.Bson;
 using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
@@ -95,15 +96,16 @@ public class QuestManager
     {
         QuestStats.Instance.progress.Add(n);
         MainUi.Instance.SetQuestCompleted(isCompleted());
-        Debug.Log("up quest : " + n);
     }
 
     public void upQuest(float time)
     {
+        Debug.LogError("up quest time : " + time);
         if (type == QuestType.Speed)
         {
-            QuestStats.Instance.progress.Add(new BigNumber(time, 0));
+            QuestStats.Instance.timeCompleted = time;
         }
+        MainUi.Instance.SetQuestCompleted(isCompleted());
     }
 
     #endregion
@@ -165,9 +167,13 @@ public class QuestManager
         }
         else
         {
-            if (QuestStats.Instance.timeCompleted > 0 && QuestStats.Instance.timeCompleted < 300)
+            if (QuestStats.Instance.timeCompleted > 0 && QuestStats.Instance.timeCompleted < 300 && new BigNumber(Ship.Current.stage) > objectif)
             {
                 return true;
+            }
+            else
+            {
+                Debug.Log("not completed : " + QuestStats.Instance.timeCompleted + " : " + Ship.Current.stage);
             }
         }
         return false;

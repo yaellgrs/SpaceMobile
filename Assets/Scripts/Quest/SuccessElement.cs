@@ -56,9 +56,6 @@ public partial class SuccessElement : VisualElement
 
     public SuccessElement(SuccessType Type)
     {
-
-        Debug.Log("init with type : " + Type.ToString());
-
         Init();
         this.type = Type;
 
@@ -102,7 +99,6 @@ public partial class SuccessElement : VisualElement
 
     public void Load()
     {
-        Debug.Log("Load");
         initQuest();
         initPorgress();
     }
@@ -115,7 +111,6 @@ public partial class SuccessElement : VisualElement
 
     public void initPorgress()
     {
-        Debug.Log("initProgress");
         BigNumber progress = getProgress();
         BigNumber objectif = getObjectif();
 
@@ -193,8 +188,6 @@ public partial class SuccessElement : VisualElement
             progress += getStatValue(field.GetValue(Datas.Instance.total));
         }
 
-        Debug.Log(type + " : " + progress);
-
         return progress;
     }
 
@@ -206,8 +199,6 @@ public partial class SuccessElement : VisualElement
         if (value is int i)
             return new BigNumber(i);
 
-
-        Debug.LogError("value not trated for : " + value);
         return new BigNumber(0);
     }
 

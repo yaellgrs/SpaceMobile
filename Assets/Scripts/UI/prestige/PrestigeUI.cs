@@ -445,6 +445,7 @@ public class PrestigeUI : BaseUI
         gameManager.instance.InitGame();
 
         gameManager.instance.RestartStage();
+        MainUi.Instance.SetQuestCompleted(QuestManager.Instance.isCompleted());
 
 
 

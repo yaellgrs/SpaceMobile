@@ -5600,6 +5600,21 @@ GameObject:
   - component: {fileID: 1710157201}
   - component: {fileID: 1710157200}
   - component: {fileID: 1710157199}
+  - component: {fileID: 1710157218}
+  - component: {fileID: 1710157217}
+  - component: {fileID: 1710157216}
+  - component: {fileID: 1710157215}
+  - component: {fileID: 1710157214}
+  - component: {fileID: 1710157213}
+  - component: {fileID: 1710157212}
+  - component: {fileID: 1710157211}
+  - component: {fileID: 1710157210}
+  - component: {fileID: 1710157209}
+  - component: {fileID: 1710157208}
+  - component: {fileID: 1710157207}
+  - component: {fileID: 1710157206}
+  - component: {fileID: 1710157205}
+  - component: {fileID: 1710157204}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5635,18 +5650,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 332.86935, y: 124.17101}
+  scrollPos: {x: 455.96112, y: 283.61023}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.91
+  zoom: 0.73000026
   scrollViewRect:
     serializedVersion: 2
     x: -343
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 1710157218}
   selectedCommands: []
   variables: []
   description: 
@@ -8322,8 +8338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -244.6242
-    y: 351.18524
+    x: -245.44894
+    y: 357.78323
     width: 121.784004
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -8376,8 +8392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: 0.58428955
-    y: 355.2363
+    x: 2.2337804
+    y: 353.5868
     width: 143.432
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -8404,8 +8420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: 6.3562927
-    y: 291.54895
+    x: 3.0573425
+    y: 297.32217
     width: 173.896
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -8976,6 +8992,376 @@ MonoBehaviour:
   targetObject: {fileID: 742157410}
   methodName: StartDialogue
   delay: 0
+--- !u!114 &1710157204
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 385
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: UnHide
+  delay: 0
+--- !u!114 &1710157205
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Block
+  nodeRect:
+    serializedVersion: 2
+    x: -31.713531
+    y: 477.56354
+    width: 148.232
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 387
+  blockName: BuyEmployeeEnd
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1710157204}
+  suppressAllAutoSelections: 0
+--- !u!114 &1710157206
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 383
+  indentLevel: 0
+  storyText: "Maintenant click sur le petit carr\xE9 sur ta machine et vois par toi
+    m\xEAme !"
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157207
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 382
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: EndDialogue
+  delay: 0
+--- !u!114 &1710157208
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 381
+  indentLevel: 0
+  storyText: "Ou soit contre tes diamants, et la tu l\u2019aura jusqu\u2019\xE0 jamais
+    !"
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157209
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 380
+  indentLevel: 0
+  storyText: Tu peux soit en employer un avec du bois, mais il te suivera que dans
+    cette aventure
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157210
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 379
+  indentLevel: 0
+  storyText: un ouvrier ?
+  description: 
+  character: {fileID: 849192706}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157211
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 378
+  indentLevel: 0
+  storyText: Oui il travaillera a ta place !
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157212
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 377
+  indentLevel: 0
+  storyText: "Oui mais attends, pourquoi n\u2019emploierai  tu pas un ouvrier ?"
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157213
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 376
+  indentLevel: 0
+  storyText: "Je pensais pas devoir travailler autant dans ce vaisseaux\u2026"
+  description: 
+  character: {fileID: 849192706}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157214
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Say
+  itemId: 375
+  indentLevel: 0
+  storyText: "Waouh t\u2019as bien avanc\xE9 dis donc !"
+  description: 
+  character: {fileID: 1260565254}
+  portrait: {fileID: 2024946390886455637, guid: 2a537a2bd8a023a49a2c9e6c523af500, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1710157215
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Wait
+  itemId: 374
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 0.5
+  durationOLD: 0
+--- !u!114 &1710157216
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 373
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: StartDialogue
+  delay: 0
+--- !u!114 &1710157217
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.CallMethod
+  itemId: 372
+  indentLevel: 0
+  targetObject: {fileID: 742157410}
+  methodName: Hide
+  delay: 0
+--- !u!114 &1710157218
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.Block
+  nodeRect:
+    serializedVersion: 2
+    x: -261.72644
+    y: 468.60977
+    width: 126.584
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 386
+  blockName: BuyEmployee
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1710157217}
+  - {fileID: 1710157216}
+  - {fileID: 1710157215}
+  - {fileID: 1710157214}
+  - {fileID: 1710157213}
+  - {fileID: 1710157212}
+  - {fileID: 1710157210}
+  - {fileID: 1710157211}
+  - {fileID: 1710157209}
+  - {fileID: 1710157208}
+  - {fileID: 1710157206}
+  - {fileID: 1710157207}
+  suppressAllAutoSelections: 0
 --- !u!1 &1752593082
 GameObject:
   m_ObjectHideFlags: 0
