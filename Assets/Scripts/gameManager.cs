@@ -258,9 +258,6 @@ public class gameManager : MonoBehaviour
 
         Debug.Log("UPSTAGE");
         //STAGE SKIP
-
-
-
         getStageReward(1.95f, stage:Ship.Current.stage);
         MainUi.Instance.upStage();
         LoadStage();
