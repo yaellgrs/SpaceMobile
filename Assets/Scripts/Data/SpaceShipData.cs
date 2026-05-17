@@ -355,11 +355,11 @@ public class ShipTempStat
 
         return total;
     }
-    public BigNumber getTotal(bool isRocket, bool critical)
+    public BigNumber getTotal(bool isRocket, bool critical, int lockCritic)
     {
         BigNumber damage = getTotal();
         if (isRocket) damage *= rocket_multiplicator;
-        if (critical) damage *= critical_multiplicator;
+        if (critical) damage *=  critical_multiplicator * (lockCritic + 1);
         return damage;
     }
 }
