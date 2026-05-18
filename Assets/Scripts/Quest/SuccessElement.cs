@@ -210,8 +210,8 @@ public partial class SuccessElement : VisualElement
 
     private int getObjectiflevel()
     {
-        if (QuestStats.Instance == null)  return 0;
-        if (QuestStats.Instance.succesGoals.Length <= (int)type) QuestStats.Instance.initSucces();
+        if (QuestStats.Instance == null || QuestStats.Instance.succesGoals == null)  return 0;
+        if (QuestStats.Instance.succesGoals?.Length <= (int)type) QuestStats.Instance.initSucces();
         return QuestStats.Instance.succesGoals[(int)type];
     }
 

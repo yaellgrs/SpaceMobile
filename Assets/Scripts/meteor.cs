@@ -260,7 +260,7 @@ public class spaceObject : MonoBehaviour
         }
 
         //if (Datas.Instance.current.meteorKilled.ContainsKey(type)) Datas.Instance.current.meteorKilled[type] += 1;
-        Datas.Instance.current.meteorKilled[(int)type] = new BigNumber(1);
+        if(Datas.Instance != null && Datas.Instance.current.meteorKilled != null) Datas.Instance.current.meteorKilled[(int)type] = new BigNumber(1);
 
         //QuestStats.Instance.successGoals[SuccessType.meteorKilled]++;
 

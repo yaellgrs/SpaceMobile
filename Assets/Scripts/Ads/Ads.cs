@@ -199,6 +199,7 @@ public class Ads : MonoBehaviour
                 break;
         }
 
+        Datas.Instance.current.pubWatch++;
         videoShowed = true;
         LoadAdsUI.Instance.Close();
     }

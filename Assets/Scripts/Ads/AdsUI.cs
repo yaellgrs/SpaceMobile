@@ -118,7 +118,7 @@ public class AdsUI : MonoBehaviour
         Ads.Instance.ShowRewardedAd(reward);
         
         pubDelay = pubDelayWatch;
-        Datas.Instance.current.pubWatch++;
+
     }
 
     public void Close()
