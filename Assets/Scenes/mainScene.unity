@@ -5615,6 +5615,7 @@ GameObject:
   - component: {fileID: 1710157206}
   - component: {fileID: 1710157205}
   - component: {fileID: 1710157204}
+  - component: {fileID: 1710157219}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5650,11 +5651,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 455.96112, y: 283.61023}
+  scrollPos: {x: 287.98663, y: 494.03436}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.73000026
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -5662,7 +5663,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1710157218}
+  - {fileID: 1710157049}
   selectedCommands: []
   variables: []
   description: 
@@ -6093,7 +6094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus::Fungus.Block
   nodeRect:
     serializedVersion: 2
-    x: -242.4889
+    x: -244.8889
     y: -192.18604
     width: 140.008
     height: 40
@@ -8628,7 +8629,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -11.585312
-    y: -192.85837
+    y: -193.65836
     width: 161.648
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -8638,6 +8639,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
+  - {fileID: 1710157219}
   - {fileID: 1710157198}
   - {fileID: 1710157197}
   suppressAllAutoSelections: 0
@@ -9362,6 +9364,27 @@ MonoBehaviour:
   - {fileID: 1710157206}
   - {fileID: 1710157207}
   suppressAllAutoSelections: 0
+--- !u!114 &1710157219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710156985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fungus::Fungus.MoveToView
+  itemId: 388
+  indentLevel: 0
+  duration: 1
+  targetView: {fileID: 1422257051}
+  waitUntilFinished: 1
+  targetCamera: {fileID: 0}
+  orthoSizeTweenType: 4
+  posTweenType: 4
+  rotTweenType: 4
 --- !u!1 &1752593082
 GameObject:
   m_ObjectHideFlags: 0
