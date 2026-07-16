@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 81d7cf49b487df0409f2bf0133d7afca
+guid: 26de8eb270bf1444ea2a1c35d7e2c25d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1474453700778043879
-    second: AeraWidth_0
-  - first:
-      213: -5087427934411199318
-    second: AeraWidth_1
-  - first:
-      213: 6955468024833334357
-    second: AeraWidth_2
-  - first:
-      213: -3072706538408201643
-    second: AeraWidth_3
-  - first:
-      213: 5212577065848612624
-    second: AeraWidth_4
+      213: -1259757759653904219
+    second: ironProjectil_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,115 +96,53 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AeraWidth_0
+      name: ironProjectil_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 131
-        width: 39
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 15
+        y: 1
+        width: 99
+        height: 39
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9165d5fcb20b98be0800000000000000
-      internalID: -1474453700778043879
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AeraWidth_1
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 16
-        width: 186
-        height: 170
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aac650d7f33d569b0800000000000000
-      internalID: -5087427934411199318
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AeraWidth_2
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 118
-        width: 37
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 55c57c22159c68060800000000000000
-      internalID: 6955468024833334357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AeraWidth_3
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 4
-        width: 39
-        height: 77
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 552b827eead8b55d0800000000000000
-      internalID: -3072706538408201643
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AeraWidth_4
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 15
-        width: 33
-        height: 61
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0172146593bc65840800000000000000
-      internalID: 5212577065848612624
+      spriteID: 5a089c8fdf0748ee0800000000000000
+      internalID: -1259757759653904219
       vertices: []
       indices: 
       edges: []
@@ -225,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 415aaeadfb327f445864e3323ce06b55
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AeraWidth_0: -1474453700778043879
-      AeraWidth_1: -5087427934411199318
-      AeraWidth_2: 6955468024833334357
-      AeraWidth_3: -3072706538408201643
-      AeraWidth_4: 5212577065848612624
+      ironProjectil_0: -1259757759653904219
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

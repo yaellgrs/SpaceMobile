@@ -8,7 +8,8 @@ public class canon : MonoBehaviour
     static public canon instance;
 
     public Camera mainCam;
-    public Lazer lazer;
+    public Lazer woodLazer;
+    public Lazer ironLazer;
     public Lazer rocket;
 
     float speed = 60f;
@@ -62,7 +63,7 @@ public class canon : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, angle - 90);
             if (timer >= shootTimer)
             {
-                shoot(angle, direction, 0);
+                shoot(angle + 180, direction, 0);
                 timer = 0f;
             }
         }
@@ -74,7 +75,8 @@ public class canon : MonoBehaviour
         float rocketSpeed = 1f;
         if (type == 0)
         {
-            projectil = Instantiate(lazer);
+            Lazer prefabLazer  = Ship.Current.type == SpaceShipData.SpaceShipElement.Wood ? woodLazer : ironLazer;
+            projectil = Instantiate(prefabLazer);
         }
         else
         {
@@ -82,9 +84,9 @@ public class canon : MonoBehaviour
             projectil.isRocket = true;
             rocketSpeed = 0.5f;
         }
-        projectil.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        projectil.transform.rotation = Quaternion.Euler(0, 0, angle);
         angle = angle * Mathf.Deg2Rad;
-        projectil.transform.position = transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)*0.3f;
+        projectil.transform.position = transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)*(-0.3f);
         Vector2 force = direction   ;
         force.Normalize();
         projectil.GetComponent<Rigidbody2D>().AddForce(force * rocketSpeed * speed *Stats.Instance.lazerSpeed);

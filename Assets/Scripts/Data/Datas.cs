@@ -21,8 +21,8 @@ public class Data
     public BigNumber uranium = new BigNumber(0);
     public BigNumber startParticle = new BigNumber(0);
 
-    public BigNumber[] meteorKilled;
-    public BigNumber[] meteorBossKilled;
+    public BigNumber[] meteorKilled = new BigNumber[System.Enum.GetValues(typeof(spaceObject.meteorType)).Length];
+    public BigNumber[] meteorBossKilled = new BigNumber[System.Enum.GetValues(typeof(BossType)).Length];
 
 
     public void Init()
