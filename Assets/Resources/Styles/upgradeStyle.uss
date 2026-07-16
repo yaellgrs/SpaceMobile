@@ -31,10 +31,10 @@
 .upgradeLogo {
     flex-grow: 1;
     position: absolute;
-    height: 87.5%;
+    height: 75%;
     width: initial;
-    top: 6.5%;
-    left: 3.5%;
+    top: 15%;
+    left: 4.7%;
     background-image: resource("upgrades/iron/shield");
     aspect-ratio: 1.2;
 }
