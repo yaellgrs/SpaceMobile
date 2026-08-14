@@ -3493,7 +3493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 519420031}
-  lazer: {fileID: 373326445536111638, guid: b72fee9f32a1e284f891aca59749247d, type: 3}
+  woodLazer: {fileID: 373326445536111638, guid: b72fee9f32a1e284f891aca59749247d, type: 3}
+  ironLazer: {fileID: 373326445536111638, guid: f9f2ab2964429454295077daff33dc52, type: 3}
   rocket: {fileID: 526609577095891960, guid: 7936bec8f29affa429b74aa795474e3a, type: 3}
   degats: 1
   canFire: 1
